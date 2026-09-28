@@ -222,6 +222,17 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.acctbtn{display:block;width:100%;margin-top:8px;border:1px solid var(--line);background:var(--surface2);border-radius:12px;padding:9px;font-weight:600;cursor:pointer;text-align:left}
+.acct input{width:100%;font:inherit;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);margin:0 0 10px}
+.acct input.code{font-size:1.6rem;letter-spacing:.4em;text-align:center;font-weight:700}
+.acct .err{color:#C23A4A;font-size:.85rem;margin:-4px 0 10px;min-height:1em}
+.acct .info{background:var(--surface2);border-radius:12px;padding:10px 12px;font-size:.88rem;line-height:1.45;margin-bottom:12px;text-align:left}
+.acct .info b{color:var(--ink)}
+.acct .row2{display:flex;gap:8px;margin-top:8px}.acct .row2 button{flex:1}
+.acct .cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.acct .cmp div{background:var(--surface2);border-radius:12px;padding:10px;font-size:.82rem;color:var(--muted);text-align:center}
+.acct .cmp b{display:block;color:var(--ink);font-size:1.05rem}
+.lbacct{border:0;border-radius:12px;padding:0 12px;font-weight:600;background:var(--surface2);border:1px solid var(--line);cursor:pointer;color:var(--ink)}
 .adm .atabs{display:flex;gap:6px;margin:0 0 10px}
 .adm .atabs button{flex:1;border:1px solid var(--line);background:none;border-radius:12px;padding:8px;font-weight:600;cursor:pointer;color:var(--muted)}
 .adm .atabs button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
@@ -587,6 +598,7 @@ body.locked{overflow:hidden}
     <div class="srow"><span>🎵 Musik</span><button class="tg" id="tgMusic" aria-label="Musik an oder aus"></button></div>
     <input type="range" id="musVol" min="0" max="100" step="1" aria-label="Musik-Lautstärke">
     <div class="srow"><span>🔔 Effekte</span><button class="tg" id="tgSfx" aria-label="Effekte an oder aus"></button></div>
+    <button class="acctbtn" id="acctOpen">👤 Konto: Gast</button>
     <div class="now"><span class="eq" id="eqv"><i></i><i></i><i></i></span><span id="nowPlaying">Musik startet beim ersten Tippen</span></div>
   </div>
 </header>
@@ -633,7 +645,7 @@ body.locked{overflow:hidden}
       <button class="ghost" id="reset">Spielstand löschen</button>
     </div>
     <div class="pane" id="p-r" hidden>
-      <div class="lbme"><input id="nickIn" maxlength="20" placeholder="Dein Gärtnername" aria-label="Dein Gärtnername"><button id="nickSave">Speichern</button></div>
+      <div class="lbme"><button class="lbacct" id="acctOpen2" aria-label="Konto">👤</button><input id="nickIn" maxlength="20" placeholder="Dein Gärtnername" aria-label="Dein Gärtnername"><button id="nickSave">Speichern</button></div>
       <div class="lbtabs" id="lbTabs" role="group" aria-label="Kategorie"><button data-m="score" aria-pressed="true"><b>🏆</b>Gesamt</button><button data-m="week" aria-pressed="false"><b>📅</b>Woche</button><button data-m="sps" aria-pressed="false"><b>⚡</b>Pro Sek.</button><button data-m="boss" aria-pressed="false"><b>⚔️</b>Bosse</button></div>
       <div class="lbview" id="lbView"><button data-v="all" aria-pressed="true">Alle</button><button data-v="near" aria-pressed="false">📍 Um mich</button><button data-v="fav" aria-pressed="false">⭐ Favoriten</button><button id="lbRef" aria-label="Rangliste aktualisieren">↻</button></div>
       <div class="lbsearch"><input id="lbQ" type="search" placeholder="Spieler suchen" aria-label="Spieler suchen" maxlength="20"></div>
@@ -695,6 +707,10 @@ body.locked{overflow:hidden}
     <div id="admBody"></div>
     <button class="ghost" id="admClose" style="width:100%;margin:12px 0 0">Schließen</button>
   </div>
+</div>
+<div class="modal" id="acctModal" hidden>
+  <div class="card acct" role="dialog" aria-modal="true" aria-labelledby="acT"><div class="bigemoji">👤</div><h2 id="acT">Konto</h2><div id="acctBody"></div>
+    <button class="ghost" id="acctClose" style="width:100%;margin:10px 0 0">Schließen</button></div>
 </div>
 <canvas id="fxc" aria-hidden="true"></canvas>
 <div class="fx" id="fx"></div>
@@ -1845,7 +1861,9 @@ async function initLB(){
     LB.sb=lib.createClient(LEADERBOARD.url,LEADERBOARD.key,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'pilzgarten-auth'}});
     let {data:{session}}=await LB.sb.auth.getSession();
     if(!session){const r=await LB.sb.auth.signInAnonymously();if(r.error)throw r.error;session=r.data.session}
-    LB.uid=session.user.id;
+    LB.uid=session.user.id;LB.user=session.user;updAcctBtn();
+    LB.sb.auth.onAuthStateChange((ev,ses)=>{if(ses&&ses.user&&ses.user.id===LB.uid){LB.user=ses.user;updAcctBtn()}});
+    if(isMember())cloudCheckOnStart();
     await pushScore(true);await fetchLB();
   }catch(e){LB.status='error';LB.msg='Die Anmeldung an der Rangliste hat nicht geklappt. Sie versucht es beim nächsten Laden erneut.';renderLB()}
 }
@@ -2579,6 +2597,98 @@ function drawCine(){
     cars=cars.filter(c=>c.x>-200&&c.x<gw+200);if(Math.random()<.04){const sc=$('scene');sc.classList.remove('quake');void sc.offsetWidth;sc.classList.add('quake');setTimeout(()=>sc.classList.remove('quake'),300)}}
 }
 
+/* ---------- konto: anmelden mit e-mail, spielstand in der cloud ---------- */
+const AC={step:'email',email:'',mode:'link',busy:false,err:'',lastCloud:0,cloudAt:null};
+const isMember=()=>!!(LB.user&&!LB.user.is_anonymous&&LB.user.email);
+function updAcctBtn(){const b=$('acctOpen');if(b)b.textContent=isMember()?`👤 Konto: ${LB.user.email}`:'👤 Konto: Gast (nicht gesichert)'}
+function openAcct(){$('acctModal').hidden=false;document.body.classList.add('locked');AC.err='';if(isMember())AC.step='member';else if(AC.step==='member')AC.step='email';renderAcct();if(isMember())cloudInfo()}
+$('acctOpen').onclick=()=>{$('sndPanel').hidden=true;openAcct()};$('acctOpen2').onclick=openAcct;
+$('acctClose').onclick=()=>{$('acctModal').hidden=true;document.body.classList.remove('locked')};
+function acctErr(e){const m=(e&&(e.message||e.msg))||'',c=e&&e.code;
+  if(c==='over_email_send_rate_limit'||/rate limit|seconds/i.test(m))return 'Es wurden gerade zu viele E-Mails verschickt. Warte ein paar Minuten und versuch es dann noch einmal.';
+  if(c==='otp_expired'||/expired|invalid/i.test(m))return 'Der Code stimmt nicht oder ist abgelaufen. Prüfe ihn oder lass dir einen neuen schicken.';
+  if(/email.*invalid|valid email/i.test(m))return 'Diese E-Mail-Adresse sieht nicht richtig aus.';
+  return 'Das hat nicht geklappt. Prüfe deine Internetverbindung und versuch es erneut.'}
+function renderAcct(){
+  const b=$('acctBody');
+  if(!LB.on||!LB.sb){b.innerHTML='<p>Die Anmeldung braucht die Online-Rangliste. Trag zuerst deine Supabase-Daten ein.</p>';return}
+  if(AC.step==='email'){
+    b.innerHTML=`<p>Du spielst gerade als <b>Gast</b>. Melde dich mit deiner E-Mail an, damit dein Fortschritt gesichert ist und du auf anderen Geräten weiterspielen kannst.</p>
+      <input type="email" id="acEmail" placeholder="deine@email.de" autocomplete="email" inputmode="email" value="${esc(AC.email)}" aria-label="E-Mail-Adresse"><div class="err">${esc(AC.err)}</div>
+      <button class="primary" id="acSend" ${AC.busy?'disabled':''}>${AC.busy?'Wird gesendet …':'Code per E-Mail senden'}</button>
+      <p style="color:var(--muted);font-size:.8rem;margin-top:10px">Du bekommst einen 6-stelligen Code. Ein Passwort brauchst du nicht.</p>`;
+    $('acSend').onclick=acctSend;$('acEmail').onkeydown=e=>{if(e.key==='Enter')acctSend()};
+  }
+  if(AC.step==='code'){
+    b.innerHTML=`<p>Wir haben einen Code an <b>${esc(AC.email)}</b> geschickt. Schau auch im Spam-Ordner nach.</p>
+      <input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="······" aria-label="Code aus der E-Mail"><div class="err">${esc(AC.err)}</div>
+      <button class="primary" id="acVerify" ${AC.busy?'disabled':''}>${AC.busy?'Wird geprüft …':'Bestätigen'}</button>
+      <div class="row2"><button class="ghost" id="acBack" style="margin:0">Andere E-Mail</button><button class="ghost" id="acResend" style="margin:0">Neuen Code senden</button></div>`;
+    $('acVerify').onclick=acctVerify;$('acCode').onkeydown=e=>{if(e.key==='Enter')acctVerify()};$('acCode').focus();
+    $('acBack').onclick=()=>{AC.step='email';AC.err='';renderAcct()};$('acResend').onclick=acctSend;
+  }
+  if(AC.step==='member'){
+    b.innerHTML=`<div class="info">Angemeldet als <b>${esc(LB.user.email)}</b><br>Dein Fortschritt wird automatisch jede Minute in der Cloud gespeichert.<br><span id="acCloudAt" style="color:var(--muted)">${AC.cloudAt?'Zuletzt gespeichert: '+fmtAgo(AC.cloudAt):'Wird geprüft …'}</span></div>
+      <button class="primary" id="acSave">☁️ Jetzt speichern</button>
+      <div class="row2"><button class="ghost" id="acLoad" style="margin:0">Aus der Cloud laden</button><button class="ghost" id="acOut" style="margin:0">Abmelden</button></div>`;
+    $('acSave').onclick=async()=>{await cloudSave(true,true)};
+    $('acLoad').onclick=()=>cloudLoadAsk(true);
+    $('acOut').onclick=()=>queueModal({emoji:'👋',title:'Abmelden?',text:'Dein Fortschritt bleibt in der Cloud gesichert. Auf diesem Gerät spielst du danach als neuer Gast weiter, bis du dich wieder anmeldest.',ok:'Abmelden',cancel:true,onOk:async()=>{await cloudSave(true);try{await LB.sb.auth.signOut()}catch(e){}try{localStorage.removeItem(LS);localStorage.removeItem(LS+'-sig')}catch(e){}location.reload()}});
+  }
+}
+async function acctSend(){
+  const inp=$('acEmail'),email=((inp&&inp.value)||AC.email).trim().toLowerCase();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){AC.err='Diese E-Mail-Adresse sieht nicht richtig aus.';renderAcct();return}
+  AC.email=email;AC.busy=true;AC.err='';renderAcct();
+  try{
+    let r=null;
+    if(LB.user&&LB.user.is_anonymous){r=await LB.sb.auth.updateUser({email});AC.mode='link';
+      if(r.error&&(r.error.code==='email_exists'||/already|registered|exists/i.test(r.error.message||''))){r=await LB.sb.auth.signInWithOtp({email,options:{shouldCreateUser:false}});AC.mode='login'}}
+    else{r=await LB.sb.auth.signInWithOtp({email,options:{shouldCreateUser:true}});AC.mode='login'}
+    if(r.error)throw r.error;AC.step='code';
+  }catch(e){AC.err=acctErr(e)}
+  AC.busy=false;renderAcct();
+}
+async function acctVerify(){
+  const token=($('acCode').value||'').replace(/\D/g,'');if(token.length<6){AC.err='Gib den Code aus der E-Mail ein.';renderAcct();return}
+  AC.busy=true;AC.err='';renderAcct();
+  try{
+    const r=await LB.sb.auth.verifyOtp({email:AC.email,token,type:AC.mode==='link'?'email_change':'email'});if(r.error)throw r.error;
+    const u=(r.data&&r.data.user)||(await LB.sb.auth.getUser()).data.user;
+    if(AC.mode==='link'&&u&&u.id===LB.uid){LB.user=u;updAcctBtn();AC.step='member';AC.busy=false;renderAcct();await cloudSave(true,true);confetti();toast('✅ Konto gesichert',`Angemeldet als ${AC.email}`);return}
+    LB.user=u;LB.uid=u.id;AC.busy=false;await afterLogin();
+  }catch(e){AC.err=acctErr(e);AC.busy=false;renderAcct()}
+}
+async function cloudGet(){const r=await LB.sb.from('saves').select('data,all_time,updated_at').eq('player_id',LB.uid).maybeSingle();if(r.error)throw r.error;return r.data}
+async function cloudSave(force,loud){
+  if(!isMember()||!LB.sb)return;const t=Date.now();if(!force&&t-AC.lastCloud<60000)return;AC.lastCloud=t;
+  try{const r=await LB.sb.from('saves').upsert({player_id:LB.uid,data:S,all_time:S.allTime,updated_at:new Date().toISOString()});if(r.error)throw r.error;AC.cloudAt=new Date().toISOString();
+    const el=$('acCloudAt');if(el)el.textContent='Zuletzt gespeichert: gerade eben';if(loud)toast('☁️ In der Cloud gespeichert')}
+  catch(e){if(loud)toast('⚠️ Speichern fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?')}
+}
+async function cloudInfo(){try{const c=await cloudGet();AC.cloudAt=c?c.updated_at:null;const el=$('acCloudAt');if(el)el.textContent=c?'Zuletzt gespeichert: '+fmtAgo(c.updated_at):'Noch nichts in der Cloud gespeichert'}catch(e){}}
+function applyCloud(data){S=Object.assign(fresh(),data);S.flagged=false;save();location.reload()}
+async function cloudLoadAsk(manual){
+  try{const c=await cloudGet();
+    if(!c){if(manual)toast('☁️ Noch kein Spielstand in der Cloud');else await cloudSave(true);return false}
+    const cl=Number(c.all_time)||0,lo=S.allTime||0;
+    if(!manual&&Math.abs(cl-lo)<1)return false;
+    queueModal({emoji:'☁️',title:'Welchen Spielstand nehmen?',text:`In der Cloud: ${fmt(cl)} Sporen insgesamt, gespeichert ${fmtAgo(c.updated_at)}. Auf diesem Gerät: ${fmt(lo)} Sporen insgesamt. Wenn du den Cloud-Spielstand lädst, wird der Stand auf diesem Gerät ersetzt.`,ok:'Cloud-Spielstand laden',cancel:true,cancelText:'Dieses Gerät behalten',onOk:()=>applyCloud(c.data),onCancel:()=>cloudSave(true)});
+    return true}
+  catch(e){if(manual)toast('⚠️ Laden fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?');return false}
+}
+async function afterLogin(){
+  $('acctModal').hidden=true;document.body.classList.remove('locked');toast('✅ Angemeldet',AC.email);
+  try{const c=await cloudGet();
+    if(c&&(S.allTime||0)<1000){applyCloud(c.data);return}
+    if(c){queueModal({emoji:'☁️',title:'Spielstand gefunden',text:`Zu deinem Konto gibt es einen Spielstand mit ${fmt(Number(c.all_time)||0)} Sporen insgesamt. Auf diesem Gerät hast du ${fmt(S.allTime||0)}. Welchen möchtest du behalten?`,ok:'Cloud-Spielstand laden',cancel:true,cancelText:'Dieses Gerät behalten',onOk:()=>applyCloud(c.data),onCancel:async()=>{await cloudSave(true);location.reload()}});return}
+    await cloudSave(true);location.reload();
+  }catch(e){location.reload()}
+}
+async function cloudCheckOnStart(){await cloudLoadAsk(false)}
+setInterval(()=>cloudSave(false),15000);
+setTimeout(()=>{if(LB.on&&LB.user&&LB.user.is_anonymous&&S.playSec>1800&&S.acctNag!==today()){S.acctNag=today();save();toast('👤 Sichere deinen Fortschritt','Melde dich mit deiner E-Mail an, im Menü 🔊 unter Konto')}},20000);
+
 /* ---------- scene renderer ---------- */
 const gc=$('garden'),g=gc.getContext('2d');let gw=0,gh=0,gdpr=1;
 const bgc=document.createElement('canvas');let bgKey='';
@@ -2776,7 +2886,8 @@ function nextModal(){
   $('mEmoji').textContent=m.emoji||'';$('mTitle').textContent=m.title;$('mText').textContent=m.text;$('mOk').textContent=m.ok;
   $('mCancel').hidden=!m.cancel;$('modal').hidden=false;$('mOk').focus();
   $('mOk').onclick=()=>{ensureAudio();m.onOk&&m.onOk();nextModal()};
-  $('mCancel').onclick=()=>nextModal();
+  $('mCancel').textContent=m.cancelText||'Abbrechen';
+  $('mCancel').onclick=()=>{m.onCancel&&m.onCancel();nextModal()};
 }
 $('reset').addEventListener('click',()=>queueModal({emoji:'🗑️',title:'Spielstand löschen?',text:'Alles wird gelöscht, auch Erfolge und Sternensamen. Das lässt sich nicht rückgängig machen.',ok:'Löschen',cancel:true,onOk:()=>{
   try{localStorage.removeItem(LS);localStorage.removeItem(LS+'-sig')}catch(e){}S=fresh();disp=0;bVisible=-1;uKey='';aKey='';sKey='';qKey='';bgKey='';updMute();applySkin();updDimBtn();checkPassSeason();save();render();if(LB.status==='flagged'){LB.status='loading';initLB()}
@@ -2812,7 +2923,7 @@ function offline(){
   const t=Math.min(el,7200),amt=rawSps()*t*0.5;S.last=Date.now();if(amt<1)return;gain(amt);
   queueModal({emoji:'🌙',title:'Willkommen zurück!',text:`Dein Garten hat in ${fmtTime(t)} ${fmt(amt)} Sporen gesammelt.`,ok:'Einsammeln'});
 }
-document.addEventListener('visibilitychange',()=>{if(document.hidden)save();else{offline();checkDaily();lastT=performance.now()}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){save();cloudSave(true)}else{offline();checkDaily();lastT=performance.now()}});
 addEventListener('pagehide',save);
 
 /* blinking face */
