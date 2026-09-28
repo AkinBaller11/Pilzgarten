@@ -209,6 +209,9 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.skin.r-u{background:linear-gradient(135deg,#FFF6E4,#F1DDB8 55%,#E8C99A);color:#5A3A2A;border-color:#C49A62}
+.skin.r-u small{color:#7A5A3A}.skin.r-u .rar{color:#A0642A!important}.skin.r-u .efx{color:#5A3A2A}
+.mush.fx-cozy{animation:none;filter:drop-shadow(0 0 12px rgba(255,225,180,.85)) drop-shadow(0 0 28px rgba(255,190,200,.35))}
 .skin.r-x{background:linear-gradient(125deg,#0B0818,#2A1F5A 40%,#8A6A1A 60%,#0B0818);background-size:300% 300%;animation:mythbg 5s ease infinite;color:#FFE9A8;border-color:#FFD84A}
 .skin.r-x small{color:#E8DFC0}.skin.r-x .rar{color:#FFD84A!important}.skin.r-x .efx{color:#fff}
 .mush.fx-void{animation:none;filter:drop-shadow(0 0 14px #9A5CFF) drop-shadow(0 0 34px rgba(255,120,60,.35))}
@@ -493,7 +496,7 @@ body.locked{overflow:hidden}
       <button class="tab" role="tab" aria-selected="false" data-pane="p-s" id="tabS"><span class="e">🌅</span>Saison<i class="dot"></i></button>
     </div>
     <div class="pane" id="p-b">
-      <div class="buybar"><span>Menge kaufen</span>
+      <div class="buybar"><button id="diffLbl" style="border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0">Menge kaufen</button>
         <div class="seg"><button data-n="1" aria-pressed="true">1×</button><button data-n="10" aria-pressed="false">10×</button><button data-n="max" aria-pressed="false">Max</button></div>
       </div>
       <div id="blist"></div>
@@ -707,9 +710,10 @@ const SKINS=[
   {id:'uhr',name:'Zeitwächter',rar:'x',shape:'uhr',c1:'#FFE7A0',c2:'#B8801A',secret:1,rb:3,fx:'clock'},
   {id:'element',name:'Elementargeist',rar:'x',shape:'element',c1:'#F0FCFF',c2:'#7FB8FF',secret:1,rb:4,fx:'elem'},
   {id:'prisma',name:'Prismenwesen',rar:'x',shape:'prisma',c1:'#FFFFFF',c2:'#B8C8FF',secret:1,rb:5,fx:'prism'},
+  {id:'kuschel',name:'Kuschelbär',rar:'u',shape:'kuschel',c1:'#EACB9C',c2:'#C49A62',fx:'cozy',how:'Tippe 1.000.000-mal im Frostgipfel',prog:s=>`${fmt(s.frostTaps||0)} von 1 Mio.`,req:s=>(s.frostTaps||0)>=1e6},
   {id:'traenen',name:'Tränenflamme',rar:'l',shape:'flamme',c1:'#FFE066',c2:'#E8421A',fx:'fire',how:'Tippe 1.000-mal in der Lavawelt',req:s=>(s.lavaTaps||0)>=1000}
 ];
-const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim'};
+const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim',u:'Einzigartig'};
 const PFX={
   petal:{n:'Blütenblätter',kind:'petal',cols:['#FFC2DA','#FF8FC0','#FFFFFF'],g:.04,up:1.5,sp:3.5,snd:['sine',620]},
   dots:{n:'Punkteregen',kind:'dot',cols:['#FF4B4B','#FFFFFF'],g:.2,up:2.5,sp:4.5,snd:['sine',560]},
@@ -747,9 +751,10 @@ const PFX={
   clock:{n:'Zeitfunken',kind:'star',cols:['#FFE7A0','#FFD23F','#FFFFFF'],g:.12,up:3,sp:4.5,glow:true,snd:['triangle',1760,.9]},
   elem:{n:'Vier Elemente',kind:'dot',cols:['#FF6A2A','#39A8FF','#6BD65A','#E8E8FF'],g:0,up:1,sp:5,glow:true,snd:['sine',660,1.5]},
   prism:{n:'Lichtbrechung',kind:'rainbow',cols:['#fff'],g:.02,up:1.5,sp:5.5,glow:true,snd:['sine',1320,1.3]},
+  cozy:{n:'Kuschelherzen',kind:'heart',cols:['#FFB0C8','#F4EAD6','#EACB9C','#FFFFFF'],g:-.04,up:1.2,sp:3,snd:['sine',520,1.2]},
   tears:{n:'Tränen und Funken',kind:'tears',cols:['#7FD4FF','#FFD04A'],g:.2,up:2.5,sp:3.5,snd:['triangle',330,.75]}
 };
-const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism'};
+const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy'};
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const CYCLE=240;
 function phase(){return (Date.now()/1000%CYCLE)/CYCLE}
@@ -808,8 +813,12 @@ function tapBase(){
 }
 function critChance(){let c=0;for(const u of UP)if(u.type==='crit'&&has(u.id))c+=u.val;return c+(dim()==='kristall'?.1:0)}
 function gain(n){if(!(n>0)||!isFinite(n))return;S.spores+=n;S.season+=n;S.allTime+=n;S.rbEarn=(S.rbEarn||0)+n;S.lbPend=(S.lbPend||0)+n}
-function costOf(b,k){const o=S.owned[b.id]||0,r=1.15;return Math.ceil(b.base*Math.pow(r,o)*(Math.pow(r,k)-1)/(r-1))}
-function maxAfford(b){const o=S.owned[b.id]||0,r=1.15,c0=b.base*Math.pow(r,o);const k=Math.floor(Math.log(S.spores*(r-1)/c0+1)/Math.log(r));return Math.max(0,k)}
+/* Schwierigkeit: je weiter man ist, desto teurer wird alles */
+function diffMult(){const t=tot(S);return (1+Math.pow(t/250,1.5))*(1+(S.rb||0)*.25)}
+function unitCost(b,o){return b.base*Math.pow(1.15,o)*(1+Math.pow(Math.max(0,o-30)/40,2))}
+function costOf(b,k){const o=S.owned[b.id]||0,d=diffMult();let s2=0;for(let i=0;i<k;i++)s2+=unitCost(b,o+i);return Math.ceil(s2*d)}
+function maxAfford(b){const o=S.owned[b.id]||0,d=diffMult();let s2=0,k=0;while(k<2000){const c=unitCost(b,o+k)*d;if(s2+c>S.spores)break;s2+=c;k++}return k}
+function upCost(u){return Math.ceil(u.cost*(1+Math.pow(S.up.length/40,1.5))*(1+(S.rb||0)*.15))}
 
 /* ---------- audio ---------- */
 let actx=null;
@@ -944,7 +953,7 @@ function tap(x,y){
   let v=tapBase(),crit=Math.random()<critChance();
   if(chargeTaps>0){v*=5;chargeTaps--;if(!reduced)fxBurst(x,y,{n:6,colors:['#FFF6B0','#FFD84A'],kind:'shard',speed:5,glow:true})}
   if(crit){v*=10;S.crits++}
-  gain(v);S.taps++;addXP(.25);if(dim()==='lava')S.lavaTaps=(S.lavaTaps||0)+1;
+  gain(v);S.taps++;addXP(.25);if(dim()==='lava')S.lavaTaps=(S.lavaTaps||0)+1;if(dim()==='frost'){S.frostTaps=(S.frostTaps||0)+1;if(S.frostTaps%100000===0&&S.frostTaps<1e6)toast(`🧸 ${fmt(S.frostTaps)} von 1 Mio. Tipps im Frostgipfel`,'Der Kuschelbär wartet auf dich')}
   if(now()>=buffs.rush){meter=Math.min(1,meter+0.045);if(meter>=1)startRush()}
   kick(x,crit?1.7:1);wake();noteTap();homeSpores(x,y,crit?6:3);
   const mo=$('mouth');if(mo){mo.style.transition='none';mo.setAttribute('stroke-width','5');clearTimeout(tap._m);tap._m=setTimeout(()=>mo.setAttribute('stroke-width','3'),140)}
@@ -1033,6 +1042,7 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   qKey='';sKey='';render();
 }));
 let buyN=1;
+$('diffLbl').onclick=()=>queueModal({emoji:'📈',title:'Preisstufe',text:`Je weiter du kommst, desto schwieriger wird es. Jeder Züchter, den du besitzt, macht alle Züchter etwas teurer, und ab 30 Stück eines Züchters steigt sein Preis zusätzlich an. Upgrades werden mit jedem gekauften Upgrade teurer, Bosse bekommen immer mehr Leben, und Goldpilze werden seltener. Jede Wiedergeburt erhöht die Preise weiter, verdoppelt aber auch deine Produktion. Deine aktuelle Preisstufe: ×${diffMult().toFixed(2).replace('.',',')}.`,ok:'Verstanden'});
 document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
   buyN=b.dataset.n==='max'?'max':+b.dataset.n;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));render();
 }));
@@ -1061,6 +1071,7 @@ function buildBList(){
   });
 }
 function updBList(){
+  {const d=diffMult(),el=$('diffLbl');const t=d>1.005?`Preisstufe ×${d.toFixed(2).replace('.',',')} ⓘ`:'Menge kaufen';if(el.textContent!==t)el.textContent=t}
   buildBList();
   blist.querySelectorAll('.row').forEach(r=>{
     const b=B.find(x=>x.id===r.dataset.id);
@@ -1087,13 +1098,13 @@ function updUList(){
     if(!av.length)ulist.innerHTML=`<div class="empty">Gerade gibt es nichts zu verbessern. Kauf mehr Züchter oder tippe öfter, dann tauchen hier neue Upgrades auf.</div>`;
     av.forEach(u=>{
       const r=document.createElement('button');r.className='row';r.dataset.id=u.id;
-      r.innerHTML=`<span class="ico" aria-hidden="true">${upIcon(u)}</span><span class="info"><strong>${u.name}</strong><small>${u.desc}</small></span><span class="side"><div class="cost">${fmt(u.cost)}</div></span>`;
-      r.addEventListener('click',()=>{if(S.spores<u.cost)return;const rc=r.getBoundingClientRect();flyToMush(upIcon(u),rc);fxBurst(rc.left+30,rc.top+rc.height/2,{n:18,colors:['#FFD84A','#FF8FC0','#A194FF'],star:true});S.spores-=u.cost;S.up.push(u.id);addXP(8);sfx.buy();buzz(10);toast(`${upIcon(u)} ${u.name} gekauft`);render()});
+      r.innerHTML=`<span class="ico" aria-hidden="true">${upIcon(u)}</span><span class="info"><strong>${u.name}</strong><small>${u.desc}</small></span><span class="side"><div class="cost">${fmt(upCost(u))}</div></span>`;
+      r.addEventListener('click',()=>{const uc=upCost(u);if(S.spores<uc)return;const rc=r.getBoundingClientRect();flyToMush(upIcon(u),rc);fxBurst(rc.left+30,rc.top+rc.height/2,{n:18,colors:['#FFD84A','#FF8FC0','#A194FF'],star:true});S.spores-=uc;S.up.push(u.id);addXP(8);sfx.buy();buzz(10);toast(`${upIcon(u)} ${u.name} gekauft`);render()});
       ulist.appendChild(r);
     });
   }
-  ulist.querySelectorAll('.row').forEach(r=>{const u=UP.find(x=>x.id===r.dataset.id);r.classList.toggle('poor',S.spores<u.cost)});
-  $('tabU').classList.toggle('has',av.some(u=>S.spores>=u.cost));
+  ulist.querySelectorAll('.row').forEach(r=>{const u=UP.find(x=>x.id===r.dataset.id);r.classList.toggle('poor',S.spores<upCost(u))});
+  $('tabU').classList.toggle('has',av.some(u=>S.spores>=upCost(u)));
 }
 
 /* ---------- quests ---------- */
@@ -1187,7 +1198,7 @@ function updAch(){
     $('agrid').innerHTML=ACH.map(a=>{const on=S.ach.includes(a.id);return `<div class="ach ${on?'':'off'}"><div class="e">${on?a.e:'🔒'}</div><b>${a.name}</b><span>${a.desc}</span></div>`}).join('');
   }
   if(!$('p-a').hidden){
-    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Wiedergeburten',S.rb||0],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
+    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Wiedergeburten',S.rb||0],['Preisstufe','×'+diffMult().toFixed(2).replace('.',',')],['Tipps im Frostgipfel',fmt(S.frostTaps||0)],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
     $('stats').innerHTML=st.map(([a,b])=>`<span>${a}</span><b>${b}</b>`).join('');
   }
 }
@@ -1221,7 +1232,7 @@ function updSeason(){
 /* ---------- golden events ---------- */
 const goldSVG=`<svg viewBox="0 0 100 100"><path d="M40 58 Q37 80 34 92 Q50 97 66 92 Q63 80 60 58Z" fill="#FFF3D6"/><path d="M8 60 Q10 14 50 12 Q90 14 92 60 Q50 70 8 60Z" fill="#FFC23D"/><circle cx="32" cy="36" r="7" fill="#FFF7E0"/><circle cx="62" cy="28" r="5" fill="#FFF7E0"/><circle cx="70" cy="46" r="6" fill="#FFF7E0"/></svg>`;
 let nextGold=now()+18000;
-function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)}
+function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)*(1+Math.max(0,Math.log10(S.allTime+1)-6)*.03)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)}
 function spawnGold(){
   const g=document.createElement('button');g.className='gold';g.innerHTML=goldSVG;g.setAttribute('aria-label','Goldpilz einsammeln');
   g.style.left=(6+Math.random()*80)+'vw';g.style.top=(14+Math.random()*66)+'vh';document.body.appendChild(g);
@@ -1331,6 +1342,7 @@ function shapeSVG(k,p,main){
       <path d="M100 18 L124 108 L100 204 L76 108Z M32 108 H168" stroke="#fff" stroke-width="2.5" fill="none" opacity=".75"/>
       <path d="M100 18 L76 108 L32 108Z" fill="#fff" opacity=".4"/><path d="M168 108 L100 204 L124 108Z" fill="#000" opacity=".08"/>`,
       face:m=>faceAt(100,fy,{ec:'#3A2A6A'},m)}}
+    case 'kuschel':return kuschelShape(k,p);
     case 'robo':return {fy:112,body:`<path d="M100 40 V14" stroke="#9AA6BE" stroke-width="5"/><circle cx="100" cy="10" r="8" fill="#FF5A7A"/>
       <rect x="66" y="168" width="68" height="40" rx="12" fill="${k.c2}"/><circle cx="84" cy="188" r="5" fill="#39F5FF"/><circle cx="100" cy="188" r="5" fill="#FFD84A"/><circle cx="116" cy="188" r="5" fill="#FF5A7A"/>
       <rect x="36" y="40" width="128" height="124" rx="30" fill="${F}"/><rect x="58" y="84" width="84" height="60" rx="16" fill="#1C2340"/>
@@ -1366,6 +1378,38 @@ function gearPath(cx,cy,r,n){let d='';for(let i=0;i<n*4;i++){const a=i/(n*4)*Mat
 function faceAt(cx,fy,o,m){const ec=o.ec||'#2A2447',mc=o.mc||ec,gl=o.glow?`style="filter:drop-shadow(0 0 4px ${ec})"`:'';
   const mouth=o.mouth==='o'?`<ellipse ${m?'id="mouth"':''} cx="${cx}" cy="${fy+16}" rx="4" ry="5" fill="${mc}"/>`:`<path ${m?'id="mouth"':''} d="M${cx-7} ${fy+14} Q${cx} ${fy+20} ${cx+7} ${fy+14}" stroke="${mc}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
   return `<g ${m?'id="eyes"':''} style="transform-origin:${cx}px ${fy}px"><g ${m?'id="look"':''}><ellipse cx="${cx-10}" cy="${fy}" rx="5" ry="6.5" fill="${ec}" ${gl}/><ellipse cx="${cx+10}" cy="${fy}" rx="5" ry="6.5" fill="${ec}" ${gl}/>${o.shine===false?'':`<circle cx="${cx-8.5}" cy="${fy-2.5}" r="1.7" fill="#fff"/><circle cx="${cx+11.5}" cy="${fy-2.5}" r="1.7" fill="#fff"/>`}</g></g>${mouth}`}
+function kuschelShape(k,p){const fy=90,br='#5A3A2A';
+return {fy,body:`<defs><radialGradient id="${p}kh" cx="42%" cy="35%" r="70%"><stop offset="0" stop-color="#F6DDB2"/><stop offset=".7" stop-color="${k.c1}"/><stop offset="1" stop-color="${k.c2}"/></radialGradient>
+<linearGradient id="${p}kb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F1E2"/><stop offset="1" stop-color="#E4D8BC"/></linearGradient>
+<linearGradient id="${p}kc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBF7EC"/><stop offset="1" stop-color="#E6DCC4"/></linearGradient></defs>
+<g><animateTransform attributeName="transform" type="rotate" values="-3 100 120;3 100 120;-3 100 120" dur="4s" repeatCount="indefinite"/>
+<path d="M40 122 Q100 108 162 122 Q176 150 188 176 Q176 186 164 178 Q154 196 134 206 Q120 202 112 190 Q98 202 84 200 Q68 208 54 196 Q46 186 38 190 Q24 182 16 170 Q28 146 40 122Z" fill="url(#${p}kb)"/>
+<path d="M60 130 Q84 160 82 198 M118 128 Q126 160 116 190 M150 140 Q160 160 164 176 M44 140 Q40 160 28 172" stroke="#D2C4A2" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+<path d="M92 140 Q110 150 124 176" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/>
+<g><animateTransform attributeName="transform" type="rotate" values="-8 46 188;8 46 188;-8 46 188" dur="2.2s" repeatCount="indefinite"/><ellipse cx="42" cy="194" rx="9" ry="7" fill="#EDE4CC" stroke="#D2C4A2" stroke-width="2"/><path d="M36 198 Q34 208 40 212 Q44 206 44 199Z" fill="#E4D8BC"/></g>
+<g><animateTransform attributeName="transform" type="rotate" values="6 132 204;-6 132 204;6 132 204" dur="2.6s" repeatCount="indefinite"/><ellipse cx="134" cy="208" rx="9" ry="7" fill="#EDE4CC" stroke="#D2C4A2" stroke-width="2"/><path d="M130 213 Q130 222 136 224 Q139 218 138 212Z" fill="#E4D8BC"/></g>
+<g><animateTransform attributeName="transform" type="rotate" values="-6 176 180;6 176 180;-6 176 180" dur="2.4s" repeatCount="indefinite"/><ellipse cx="182" cy="180" rx="8" ry="6" fill="#EDE4CC" stroke="#D2C4A2" stroke-width="2"/></g>
+</g>
+<path d="M58 122 Q64 112 76 118 Q84 108 96 116 Q106 108 116 116 Q128 108 136 118 Q146 112 150 124 Q100 134 58 122Z" fill="#F1E9D6" stroke="#D8CCB0" stroke-width="2"/>
+<path d="M92 124 Q100 132 108 124" stroke="#C8B894" stroke-width="3" fill="none" stroke-linecap="round"/>
+<circle cx="140" cy="50" r="15" fill="${k.c2}"/><circle cx="140" cy="50" r="8" fill="#F2DDB6"/>
+<circle cx="100" cy="86" r="44" fill="url(#${p}kh)"/>
+<path d="M100 44 Q104 64 100 72" stroke="#C49A62" stroke-width="2" fill="none" stroke-dasharray="3 3" opacity=".8"/>
+<ellipse cx="124" cy="72" rx="10" ry="6" fill="#fff" opacity=".22" transform="rotate(30 124 72)"/>
+<g><animateTransform attributeName="transform" type="rotate" values="-4 70 60;5 70 60;-4 70 60" dur="3.2s" repeatCount="indefinite"/>
+<path d="M56 78 Q54 40 92 36 Q120 34 132 46 Q116 46 102 50 Q80 56 70 72 Q64 80 60 84Z" fill="url(#${p}kc)" stroke="#D8CCB0" stroke-width="1.5"/>
+<path d="M60 80 Q40 70 30 96 Q22 122 30 138 Q44 134 48 110 Q52 92 66 76Z" fill="url(#${p}kc)" stroke="#D8CCB0" stroke-width="1.5"/>
+<g stroke="#DDD2B8" stroke-width="2" opacity=".9"><path d="M40 92 L44 128"/><path d="M48 86 L50 116"/><path d="M68 44 L72 64"/><path d="M80 40 L84 56"/><path d="M94 37 L96 50"/><path d="M108 38 L108 47"/></g>
+<path d="M58 80 Q66 64 86 54 Q104 46 132 46" stroke="#D8CCB0" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g><animateTransform attributeName="transform" type="rotate" values="-10 30 136;10 30 136;-10 30 136" dur="1.6s" repeatCount="indefinite"/><circle cx="30" cy="140" r="6" fill="#EDE4CC" stroke="#D2C4A2" stroke-width="2"/><path d="M26 144 L22 152 M30 146 L30 154 M34 144 L37 152" stroke="#E0D4B8" stroke-width="2" stroke-linecap="round"/></g>
+</g>
+<ellipse cx="100" cy="104" rx="20" ry="15" fill="#F4EAD6"/>`,
+face:m=>`<g ${m?'id="eyes"':''} style="transform-origin:100px ${fy}px"><g ${m?'id="look"':''}><ellipse cx="87" cy="${fy}" rx="4" ry="5" fill="${br}"/><ellipse cx="113" cy="${fy}" rx="4" ry="5" fill="${br}"/><circle cx="88.3" cy="${fy-1.8}" r="1.3" fill="#fff"/><circle cx="114.3" cy="${fy-1.8}" r="1.3" fill="#fff"/></g></g>
+<path d="M92 98 Q100 94 108 98 Q104 106 100 107 Q96 106 92 98Z" fill="${br}"/><path d="M100 107 L100 112" stroke="${br}" stroke-width="2.5" stroke-linecap="round"/>
+<path ${m?'id="mouth"':''} d="M89 110 Q100 120 111 110" stroke="${br}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+<ellipse cx="78" cy="102" rx="6" ry="3.5" fill="#FF9FB0" opacity=".35"/><ellipse cx="122" cy="102" rx="6" ry="3.5" fill="#FF9FB0" opacity=".35"/>`}}
+
+
 function mushSVG(k,p){
   const a=new Set(k.acc||[]),d=k.dots||'#fff',main=p==='';
   const sh=shapeSVG(k,p,main);
@@ -1418,12 +1462,12 @@ function buySkin(id){
 }
 function openSkins(){
   const grid=$('skinGrid'),keep=grid.scrollTop;
-  const order={x:-2,m:-1,l:0,e:1,s:2,g:3};
+  const order={u:-3,x:-2,m:-1,l:0,e:1,s:2,g:3};
   renderShopBar();
   const list=SKINS.filter(k=>!k.secret||S.skins.includes(k.id)).sort((a,b)=>(S.skins.includes(b.id)-S.skins.includes(a.id))||(order[a.rar]-order[b.rar]));
   $('skinGrid').innerHTML=list.map((k,i)=>{const on=S.skins.includes(k.id);
     const buy=!on&&k.price;
-    return `<button class="skin r-${k.rar}" data-k="${k.id}" ${buy?'data-buy="1"':''} aria-pressed="${S.skin===k.id}" ${on||buy?'':'disabled'}>${on||buy?`<div class="pv">${mushSVG(k,'pv'+i)}</div>`:'<div class="lock">🔒</div>'}${on||buy?k.name:'???'}<small class="rar">${RAR[k.rar]}</small>${k.prem?'<span class="pbadge">👑 Premium</span>':''}<small class="efx">✨ ${pfxOf(k).n}</small>${buy?`<span class="price ${S.dia<k.price?'no':''}">💎 ${k.price}</span>`:`<small>${on?(S.skin===k.id?'Ausgewählt':'Auswählen'):skinHow(k)}</small>`}</button>`}).join('');
+    return `<button class="skin r-${k.rar}" data-k="${k.id}" ${buy?'data-buy="1"':''} aria-pressed="${S.skin===k.id}" ${on||buy?'':'disabled'}>${on||buy?`<div class="pv">${mushSVG(k,'pv'+i)}</div>`:'<div class="lock">🔒</div>'}${on||buy?k.name:'???'}<small class="rar">${RAR[k.rar]}</small>${k.prem?'<span class="pbadge">👑 Premium</span>':''}<small class="efx">✨ ${pfxOf(k).n}</small>${buy?`<span class="price ${S.dia<k.price?'no':''}">💎 ${k.price}</span>`:`<small>${on?(S.skin===k.id?'Ausgewählt':'Auswählen'):skinHow(k)+(k.prog?' ('+k.prog(S)+')':'')}</small>`}</button>`}).join('');
   $('skinGrid').querySelectorAll('.skin').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.buy){buySkin(b.dataset.k);return}S.skin=b.dataset.k;applySkin();sfx.buy();save();const r=b.getBoundingClientRect();sporeBurst(r.left+r.width/2,r.top+r.height*.35,8);openSkins()}));
   $('skinModal').querySelector('p').textContent=`${S.skins.length} von ${SKINS.filter(k=>!k.secret||S.skins.includes(k.id)).length} Skins gesammelt. Jeder bringt dauerhaft +2 % Produktion.`;
   $('skinModal').hidden=false;grid.scrollTop=keep;document.body.classList.add('locked');if(!keep)$('skinClose').focus({preventScroll:true});
@@ -1851,7 +1895,7 @@ function petTick(dt){
 /* ---------- bosses ---------- */
 const BOSSES={wald:['🐌','Riesenschnecke','🟢'],kristall:['🦂','Kristallskorpion','💎'],lava:['🦎','Glutechse','🔥'],wolken:['🦅','Sturmadler','🌪️'],tiefsee:['🦑','Tiefseekrake','💧'],kosmos:['👾','Sternenfresser','☄️'],frost:['⛄','Schneekoloss','❄️'],neon:['🤖','Neon-Mech','⚡']};
 let boss=null,nextBoss=now()+90000,stunUntil=0,chargeTaps=0;
-function bossHP(){return Math.round((30+12*(S.bossLvl||1))*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
+function bossHP(){const L=S.bossLvl||1;return Math.round((30+12*L+Math.pow(L,1.7)*.6)*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
 function spawnBoss(){
   const [e,n,pr]=BOSSES[dim()]||BOSSES.wald,sc=$('scene'),el=document.createElement('div');el.className='boss';
   el.innerHTML=`<div class="bhp"><i></i></div><div class="btime"><i></i></div><button class="bbody" aria-label="${n} angreifen">${e}</button><div class="bname">${n}<br>Stufe ${S.bossLvl}</div>`;
