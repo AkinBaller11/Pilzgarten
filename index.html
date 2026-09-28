@@ -195,6 +195,37 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.lbtabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--surface2);border-radius:14px;padding:3px;margin:0 4px 8px}
+.lbtabs button{border:0;background:none;border-radius:11px;padding:7px 2px;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;line-height:1.15}
+.lbtabs button b{display:block;font-size:1rem}
+.lbtabs button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(40,20,80,.12)}
+.lbtabs button:disabled{opacity:.35}
+.lbsearch{margin:0 4px 8px;position:relative}
+.lbsearch input{width:100%;font:inherit;padding:9px 12px 9px 34px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)}
+.lbsearch::before{content:"🔎";position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:.85rem;opacity:.7}
+.lbstat{display:flex;gap:12px;flex-wrap:wrap;margin:0 8px 8px;font-size:.82rem;color:var(--muted)}
+.lbstat .on{color:var(--glow);font-weight:600}
+.lbcard{display:flex;align-items:center;gap:10px;margin:0 4px 10px;padding:10px 12px;border-radius:16px;background:linear-gradient(120deg,color-mix(in srgb,var(--glow) 18%,var(--surface2)),var(--surface2));border:1px solid color-mix(in srgb,var(--glow) 40%,transparent)}
+.lbcard .big2{font-size:1.5rem;font-weight:700;min-width:54px;text-align:center;line-height:1}
+.lbcard .big2 small{display:block;font-size:.68rem;font-weight:500;color:var(--muted);margin-top:2px}
+.lbcard .inf{flex:1;min-width:0;font-size:.85rem;line-height:1.35}
+.lbcard .inf b{font-size:.95rem}
+.lbcard .inf span{color:var(--muted)}
+.lbrow{cursor:pointer;border-radius:12px;transition:background .15s}
+.lbrow:active{background:var(--surface2)}
+.pod{cursor:pointer}
+.mv{font-size:.7rem;font-weight:700;margin-left:4px}
+.mv.up{color:var(--glow)}.mv.dn{color:var(--pink)}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2FD37A;margin-left:5px;vertical-align:.08em;box-shadow:0 0 6px #2FD37A}
+.lbmore{display:block;width:calc(100% - 8px);margin:10px 4px 2px;border:1px solid var(--line);background:var(--surface2);border-radius:12px;padding:10px;font-weight:600;cursor:pointer}
+.lbmore[hidden]{display:none}
+.prof .pav{width:120px;margin:0 auto 4px}
+.prof .pav svg{width:100%;height:auto;display:block}
+.prof h2{text-align:center;margin:0 0 2px}
+.prof .ps{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:12px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;text-align:left}
+.pgrid div{background:var(--surface2);border-radius:12px;padding:8px 10px;font-size:.78rem;color:var(--muted);line-height:1.3}
+.pgrid div b{display:block;color:var(--ink);font-size:.98rem;font-weight:600}
 #modal{z-index:46}
 .skin.r-m{background:linear-gradient(125deg,#1E1540,#5B2FC8,#C0357A,#1E1540);background-size:300% 300%;animation:mythbg 7s ease infinite;color:#fff;border-color:#FFD84A88}
 .skin.r-m small{color:#E8E0FF}.skin.r-m .rar{color:#FFE27A!important}
@@ -408,7 +439,12 @@ body.locked{overflow:hidden}
     </div>
     <div class="pane" id="p-r" hidden>
       <div class="lbme"><input id="nickIn" maxlength="20" placeholder="Dein Gärtnername" aria-label="Dein Gärtnername"><button id="nickSave">Speichern</button></div>
+      <div class="lbtabs" id="lbTabs" role="group" aria-label="Kategorie"><button data-m="score" aria-pressed="true"><b>🏆</b>Gesamt</button><button data-m="week" aria-pressed="false"><b>📅</b>Woche</button><button data-m="sps" aria-pressed="false"><b>⚡</b>Pro Sek.</button><button data-m="boss" aria-pressed="false"><b>⚔️</b>Bosse</button></div>
+      <div class="lbsearch"><input id="lbQ" type="search" placeholder="Spieler suchen" aria-label="Spieler suchen" maxlength="20"></div>
+      <div class="lbstat" id="lbStat"></div>
+      <div id="lbMe"></div>
       <div id="lb"><div class="lbnote">Rangliste wird geladen …</div></div>
+      <button class="lbmore" id="lbMore" hidden>Mehr Spieler laden</button>
     </div>
     <div class="pane season" id="p-s" hidden></div>
   </section>
@@ -450,6 +486,9 @@ body.locked{overflow:hidden}
     <div class="skins" id="petGrid"></div>
     <button class="primary" id="petClose">Fertig</button>
   </div>
+</div>
+<div class="modal" id="profModal" hidden>
+  <div class="card prof" role="dialog" aria-modal="true" aria-labelledby="pfN"><div id="profBody"></div><button class="primary" id="profClose">Schließen</button></div>
 </div>
 <canvas id="fxc" aria-hidden="true"></canvas>
 <div class="fx" id="fx"></div>
@@ -1318,7 +1357,9 @@ function updPassBar(){const ti=tierInfo();$('pTier').textContent=ti.tier+(isPrem
    url = Project URL, key = anon public key. */
 const LEADERBOARD={url:'https://yrbohhkvmjhfbigtjujc.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyYm9oaGt2bWpoZmJpZ3RqdWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1OTE0MTYsImV4cCI6MjEwNjE2NzQxNn0.B81VusTeV3H_tPAoVMra0CrtYW_8KUzN6rt8agK3fS0'};
 const SB_SRC='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js';
-const LB={on:false,sb:null,uid:null,rows:[],status:'loading',msg:'',lastWrite:0,writing:false,myRank:null,myScore:0,lastFetch:0};
+const LB={on:false,sb:null,uid:null,rows:[],status:'loading',msg:'',lastWrite:0,writing:false,lastFetch:0,legacy:false,mode:'score',q:'',limit:50,total:null,online:null,me:null,myRank:null,gap:null,prev:{},moves:{},busy:false};
+const LBM={score:{n:'Gesamt',f:'score',u:''},week:{n:'Diese Woche',f:'week_score',u:''},sps:{n:'Sporen pro Sekunde',f:'sps',u:'/s'},boss:{n:'Bosse besiegt',f:'boss_wins',u:''}};
+const COLS_NEW='player_id,nick,score,sps,skin,prem,boss_wins,pet,pet_lv,dim,skins,week_score,online,last_submit,created_at',COLS_OLD='player_id,nick,score,sps,skin,prem';
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function loadSb(){return new Promise((res,rej)=>{if(window.supabase&&window.supabase.createClient)return res(window.supabase);const sc=document.createElement('script');sc.src=SB_SRC;sc.onload=()=>window.supabase?res(window.supabase):rej(new Error('lib'));sc.onerror=()=>rej(new Error('load'));document.head.appendChild(sc)})}
 async function initLB(){
@@ -1334,52 +1375,91 @@ async function initLB(){
     await pushScore(true);await fetchLB();
   }catch(e){LB.status='error';LB.msg='Die Anmeldung an der Rangliste hat nicht geklappt. Sie versucht es beim nächsten Laden erneut.';renderLB()}
 }
+const lbCols=()=>LB.legacy?COLS_OLD:COLS_NEW;
+function lbField(){return LBM[LB.mode].f}
+function lbVal(r){return Number(r&&r[lbField()])||0}
+function qEsc(q){return q.replace(/[\\%_]/g,m=>'\\'+m)}
 async function fetchLB(){
-  if(!LB.sb)return;LB.lastFetch=Date.now();
+  if(!LB.sb||LB.busy)return;LB.busy=true;LB.lastFetch=Date.now();
   try{
-    const {data,error}=await LB.sb.from('leaderboard_public').select('player_id,nick,score,sps,skin,prem').order('score',{ascending:false}).limit(100);
+    const f=lbField();
+    let q=LB.sb.from('leaderboard_public').select(lbCols()).order(f,{ascending:false}).order('score',{ascending:false}).range(0,LB.limit-1);
+    if(LB.q)q=q.ilike('nick','%'+qEsc(LB.q)+'%');
+    let {data,error}=await q;
+    if(error&&!LB.legacy){LB.legacy=true;if(LB.mode==='week'||LB.mode==='boss')LB.mode='score';LB.busy=false;updLbTabs();return fetchLB()}
     if(error)throw error;
-    LB.rows=data||[];if(LB.status!=='banned')LB.status='ok';
-    const mine=LB.rows.findIndex(x=>x.player_id===LB.uid);
-    if(mine>=0){LB.myRank=mine+1;LB.myScore=LB.rows[mine].score}
-    else{const {count}=await LB.sb.from('leaderboard_public').select('player_id',{count:'exact',head:true}).gt('score',LB.myScore||0);LB.myRank=typeof count==='number'?count+1:null}
+    const rows=data||[];
+    if(!LB.q){const prev=LB.prev[LB.mode]||{},mv={};rows.forEach((r,i)=>{if(prev[r.player_id]!=null)mv[r.player_id]=prev[r.player_id]-(i+1)});LB.moves=mv;LB.prev[LB.mode]=Object.fromEntries(rows.map((r,i)=>[r.player_id,i+1]))}
+    LB.rows=rows;if(LB.status!=='banned')LB.status='ok';
+    const cnt=await LB.sb.from('leaderboard_public').select('player_id',{count:'exact',head:true});LB.total=typeof cnt.count==='number'?cnt.count:null;
+    if(!LB.legacy){const on=await LB.sb.from('leaderboard_public').select('player_id',{count:'exact',head:true}).eq('online',true);LB.online=typeof on.count==='number'?on.count:null}
+    if(LB.uid){const me=await LB.sb.from('leaderboard_public').select(lbCols()).eq('player_id',LB.uid).maybeSingle();LB.me=me.data||null;
+      if(LB.me){const v=lbVal(LB.me);const above=await LB.sb.from('leaderboard_public').select('player_id',{count:'exact',head:true}).gt(f,v);LB.myRank=typeof above.count==='number'?above.count+1:null;
+        const nx=await LB.sb.from('leaderboard_public').select('nick,'+f).gt(f,v).order(f,{ascending:true}).limit(1);LB.gap=nx.data&&nx.data[0]?{nick:nx.data[0].nick,d:Number(nx.data[0][f])-v}:null}
+      else{LB.myRank=null;LB.gap=null}}
   }catch(e){if(!LB.rows.length){LB.status='error';LB.msg='Die Rangliste konnte gerade nicht geladen werden. Sie versucht es gleich noch einmal.'}}
-  renderLB();
+  LB.busy=false;renderLB();
 }
 async function pushScore(force){
   if(!LB.sb||!LB.uid||LB.writing||S.flagged||LB.status==='banned')return;
   if(!force&&Date.now()-LB.lastWrite<20000)return;
   LB.writing=true;LB.lastWrite=Date.now();
+  const base={p_gain:Math.floor(S.lbPend||0),p_sps:Math.floor(rawSps()),p_nick:lbNick(),p_skin:S.skin,p_prem:isPrem()};
   try{
-    const {data,error}=await LB.sb.rpc('submit_score',{p_gain:Math.floor(S.lbPend||0),p_sps:Math.floor(rawSps()),p_nick:lbNick(),p_skin:S.skin,p_prem:isPrem()});
-    if(!error&&data){const acc=Number(data.accepted)||0;S.lbPend=Math.max(0,(S.lbPend||0)-acc);if(typeof data.score==='number')LB.myScore=data.score;if(data.banned){LB.status='banned';renderLB()}}
+    let res=await LB.sb.rpc('submit_score',LB.legacy?base:Object.assign({},base,{p_boss:S.bossWins||0,p_pet:S.pet||'',p_pet_lv:S.pet?pd().lv:0,p_dim:dim(),p_skins:S.skins.length}));
+    if(res.error&&!LB.legacy){LB.legacy=true;res=await LB.sb.rpc('submit_score',base)}
+    const data=res.data;
+    if(!res.error&&data){const acc=Number(data.accepted)||0;S.lbPend=Math.max(0,(S.lbPend||0)-acc);if(data.banned){LB.status='banned';renderLB()}}
   }catch(e){}
   LB.writing=false;
 }
 function lbNick(){return (S.nick||'').trim().slice(0,20)||('Gärtner '+String(LB.uid||'0000').replace(/-/g,'').slice(-4).toUpperCase())}
 function lbAvatar(r,p){const k=SKINS.find(x=>x.id===r.skin)||SKINS[0];return mushSVG(k,p)}
+function lbShow(r){const v=lbVal(r),u=LBM[LB.mode].u;return (LB.mode==='boss'?String(v):fmt(v))+u}
+function fmtAgo(ts){if(!ts)return '–';const s2=(Date.now()-new Date(ts).getTime())/1000;if(s2<120)return 'gerade eben';if(s2<3600)return `vor ${Math.round(s2/60)} Min.`;if(s2<86400)return `vor ${Math.round(s2/3600)} Std.`;return `vor ${Math.round(s2/86400)} Tagen`}
+function mvHTML(id){const m=LB.moves[id];if(!m)return '';return m>0?`<span class="mv up">▲${m}</span>`:`<span class="mv dn">▼${-m}</span>`}
+function updLbTabs(){document.querySelectorAll('#lbTabs button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.m===LB.mode);b.disabled=LB.legacy&&(b.dataset.m==='week'||b.dataset.m==='boss')})}
 function renderLB(){
   const box=$('lb');if(!box||$('p-r').hidden)return;
-  const note=t=>box.innerHTML=`<div class="lbnote">${t}</div>`;
+  const note=t=>{box.innerHTML=`<div class="lbnote">${t}</div>`;$('lbMe').innerHTML='';$('lbStat').innerHTML='';$('lbMore').hidden=true};
+  const ui=LB.status==='ok'||LB.status==='banned';
+  $('lbTabs').style.display=ui?'':'none';document.querySelector('.lbsearch').style.display=ui?'':'none';
   if(LB.status==='off')return note('Die Online-Rangliste ist noch nicht eingerichtet.');
   if(LB.status==='flagged')return note('Dein Spielstand wurde außerhalb des Spiels verändert. Deshalb nimmst du nicht an der Rangliste teil. Wenn du im Tab „Erfolge“ den Spielstand löschst, kannst du wieder mitmachen.');
   if(LB.status==='loading')return note('Rangliste wird geladen …');
   if(LB.status==='error')return note(LB.msg);
+  updLbTabs();
   const rows=LB.rows.filter(r=>typeof r.score==='number'&&isFinite(r.score));
-  let h='';
-  if(LB.status==='banned')h+='<div class="lbnote">Dein Eintrag wurde wegen unplausibler Werte gesperrt.</div>';
-  if(!rows.length){box.innerHTML=h+'<div class="lbnote">Noch niemand auf der Rangliste. Sammle Sporen, dein Stand wird automatisch eingetragen.</div>';return}
-  const top=rows.slice(0,3),medal=['🥇','🥈','🥉'],order=[1,0,2];
-  h+='<div class="podium">';
-  order.forEach(i=>{const r=top[i];if(!r){h+='<div></div>';return}
-    h+=`<div class="pod p${i+1} ${r.player_id===LB.uid?'me':''}"><div class="md">${medal[i]}</div><div class="av">${lbAvatar(r,'po'+i)}</div><b>${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}</b><small>${fmt(r.score)}</small></div>`});
-  h+='</div>';
-  rows.slice(3,100).forEach((r,j)=>{const i=j+3;
-    h+=`<div class="lbrow ${r.player_id===LB.uid?'me':''}"><span class="pl">${i+1}</span><span class="av">${i<30?lbAvatar(r,'lr'+i):''}</span><span class="nm">${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}<small>${fmt(r.sps||0)}/s</small></span><span class="sc">${fmt(r.score)}</span></div>`});
-  const pend=Math.floor(S.lbPend||0);
-  h+=`<div class="lbnote">${LB.myRank?`Du bist auf Platz ${LB.myRank} mit ${fmt(LB.myScore)} gewerteten Sporen. `:''}${pend>0?`${fmt(pend)} Sporen werden noch geprüft und nach und nach gutgeschrieben. `:''}Gezählt werden alle Sporen seit deinem ersten Eintrag. Jeder Stand wird vom Server auf Plausibilität geprüft.</div>`;
+  $('lbStat').innerHTML=`${LB.total!=null?`<span>👥 ${LB.total} ${LB.total===1?'Spieler':'Spieler insgesamt'}</span>`:''}${LB.online!=null?`<span class="on">● ${LB.online} online</span>`:''}${LB.mode==='week'?'<span>Neue Woche jeden Montag</span>':''}`;
+  if(LB.me&&!LB.q){const r=LB.me;$('lbMe').innerHTML=`<div class="lbcard" data-id="${esc(r.player_id)}"><div class="big2">${LB.myRank?'#'+LB.myRank:'–'}<small>dein Platz</small></div><div class="inf"><b>${esc(r.nick)}</b> ${lbShow(r)}<br><span>${LB.myRank===1?'Du bist ganz vorne! 🏆':LB.gap?`Noch ${LB.mode==='boss'?LB.gap.d:fmt(LB.gap.d)}${LBM[LB.mode].u} bis zu ${esc(LB.gap.nick)}`:''}</span></div></div>`}
+  else $('lbMe').innerHTML=LB.status==='banned'?'<div class="lbnote">Dein Eintrag wurde wegen unplausibler Werte gesperrt.</div>':'';
+  if(!rows.length){box.innerHTML=`<div class="lbnote">${LB.q?`Kein Spieler mit „${esc(LB.q)}“ gefunden.`:'Noch niemand auf der Rangliste. Sammle Sporen, dein Stand wird automatisch eingetragen.'}</div>`;$('lbMore').hidden=true;return}
+  let h='',start=0;
+  if(!LB.q){const top=rows.slice(0,3),medal=['🥇','🥈','🥉'],order=[1,0,2];start=3;
+    h+='<div class="podium">';
+    order.forEach(i=>{const r=top[i];if(!r){h+='<div></div>';return}
+      h+=`<div class="pod p${i+1} ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><div class="md">${medal[i]}</div><div class="av">${lbAvatar(r,'po'+i)}</div><b>${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}${r.online?'<span class="odot"></span>':''}</b><small>${lbShow(r)}</small></div>`});
+    h+='</div>'}
+  rows.slice(start).forEach((r,j)=>{const i=j+start,pet=PETS.find(x=>x.id===r.pet);
+    h+=`<div class="lbrow ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><span class="pl">${LB.q?'·':(i+1)}${LB.q?'':mvHTML(r.player_id)}</span><span class="av">${i<40?lbAvatar(r,'lr'+i):''}</span><span class="nm">${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}${r.online?'<span class="odot" title="online"></span>':''}<small>${pet?pet.e+' ':''}${LB.mode==='sps'?fmt(r.score||0)+' gesamt':fmt(r.sps||0)+'/s'}${r.boss_wins?` · ⚔️ ${r.boss_wins}`:''}</small></span><span class="sc">${lbShow(r)}</span></div>`});
   box.innerHTML=h;
+  $('lbMore').hidden=!!LB.q||!(LB.total!=null&&rows.length<LB.total&&rows.length>=LB.limit);
+  box.querySelectorAll('[data-id]').forEach(el=>el.addEventListener('click',()=>openProfile(el.dataset.id)));
+  const mc=$('lbMe').querySelector('[data-id]');if(mc)mc.addEventListener('click',()=>openProfile(mc.dataset.id));
 }
+function openProfile(id){
+  const r=(LB.me&&LB.me.player_id===id)?LB.me:LB.rows.find(x=>x.player_id===id);if(!r)return;
+  const pet=PETS.find(x=>x.id===r.pet),D=DIMS.find(x=>x.id===r.dim),k=SKINS.find(x=>x.id===r.skin)||SKINS[0];
+  const cells=[['Sporen gesamt',fmt(r.score||0)],['Pro Sekunde',fmt(r.sps||0)+'/s']];
+  if(!LB.legacy)cells.push(['Diese Woche',fmt(r.week_score||0)],['Bosse besiegt',r.boss_wins||0],['Begleiter',pet?`${pet.e} ${pet.name}${r.pet_lv?', Stufe '+r.pet_lv:''}`:'keiner'],['Dimension',D?`${D.e} ${D.name}`:'–'],['Skins',`${r.skins||1} von ${SKINS.length}`],['Aktueller Skin',k.name],['Dabei seit',r.created_at?new Date(r.created_at).toLocaleDateString('de-DE'):'–'],['Zuletzt aktiv',r.online?'gerade online':fmtAgo(r.last_submit)]);
+  $('profBody').innerHTML=`<div class="pav">${mushSVG(k,'pf')}</div><h2 id="pfN">${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}</h2><div class="ps">${r.player_id===LB.uid?'Das bist du':(r.online?'<span class="odot"></span> online':RAR[k.rar]+'er Skin')}</div><div class="pgrid">${cells.map(([a,b])=>`<div>${a}<b>${esc(b)}</b></div>`).join('')}</div>`;
+  $('profModal').hidden=false;document.body.classList.add('locked');sfx.buy();
+}
+$('profClose').onclick=()=>{$('profModal').hidden=true;document.body.classList.remove('locked')};
+$('profModal').addEventListener('click',e=>{if(e.target.id==='profModal'){$('profModal').hidden=true;document.body.classList.remove('locked')}});
+document.querySelectorAll('#lbTabs button').forEach(b=>b.addEventListener('click',()=>{if(b.disabled||LB.mode===b.dataset.m)return;LB.mode=b.dataset.m;LB.limit=50;LB.moves={};updLbTabs();$('lb').innerHTML='<div class="lbnote">Wird geladen …</div>';fetchLB()}));
+let lbQT=0;$('lbQ').addEventListener('input',()=>{clearTimeout(lbQT);lbQT=setTimeout(()=>{LB.q=$('lbQ').value.trim().slice(0,20);LB.limit=50;fetchLB()},350)});
+$('lbMore').onclick=()=>{LB.limit+=50;$('lbMore').textContent='Wird geladen …';fetchLB().then(()=>{$('lbMore').textContent='Mehr Spieler laden'})};
 $('nickSave').onclick=()=>{S.nick=$('nickIn').value.trim().slice(0,20);save();toast('✏️ Name gespeichert',lbNick()+' erscheint beim nächsten Abgleich');renderLB()};
 
 /* ---------- day & night ---------- */
