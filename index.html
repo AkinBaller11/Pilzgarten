@@ -209,6 +209,31 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.adm .atabs{display:flex;gap:6px;margin:0 0 10px}
+.adm .atabs button{flex:1;border:1px solid var(--line);background:none;border-radius:12px;padding:8px;font-weight:600;cursor:pointer;color:var(--muted)}
+.adm .atabs button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.adm .aid{display:flex;gap:6px;align-items:center;background:var(--surface2);border-radius:12px;padding:8px 10px;font-size:.78rem;margin-bottom:10px;word-break:break-all}
+.adm .aid code{flex:1;font-family:ui-monospace,Menlo,monospace}
+.adm .aid button,.adm .abtn{border:0;border-radius:10px;padding:7px 10px;font-weight:600;font-size:.8rem;cursor:pointer;background:var(--ink);color:var(--surface)}
+.adm .abtn.red{background:#C23A4A;color:#fff}.adm .abtn.soft{background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+.adm .agrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.adm .agrid .abtn{background:var(--surface2);color:var(--ink);border:1px solid var(--line);padding:10px 6px}
+.adm h4{margin:10px 0 6px;font-size:.9rem}
+.adm .astat{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;text-align:center;margin-bottom:10px}
+.adm .astat div{background:var(--surface2);border-radius:10px;padding:6px 2px;font-size:.68rem;color:var(--muted)}
+.adm .astat b{display:block;font-size:1.05rem;color:var(--ink)}
+.adm .afil{display:flex;gap:6px;margin-bottom:8px;align-items:center}
+.adm .afil input[type=search]{flex:1;min-width:0;font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)}
+.adm .afil label{font-size:.78rem;color:var(--muted);white-space:nowrap}
+.aprow{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:6px;font-size:.82rem}
+.aprow .top2{display:flex;justify-content:space-between;gap:6px;font-weight:600}
+.aprow .meta{color:var(--muted);font-size:.74rem;margin:2px 0 6px;line-height:1.35}
+.aprow .acts{display:flex;flex-wrap:wrap;gap:4px}
+.aprow .acts .abtn{padding:5px 8px;font-size:.72rem}
+.aprow .ren{display:flex;gap:4px;margin-top:6px}
+.aprow .ren input{flex:1;min-width:0;font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)}
+.susb{display:inline-block;border-radius:999px;padding:0 7px;font-size:.7rem;font-weight:700;background:#FFB23D;color:#2A1A05}
+.banb{background:#C23A4A;color:#fff}
 .boss2{position:absolute;right:3%;top:20%;z-index:4;width:112px;height:112px;display:grid;place-items:center;animation:bdrop .9s cubic-bezier(.3,1.6,.5,1)}
 @keyframes bdrop{0%{transform:translateY(-280px) scale(.5)}70%{transform:translateY(6px) scale(1.12,.88)}100%{transform:none}}
 .baura{position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,var(--ba,rgba(255,200,80,.5)),transparent 68%);animation:aura 1.6s ease-in-out infinite;pointer-events:none}
@@ -650,6 +675,13 @@ body.locked{overflow:hidden}
 </div>
 <div class="modal" id="rbModal" hidden>
   <div class="card tall" role="dialog" aria-modal="true" aria-labelledby="rbT"><div id="rbBody"></div></div>
+</div>
+<div class="modal" id="admModal" hidden>
+  <div class="card wide tall adm" role="dialog" aria-modal="true" aria-labelledby="admT">
+    <h2 id="admT">🛠️ Admin-Panel</h2>
+    <div id="admBody"></div>
+    <button class="ghost" id="admClose" style="width:100%;margin:12px 0 0">Schließen</button>
+  </div>
 </div>
 <canvas id="fxc" aria-hidden="true"></canvas>
 <div class="fx" id="fx"></div>
@@ -2389,6 +2421,85 @@ function drawEvent(tt){
   if(p==='finale'){const a=.25+.2*Math.sin(t*.01);g.fillStyle=`rgba(255,240,200,${a*.4})`;g.fillRect(0,0,gw,gh)}
   if(p==='finale'||p==='reward'||p==='after'){g.save();g.globalCompositeOperation='lighter';['rgba(255,80,200,','rgba(80,255,200,','rgba(120,140,255,','rgba(255,200,80,'].forEach((cc,b)=>{const lg=g.createLinearGradient(0,0,0,gh*.55);lg.addColorStop(0,cc+'0)');lg.addColorStop(.5,cc+'.2)');lg.addColorStop(1,cc+'0)');g.fillStyle=lg;g.beginPath();g.moveTo(0,gh*.08+b*12);
     for(let x=0;x<=gw;x+=12)g.lineTo(x,gh*(.1+b*.05)+Math.sin(x*.02+t*.0009+b)*18);for(let x=gw;x>=0;x-=12)g.lineTo(x,gh*(.32+b*.05)+Math.sin(x*.018+t*.0007+b*2)*22);g.fill()});g.restore()}
+}
+
+/* ---------- admin panel (nur für eingetragene Admins) ---------- */
+const ADM={ok:null,tab:'tools',q:'',sus:false,rows:[],stats:null,ren:null};
+let brandTaps=[];
+document.querySelector('.brand').addEventListener('click',()=>{const t=Date.now();brandTaps=brandTaps.filter(x=>t-x<2500);brandTaps.push(t);if(brandTaps.length>=5){brandTaps=[];openAdmin()}});
+if(/[?&#]admin\b/.test(location.search+location.hash))setTimeout(()=>openAdmin(),2500);
+async function admCheck(){if(!LB.sb||!LB.uid)return false;try{const r=await LB.sb.rpc('is_admin');ADM.ok=!r.error&&r.data===true}catch(e){ADM.ok=false}return ADM.ok}
+async function openAdmin(){
+  $('admModal').hidden=false;document.body.classList.add('locked');$('admBody').innerHTML='<p>Prüfe Zugriff …</p>';
+  if(!LB.on){$('admBody').innerHTML='<p>Das Admin-Panel braucht die Online-Rangliste. Trag zuerst deine Supabase-Daten ein.</p>';return}
+  if(!LB.uid){await new Promise(r=>setTimeout(r,1500))}
+  const ok=await admCheck();
+  if(!ok){$('admBody').innerHTML=`<p>Kein Zugriff. Nur eingetragene Admins können dieses Panel benutzen.</p><p style="color:var(--muted);font-size:.85rem">Du bist der Betreiber? Kopiere deine Spieler-ID und trage sie in Supabase ein, wie in admin-setup.sql beschrieben.</p><div class="aid"><code id="admId">${esc(LB.uid||'noch nicht angemeldet')}</code><button id="admCopy">Kopieren</button></div>`;bindCopy();return}
+  renderAdmin();
+}
+function bindCopy(){const b=$('admCopy');if(b)b.onclick=async()=>{try{await navigator.clipboard.writeText(LB.uid);toast('📋 Spieler-ID kopiert')}catch(e){const r=document.createRange();r.selectNodeContents($('admId'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('ID markiert, jetzt kopieren')}}}
+$('admClose').onclick=()=>{$('admModal').hidden=true;document.body.classList.remove('locked')};
+function admTool(id){
+  const add=n=>{S.spores+=n;disp=S.spores;toast('🛠️ +'+fmt(n)+' Sporen','Zählt nicht für die Rangliste')};
+  const A={
+    sp6:()=>add(1e6),sp9:()=>add(1e9),sp12:()=>add(1e12),sp15:()=>add(1e15),
+    gems:()=>{S.gems+=100;toast('🛠️ +100 💠')},dia:()=>{S.dia+=50;toast('🛠️ +50 💎')},
+    skins:()=>{SKINS.forEach(k=>{if(!S.skins.includes(k.id))S.skins.push(k.id)});toast('🛠️ Alle Skins freigeschaltet')},
+    dims:()=>{DIMS.forEach(d=>{if(!S.dims.includes(d.id))S.dims.push(d.id)});toast('🛠️ Alle Dimensionen freigeschaltet')},
+    boss:()=>{if(boss){toast('Es läuft schon ein Boss');return}nextBoss=0;toast('🛠️ Boss kommt gleich')},
+    gold:()=>spawnGold(),slugs:()=>spawnSlugs(),
+    rain:()=>{wx={type:'regen',until:now()+50000};toast('🌧️ Regen')},storm:()=>{wx={type:'gewitter',until:now()+50000};toast('⛈️ Gewitter')},stars:()=>{wx={type:'sterne',until:now()+50000};toast('🌠 Sternschnuppen')},
+    event:()=>{evOverride=Date.now()+10000;evCache.at=0;toast('🔴 Test-Event startet in 10 Sekunden')},
+    pass:()=>{const ti=tierInfo();S.xp+=ti.need-ti.into+1;toast('⭐ Pass-Stufe '+tierInfo().tier)},
+    rush:()=>startRush(),frenzy:()=>{buffs.frenzy=now()+60000;toast('🔥 Pilzrausch 60 s')},
+    petmax:()=>{PETS.forEach(p=>{S.petLv[p.id]={lv:10,xp:0}});S.bossWins=Math.max(S.bossWins,25);toast('🐾 Alle Begleiter auf Stufe 10')},
+  };
+  if(A[id]){A[id]();save();render()}
+}
+function renderAdmin(){
+  const tabs=`<div class="atabs"><button data-t="tools" aria-pressed="${ADM.tab==='tools'}">🧪 Werkzeuge</button><button data-t="players" aria-pressed="${ADM.tab==='players'}">👥 Spieler</button></div>`;
+  let h=tabs+`<div class="aid"><code id="admId">${esc(LB.uid)}</code><button id="admCopy">ID kopieren</button></div>`;
+  if(ADM.tab==='tools'){
+    const B=(id,t)=>`<button class="abtn" data-a="${id}">${t}</button>`;
+    h+=`<p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Diese Werkzeuge ändern nur deinen eigenen Spielstand. Gegebene Sporen zählen nicht für die Rangliste.</p>
+      <h4>Währungen</h4><div class="agrid">${B('sp6','+1 Mio. Sporen')}${B('sp9','+1 Mrd. Sporen')}${B('sp12','+1 Bio. Sporen')}${B('sp15','+1 Brd. Sporen')}${B('gems','+100 💠')}${B('dia','+50 💎')}</div>
+      <h4>Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('pass','Pass +1 Stufe')}${B('petmax','Begleiter max.')}</div>
+      <h4>Ereignisse testen</h4><div class="agrid">${B('boss','⚔️ Boss jetzt')}${B('event','🔴 Live-Event')}${B('gold','🟡 Goldpilz')}${B('slugs','🐌 Schnecken')}${B('rain','🌧️ Regen')}${B('storm','⛈️ Gewitter')}${B('stars','🌠 Sterne')}${B('rush','💫 Sporenrausch')}${B('frenzy','🔥 Pilzrausch')}</div>`;
+  }else{
+    const st=ADM.stats;
+    h+=st?`<div class="astat"><div><b>${st.total}</b>Spieler</div><div><b>${st.online}</b>online</div><div><b>${st.today}</b>neu heute</div><div><b>${st.sus}</b>auffällig</div><div><b>${st.banned}</b>gesperrt</div></div>`:'';
+    h+=`<div class="afil"><input type="search" id="admQ" placeholder="Name suchen" value="${esc(ADM.q)}"><label><input type="checkbox" id="admSus" ${ADM.sus?'checked':''}> nur auffällige</label><button class="abtn soft" id="admRef">↻</button></div><div id="admList">${ADM.rows.length?'':'<p style="color:var(--muted)">Wird geladen …</p>'}</div>`;
+  }
+  $('admBody').innerHTML=h;bindCopy();
+  $('admBody').querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>{ADM.tab=b.dataset.t;renderAdmin();if(ADM.tab==='players')admLoad()});
+  $('admBody').querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ensureAudio();sfx.buy();admTool(b.dataset.a)});
+  if(ADM.tab==='players'){
+    let qt=0;$('admQ').oninput=()=>{clearTimeout(qt);qt=setTimeout(()=>{ADM.q=$('admQ').value.trim().slice(0,20);admLoad()},350)};
+    $('admSus').onchange=()=>{ADM.sus=$('admSus').checked;admLoad()};$('admRef').onclick=()=>admLoad();
+    if(ADM.rows.length)admList();
+  }
+}
+async function admLoad(){
+  try{const [a,b]=await Promise.all([LB.sb.rpc('admin_players',{p_q:ADM.q,p_only_sus:ADM.sus,p_limit:100}),LB.sb.rpc('admin_stats')]);
+    if(a.error)throw a.error;ADM.rows=a.data||[];ADM.stats=b.data||null;if(ADM.tab==='players'){const keepQ=document.activeElement&&document.activeElement.id==='admQ';renderAdmin();if(keepQ){const q=$('admQ');q.focus();q.setSelectionRange(q.value.length,q.value.length)}admList()}}
+  catch(e){const l=$('admList');if(l)l.innerHTML='<p>Die Spielerliste konnte nicht geladen werden. Hast du admin-setup.sql in Supabase ausgeführt?</p>'}
+}
+function admList(){
+  const l=$('admList');if(!l)return;
+  if(!ADM.rows.length){l.innerHTML='<p style="color:var(--muted)">Keine Spieler gefunden.</p>';return}
+  l.innerHTML=ADM.rows.map(r=>`<div class="aprow" data-id="${esc(r.player_id)}"><div class="top2"><span>${esc(r.nick)}${r.player_id===LB.uid?' (du)':''}${r.nick_locked?' 🔒':''}</span><span>${r.banned?'<span class="susb banb">gesperrt</span>':r.sus?`<span class="susb">Verdacht ${r.sus}</span>`:''}</span></div>
+    <div class="meta">${fmt(r.score||0)} Sporen, ${fmt(r.sps||0)}/s, zuletzt ${fmtAgo(r.last_submit)}${r.last_reason?`<br>Grund: ${esc(r.last_reason)}`:''}</div>
+    <div class="acts">${r.banned?'<button class="abtn soft" data-x="unban">Entsperren</button>':'<button class="abtn red" data-x="ban">Sperren</button>'}${r.sus?'<button class="abtn soft" data-x="clear">Verdacht löschen</button>':''}<button class="abtn soft" data-x="rename">Umbenennen</button>${r.nick_locked?'<button class="abtn soft" data-x="unlock">Name freigeben</button>':''}<button class="abtn soft" data-x="reset">Punkte auf 0</button><button class="abtn red" data-x="delete">Löschen</button></div>
+    ${ADM.ren===r.player_id?`<div class="ren"><input maxlength="20" value="${esc(r.nick)}" aria-label="Neuer Name"><button class="abtn" data-x="dorename">OK</button></div>`:''}</div>`).join('');
+  l.querySelectorAll('.aprow').forEach(row=>row.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>admAct(row.dataset.id,b.dataset.x,row)));
+}
+async function admAct(id,x,row){
+  if(x==='rename'){ADM.ren=ADM.ren===id?null:id;admList();return}
+  const r=ADM.rows.find(y=>y.player_id===id),nm=r?r.nick:'';
+  const run=async(action,val)=>{try{const res=await LB.sb.rpc('admin_set',{p_player:id,p_action:action,p_value:val||null});if(res.error)throw res.error;toast('🛠️ Erledigt',`${nm}: ${({ban:'gesperrt',unban:'entsperrt',clear:'Verdacht gelöscht',rename:'umbenannt',unlock:'Name freigegeben',reset:'Punkte zurückgesetzt',delete:'gelöscht'})[action]}`);ADM.ren=null;admLoad();LB.lastFetch=0}catch(e){toast('⚠️ Aktion fehlgeschlagen','Bist du noch als Admin eingetragen?')}};
+  if(x==='dorename'){const v=row.querySelector('.ren input').value.trim();if(v)run('rename',v);return}
+  if(x==='ban'||x==='delete'||x==='reset'){queueModal({emoji:x==='delete'?'🗑️':x==='ban'?'⛔':'↩️',title:x==='delete'?`${nm} löschen?`:x==='ban'?`${nm} sperren?`:`Punkte von ${nm} zurücksetzen?`,text:x==='delete'?'Der Eintrag verschwindet aus der Rangliste. Spielt die Person weiter, taucht sie mit null Punkten neu auf.':x==='ban'?'Die Person verschwindet aus der Rangliste und kann keine Punkte mehr eintragen, bis du sie entsperrst.':'Gesamtpunkte, Wochenpunkte und Produktion werden auf 0 gesetzt.',ok:'Ja',cancel:true,onOk:()=>run(x)});return}
+  run(x);
 }
 
 /* ---------- scene renderer ---------- */
