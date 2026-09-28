@@ -721,6 +721,31 @@ body.locked{overflow:hidden}
 @keyframes tent{50%{transform:skewX(6deg) scaleY(1.04)}}
 @media (prefers-reduced-motion: reduce){.mush svg,.tentacles{animation:none}.modal:not([hidden]) .card,.pane:not([hidden]),.row.flash,.row.flash .ico,.count.bump{animation:none}}
 @media (prefers-reduced-motion: reduce){.mush,.gold{animation:none}.spore{display:none}.float{animation-duration:.6s}}
+/* Fenster dürfen auf dem Handy schmaler werden (behebt überbreites Truhen-Fenster) */
+.modal>.card{min-width:0}
+/* ---------- boss-turm ---------- */
+.towerbar{margin-top:8px;justify-content:space-between}
+.towerbar .twm{color:var(--muted);font-weight:500;flex:1;text-align:left}
+.towerbar .twt{font-weight:600;font-size:.9rem}
+.tstack{display:flex;flex-direction:column;align-items:center;margin:8px auto 14px;width:min(100%,320px)}
+.tfl{display:grid;grid-template-columns:30px 34px 1fr;align-items:center;width:100%;padding:8px 12px;background:var(--surface2);border:2px solid var(--line);border-bottom-width:0;font-size:.76rem;color:var(--ink)}
+.tstack .tfl:first-child{border-radius:18px 18px 0 0}
+.tfl .tn{font-weight:700;font-size:1rem;font-variant-numeric:tabular-nums}
+.tfl .te{font-size:1.3rem;line-height:1}
+.tfl .tr{color:var(--muted);text-align:right}
+.tfl.done{opacity:.55}
+.tfl.guard:not(.cur){background:color-mix(in srgb,var(--amber) 18%,var(--surface2))}
+.tfl.cur{background:linear-gradient(90deg,#FFB23D,var(--pink));color:#fff;border-color:transparent;transform:scale(1.07);border-radius:12px;box-shadow:0 6px 18px rgba(214,69,126,.35);position:relative;z-index:1}
+.tfl.cur .tr{color:#fff}
+.tfl.cur+.tfl{border-top-color:transparent}
+.tbase{width:100%;text-align:center;padding:6px;border:2px solid var(--line);border-radius:0 0 18px 18px;background:var(--surface);font-size:1.3rem}
+.tbuy{display:grid;grid-template-columns:1fr;gap:6px;margin:0 0 12px}
+.tbuy button{border:0;border-radius:12px;padding:10px 4px;font-weight:700;font-size:.82rem;background:var(--ink);color:var(--surface);cursor:pointer}
+.tbuy button:disabled{opacity:.4;cursor:default}
+.tnote{font-size:.78rem;color:var(--muted);line-height:1.45;margin:0 0 10px}
+.tlist{margin-bottom:10px}
+.tlb{display:grid;grid-template-columns:34px 1fr auto;gap:8px;padding:7px 6px;border-bottom:1px solid var(--line);font-size:.86rem}
+.tlb.me{background:color-mix(in srgb,var(--glow) 14%,transparent);border-radius:10px}
 </style>
 </head>
 <body>
@@ -758,6 +783,7 @@ body.locked{overflow:hidden}
     </div>
     <div class="meter" aria-hidden="true"><i id="meter"></i></div>
     <button class="passbar" id="passBar" aria-label="Sporen-Pass öffnen"><span class="pl">⭐ Stufe <b id="pTier">0</b></span><span class="pbar"><i id="pFill"></i></span><span class="pdot" id="pDot">!</span></button>
+    <button class="passbar towerbar" id="towerBar" aria-label="Boss-Turm öffnen"><span class="pl">🗼 Boss-Turm</span><span class="twm">Etage <b id="twF">0</b></span><span class="twt" id="twT"></span></button>
     <div class="hint" id="hint">Tippe den Pilz an. Schnelles Tippen füllt den Sporenrausch.</div>
   </section>
 
@@ -857,6 +883,14 @@ body.locked{overflow:hidden}
     <h2 id="chT">🎁 Skin-Truhen</h2>
     <div id="chestBody" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
     <button class="primary" id="chestClose" style="margin-top:8px">Fertig</button>
+  </div>
+</div>
+<div class="modal" id="towerModal" hidden>
+  <div class="card wide skincard cmcard" role="dialog" aria-modal="true" aria-labelledby="twTitle">
+    <h2 id="twTitle">🗼 Boss-Turm</h2>
+    <div id="towerBody" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
+    <button class="primary" id="towerGo" style="margin-top:8px">Kämpfen</button>
+    <button class="ghost" id="towerClose">Schließen</button>
   </div>
 </div>
 <canvas id="fxc" aria-hidden="true"></canvas>
@@ -2301,17 +2335,17 @@ function roar(){tone(110,.7,'sawtooth',.07,0,.5);tone(82,.9,'square',.04,.1,.6);
 function sceneFx(cls,ms){const sc=$('scene');sc.classList.remove(cls);void sc.offsetWidth;sc.classList.add(cls);setTimeout(()=>sc.classList.remove(cls),ms)}
 function bossCenter(){if(!boss)return null;const r=boss.el.querySelector('.bbody').getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}
 function bossFloat(t,cls){const c=bossCenter();if(c)floatText(c[0],c[1]-40,t,cls||'crit')}
-function spawnBoss(){
-  const [e,n,pr]=BOSSES[dim()]||BOSSES.wald,sc=$('scene'),L=S.bossLvl||1;
-  const strip=document.createElement('div');strip.className='bstrip';strip.textContent='⚠️ BOSS-ALARM ⚠️';sc.appendChild(strip);setTimeout(()=>strip.remove(),1800);
+function spawnBoss(o){o=o||{};
+  const [e,n,pr]=o.def||BOSSES[dim()]||BOSSES.wald,sc=$('scene'),L=o.L||S.bossLvl||1;
+  const strip=document.createElement('div');strip.className='bstrip';strip.textContent=o.strip||'⚠️ BOSS-ALARM ⚠️';sc.appendChild(strip);setTimeout(()=>strip.remove(),1800);
   sceneFx('bflash',700);roar();buzz([60,40,60,40,120]);
   const bar=document.createElement('div');bar.className='bossbar';
-  bar.innerHTML=`<div class="r1"><span>${e} ${n}, Stufe ${L}</span><span class="cb"></span><span class="bt"></span></div><div class="hpw"><div class="gh"></div><div class="hp"></div><i style="left:60%"></i><i style="left:25%"></i></div><div class="tw"><b></b></div>`;
+  bar.innerHTML=`<div class="r1"><span>${o.title||`${e} ${n}, Stufe ${L}`}</span><span class="cb"></span><span class="bt"></span></div><div class="hpw"><div class="gh"></div><div class="hp"></div><i style="left:60%"></i><i style="left:25%"></i></div><div class="tw"><b></b></div>`;
   const el=document.createElement('div');el.className='boss2';
   el.innerHTML=`<div class="baura"></div><button class="bbody" aria-label="${n} angreifen">${e}</button>`;
   setTimeout(()=>{if(!boss||boss.el!==el)return;sc.appendChild(bar);sc.appendChild(el);const c=bossCenter();if(c){fxRing(c[0],c[1]+30,'#FFFFFF',120);fxBurst(c[0],c[1]+40,{n:16,kind:'puff',colors:['rgba(255,255,255,.8)','rgba(200,190,180,.7)'],speed:3,up:.5,g:-.02,size:4})}sceneFx('quake',500);tone(70,.5,'sine',.1,0,.4);buzz(80)},900);
-  const hp=bossHP(),t=now();
-  boss={el,bar,hp,max:hp,ghost:1,name:n,e,pr,L,introUntil:t+1700,end:t+1700+BOSS_TIME,dur:BOSS_TIME,nextAtk:t+3500,phase:1,combo:0,lastHit:0,vuln:0,shield:null,charge:null,stuns:0,dead:false};
+  const hp=o.hp||bossHP(),t=now(),DUR=o.dur||BOSS_TIME;
+  boss={el,bar,hp,max:hp,ghost:1,name:n,e,pr,L,introUntil:t+1700,end:t+1700+DUR,dur:DUR,tower:o.tower||0,nextAtk:t+3500,phase:1,combo:0,lastHit:0,vuln:0,shield:null,charge:null,stuns:0,dead:false};
   el.querySelector('.bbody').addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();if(!ev.isTrusted)return;hitBoss(ev.clientX,ev.clientY)});
 }
 function hitBoss(x,y){
@@ -2403,6 +2437,7 @@ function winBoss(){
     $('scene').appendChild(v);[523,659,784,1047,1319].forEach((f,i)=>tone(f,.35,'triangle',.08,.25+i*.12));
     setTimeout(()=>{v.remove();B0.el.remove();B0.bar.classList.add('out');setTimeout(()=>B0.bar.remove(),450)},2600);
   },750);
+  if(B0.tower){boss=null;towerWin(B0,stars);return}
   let sp=Math.max(rawSps()*300,tapBase()*240,600);const gm=Math.min(15,3+S.bossLvl);if(stars===3)sp*=1.5;
   if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),3000)}
   gain(sp);S.gems+=Math.round(gm*(1+curPow('gems')));S.bossWins++;S.bossLvl++;addXP(60);if(Math.random()<.35)setTimeout(()=>addKey('wood'),2200);if(S.bossWins%10===0)setTimeout(()=>addKey('silver'),2600);const dd=(S.bossWins%5===0?3:1)+(stars===3?1:0);S.dia+=dd;petXP(25);
@@ -2416,6 +2451,7 @@ function loseBoss(){
   const v=document.createElement('div');v.className='bvict';v.innerHTML=`<div><b style="font-size:1.7rem">Zu langsam!</b><small>${B0.name} ist entkommen</small></div>`;$('scene').appendChild(v);
   setTimeout(()=>{B0.el.classList.remove('laugh');B0.el.classList.add('flee');B0.bar.classList.add('out')},1000);
   setTimeout(()=>{v.remove();B0.el.remove();B0.bar.remove()},2200);
+  if(B0.tower){boss=null;towerLose(B0);return}
   toast(`${B0.e} ${B0.name} ist entkommen`,'Unterbrich Angriffe und zerschlag Schilde, dann klappt es');
   boss=null;nextBoss=cfgOn('bossrush')?now()+45000:now()+180000+Math.random()*120000;
 }
@@ -2439,7 +2475,7 @@ function stun(ms){
   floatText(m.left+m.width/2,m.top+m.height*.15,'💫 Autsch!','crit');
 }
 function updBoss(){
-  if(!boss){if(now()>=nextBoss){const ep=typeof evPhase==='function'?evPhase():'none';if(S.allTime>2000&&!document.hidden&&$('modal').hidden&&!['intro','meteors','boss','finale'].includes(ep))spawnBoss();else nextBoss=now()+30000}return}
+  if(!boss){if(now()>=nextBoss&&!TW.run){const ep=typeof evPhase==='function'?evPhase():'none';if(S.allTime>2000&&!document.hidden&&$('modal').hidden&&!['intro','meteors','boss','finale'].includes(ep))spawnBoss();else nextBoss=now()+30000}return}
   if(boss.dead)return;const t=now(),B=boss;
   const f=Math.max(0,B.hp/B.max);B.ghost=f<B.ghost?B.ghost+(f-B.ghost)*.05:f;
   if(B.bar.isConnected){B.bar.querySelector('.hp').style.width=(f*100)+'%';B.bar.querySelector('.gh').style.width=(B.ghost*100)+'%';
@@ -3487,6 +3523,115 @@ function frame(t){
   drawGarden(t);drawFx();
   requestAnimationFrame(frame);
 }
+/* =====================================================================
+   BOSS-TURM: jede Woche neu, Etage für Etage härtere Bosse, Online-Rangliste
+   ===================================================================== */
+function fmtLeft(ms){const m=Math.max(0,Math.floor(ms/6e4)),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=m%60;return d?`${d} T ${h} Std.`:h?`${h} Std. ${mi} Min.`:`${mi} Min.`}
+const TOWER={tries:3,tryGems:25,time:30,guardTime:40};
+const TW={run:false,fight:0,rows:null,me:null,status:'',busy:false,at:0};
+function towerWeek(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime()}
+function TS(){
+  S.tower=S.tower||{};const t=S.tower,wk=towerWeek(),d=today();
+  if(t.wk!==wk){t.wk=wk;t.floor=0}
+  if(t.day!==d){t.day=d;t.tries=TOWER.tries}
+  t.best=t.best||0;t.floor=t.floor||0;if(t.tries==null)t.tries=TOWER.tries;
+  return t;
+}
+const BLIST=Object.values(BOSSES);
+const isGuard=F=>F%10===0;
+function towerDef(F){return BLIST[(F-1)%BLIST.length]}
+function towerHP(F){return Math.round((40+10*F+Math.pow(F,1.5))*(isGuard(F)?1.3:1)*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
+function towerLoot(F){
+  const r={gems:Math.min(12,2+Math.floor(F/4))};
+  if(isGuard(F)){r.key='gold';r.dia=3}else if(F%5===0)r.key='silver';
+  return r;
+}
+function lootText(r){const p=[`${r.gems} 💠`];if(r.dia)p.push(`${r.dia} 💎`);if(r.key)p.push('🗝️ '+CHESTS.find(c=>c.id===r.key).n);return p.join(', ')}
+function towerEndsIn(){return fmtLeft(towerWeek()+7*864e5-Date.now())}
+
+function towerFight(F){
+  const t=TS();
+  if(boss){toast('⚔️ Erst den aktuellen Boss besiegen','Danach kannst du in den Turm');return}
+  const ep=typeof evPhase==='function'?evPhase():'none';
+  if(['intro','meteors','boss','finale'].includes(ep)){toast('🔴 Gerade läuft das Live-Event','Der Turm wartet auf dich');return}
+  if(t.tries<1){openTower();return}
+  t.tries--;save();
+  TW.run=true;TW.fight=F;
+  $('towerModal').hidden=true;document.body.classList.remove('locked');
+  const [e,n,pr]=towerDef(F),g=isGuard(F);
+  spawnBoss({def:[e,n,pr],L:F,hp:towerHP(F),dur:(g?TOWER.guardTime:TOWER.time)*1000,tower:F,
+    strip:g?`👑 TURMWÄCHTER, ETAGE ${F} 👑`:`🗼 ETAGE ${F} 🗼`,title:`🗼 ${F}: ${e} ${g?'Wächter ':''}${n}`});
+}
+function towerWin(B0,stars){
+  const t=TS(),F=B0.tower;t.tries++;
+  if(F>t.floor)t.floor=F;if(F>t.best)t.best=F;
+  const r=towerLoot(F);if(stars===3)r.dia=(r.dia||0)+1;
+  const sp=Math.max(rawSps()*120,tapBase()*100,300)*(stars===3?1.5:1);
+  gain(sp);S.gems+=Math.round(r.gems*(1+curPow('gems')));if(r.dia)S.dia+=r.dia;
+  S.bossWins++;S.towerWins=(S.towerWins||0)+1;addXP(40);petXP(15);
+  if(r.key){S.keys=S.keys||{};S.keys[r.key]=(S.keys[r.key]||0)+1}
+  save();towerSubmit();
+  nextBoss=Math.max(nextBoss,now()+90000);
+  setTimeout(()=>{
+    queueModal({emoji:isGuard(F)?'👑':'🗼',title:`Etage ${F} geschafft!`,
+      text:`Du bekommst ${fmt(sp)} Sporen und ${lootText(r)}.${F===t.best&&F>1?' Neuer Wochenrekord!':''} Weiter geht es mit Etage ${F+1}${isGuard(F+1)?', dort wartet ein Turmwächter':''}.`,
+      ok:`Weiter zu Etage ${F+1}`,cancel:true,cancelText:'Pause machen',
+      onOk:()=>setTimeout(()=>towerFight(F+1),400),onCancel:()=>{TW.run=false}});
+  },3300);
+}
+function towerLose(B0){
+  const t=TS(),F=B0.tower;
+  nextBoss=Math.max(nextBoss,now()+90000);
+  setTimeout(()=>{
+    TW.run=false;
+    queueModal({emoji:'💫',title:`Etage ${F} nicht geschafft`,
+      text:t.tries?`Du hast heute noch ${t.tries} ${t.tries===1?'Versuch':'Versuche'}. Tipp Angriffe weg, zerschlag Schilde und unterbrich das Aufladen, dann klappt es.`:'Deine Versuche für heute sind aufgebraucht. Morgen gibt es neue, oder du tauschst im Turm Juwelen gegen einen extra Versuch.',
+      ok:t.tries?'Nochmal versuchen':'Zum Turm',cancel:true,cancelText:'Später',
+      onOk:()=>t.tries?setTimeout(()=>towerFight(F),400):openTower()});
+  },2300);
+}
+
+/* ---------- Online-Rangliste ---------- */
+async function towerSubmit(){
+  if(!LB.sb||!LB.uid)return;
+  try{await LB.sb.rpc('submit_tower',{p_floor:TS().floor,p_nick:(S.nick||'').slice(0,20)||'Gärtner'});TW.at=0}catch(e){}
+}
+async function towerFetch(){
+  if(!LB.sb||TW.busy)return;TW.busy=true;TW.at=Date.now();
+  try{const r=await LB.sb.rpc('tower_board');if(r.error)throw r.error;TW.rows=r.data||[];TW.status=''}
+  catch(e){TW.status='Die Rangliste ließ sich nicht laden. Prüf deine Verbindung. Falls du sie noch nicht eingerichtet hast: tower-setup.sql in Supabase ausführen.'}
+  TW.busy=false;if(!$('towerModal').hidden)renderTower();
+}
+
+/* ---------- Turm-Fenster ---------- */
+function renderTower(){
+  const t=TS(),next=t.floor+1,b=$('towerBody');
+  const lo=Math.max(1,next-2),hi=lo+6;let fl='';
+  for(let F=hi;F>=lo;F--){const [e]=towerDef(F),done=F<=t.floor,cur=F===next,r=towerLoot(F);
+    fl+=`<div class="tfl${done?' done':''}${cur?' cur':''}${isGuard(F)?' guard':''}"><span class="tn">${F}</span><span class="te">${done?'✅':e}</span><span class="tr">${isGuard(F)?'👑 Wächter, ':''}${lootText(r)}</span></div>`}
+  let lb='';
+  if(!LB.on)lb='<p class="tnote">Die Rangliste braucht die Online-Verbindung.</p>';
+  else if(TW.status)lb=`<p class="tnote">${TW.status}</p>`;
+  else if(!TW.rows)lb='<p class="tnote">Rangliste wird geladen …</p>';
+  else if(!TW.rows.length)lb='<p class="tnote">Diese Woche war noch niemand im Turm. Sei die erste Person!</p>';
+  else lb=TW.rows.map(r=>`<div class="tlb${r.is_me?' me':''}"><span>${r.rank<=3?['🥇','🥈','🥉'][r.rank-1]:r.rank+'.'}</span><span>${esc(r.nick)}${r.is_me?' (du)':''}</span><b>🗼 ${r.floor}</b></div>`).join('');
+  b.innerHTML=`<div class="cmpills"><span>🗼 Etage ${t.floor}</span><span>🏆 Rekord ${t.best}</span><span>❤️ ${t.tries} ${t.tries===1?'Versuch':'Versuche'}</span></div>
+    <div class="cmscroll">
+    <div class="tstack">${fl}<div class="tbase">🍄</div></div>
+    <p class="tnote">Jede Etage ist ein Boss in ${TOWER.time} Sekunden, jede zehnte ein Turmwächter. Ein Sieg kostet nichts, nur Niederlagen verbrauchen einen Versuch. Du bekommst ${TOWER.tries} Versuche pro Tag. Am Montag beginnt der Turm neu, und alle Belohnungen gibt es wieder.</p>
+    ${t.tries?'':`<div class="tbuy"><button id="twGem" ${S.gems<TOWER.tryGems?'disabled':''}>+1 Versuch für ${TOWER.tryGems} 💠</button></div>`}
+    <h3 class="sh">🌍 Rangliste dieser Woche</h3><div class="tlist">${lb}</div>
+    <p class="tnote">Neuer Turm in ${towerEndsIn()}.</p></div>`;
+  const g=$('twGem');if(g)g.onclick=()=>{if(S.gems<TOWER.tryGems)return;S.gems-=TOWER.tryGems;TS().tries++;save();sfx.gold();render();renderTower()};
+  const go=$('towerGo');go.textContent=t.tries?`Etage ${next} kämpfen`:'Keine Versuche mehr heute';go.disabled=!t.tries;
+}
+function openTower(){ensureAudio();TS();renderTower();$('towerModal').hidden=false;document.body.classList.add('locked');if(LB.sb&&Date.now()-TW.at>15000)towerSubmit().then(towerFetch)}
+function updTowerBar(){const t=TS();$('twF').textContent=t.floor;$('twT').textContent='❤️ '+t.tries}
+$('towerBar').onclick=openTower;
+$('towerGo').onclick=()=>{ensureAudio();towerFight(TS().floor+1)};
+$('towerClose').onclick=()=>{$('towerModal').hidden=true;document.body.classList.remove('locked')};
+setInterval(updTowerBar,2000);updTowerBar();
+
 updMute();applySkin();updDimBtn();checkPassSeason();gResize();
 if(!S.introSeen){S.introSeen=true;queueModal({emoji:'🍄',title:'Willkommen im Pilzgarten',text:'Tippe den Pilz an, um Sporen zu sammeln, und kauf Züchter, die für dich weitersammeln. Fang Goldpilze und Glühwürmchen, verscheuch Schnecken und schau jeden Tag für deinen Tagesbonus vorbei.',ok:'Los geht\'s'})}
 offline();checkDaily();fillQuests();updPhase();render();requestAnimationFrame(frame);setTimeout(gResize,300);
