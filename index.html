@@ -1121,9 +1121,9 @@ function spawnGold(){
 }
 function collectGold(x,y){
   ensureAudio();S.golden++;addXP(25);if(Math.random()<.35){S.gems+=2;toast('💠 +2 Juwelen','Im Goldpilz versteckt')}fxBurst(x,y,{n:30,colors:['#FFD84A','#FFF2A8','#FFB23D'],star:true,speed:7});fxRing(x,y,'#FFD84A',90);sfx.gold();buzz([20,30,20]);const dur=has('g1')?2:1,r=Math.random();
-  if(r<0.3){const amt=Math.max(rawSps()*120,tapBase()*40,77);gain(amt);toast('🟡 Sporenregen!',`+${fmt(amt)} Sporen`);floatText(x,y,'+'+fmt(amt),'crit')}
-  else if(r<0.58){buffs.frenzy=now()+30000*dur;toast('🟡 Pilzrausch!',`7-fache Produktion für ${30*dur} Sekunden`)}
-  else if(r<0.78){buffs.tap=now()+12000*dur;toast('🟡 Tippsturm!',`Jeder Tipp zählt 50-fach für ${12*dur} Sekunden`)}
+  const fr=dim()==='frost'?2:1;if(r<0.3){const amt=Math.max(rawSps()*120,tapBase()*40,77)*fr;gain(amt);toast('🟡 Sporenregen!',`+${fmt(amt)} Sporen`);floatText(x,y,'+'+fmt(amt),'crit')}
+  else if(r<0.58){buffs.frenzy=now()+30000*dur*(fr>1?1.5:1);toast('🟡 Pilzrausch!',`7-fache Produktion für ${Math.round(30*dur*(fr>1?1.5:1))} Sekunden`)}
+  else if(r<0.78){buffs.tap=now()+12000*dur*(fr>1?1.5:1);toast('🟡 Tippsturm!',`Jeder Tipp zählt 50-fach für ${Math.round(12*dur*(fr>1?1.5:1))} Sekunden`)}
   else{toast('🐝 Goldschwarm!','Fang so viele Goldsporen wie möglich');swarm(10+(dur-1)*6)}
 }
 function swarm(n){
@@ -1329,15 +1329,17 @@ const DIMS=[
   {id:'lava',name:'Lavawelt',e:'🌋',bonus:'Jeder Tipp bringt 3-fach.',day:['#5A1208','#F06A22'],night:['#2A0804','#A83212'],ground:['#3A2226','#1A0E10'],chip:'#FFD2BF'},
   {id:'wolken',name:'Wolkenreich',e:'☁️',bonus:'Goldpilze erscheinen doppelt so oft.',day:['#5FAEFF','#FFE4F2'],night:['#28306E','#8E70C0'],ground:['#FFFFFF','#DCE6FA'],chip:'#E3F0FF'},
   {id:'tiefsee',name:'Tiefsee',e:'🫧',bonus:'Produktion ×1,5 und keine Schnecken.',day:['#1E88B8','#062A4E'],night:['#0C4A70','#021426'],ground:['#E8D29A','#B89A5C'],chip:'#C6ECF7'},
-  {id:'kosmos',name:'Kosmos',e:'🌌',bonus:'Produktion ×2, aber keine Goldpilze.',day:['#0E0826','#35186A'],night:['#06030F','#1E0C42'],ground:['#6E6A86','#34304A'],chip:'#E1D6FF'}
+  {id:'kosmos',name:'Kosmos',e:'🌌',bonus:'Produktion ×2, aber keine Goldpilze.',day:['#0E0826','#35186A'],night:['#06030F','#1E0C42'],ground:['#6E6A86','#34304A'],chip:'#E1D6FF'},
+  {id:'frost',name:'Frostgipfel',e:'🏔️',bonus:'Goldpilze bringen doppelt so viel und halten länger, aber es regnet nie.',day:['#8CCBFF','#EAF6FF'],night:['#0B1634','#2A3F7A'],ground:['#FFFFFF','#CFE2F5'],chip:'#E4F2FF'},
+  {id:'neon',name:'Neonstadt',e:'🌆',bonus:'Auto-Tipps zählen 3-fach, aber hier gibt es kein Wetter.',day:['#2A1050','#E0508E'],night:['#07031A','#3A1060'],ground:['#1E1838','#0A0818'],chip:'#F0D6FF'}
 ];
 const dim=()=>S.dim||'wald';
 const curDim=()=>DIMS.find(x=>x.id===dim())||DIMS[0];
 function updDimBtn(){const d=curDim();$('dimBtn').textContent=d.e+' '+d.name}
 function openDims(){
   $('dimBtn').classList.remove('new');
-  $('dimList').innerHTML=DIMS.map(d=>{const on=S.dims.includes(d.id),cur=dim()===d.id,t=passTierFor('dim',d.id);
-    return `<button class="row ${on?'':'poor'}" data-d="${d.id}" ${on?'':'disabled'}><span class="ico" style="background:${d.chip}">${on?d.e:'🔒'}</span><span class="info"><strong>${d.name}${cur?' (du bist hier)':''}</strong><small>${on?d.bonus:'Freischalten mit Pass-Stufe '+t+'. '+d.bonus}</small></span></button>`}).join('');
+  $('dimList').innerHTML=DIMS.map(d=>{const on=S.dims.includes(d.id),cur=dim()===d.id,t=passTierFor('dim',d.id),pt=premTierFor('dim',d.id);
+    return `<button class="row ${on?'':'poor'}" data-d="${d.id}" ${on?'':'disabled'}><span class="ico" style="background:${d.chip}">${on?d.e:'🔒'}</span><span class="info"><strong>${d.name}${cur?' (du bist hier)':''}</strong><small>${on?d.bonus:(t?'Freischalten mit Pass-Stufe '+t:pt?'Nur im Premium-Pass, Stufe '+pt:'')+'. '+d.bonus}</small></span></button>`}).join('');
   $('dimList').querySelectorAll('.row').forEach(b=>b.addEventListener('click',()=>travel(b.dataset.d)));
   $('dimModal').hidden=false;
 }
@@ -1361,36 +1363,52 @@ $('dimModal').addEventListener('click',e=>{if(e.target.id==='dimModal')$('dimMod
 
 /* ---------- battle pass ---------- */
 const PASS=[null,
-  {t:'sp',s:60},{t:'skin',id:'cool'},{t:'gems',n:10},{t:'gold'},{t:'dim',id:'kristall'},
-  {t:'skin',id:'ninja'},{t:'gems',n:15},{t:'seed',n:1},{t:'skin',id:'kaktus'},{t:'skin',id:'koenig'},
-  {t:'gems',n:20},{t:'dim',id:'lava'},{t:'skin',id:'engel'},{t:'frenzy',s:60},{t:'skin',id:'teufel'},
-  {t:'seed',n:2},{t:'skin',id:'wolke'},{t:'dim',id:'wolken'},{t:'gems',n:25},{t:'skin',id:'flamme'},
-  {t:'skin',id:'kuerbis'},{t:'seed',n:2},{t:'skin',id:'eis'},{t:'dim',id:'tiefsee'},{t:'skin',id:'cyber'},
-  {t:'gems',n:30},{t:'seed',n:3},{t:'skin',id:'regen'},{t:'skin',id:'drache'},{t:'dim',id:'kosmos'}
+  {t:'sp',s:60},{t:'skin',id:'cool'},{t:'gold'},{t:'sp',s:120},{t:'rush'},
+  {t:'skin',id:'ninja'},{t:'petxp',n:30},{t:'seed',n:1},{t:'sp',s:180},{t:'dim',id:'kristall'},
+  {t:'frenzy',s:30},{t:'skin',id:'kaktus'},{t:'tap'},{t:'sp',s:300},{t:'skin',id:'koenig'},
+  {t:'gold'},{t:'petxp',n:50},{t:'seed',n:1},{t:'sp',s:400},{t:'skin',id:'engel'},
+  {t:'rush'},{t:'dim',id:'lava'},{t:'sp',s:500},{t:'skin',id:'teufel'},{t:'frenzy',s:60},
+  {t:'gold'},{t:'skin',id:'wolke'},{t:'seed',n:2},{t:'petxp',n:80},{t:'skin',id:'flamme'},
+  {t:'sp',s:700},{t:'dim',id:'wolken'},{t:'tap'},{t:'skin',id:'kuerbis'},{t:'sp',s:900},
+  {t:'rush'},{t:'skin',id:'eis'},{t:'seed',n:2},{t:'frenzy',s:60},{t:'skin',id:'cyber'},
+  {t:'sp',s:1200},{t:'dim',id:'tiefsee'},{t:'petxp',n:120},{t:'gold'},{t:'skin',id:'regen'},
+  {t:'sp',s:1500},{t:'tap'},{t:'seed',n:3},{t:'frenzy',s:90},{t:'skin',id:'drache'},
+  {t:'sp',s:2000},{t:'dim',id:'frost'},{t:'rush'},{t:'petxp',n:200},{t:'sp',s:3000},
+  {t:'gold'},{t:'frenzy',s:120},{t:'seed',n:3},{t:'sp',s:5000},{t:'dim',id:'kosmos'}
 ];
 const PASSP=[null,
-  {t:'gems',n:20},{t:'skin',id:'glibber'},{t:'bot',n:1},{t:'sp',s:600},{t:'skin',id:'pirat'},
-  {t:'gems',n:20},{t:'skin',id:'qualli'},{t:'seed',n:2},{t:'bot',n:1},{t:'skin',id:'robo'},
-  {t:'gems',n:20},{t:'skin',id:'zylinder'},{t:'frenzy',s:120},{t:'skin',id:'juwel'},{t:'seed',n:3},
-  {t:'bot',n:2},{t:'skin',id:'geist'},{t:'gems',n:30},{t:'skin',id:'planet'},{t:'skin',id:'lavaglibber'},
-  {t:'seed',n:3},{t:'bot',n:2},{t:'skin',id:'goldrobo'},{t:'gems',n:30},{t:'skin',id:'sternqualle'},
-  {t:'seed',n:5},{t:'bot',n:3},{t:'gems',n:40},{t:'skin',id:'kronjuwel'},{t:'skin',id:'aurora'}
+  {t:'gems',n:20},{t:'skin',id:'glibber'},{t:'bot',n:1},{t:'sp',s:600},{t:'gems',n:15},
+  {t:'skin',id:'pirat'},{t:'seed',n:2},{t:'gems',n:15},{t:'bot',n:1},{t:'skin',id:'qualli'},
+  {t:'frenzy',s:120},{t:'gems',n:20},{t:'sp',s:1200},{t:'skin',id:'robo'},{t:'dia',n:1},
+  {t:'bot',n:1},{t:'gems',n:20},{t:'skin',id:'zylinder'},{t:'seed',n:3},{t:'gems',n:20},
+  {t:'petxp',n:150},{t:'skin',id:'juwel'},{t:'bot',n:2},{t:'gems',n:25},{t:'dia',n:2},
+  {t:'skin',id:'geist'},{t:'sp',s:3000},{t:'gems',n:25},{t:'seed',n:3},{t:'skin',id:'planet'},
+  {t:'bot',n:2},{t:'gems',n:25},{t:'frenzy',s:180},{t:'skin',id:'lavaglibber'},{t:'dia',n:2},
+  {t:'gems',n:30},{t:'petxp',n:250},{t:'skin',id:'goldrobo'},{t:'bot',n:2},{t:'gems',n:30},
+  {t:'seed',n:4},{t:'skin',id:'sternqualle'},{t:'dia',n:3},{t:'gems',n:30},{t:'sp',s:6000},
+  {t:'bot',n:3},{t:'skin',id:'kronjuwel'},{t:'gems',n:35},{t:'seed',n:5},{t:'dia',n:3},
+  {t:'petxp',n:400},{t:'gems',n:35},{t:'bot',n:3},{t:'sp',s:10000},{t:'dim',id:'neon'},
+  {t:'gems',n:40},{t:'seed',n:6},{t:'dia',n:5},{t:'gems',n:50},{t:'skin',id:'aurora'}
 ];
-const MAXT=30,SEASON_MS=14*864e5,PASS_EPOCH=Date.UTC(2026,0,5),PREM_COST=150;
+const MAXT=60,SEASON_MS=28*864e5,PASS_EPOCH=Date.UTC(2026,0,5),PREM_COST=150,BONUS_XP=800;
 function passTierFor(type,id){for(let i=1;i<=MAXT;i++)if(PASS[i].t===type&&PASS[i].id===id)return i;return 0}
 function premTierFor(type,id){for(let i=1;i<=MAXT;i++)if(PASSP[i].t===type&&PASSP[i].id===id)return i;return 0}
 function passSeasonIdx(){return Math.floor((Date.now()-PASS_EPOCH)/SEASON_MS)}
 const isPrem=()=>S.premSeason===passSeasonIdx();
 function passEndsIn(){const end=PASS_EPOCH+(passSeasonIdx()+1)*SEASON_MS,ms=end-Date.now(),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);return d>0?`${d} T ${h} Std`:`${h} Std ${Math.floor(ms%36e5/6e4)} Min`}
-function tierCost(t){return 50+t*8}
+function tierCost(t){return 80+t*14}
 function tierInfo(){let xp=S.xp,t=0;while(t<MAXT&&xp>=tierCost(t)){xp-=tierCost(t);t++}
-  if(t>=MAXT){const b=Math.floor(xp/400);return {tier:MAXT,bonus:b,into:xp-b*400,need:400}}
+  if(t>=MAXT){const b=Math.floor(xp/BONUS_XP);return {tier:MAXT,bonus:b,into:xp-b*BONUS_XP,need:BONUS_XP}}
   return {tier:t,bonus:0,into:xp,need:tierCost(t)}}
 function addXP(n){const b=tierInfo();S.xp+=n*(isPrem()?1.25:1);const a=tierInfo();
   if(a.tier>b.tier||a.bonus>b.bonus){sfx.ach();buzz([20,40,20]);confetti();jump();toast(a.tier>b.tier?`⭐ Pass-Stufe ${a.tier} erreicht!`:'⭐ Bonusstufe erreicht!','Tippe auf den Pass, um die Belohnung abzuholen')}}
 function addGems(n,why){S.gems+=n;if(why)toast(`💠 +${n} Juwelen`,why)}
 function claimable(){const ti=tierInfo();let n=0;for(let i=1;i<=ti.tier;i++){if(!S.claimed.includes(i))n++;if(isPrem()&&!S.pclaimed.includes(i))n++}return n+Math.max(0,ti.bonus-S.bonusClaimed)}
-function checkPassSeason(){const i=passSeasonIdx();if(S.passSeason!==i){const had=S.passSeason!==null;S.passSeason=i;S.xp=0;S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;
+function checkPassSeason(){
+  if(S.passVer!==2){const oldIdx=Math.floor((Date.now()-PASS_EPOCH)/(14*864e5)),hadPrem=S.premSeason===oldIdx,had=S.passSeason!==null;
+    S.passVer=2;S.passSeason=passSeasonIdx();S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;if(hadPrem)S.premSeason=S.passSeason;
+    if(had)queueModal({emoji:'⭐',title:'Der Pass wurde erneuert!',text:`Der Sporen-Pass hat jetzt 60 Stufen und läuft 28 Tage. Deine XP bleiben erhalten, und alle Belohnungen kannst du neu abholen.${hadPrem?' Dein Premium-Pass bleibt aktiv.':''}`,ok:'Ansehen',onOk:()=>openPass()});return}
+  const i=passSeasonIdx();if(S.passSeason!==i){const had=S.passSeason!==null;S.passSeason=i;S.xp=0;S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;
   if(had)queueModal({emoji:'⭐',title:'Neue Pass-Saison!',text:'Der Sporen-Pass beginnt von vorn. Alle Figuren und Dimensionen, die du schon hast, behältst du.',ok:'Weiter'})}}
 function rewardInfo(r,p){
   switch(r.t){
@@ -1402,6 +1420,10 @@ function rewardInfo(r,p){
     case 'frenzy':return ['🔥',`${r.s} s Pilzrausch`];
     case 'gems':return ['💠',`${r.n} Juwelen`];
     case 'bot':return ['🤖',`Auto-Tipper +${r.n}/s`];
+    case 'dia':return ['💎',`${r.n} ${r.n===1?'Diamant':'Diamanten'}`];
+    case 'rush':return ['💫','Sporenrausch sofort'];
+    case 'tap':return ['👆','Tippsturm (12 s ×50)'];
+    case 'petxp':return ['🐾',`${r.n} Begleiter-XP`];
   }
 }
 function spAmount(sec){return Math.max(rawSps()*sec,tapBase()*sec*.5,sec*2)}
@@ -1415,6 +1437,10 @@ function grant(r){
     case 'frenzy':buffs.frenzy=Math.max(now(),buffs.frenzy)+r.s*1000;toast('🔥 Pilzrausch!',`7-fache Produktion für ${r.s} Sekunden`);break;
     case 'gems':addGems(r.n,'Aus dem Pass');break;
     case 'bot':S.bots+=r.n;toast('🤖 Auto-Tipper',`Tippt jetzt ${S.bots}-mal pro Sekunde für dich`);break;
+    case 'dia':S.dia+=r.n;toast('💎 Diamanten',`+${r.n}`);break;
+    case 'rush':startRush();break;
+    case 'tap':buffs.tap=Math.max(now(),buffs.tap)+12000;toast('👆 Tippsturm!','Jeder Tipp zählt 50-fach für 12 Sekunden');break;
+    case 'petxp':if(S.pet){petXP(r.n);toast('🐾 Begleiter-XP',`+${r.n} für ${PETS.find(x=>x.id===S.pet).name}`)}else{const a=spAmount(300);gain(a);toast('🐾 Kein Begleiter dabei',`Dafür +${fmt(a)} Sporen`)}break;
   }
 }
 function claimTier(i,prem){const list=prem?S.pclaimed:S.claimed;if(list.includes(i)||tierInfo().tier<i||(prem&&!isPrem()))return;list.push(i);grant((prem?PASSP:PASS)[i]);sfx.gold()}
@@ -1422,7 +1448,7 @@ function claimBonus(){const ti=tierInfo();if(ti.bonus<=S.bonusClaimed)return;S.b
 function buyPremium(){
   if(isPrem())return;
   if(S.gems<PREM_COST){toast('💠 Nicht genug Juwelen',`Du brauchst ${PREM_COST}, hast aber ${S.gems}`);return}
-  queueModal({emoji:'👑',title:'Premium-Pass freischalten?',text:`Für ${PREM_COST} Juwelen bekommst du in dieser Saison 30 zusätzliche Belohnungen, darunter exklusive Figuren, Auto-Tipper und über 150 Juwelen zurück. Außerdem gibt es 25 % mehr XP.`,ok:'Freischalten',cancel:true,onOk:()=>{
+  queueModal({emoji:'👑',title:'Premium-Pass freischalten?',text:`Für ${PREM_COST} Juwelen bekommst du in dieser Saison 60 zusätzliche Belohnungen, darunter exklusive Figuren, die Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Außerdem gibt es 25 % mehr XP.`,ok:'Freischalten',cancel:true,onOk:()=>{
     if(S.gems<PREM_COST)return;S.gems-=PREM_COST;S.premSeason=passSeasonIdx();save();confetti(true);sfx.ach();toast('👑 Premium-Pass aktiv!','Hol dir jetzt alle freigeschalteten Premium-Belohnungen');renderPass();$('passModal').hidden=false;
   }});
   $('passModal').hidden=true;
@@ -1435,10 +1461,10 @@ function cellHTML(r,i,prem,reached,claimed){
 }
 function renderPass(scroll){
   const ti=tierInfo(),pr=isPrem();
-  $('premBox').innerHTML=pr?`<div class="prem on"><h3>👑 Premium-Pass aktiv</h3><p style="margin:0">25 % mehr XP und alle Premium-Belohnungen in dieser Saison.</p></div>`
-    :`<div class="prem"><h3>👑 Premium-Pass</h3><p>30 Extra-Belohnungen: exklusive Figuren wie Glibber, Qualli, Robo und Sternenqualle, Auto-Tipper, Sternensamen und über 150 Juwelen zurück. Juwelen verdienst du durch Aufgaben, Erfolge, Goldpilze, den Tagesbonus und den Gratis-Pass.</p><button id="buyPrem" ${S.gems>=PREM_COST?'':'disabled'}>Freischalten für ${PREM_COST} 💠 (du hast ${S.gems})</button></div>`;
+  $('premBox').innerHTML=pr?`<div class="prem on"><h3>👑 Premium-Pass aktiv</h3><p style="margin:0">25 % mehr XP und alle 60 Premium-Belohnungen in dieser Saison.</p></div>`
+    :`<div class="prem"><h3>👑 Premium-Pass</h3><p>60 Extra-Belohnungen: exklusive Figuren wie Glibber, Qualli, Robo und Sternenqualle, die Dimension Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Juwelen und Diamanten gibt es nur im Premium-Pass, nicht im Gratis-Pass. Juwelen verdienst du durch Aufgaben, Erfolge, Bosse, Goldpilze und den Tagesbonus.</p><button id="buyPrem" ${S.gems>=PREM_COST?'':'disabled'}>Freischalten für ${PREM_COST} 💠 (du hast ${S.gems})</button></div>`;
   const bp=$('buyPrem');if(bp)bp.onclick=buyPremium;
-  $('paTier').textContent=ti.tier>=MAXT?`Stufe 30, Bonus ${ti.bonus}`:`Stufe ${ti.tier} von ${MAXT}`;
+  $('paTier').textContent=ti.tier>=MAXT?`Stufe ${MAXT}, Bonus ${ti.bonus}`:`Stufe ${ti.tier} von ${MAXT}`;
   $('paEnd').textContent='Saison endet in '+passEndsIn();
   $('paFill').style.width=(ti.into/ti.need*100)+'%';
   $('paXp').textContent=`${Math.floor(ti.into)} von ${ti.need} XP bis zur nächsten Stufe. XP gibt es fürs Tippen, Kaufen, Aufgaben, Goldpilze, Schnecken, Glühwürmchen, Erfolge und den Tagesbonus.`;
@@ -1447,7 +1473,7 @@ function renderPass(scroll){
   for(let i=1;i<=MAXT;i++){const reached=ti.tier>=i;
     h+=`<div class="tier2 ${reached?'reached':''} ${i===ti.tier+1?'cur':''}" id="tier${i}"><span class="tn">${i}</span>${cellHTML(PASS[i],i,false,reached,S.claimed.includes(i))}${cellHTML(PASSP[i],i,true,reached,S.pclaimed.includes(i))}</div>`}
   const bc=Math.max(0,ti.bonus-S.bonusClaimed);
-  h+=`<div class="tier ${ti.tier>=MAXT?'reached':''}"><span class="tn">∞</span><span class="ico">⭐</span><span class="info"><strong>Bonusstufen</strong><small>Alle 400 XP nach Stufe 30: Sporen, vielleicht ein Sternensamen und mit Premium 5 Juwelen</small></span>${bc?`<button class="claim" data-b="1">Abholen (${bc})</button>`:''}</div>`;
+  h+=`<div class="tier ${ti.tier>=MAXT?'reached':''}"><span class="tn">∞</span><span class="ico">⭐</span><span class="info"><strong>Bonusstufen</strong><small>Alle 800 XP nach Stufe 60: Sporen, vielleicht ein Sternensamen und mit Premium 5 Juwelen und 1 Diamant</small></span>${bc?`<button class="claim" data-b="1">Abholen (${bc})</button>`:''}</div>`;
   $('tiers').innerHTML=h;
   $('tiers').querySelectorAll('button[data-t],button[data-b]').forEach(b=>b.addEventListener('click',e=>{
     if(b.dataset.b)claimBonus();else claimTier(+b.dataset.t,b.dataset.p==='1');
@@ -1713,7 +1739,7 @@ function petTick(dt){
 }
 
 /* ---------- bosses ---------- */
-const BOSSES={wald:['🐌','Riesenschnecke','🟢'],kristall:['🦂','Kristallskorpion','💎'],lava:['🦎','Glutechse','🔥'],wolken:['🦅','Sturmadler','🌪️'],tiefsee:['🦑','Tiefseekrake','💧'],kosmos:['👾','Sternenfresser','☄️']};
+const BOSSES={wald:['🐌','Riesenschnecke','🟢'],kristall:['🦂','Kristallskorpion','💎'],lava:['🦎','Glutechse','🔥'],wolken:['🦅','Sturmadler','🌪️'],tiefsee:['🦑','Tiefseekrake','💧'],kosmos:['👾','Sternenfresser','☄️'],frost:['⛄','Schneekoloss','❄️'],neon:['🤖','Neon-Mech','⚡']};
 let boss=null,nextBoss=now()+90000,stunUntil=0,chargeTaps=0;
 function bossHP(){return Math.round((30+12*(S.bossLvl||1))*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
 function spawnBoss(){
@@ -1783,7 +1809,8 @@ const WX={regen:{e:'🌧️',n:'Regen',d:'Produktion ×1,5'},gewitter:{e:'⛈️
 let wx={type:null,until:0},nextWx=now()+150000,bolts=[],shooters=[],rainbowUntil=0;
 function startWx(){
   let type=isNight()&&Math.random()<.6?'sterne':(Math.random()<.5?'regen':'gewitter');
-  if(dim()==='kosmos')type='sterne';
+  if(dim()==='kosmos'||dim()==='frost')type='sterne';
+  if(type==='sterne'&&!isNight()&&dim()==='frost'){nextWx=now()+60000;return}
   wx={type,until:now()+50000};toast(`${WX[type].e} ${WX[type].n}`,WX[type].d);
   if(type==='gewitter')tone(60,1.2,'sawtooth',.05,0,.6);
 }
@@ -1792,7 +1819,7 @@ function endWx(){
   wx={type:null,until:0};bolts=[];shooters=[];nextWx=now()+200000+Math.random()*120000;
 }
 function updWx(dt){
-  if(!wx.type){if(now()>=nextWx){if(S.allTime>1000&&!document.hidden&&dim()!=='tiefsee')startWx();else nextWx=now()+60000}return}
+  if(!wx.type){if(now()>=nextWx){if(S.allTime>1000&&!document.hidden&&dim()!=='tiefsee'&&dim()!=='neon')startWx();else nextWx=now()+60000}return}
   if(now()>=wx.until){endWx();return}
   const t=performance.now();
   if(wx.type==='gewitter'&&Math.random()<dt*.7){const x=gw*(.08+Math.random()*.84);bolts.push({x,y:groundY(x)-8,t0:t,seed:Math.random()*1000,hit:false});tone(70,.5,'sawtooth',.05,0,.5);buzz(12)}
@@ -1920,6 +1947,20 @@ function buildBg(){
     const px=gw*.8,py=gh*.24,pr=Math.min(gw,gh)*.09;const pg=c.createRadialGradient(px-pr*.4,py-pr*.4,2,px,py,pr);pg.addColorStop(0,'#FFD0F0');pg.addColorStop(1,'#8A3AD0');c.fillStyle=pg;c.beginPath();c.arc(px,py,pr,0,7);c.fill();
     c.strokeStyle='rgba(255,230,180,.8)';c.lineWidth=3;c.beginPath();c.ellipse(px,py,pr*1.8,pr*.45,-.35,0,7);c.stroke();
   }
+  if(D.id==='frost'){
+    const mt=(base,amp,step,seed,col)=>{c.fillStyle=col;c.beginPath();c.moveTo(0,gh);let x=0,i=0;const pk=[];c.lineTo(0,base);while(x<=gw+step){const y=base-amp*(.45+sr(seed+i)*.55);c.lineTo(x,y);pk.push([x,y]);x+=step*(.7+sr(seed+i+50)*.6);i++;c.lineTo(x,base-amp*.1*sr(seed+i))}c.lineTo(gw,gh);c.fill();
+      c.fillStyle='rgba(255,255,255,.95)';pk.forEach(([px,py])=>{c.beginPath();c.moveTo(px,py);c.lineTo(px-14,py+18);c.lineTo(px-5,py+14);c.lineTo(px,py+20);c.lineTo(px+6,py+13);c.lineTo(px+14,py+18);c.closePath();c.fill()})};
+    mt(gh*.6,gh*.34,90,21,'rgba(120,150,200,.55)');mt(gh*.74,gh*.24,70,33,'rgba(90,120,175,.75)');
+    for(let i=0;i<9;i++){const x=sr(i+700)*gw,b=groundY(x)+2,h=26+sr(i+710)*26,w=h*.42;c.fillStyle='#2E5A5A';c.beginPath();c.moveTo(x,b-h);c.lineTo(x-w,b);c.lineTo(x+w,b);c.fill();c.fillStyle='#FFFFFF';c.beginPath();c.moveTo(x,b-h);c.lineTo(x-w*.45,b-h*.55);c.lineTo(x+w*.45,b-h*.55);c.fill()}
+  }
+  if(D.id==='neon'){
+    const cols=['#FF3DF2','#39F5FF','#FFD84A','#7CFF6B'];
+    for(let layer=0;layer<2;layer++){let x=-10;const baseY=gh*(layer?.84:.8);while(x<gw+10){const w=24+sr(x+layer*99)*38,h=gh*(.2+sr(x*1.3+layer)*.45)*(layer?1:.8);
+      c.fillStyle=layer?'#140F2A':'rgba(40,24,80,.85)';c.fillRect(x,baseY-h,w,h+40);
+      if(layer){for(let wy=baseY-h+6;wy<baseY-6;wy+=9)for(let wx=x+4;wx<x+w-5;wx+=7)if(sr(wx*7+wy)>.55){c.fillStyle=sr(wx+wy*3)>.8?'#FFE7A0':'rgba(120,200,255,.55)';c.fillRect(wx,wy,3,4)}}
+      x+=w+2}}
+    for(let i=0;i<5;i++){const x=sr(i+800)*gw*.9,y=gh*(.35+sr(i+810)*.3),col=cols[i%4];c.save();c.shadowColor=col;c.shadowBlur=12;c.strokeStyle=col;c.lineWidth=2.5;c.strokeRect(x,y,26+sr(i)*20,10);c.restore()}
+  }
   const gg=c.createLinearGradient(0,gh*.78,0,gh);gg.addColorStop(0,D.ground[0]);gg.addColorStop(1,D.ground[1]);c.fillStyle=gg;groundPath(c,0);c.fill();
   c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=2;c.beginPath();for(let x=0;x<=gw;x+=8)x?c.lineTo(x,groundY(x)):c.moveTo(x,groundY(x));c.stroke();
   if(D.id==='kosmos'){c.fillStyle='rgba(0,0,0,.2)';for(let i=0;i<10;i++){const x=sr(i+400)*gw;c.beginPath();c.ellipse(x,groundY(x)+10+sr(i)*20,10+sr(i+1)*12,4,0,0,7);c.fill()}}
@@ -1939,11 +1980,17 @@ function drawGarden(tt){
       if(D.id==='wolken'){g.save();g.translate(cx,cy);g.rotate(t*.0002);g.fillStyle='rgba(255,240,180,.18)';for(let i=0;i<10;i++){g.rotate(Math.PI/5);g.beginPath();g.moveTo(0,0);g.lineTo(gw,-30);g.lineTo(gw,30);g.fill()}g.restore()}}
     else{g.fillStyle='#FFF4D2';g.beginPath();g.arc(cx,cy,14,0,7);g.fill();g.fillStyle=mix(D.day[0],D.night[0],na);g.beginPath();g.arc(cx+6,cy-4,12,0,7);g.fill()}
   }
+  if(D.id==='frost'&&na>.2){g.save();g.globalCompositeOperation='lighter';for(let b=0;b<3;b++){const lg=g.createLinearGradient(0,0,0,gh*.5);const cc=['rgba(80,255,170,','rgba(120,160,255,','rgba(200,120,255,'][b];lg.addColorStop(0,cc+'0)');lg.addColorStop(.5,cc+(.22*na)+')');lg.addColorStop(1,cc+'0)');g.fillStyle=lg;g.beginPath();g.moveTo(0,gh*.1+b*14);
+    for(let x=0;x<=gw;x+=12)g.lineTo(x,gh*(.12+b*.05)+Math.sin(x*.02+t*.0008+b)*18);for(let x=gw;x>=0;x-=12)g.lineTo(x,gh*(.34+b*.05)+Math.sin(x*.018+t*.0006+b*2)*22);g.fill()}g.restore()}
   if(D.id==='tiefsee'){g.save();g.globalCompositeOperation='lighter';for(let i=0;i<5;i++){const x=gw*(.1+i*.2)+Math.sin(t*.0004+i)*30;const lg=g.createLinearGradient(x,0,x+40,gh);lg.addColorStop(0,'rgba(180,240,255,.18)');lg.addColorStop(1,'rgba(180,240,255,0)');g.fillStyle=lg;g.beginPath();g.moveTo(x-15,0);g.lineTo(x+15,0);g.lineTo(x+70,gh);g.lineTo(x+10,gh);g.fill()}g.restore()}
   if(D.id==='wolken'){g.fillStyle='rgba(255,255,255,.8)';for(let i=0;i<5;i++){const x=((t*.02*(1+sr(i+700)))+sr(i+710)*gw)%(gw+160)-80,y=gh*(.12+sr(i+720)*.3);g.beginPath();g.ellipse(x,y,34,12,0,0,7);g.ellipse(x+20,y-8,20,12,0,0,7);g.ellipse(x-18,y-4,16,10,0,0,7);g.fill()}}
   g.drawImage(bgc,0,0,gw,gh);
   if(D.id==='kosmos'){for(let i=0;i<30;i++){g.globalAlpha=Math.abs(Math.sin(t*.002+i*1.7));g.fillStyle='#fff';g.beginPath();g.arc(sr(i+900)*gw,sr(i+950)*gh*.7,1.4,0,7);g.fill()}g.globalAlpha=1;
     const sc=(t*.00025)%3;if(sc<1){const x=gw*(1.1-sc*1.3),y=gh*(.05+sc*.3);const lg=g.createLinearGradient(x,y,x+60,y-20);lg.addColorStop(0,'rgba(255,255,255,.95)');lg.addColorStop(1,'rgba(255,255,255,0)');g.strokeStyle=lg;g.lineWidth=2;g.beginPath();g.moveTo(x,y);g.lineTo(x+60,y-20);g.stroke()}}
+  if(D.id==='frost'){g.fillStyle='rgba(255,255,255,.9)';for(let i=0;i<60;i++){const sp=.02+sr(i+900)*.03,y=(sr(i+910)*gh+t*sp)%gh,x=(sr(i+920)*gw+Math.sin(t*.001+i)*14+gw)%gw;g.beginPath();g.arc(x,y,1+sr(i)*1.8,0,7);g.fill()}}
+  if(D.id==='neon'){const cols=['#FF3DF2','#39F5FF','#FFD84A'];for(let i=0;i<5;i++){const x=sr(i+800)*gw*.9,y=gh*(.35+sr(i+810)*.3);if(Math.sin(t*.004*(1+i*.3)+i*7)>.92){g.fillStyle='rgba(10,5,30,.7)';g.fillRect(x-2,y-2,30+sr(i)*20,14)}}
+    for(let i=0;i<4;i++){const dir=i%2?1:-1,x=((t*.08*(1+i*.4)+i*140)%(gw+80))-40,xx=dir>0?x:gw-x,y=gh*(.18+i*.08);const lg=g.createLinearGradient(xx,y,xx-dir*40,y);const col=cols[i%3];lg.addColorStop(0,col);lg.addColorStop(1,'rgba(0,0,0,0)');g.strokeStyle=lg;g.lineWidth=2;g.beginPath();g.moveTo(xx,y);g.lineTo(xx-dir*40,y);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(xx,y,2,0,7);g.fill()}
+    g.strokeStyle='rgba(255,61,242,.25)';g.lineWidth=1;for(let i=0;i<6;i++){const y=gh*.9+i*6;g.beginPath();g.moveTo(0,y);g.lineTo(gw,y);g.stroke()}}
   if(D.id==='kristall'){for(let i=0;i<24;i++){const x=sr(i+500)*gw+Math.sin(t*.0008+i)*10,y=gh*(.15+sr(i+510)*.65)-((t*.01*(1+sr(i)))%40);g.globalAlpha=.3+.5*Math.abs(Math.sin(t*.003+i));g.fillStyle=['#C8F4FF','#E4C8FF','#B8FFF0'][i%3];g.beginPath();g.arc(x,y,1.5+sr(i+520)*1.5,0,7);g.fill()}g.globalAlpha=1}
   if(D.id==='lava'){const lg=g.createLinearGradient(0,gh*.93,0,gh);lg.addColorStop(0,'#FF9A2A');lg.addColorStop(1,'#FF3A10');g.fillStyle=lg;g.beginPath();g.moveTo(0,gh);for(let x=0;x<=gw;x+=10)g.lineTo(x,gh*.94+Math.sin(x*.05+t*.003)*3);g.lineTo(gw,gh);g.fill();
     for(let i=0;i<22;i++){const cyc=(t*.05*(.6+sr(i+530))+sr(i+540)*gh)%gh,x=sr(i+550)*gw+Math.sin(t*.002+i)*14,y=gh-cyc;g.globalAlpha=Math.max(0,1-cyc/gh);g.fillStyle=i%3?'#FFB23D':'#FF5A1F';g.beginPath();g.arc(x,y,1.2+sr(i+560)*2,0,7);g.fill()}g.globalAlpha=1}
@@ -2093,7 +2140,7 @@ let lastT=performance.now(),uiAcc=0,achAcc=0,saveAcc=0,botAcc=0,disp=S.spores,bu
 function frame(t){
   const dt=Math.min((t-lastT)/1000,1);lastT=t;
   gain(sps()*dt);S.playSec+=dt;
-  if(S.bots||S.pet==='biene'||now()<buffs.swarm){botAcc+=(S.bots+(S.pet==='biene'?2*petPf():0)+(now()<buffs.swarm?15:0))*dt;while(botAcc>=1){botAcc--;const v=tapBase();gain(v);S.taps++;if(!reduced&&Math.random()<.5){const r=mush.getBoundingClientRect();fxBurst(r.left+r.width*(.3+Math.random()*.4),r.top+r.height*.3,{n:3,colors:['#39F5FF','#FFFFFF'],speed:2,size:2})}}}
+  if(S.bots||S.pet==='biene'||now()<buffs.swarm){botAcc+=(S.bots+(S.pet==='biene'?2*petPf():0)+(now()<buffs.swarm?15:0))*(dim()==='neon'?3:1)*dt;while(botAcc>=1){botAcc--;const v=tapBase();gain(v);S.taps++;if(!reduced&&Math.random()<.5){const r=mush.getBoundingClientRect();fxBurst(r.left+r.width*(.3+Math.random()*.4),r.top+r.height*.3,{n:3,colors:['#39F5FF','#FFFFFF'],speed:2,size:2})}}}
   {const diff=S.spores-disp;if(diff>disp*.08+50&&now()-bumpAt>400){const c=$('count');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');bumpAt=now()}
    disp=Math.abs(diff)<1?S.spores:disp+diff*Math.min(1,dt*12);$('count').textContent=fmt(Math.max(0,disp))}
   if(now()>=buffs.rush){meter=Math.max(0,meter-dt*.22);mush.classList.remove('rush')}
