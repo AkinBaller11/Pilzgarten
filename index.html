@@ -75,7 +75,20 @@ button{font:inherit;color:inherit}
 .scene{position:relative;height:clamp(290px,50vh,400px);margin-top:6px;border-radius:30px;overflow:hidden;box-shadow:0 14px 40px rgba(30,20,80,.28),inset 0 0 0 1px rgba(255,255,255,.12);isolation:isolate}
 .mush svg{transform-origin:50% 100%;animation:idle 3.2s ease-in-out infinite}
 @keyframes idle{50%{transform:scale(1.025,.975)}}
-#garden{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#garden{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transform-origin:50% 70%;transition:transform 2.6s cubic-bezier(.4,0,.2,1)}
+.scene.zoomcam #garden{transform:scale(1.2)}
+.scene.pancam #garden{animation:pancam 9s ease-in-out forwards}
+.scene.fastpan #garden{animation:pancam 1.8s ease-in-out 4 alternate}
+@keyframes pancam{0%{transform:scale(1.22) translateX(-7%)}100%{transform:scale(1.22) translateX(7%)}}
+.scene.cinezoom .mush svg{animation:none;transform:scale(1.06);transition:transform 2s}
+.cinefx{position:absolute;inset:0;z-index:6;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 52%,rgba(0,0,0,.6));animation:cfin .8s ease-out}
+.cinefx::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);animation:grain .35s steps(2) infinite}
+.cinefx.out{transition:opacity .8s;opacity:0}
+@keyframes cfin{from{opacity:0}}
+@keyframes grain{50%{transform:translateY(1px)}}
+.cinerec{position:absolute;left:12px;bottom:12%;z-index:8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.08em;pointer-events:none;text-shadow:0 1px 4px #000;opacity:.85}
+.cinerec i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF2A4A;margin-right:5px;animation:rbpulse 1s infinite;vertical-align:.05em}
+@media (prefers-reduced-motion: reduce){.scene.zoomcam #garden,.scene.pancam #garden,.scene.fastpan #garden{transform:none;animation:none}}
 .mush{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);background:none;border:0;padding:0;cursor:pointer;
   width:min(56vw,250px);touch-action:manipulation;user-select:none;-webkit-user-select:none;
   filter:drop-shadow(0 0 22px color-mix(in srgb,var(--glow) 55%,transparent));animation:breathe 3.6s ease-in-out infinite}
@@ -932,6 +945,7 @@ function tapBase(){
   if(now()<buffs.tap)v*=50;
   if(now()<buffs.rush)v*=rushPow();
   if(S.pet==='biene')v*=1+.1*petPf();
+  if(cineOn())v*=2;
   if(dim()==='lava')v*=3;
   return v;
 }
@@ -2502,6 +2516,69 @@ async function admAct(id,x,row){
   run(x);
 }
 
+/* ---------- cinematics in der Neonstadt ---------- */
+const CINE={
+  regen:{n:'Neonregen',dur:9500,t:['Neonstadt, 02:14 Uhr','Es regnet Licht'],cam:'zoomcam'},
+  drohnen:{n:'Überflug',dur:9000,t:['Überflug','Die Stadt schläft nie'],cam:'pancam'},
+  blackout:{n:'Stromausfall',dur:8500,t:['Stromausfall!','Tipp weiter, die Lichter kommen zurück'],cam:'zoomcam'},
+  holo:{n:'Werbepause',dur:9500,t:['Werbepause','Pilzgarten, jetzt auch in Neon'],cam:'zoomcam'},
+  jagd:{n:'Verfolgungsjagd',dur:7500,t:['Verfolgungsjagd','Halt dich fest!'],cam:'fastpan'}
+};
+let cine=null,nextCine=performance.now()+20000,cineLastType='',cars=[];
+const cineOn=()=>!!cine&&performance.now()<cine.end;
+function cineAllowed(){const ep=evPhase();return dim()==='neon'&&!boss&&!document.hidden&&$('modal').hidden&&!['intro','meteors','boss','finale','reward'].includes(ep)&&!document.querySelector('.rbrev')}
+function cineStart(){
+  const types=Object.keys(CINE).filter(k=>k!==cineLastType),type=types[Math.floor(Math.random()*types.length)],C=CINE[type],t=performance.now(),sc=$('scene');
+  cineLastType=type;cine={type,start:t,end:t+C.dur,flag:{}};
+  if(!sc.querySelector('.lbx'))['t','b'].forEach(c=>{const d=document.createElement('div');d.className='lbx '+c+' cinebar';sc.appendChild(d)});
+  const fx=document.createElement('div');fx.className='cinefx';sc.appendChild(fx);
+  const rec=document.createElement('div');rec.className='cinerec';rec.innerHTML='<i></i>REC';sc.appendChild(rec);
+  sc.classList.add('cine','cinezoom');if(!reduced)sc.classList.add(C.cam);
+  setTimeout(()=>evTitle(C.t[0],C.t[1]),500);
+  if(MUS.bus&&actx&&MUS.on&&type!=='blackout')MUS.bus.gain.setTargetAtTime(musVol()*.6,actx.currentTime,.5);
+  if(type==='regen'){tone(220,2.5,'sine',.04,0,.9);tone(330,2.5,'sine',.03,.4,.9)}
+  if(type==='drohnen'){tone(180,1.5,'sawtooth',.03,0,1.3);tone(240,1.5,'sawtooth',.02,.3,1.2)}
+  if(type==='blackout'){tone(440,1.2,'sawtooth',.06,0,.15);if(MUS.bus&&actx&&MUS.on)MUS.bus.gain.setTargetAtTime(.0001,actx.currentTime,.4);buzz([40,80,40])}
+  if(type==='holo'){[660,880,990].forEach((f,i)=>tone(f,.25,'square',.03,i*.12,1))}
+  if(type==='jagd'){cars=[];for(let i=0;i<5;i++)setTimeout(()=>{tone(700,.5,'sawtooth',.04,0,.3);buzz(20)},i*1200+300)}
+}
+function cineEnd(){
+  const sc=$('scene'),C=CINE[cine.type];sc.classList.remove('zoomcam','pancam','fastpan','cinezoom');
+  const ep=evPhase();if(!['intro','meteors','boss','finale'].includes(ep)){sc.classList.remove('cine');setTimeout(()=>sc.querySelectorAll('.cinebar').forEach(e=>e.remove()),900)}
+  sc.querySelectorAll('.cinefx').forEach(e=>{e.classList.add('out');setTimeout(()=>e.remove(),850)});sc.querySelectorAll('.cinerec').forEach(e=>e.remove());
+  if(MUS.bus&&actx&&MUS.on)MUS.bus.gain.setTargetAtTime(musVol(),actx.currentTime,.6);
+  cine=null;cars=[];nextCine=performance.now()+40000+Math.random()*30000;
+}
+function cineTick(){
+  const t=performance.now();
+  if(cine){if(t>=cine.end||dim()!=='neon'||boss)cineEnd();return}
+  if(dim()!=='neon'){nextCine=Math.max(nextCine,t+20000);return}
+  if(t>=nextCine){if(cineAllowed())cineStart();else nextCine=t+10000}
+}
+function drawCine(){
+  if(!cine)return;const t=performance.now(),C=CINE[cine.type],pr=Math.min(1,(t-cine.start)/C.dur),F=cine.flag;
+  if(cine.type==='regen'){g.strokeStyle='rgba(160,230,255,.55)';g.lineWidth=1.2;g.beginPath();for(let i=0;i<80;i++){const sp=.7+sr(i+3000)*.5,y=(sr(i+3100)*gh+t*sp)%(gh+30)-15,x=(sr(i+3200)*gw-y*.25+gw*2)%gw;g.moveTo(x,y);g.lineTo(x-4,y+16)}g.stroke();
+    for(let i=0;i<10;i++){const x=sr(i+3300)*gw,c=['255,61,242','57,245,255','255,216,74'][i%3],a=.2+.15*Math.sin(t*.004+i);const lg=g.createLinearGradient(0,gh*.86,0,gh);lg.addColorStop(0,`rgba(${c},${a})`);lg.addColorStop(1,`rgba(${c},0)`);g.fillStyle=lg;g.fillRect(x-3+Math.sin(t*.003+i)*2,gh*.86,6,gh*.14)}}
+  if(cine.type==='drohnen'){g.save();g.globalCompositeOperation='lighter';for(let i=0;i<3;i++){const ox=gw*(.2+i*.3),ang=Math.sin(t*.0009+i*2)*.5,len=gh*1.1;const lg=g.createLinearGradient(ox,0,ox+Math.sin(ang)*len,len);lg.addColorStop(0,'rgba(255,255,255,.28)');lg.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=lg;g.beginPath();g.moveTo(ox-3,0);g.lineTo(ox+3,0);g.lineTo(ox+Math.sin(ang)*len+50,len);g.lineTo(ox+Math.sin(ang)*len-50,len);g.fill()}g.restore();
+    for(let i=0;i<4;i++){const x=((t*.06*(1+i*.25)+i*90)%(gw+60))-30,y=gh*(.12+i*.07)+Math.sin(t*.003+i)*6;g.fillStyle='#222';g.fillRect(x-7,y-2,14,4);g.fillStyle=Math.sin(t*.02+i)>0?'#FF2A4A':'#FFFFFF';g.beginPath();g.arc(x+8,y,2,0,7);g.fill();g.fillStyle='#39F5FF';g.beginPath();g.arc(x-8,y,1.6,0,7);g.fill()}}
+  if(cine.type==='blackout'){let a=0;if(pr<.3)a=Math.random()<.45?.85:0;else if(pr<.55)a=.9;
+    if(pr>=.55&&!F.on){F.on=1;const r=$('scene').getBoundingClientRect();tone(55,.6,'sine',.12,0,.5);tone(110,.4,'square',.05,.05,.5);buzz([80,40,120]);if(MUS.bus&&actx&&MUS.on)MUS.bus.gain.setTargetAtTime(musVol(),actx.currentTime,.05);
+      for(let i=0;i<6;i++)setTimeout(()=>confetti(false,r.left+r.width*(.1+Math.random()*.8),r.top+r.height*(.2+Math.random()*.4),['#FF3DF2','#39F5FF','#FFD84A','#7CFF6B']),i*120);evTitle('Strom ist zurück!','Die Stadt leuchtet wieder')}
+    if(a){g.fillStyle=`rgba(3,2,10,${a})`;g.fillRect(0,0,gw,gh)}
+    if(pr>=.55){const q=Math.min(1,(pr-.55)/.25),sx=gw*q;g.fillStyle=`rgba(3,2,10,${.88*(1-q)})`;g.fillRect(0,0,gw,gh);g.fillStyle='rgba(3,2,10,.85)';if(q<1)g.fillRect(sx,0,gw-sx,gh);if(q<1){g.fillStyle='rgba(255,255,255,.6)';g.fillRect(sx-2,0,3,gh)}}}
+  if(cine.type==='holo'){const ap=pr<.1?pr/.1:pr>.9?(1-pr)/.1:1,fl=Math.random()<.06?.3:1,x0=gw*.16,y0=gh*.1,w=gw*.68,h=gh*.34,gx=Math.random()<.08?(Math.random()-.5)*10:0;
+    g.save();g.globalAlpha=ap*fl;g.translate(gx,0);g.fillStyle='rgba(57,245,255,.1)';g.fillRect(x0,y0,w,h);g.strokeStyle='rgba(57,245,255,.8)';g.lineWidth=2;g.strokeRect(x0,y0,w,h);
+    g.strokeStyle='rgba(57,245,255,.18)';g.lineWidth=1;for(let y=y0;y<y0+h;y+=4){g.beginPath();g.moveTo(x0,y);g.lineTo(x0+w,y);g.stroke()}
+    const by=y0+((t*.08)%h);g.fillStyle='rgba(200,255,255,.25)';g.fillRect(x0,by,w,6);
+    const mx=x0+w*.2,my=y0+h*.55;g.strokeStyle='#FF3DF2';g.lineWidth=3;g.beginPath();g.arc(mx,my,h*.22,Math.PI,0);g.closePath();g.stroke();g.beginPath();g.moveTo(mx-6,my);g.lineTo(mx-8,my+h*.25);g.lineTo(mx+8,my+h*.25);g.lineTo(mx+6,my);g.stroke();
+    g.font=`800 ${Math.round(h*.2)}px system-ui,sans-serif`;g.textAlign='left';g.textBaseline='middle';const tx=x0+w*.38,ty=y0+h*.45;
+    g.fillStyle='rgba(255,61,90,.7)';g.fillText('PILZGARTEN',tx+2,ty);g.fillStyle='rgba(57,245,255,.7)';g.fillText('PILZGARTEN',tx-2,ty);g.fillStyle='#FFFFFF';g.fillText('PILZGARTEN',tx,ty);
+    g.font=`600 ${Math.round(h*.1)}px system-ui,sans-serif`;g.fillStyle='rgba(255,216,74,.9)';g.fillText('Jetzt noch mehr Sporen',tx,ty+h*.22);g.textBaseline='bottom';g.textAlign='center';g.restore()}
+  if(cine.type==='jagd'){if(Math.random()<.18)cars.push({lane:Math.floor(Math.random()*5),dir:Math.random()<.5?1:-1,x:0,sp:(.5+Math.random()*.5)*gw/600,col:['#FF3DF2','#39F5FF','#FFD84A','#FF4B4B','#7CFF6B'][Math.floor(Math.random()*5)],born:t});
+    cars.forEach(c=>{const age=t-c.born,x=c.dir>0?-40+age*c.sp:gw+40-age*c.sp,y=gh*(.2+c.lane*.12);c.x=x;const lg=g.createLinearGradient(x,y,x-c.dir*120,y);lg.addColorStop(0,c.col);lg.addColorStop(1,'rgba(0,0,0,0)');g.strokeStyle=lg;g.lineWidth=4;g.lineCap='round';g.beginPath();g.moveTo(x,y);g.lineTo(x-c.dir*120,y);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(x,y,3,0,7);g.fill()});
+    cars=cars.filter(c=>c.x>-200&&c.x<gw+200);if(Math.random()<.04){const sc=$('scene');sc.classList.remove('quake');void sc.offsetWidth;sc.classList.add('quake');setTimeout(()=>sc.classList.remove('quake'),300)}}
+}
+
 /* ---------- scene renderer ---------- */
 const gc=$('garden'),g=gc.getContext('2d');let gw=0,gh=0,gdpr=1;
 const bgc=document.createElement('canvas');let bgKey='';
@@ -2631,7 +2708,7 @@ function drawGarden(tt){
   for(let i=0;i<ngh;i++){g.globalAlpha=.35+.25*Math.sin(t*.0015+i);g.fillText('👻',gw*(.15+.3*i)+Math.sin(t*.0007+i)*30,gh*(.35+.1*i)+Math.sin(t*.002+i)*8)}
   g.globalAlpha=1;
   const sh=g.createRadialGradient(gw/2,groundY(gw/2)+2,4,gw/2,groundY(gw/2)+2,gw*.2);sh.addColorStop(0,'rgba(0,0,0,.25)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(gw/2,groundY(gw/2)+4,gw*.2,10,0,0,7);g.fill();
-  drawWeather(tt);drawEvent(tt);
+  drawWeather(tt);drawEvent(tt);drawCine();
   if(now()<buffs.rush){g.fillStyle=`rgba(255,80,180,${.08+.06*Math.sin(t*.01)})`;g.fillRect(0,0,gw,gh)}
 }
 
@@ -2715,6 +2792,7 @@ function render(){
   if(wx.type)bf.push(['',`${WX[wx.type].e} ${WX[wx.type].n}: ${WX[wx.type].d} ${Math.ceil((wx.until-now())/1000)} s`]);
   if(now()<buffs.swarm)bf.push(['',`🐝 Bienenschwarm ${Math.ceil((buffs.swarm-now())/1000)} s`]);
   if(now()<buffs.dragon)bf.push(['pink',`🐲 Feueratem ×3 ${Math.ceil((buffs.dragon-now())/1000)} s`]);
+  if(cineOn())bf.push(['pink',`🎬 ${CINE[cine.type].n}: Tipps ×2 noch ${Math.ceil((cine.end-performance.now())/1000)} s`]);
   if(chargeTaps>0)bf.push(['pink',`⚡ Aufgeladen ×5, noch ${chargeTaps} Tipps`]);
   if(now()<buffs.tap)bf.push(['',`Tippsturm ${Math.ceil((buffs.tap-now())/1000)} s`]);
   if((S.rbEarn||0)>=rbNeed())bf.unshift(['rbb','🔄 Wiedergeburt bereit!']);
@@ -2755,7 +2833,7 @@ function frame(t){
   if(uiAcc>0.1){uiAcc=0;render()}
   if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();if(MUS.on)musicTheme();if((S.rbEarn||0)>=rbNeed()&&!S.rbNotified){S.rbNotified=true;save();showRbBanner()}updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
   if(saveAcc>8){saveAcc=0;save()}
-  updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);evTick(dt);
+  updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);evTick(dt);cineTick();
   auraAcc+=dt;if(auraAcc>.22){auraAcc=0;if($('skinModal').hidden&&$('passModal').hidden)auraTick()}
   drawGarden(t);drawFx();
   requestAnimationFrame(frame);
