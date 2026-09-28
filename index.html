@@ -1244,25 +1244,34 @@ function updAch(){
 }
 
 /* ---------- season ---------- */
-function potential(){return Math.floor(Math.sqrt(S.season/1e6))}
+/* Neue Saison: wird mit jeder Saison schwerer */
+function seasonNeed(){return 1e8*Math.pow(5,S.seasons||0)}
+function seasonBld(){return Math.min(300,50+25*(S.seasons||0))}
+function seasonReady(){return S.season>=seasonNeed()&&tot(S)>=seasonBld()}
+function potential(){if(!seasonReady())return 0;return Math.floor(Math.sqrt(S.season/seasonNeed()))}
 let sKey='';
 function updSeason(){
-  const p=potential(),next=Math.pow(p+1,2)*1e6;
+  const need=seasonNeed(),bn=seasonBld(),p=potential(),next=Math.pow(Math.max(1,p)+ (p?1:0),2)*need,t=tot(S);
   $('tabS').classList.toggle('has',p>=Math.max(1,S.seeds*0.5));
   if($('p-s').hidden)return;
-  const key=p+'|'+S.seeds+'|'+Math.floor(S.season/Math.max(1,next/50))+'|'+(S.rb||0)+'|'+Math.floor(Math.min(1,(S.rbEarn||0)/rbNeed())*50);
+  const pr1=Math.min(1,S.season/need),pr2=Math.min(1,t/bn);
+  const key=p+'|'+S.seeds+'|'+Math.floor(pr1*50)+'|'+Math.floor(pr2*50)+'|'+Math.floor(S.season/Math.max(1,next/50))+'|'+(S.rb||0)+'|'+Math.floor(Math.min(1,(S.rbEarn||0)/rbNeed())*50);
   if(key===sKey)return;sKey=key;
-  $('p-s').innerHTML=rbHTML()+`<h3>Neue Saison</h3>
-    <p>Starte deinen Garten neu und nimm Sternensamen mit. Jeder Samen erhöht deine Produktion für immer um 10 %. Erfolge bleiben erhalten.</p>
+  const bar=(v)=>`<div class="xpbar"><i style="width:${(v*100).toFixed(1)}%"></i></div>`;
+  $('p-s').innerHTML=rbHTML()+`<h3>Neue Saison${S.seasons?` (Saison ${S.seasons+1})`:''}</h3>
+    <p>Starte deinen Garten neu und nimm Sternensamen mit. Jeder Samen erhöht deine Produktion für immer um 10 %. Erfolge bleiben erhalten. Mit jeder Saison werden die Anforderungen höher.</p>
     <p>Du hast <b>${S.seeds}</b> Sternensamen, das sind +${S.seeds*10} % Produktion.</p>
+    <p style="margin-bottom:4px"><b>${pr1>=1?'✅':'⏳'} ${fmt(need)} Sporen in dieser Saison</b><br><span style="color:var(--muted)">${fmt(S.season)} von ${fmt(need)}</span></p>${bar(pr1)}
+    <p style="margin-bottom:4px"><b>${pr2>=1?'✅':'⏳'} ${bn} Züchter besitzen</b><br><span style="color:var(--muted)">${t} von ${bn}</span></p>${bar(pr2)}
     <p>Bei einem Neustart jetzt bekommst du:<br><span class="big">🌱 ${p}</span></p>
-    <p style="color:var(--muted)">Nächster Samen bei ${fmt(next)} Sporen in dieser Saison (gerade ${fmt(S.season)}).</p>
-    <button class="primary" id="prestige" ${p<1?'disabled':''}>Neue Saison starten</button>`;
+    ${p?`<p style="color:var(--muted)">Nächster Samen bei ${fmt(next)} Sporen in dieser Saison.</p>`:''}
+    <button class="primary" id="prestige" ${p<1?'disabled':''}>${p<1?'Noch nicht bereit':'Neue Saison starten'}</button>`;
   const rbo=$('rbOpen');if(rbo)rbo.onclick=openRebirth;
   const btn=$('prestige');
   if(btn)btn.addEventListener('click',()=>{
     const pp=potential();if(pp<1)return;
-    queueModal({emoji:'🌅',title:'Neue Saison starten?',text:`Sporen, Züchter und Upgrades werden zurückgesetzt. Du bekommst dafür ${pp} Sternensamen (+${pp*10} % Produktion für immer).`,ok:'Neu starten',cancel:true,onOk:()=>{
+    queueModal({emoji:'🌅',title:'Neue Saison starten?',text:`Sporen, Züchter und Upgrades werden zurückgesetzt. Du bekommst dafür ${pp} Sternensamen (+${pp*10} % Produktion für immer). Die nächste Saison braucht ${fmt(1e8*Math.pow(5,(S.seasons||0)+1))} Sporen und ${Math.min(300,50+25*((S.seasons||0)+1))} Züchter.`,ok:'Neu starten',cancel:true,onOk:()=>{
+      if(potential()<1)return;
       S.seeds+=pp;S.seasons++;S.spores=0;S.season=0;S.owned={};S.up=[];S.quests=[];
       bVisible=-1;uKey='';sKey='';qKey='';save();render();sfx.ach();toast('🌅 Eine neue Saison beginnt',`+${pp} Sternensamen`);
     }});
