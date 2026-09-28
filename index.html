@@ -1107,7 +1107,7 @@ function updPassBar(){const ti=tierInfo();$('pTier').textContent=ti.tier+(isPrem
 /* ---------- leaderboard (Supabase mit Schummelschutz) ---------- */
 /* Trage hier die Daten deines Supabase-Projekts ein (Project Settings > API):
    url = Project URL, key = anon public key. */
-const LEADERBOARD={url:'',key:''};
+const LEADERBOARD={url:'https://yrbohhkvmjhfbigtjujc.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyYm9oaGt2bWpoZmJpZ3RqdWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1OTE0MTYsImV4cCI6MjEwNjE2NzQxNn0.B81VusTeV3H_tPAoVMra0CrtYW_8KUzN6rt8agK3fS0'};
 const SB_SRC='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js';
 const LB={on:false,sb:null,uid:null,rows:[],status:'loading',msg:'',lastWrite:0,writing:false,myRank:null,myScore:0,lastFetch:0};
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
