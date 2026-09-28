@@ -222,6 +222,104 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.cmcard{max-height:min(92vh,820px)!important}
+.cmpills{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:0 0 8px}
+.cmpills span{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600}
+.cmtabs{display:flex;gap:6px;margin:0 0 8px}.cmtabs button{flex:1;border:1px solid var(--line);background:none;border-radius:12px;padding:8px;font-weight:600;cursor:pointer;color:var(--muted)}
+.cmtabs button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.cmscroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 8px}
+.pitybar{margin:0 0 10px;font-size:.78rem;color:var(--muted);text-align:center}
+.pitybar .xpbar{height:8px;margin:4px 0 0}
+.cm{border-radius:20px;padding:12px;margin-bottom:10px;border:2px solid var(--line);background:var(--surface2);position:relative;overflow:hidden}
+.cm::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,var(--cg,transparent),transparent 60%);opacity:.35;pointer-events:none}
+.cm.wood{--cg:#E0B070;border-color:#B07A45}.cm.silver{--cg:#DFF0FF;border-color:#AAB4C8}.cm.gold{--cg:#FFD84A;border-color:#E0A82A}.cm.crystal{--cg:#C8A0FF;border-color:#9A6AFF}
+.cm .top3{display:flex;gap:10px;align-items:center;position:relative}
+.cm .cmimg{width:96px;flex:none;animation:cmbob 2.4s ease-in-out infinite}
+.cm .cmimg svg{width:100%;height:auto;display:block;overflow:visible}
+@keyframes cmbob{50%{transform:translateY(-5px) rotate(-2deg)}}
+.cm .cmt{flex:1;min-width:0}.cm .cmt b{font-size:1.05rem;display:block}
+.cm .kc{display:inline-block;font-size:.72rem;font-weight:700;background:#FFD84A;color:#2A1A05;border-radius:999px;padding:0 7px;margin-top:2px}
+.obar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:6px 0 4px;background:var(--line)}
+.olist{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:.72rem}
+.olist span b{font-weight:800}
+.pool{display:flex;gap:4px;overflow-x:auto;padding:8px 0 4px;margin:0 -2px;position:relative}
+.pool button{flex:none;width:42px;height:42px;border-radius:12px;border:2px solid;background:var(--surface);padding:2px;position:relative;cursor:pointer}
+.pool button svg{width:100%;height:100%;display:block}
+.pool button.no svg{filter:grayscale(1) brightness(.6);opacity:.55}
+.pool button i{position:absolute;right:-3px;bottom:-3px;font-style:normal;font-size:.6rem;font-weight:800;background:var(--ink);color:var(--surface);border-radius:999px;padding:0 4px}
+.cmbtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;position:relative}
+.cmbtns button{border:0;border-radius:12px;padding:10px 4px;font-weight:700;font-size:.8rem;cursor:pointer;background:var(--ink);color:var(--surface)}
+.cmbtns button.key{background:linear-gradient(120deg,#FFD84A,#FF9A3A);color:#2A1A05}
+.cmbtns button small{display:block;font-weight:500;font-size:.68rem;opacity:.8}
+.cmbtns button:disabled{opacity:.35;cursor:default}
+.invrow{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:14px;margin-bottom:6px;background:var(--surface2)}
+.invrow .th{width:48px;height:48px;border-radius:12px;border:2px solid;flex:none;background:var(--surface);padding:2px}.invrow .th svg{width:100%;height:100%;display:block}
+.invrow .nf{flex:1;min-width:0;font-size:.82rem;line-height:1.3}.invrow .nf b{font-size:.92rem}.invrow .nf small{color:var(--muted);display:block}
+.invrow .cnt{font-weight:800;font-size:1rem;min-width:34px;text-align:center}
+.invrow button{border:0;border-radius:10px;padding:7px 9px;font-weight:700;font-size:.72rem;cursor:pointer;background:var(--ink);color:var(--surface)}
+.invrow button:disabled{opacity:.3}
+.sellall{width:100%;border:0;border-radius:14px;padding:12px;font-weight:800;cursor:pointer;background:linear-gradient(120deg,#1FA89A,#5B8CFF);color:#fff;margin-bottom:10px}
+.sellall:disabled{opacity:.4}
+/* ===== Truhen-Animation ===== */
+.co{position:fixed;inset:0;z-index:49;background:radial-gradient(circle at 50% 42%,#241c4a,#05030f 75%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;--rc:#fff;--lv:0;animation:mfade .3s}
+.co-bg{position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent,color-mix(in srgb,var(--rc) 30%,transparent),transparent 25%,color-mix(in srgb,var(--rc) 22%,transparent),transparent 55%,color-mix(in srgb,var(--rc) 30%,transparent),transparent 80%);animation:rbspin 7s linear infinite;opacity:0;transition:opacity .6s}
+.co.charge .co-bg{opacity:.55}.co.fast .co-bg{animation-duration:1.4s}
+.co-rays{position:absolute;width:180vmax;height:180vmax;left:50%;top:42%;margin:-90vmax 0 0 -90vmax;border-radius:50%;background:repeating-conic-gradient(var(--rc) 0 7deg,transparent 7deg 16deg);opacity:0;transition:opacity .5s;animation:rbspin 10s linear infinite}
+.co.open .co-rays{opacity:.25}
+.co-glow{position:absolute;left:50%;top:48%;width:320px;height:320px;margin:-160px 0 0 -160px;border-radius:50%;background:radial-gradient(circle,var(--rc),transparent 65%);opacity:0;transform:scale(calc(.5 + var(--lv) * .25));transition:opacity .4s,transform .4s,background .3s}
+.co.charge .co-glow{opacity:.6}.co.open .co-glow{opacity:1;transform:scale(2.2)}
+.co.m .co-glow,.co.m .co-rays,.co.m .co-bg{filter:saturate(2);animation-name:rbspin;}
+.co.m .co-glow{animation:huef 1.2s linear infinite}
+@keyframes huef{to{filter:hue-rotate(360deg) saturate(2)}}
+.co-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
+.co.flash .co-flash{animation:coflash .8s ease-out}
+@keyframes coflash{0%{opacity:1}100%{opacity:0}}
+.co-stage{position:relative;width:250px;height:230px;margin-top:70px;z-index:2}
+.co.quake .co-stage{animation:quake .35s linear 2}
+.co-chest{position:absolute;left:10px;right:10px;bottom:0;animation:chdrop .7s cubic-bezier(.3,1.6,.5,1)}
+.co-chest svg{width:100%;height:auto;display:block;overflow:visible;transition:transform .25s}
+.co.float .co-chest{animation:cofloat 1.1s ease-in-out infinite}
+@keyframes cofloat{50%{transform:translateY(-18px)}}
+.co.s1 .co-chest svg{animation:chs .16s infinite}.co.s2 .co-chest svg{animation:chs .06s infinite}
+.co.pre .co-chest svg{transform:scale(.82,.9)!important;animation:none}
+.co .clid{transform-box:view-box;transform-origin:100px 82px}
+.co.open .clid{animation:lidfly 1s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes lidfly{30%{transform:translate(10px,-80px) rotate(40deg)}100%{transform:translate(60px,-300px) rotate(300deg);opacity:0}}
+.co-orbit{position:absolute;left:50%;top:58%;width:0;height:0;opacity:0;transition:opacity .4s}
+.co.charge .co-orbit{opacity:1}.co.open .co-orbit{opacity:0}
+.co-orbit i{position:absolute;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--rc);box-shadow:0 0 14px var(--rc);animation:orb 2s linear infinite}
+.co.fast .co-orbit i{animation-duration:.7s}
+@keyframes orb{from{transform:rotate(0) translateX(118px) scale(1)}50%{transform:rotate(180deg) translateX(118px) scale(.6)}to{transform:rotate(360deg) translateX(118px) scale(1)}}
+.co-bolts{position:absolute;left:-60px;top:-60px;width:370px;height:350px;opacity:0;pointer-events:none}
+.co.bolt .co-bolts{opacity:1}
+.co-bolts path{stroke:var(--rc);stroke-width:3;fill:none;filter:drop-shadow(0 0 6px var(--rc));animation:boltf .5s steps(1) infinite}
+.co-bolts path:nth-child(2){animation-delay:.17s}.co-bolts path:nth-child(3){animation-delay:.33s}.co-bolts path:nth-child(4){animation-delay:.25s}
+@keyframes boltf{0%{opacity:1}30%{opacity:0}60%{opacity:1}80%{opacity:0}}
+.co-prize{position:absolute;left:50%;top:0;width:190px;margin-left:-95px;opacity:0;z-index:3}
+.co-prize::before{content:"";position:absolute;inset:-50px;border-radius:50%;background:repeating-conic-gradient(var(--rc) 0 6deg,transparent 6deg 18deg);opacity:.4;animation:rbspin 5s linear infinite;z-index:-1;-webkit-mask:radial-gradient(circle,#000 25%,transparent 70%);mask:radial-gradient(circle,#000 25%,transparent 70%)}
+.co-prize svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 24px var(--rc)) drop-shadow(0 0 8px #fff)}
+.co.reveal .co-prize{animation:prizeup 1.1s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes prizeup{0%{opacity:0;transform:translateY(120px) scale(.1) rotate(-240deg)}60%{opacity:1;transform:translateY(-110px) scale(1.2) rotate(15deg)}100%{opacity:1;transform:translateY(-90px) scale(1) rotate(0)}}
+.co-stamp{position:absolute;left:50%;top:-140px;font-weight:900;font-size:2.3rem;color:#fff;text-shadow:0 0 20px var(--rc),0 0 40px var(--rc),0 4px 0 rgba(0,0,0,.4);letter-spacing:.06em;white-space:nowrap;opacity:0;z-index:4;transform:translateX(-50%)}
+.co.stamp .co-stamp{animation:stamp .7s .5s cubic-bezier(.2,1.8,.4,1) forwards}
+@keyframes stamp{0%{opacity:0;transform:translateX(-50%) scale(3.2) rotate(-14deg)}100%{opacity:1;transform:translateX(-50%) scale(1) rotate(-6deg)}}
+.co-result{position:relative;z-index:3;width:min(92vw,390px);margin-top:12px;text-align:center;color:#fff;opacity:0;pointer-events:none}
+.co.done .co-result{opacity:1;pointer-events:auto;transition:opacity .4s}
+.co-card{animation:flipin .7s cubic-bezier(.2,1.4,.4,1) both;animation-delay:.6s}
+@keyframes flipin{from{transform:perspective(600px) rotateY(90deg);opacity:0}}
+.co-card .rar{display:inline-block;border-radius:999px;padding:2px 12px;font-weight:800;font-size:.85rem;background:var(--rc);color:#1A1030}
+.co-card h2{margin:8px 0 2px;font-size:1.6rem}
+.co-card p{margin:0 0 12px;opacity:.9;font-size:.9rem;line-height:1.4}
+.newb{display:inline-block;background:#FF3DA8;color:#fff;font-weight:800;border-radius:6px;padding:0 6px;font-size:.75rem;margin-left:6px;animation:rbpulse 1s infinite}
+.dupb{display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-weight:700;border-radius:6px;padding:0 6px;font-size:.75rem;margin-left:6px}
+.co-btns{display:flex;gap:8px;flex-wrap:wrap}.co-btns button{flex:1 1 30%;border:0;border-radius:14px;padding:12px 6px;font-weight:700;cursor:pointer;font-size:.85rem}
+.co-btns .b1{background:#fff;color:#1A1030}.co-btns .b2{background:rgba(255,255,255,.15);color:#fff}.co-btns .b3{background:linear-gradient(120deg,#1FA89A,#5B8CFF);color:#fff}
+.co-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.co-mini{border-radius:14px;padding:6px 4px;border:2px solid var(--mc);background:rgba(255,255,255,.06);box-shadow:0 0 16px color-mix(in srgb,var(--mc) 50%,transparent);animation:flipin .6s cubic-bezier(.2,1.4,.4,1) both;font-size:.72rem;line-height:1.2}
+.co-mini svg{width:56px;height:56px;display:block;margin:0 auto 2px}
+.co-mini b{display:block;font-size:.76rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.co-skip{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);left:0;right:0;text-align:center;color:rgba(255,255,255,.55);font-size:.8rem;z-index:3}
+@media (prefers-reduced-motion: reduce){.co-bg,.co-rays,.co-orbit i,.co-chest,.cm .cmimg{animation:none!important}}
 .skin .pow{display:block;font-size:.7rem;margin-top:3px;font-weight:700;color:var(--glow)}
 .chestgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 10px}
 .chest{border-radius:18px;padding:10px 8px;text-align:center;border:2px solid var(--line);background:var(--surface2);position:relative}
@@ -755,12 +853,10 @@ body.locked{overflow:hidden}
     <button class="ghost" id="acctClose" style="width:100%;margin:10px 0 0">Schließen</button></div>
 </div>
 <div class="modal" id="chestModal" hidden>
-  <div class="card wide skincard" role="dialog" aria-modal="true" aria-labelledby="chT">
+  <div class="card wide skincard cmcard" role="dialog" aria-modal="true" aria-labelledby="chT">
     <h2 id="chT">🎁 Skin-Truhen</h2>
-    <p id="chInfo" style="text-align:center;color:var(--muted);margin:0 0 6px"></p>
-    <div class="pity" id="chPity"></div>
-    <div class="chestgrid" id="chestGrid"></div>
-    <button class="primary" id="chestClose">Fertig</button>
+    <div id="chestBody" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
+    <button class="primary" id="chestClose" style="margin-top:8px">Fertig</button>
   </div>
 </div>
 <canvas id="fxc" aria-hidden="true"></canvas>
@@ -2995,76 +3091,137 @@ const CHESTS=[
   {id:'crystal',n:'Kristalltruhe',price:{dia:15},odds:{e:35,l:45,m:20},c:['#EAD8FF','#6A3BD8'],band:'#3A1A8A',glow:'#C8A0FF'}
 ];
 const RCOL={g:'#C8D0E0',s:'#5B8CFF',e:'#B25BFF',l:'#FFAA33',m:'#FF3DA8'};
-const DUP={g:{gems:8},s:{gems:20},e:{dia:1},l:{dia:3},m:{dia:8}};
+const SELL={g:{gems:6},s:{gems:18},e:{gems:45},l:{dia:3},m:{dia:8}};
+const RORD=['g','s','e','l','m'];
 const keyCount=()=>Object.values(S.keys||{}).reduce((a,b)=>a+b,0);
 function addKey(id,n){S.keys=S.keys||{};S.keys[id]=(S.keys[id]||0)+(n||1);const c=CHESTS.find(x=>x.id===id);save();toast(`🗝️ Schlüssel für ${c.n}`,'Öffne sie im Skin-Menü unter 🎁 Truhen');sfx.gold()}
+function ownCount(id){const c=(S.skinCount||{})[id];return c!=null?c:(S.skins.includes(id)?1:0)}
+function setCount(id,n){S.skinCount=S.skinCount||{};S.skinCount[id]=Math.max(0,n);if(n>0&&!S.skins.includes(id))S.skins.push(id)}
+const sellVal=r=>SELL[r]||SELL.g;
+const sellTxt=(r,n)=>{const x=sellVal(r);return x.gems?`${x.gems*(n||1)} 💠`:`${x.dia*(n||1)} 💎`};
 function chestSVG(c,p){
   const deco=c.id==='wood'?`<g stroke="${c.band}" stroke-width="2" opacity=".5"><path d="M34 104 H166 M34 126 H166 M34 146 H166"/></g>`:
     c.id==='silver'?`<g fill="${c.band}">${[40,160].map(x=>[92,112,132,150].map(y=>`<circle cx="${x}" cy="${y}" r="3"/>`).join('')).join('')}</g>`:
     c.id==='gold'?`<circle cx="46" cy="118" r="7" fill="#E0304A" stroke="#FFF2B0" stroke-width="2"/><circle cx="154" cy="118" r="7" fill="#2A7AE0" stroke="#FFF2B0" stroke-width="2"/><circle cx="100" cy="150" r="5" fill="#2AC87A" stroke="#FFF2B0" stroke-width="2"/>`:
     `<path d="M40 90 L70 160 M100 84 L100 160 M160 90 L130 160" stroke="#fff" stroke-width="2" opacity=".35"/><g fill="#fff">${[[50,100],[150,110],[120,145]].map(([x,y],i)=>`<path d="M${x} ${y-6} l2 4 l4 2 l-4 2 l-2 4 l-2 -4 l-4 -2 l4 -2Z"><animate attributeName="opacity" values="0;1;0" dur="${1.4+i*.4}s" repeatCount="indefinite"/></path>`).join('')}</g>`;
   const lidDeco=c.id==='gold'?`<circle cx="100" cy="48" r="7" fill="#E0304A" stroke="#FFF2B0" stroke-width="2"/>`:c.id==='crystal'?`<path d="M100 34 L106 50 L100 66 L94 50Z" fill="#fff" opacity=".7"/>`:'';
-  return `<svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="${p}cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.c[0]}"/><stop offset="1" stop-color="${c.c[1]}"/></linearGradient>${c.id==='crystal'?`<linearGradient id="${p}cs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>`:''}</defs>
+  return `<svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="${p}cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.c[0]}"/><stop offset="1" stop-color="${c.c[1]}"/></linearGradient></defs>
     <ellipse cx="100" cy="166" rx="74" ry="9" fill="#000" opacity=".25"/>
     <rect x="30" y="80" width="140" height="82" rx="10" fill="url(#${p}cb)" ${c.id==='crystal'?'opacity=".92"':''}/>${deco}
     <rect x="52" y="80" width="12" height="82" fill="${c.band}" opacity=".8"/><rect x="136" y="80" width="12" height="82" fill="${c.band}" opacity=".8"/>
     <rect x="30" y="80" width="140" height="82" rx="10" fill="none" stroke="${c.band}" stroke-width="3"/>
-    <g class="clid"><path d="M30 84 V64 Q30 30 100 30 Q170 30 170 64 V84 Z" fill="url(#${p}cb)" stroke="${c.band}" stroke-width="3"/>${c.id==='crystal'?`<path d="M40 70 Q44 40 100 36" stroke="url(#${p}cs)" stroke-width="8" fill="none" stroke-linecap="round"/>`:''}
+    <path d="M36 84 H164" stroke="#FFF6D0" stroke-width="4" opacity="0" class="cgap"/>
+    <g class="clid"><path d="M30 84 V64 Q30 30 100 30 Q170 30 170 64 V84 Z" fill="url(#${p}cb)" stroke="${c.band}" stroke-width="3"/>
       <path d="M52 84 V40 Q58 33 64 32 V84Z M136 32 Q142 33 148 40 V84 H136Z" fill="${c.band}" opacity=".8"/>${lidDeco}</g>
     <rect x="88" y="76" width="24" height="28" rx="5" fill="#FFD84A" stroke="${c.band}" stroke-width="3"/><circle cx="100" cy="87" r="3.5" fill="${c.band}"/><rect x="98.5" y="88" width="3" height="9" fill="${c.band}"/>
   </svg>`;
 }
-function canAfford(c){const k=Object.keys(c.price)[0];return (S[k]||0)>=c.price[k]}
-function priceText(c){const k=Object.keys(c.price)[0];return `${c.price[k]} ${k==='gems'?'💠':'💎'}`}
-function openChests(){
-  S.keys=S.keys||{};
-  $('chInfo').innerHTML=`Du hast <b>${S.gems}</b> 💠 und <b>${S.dia}</b> 💎. Schlüssel bekommst du von Bossen, Aufgaben, dem Tagesbonus und Live-Events.`;
-  const pl=Math.max(0,10-(S.pity||0));$('chPity').textContent=`🍀 Garantie: Spätestens in ${pl} ${pl===1?'Truhe':'Truhen'} gibt es mindestens einen epischen Skin.`;
-  $('chestGrid').innerHTML=CHESTS.map((c,i)=>{const k=S.keys[c.id]||0;
-    return `<div class="chest ${c.id}">${k?`<span class="kc">🗝️ ${k}</span>`:''}<div class="cimg">${chestSVG(c,'cg'+i)}</div><b>${c.n}</b>
-      <div class="odds">${Object.entries(c.odds).map(([r,v])=>`<span style="color:${RCOL[r]}">${v} %</span><span>${RAR[r]}</span>`).join('')}</div>
-      ${k?`<button class="cbtn key" data-c="${c.id}" data-k="1">🗝️ Mit Schlüssel öffnen</button>`:''}<button class="cbtn" data-c="${c.id}" ${canAfford(c)?'':'disabled'}>Öffnen für ${priceText(c)}</button></div>`}).join('');
-  $('chestGrid').querySelectorAll('.cbtn').forEach(b=>b.onclick=()=>{ensureAudio();openChest(b.dataset.c,!!b.dataset.k)});
-  $('chestModal').hidden=false;document.body.classList.add('locked');
-}
+const priceKey=c=>Object.keys(c.price)[0];
+function priceOf(c,n){const k=priceKey(c),v=c.price[k];return n>=5?Math.floor(v*n*.9):v*n}
+const canPay=(c,n)=>(S[priceKey(c)]||0)>=priceOf(c,n);
+const cur=k=>k==='gems'?'💠':'💎';
+const CH={tab:'chests'};
+function openChests(){S.keys=S.keys||{};renderChests();$('chestModal').hidden=false;document.body.classList.add('locked')}
 $('chestClose').onclick=()=>{$('chestModal').hidden=true;document.body.classList.remove('locked')};
-function rollRarity(c){let r=Math.random()*100,acc=0;for(const [k,v] of Object.entries(c.odds)){acc+=v;if(r<acc)return k}return Object.keys(c.odds).pop()}
-function openChest(id,useKey){
-  const c=CHESTS.find(x=>x.id===id);if(!c)return;S.keys=S.keys||{};
-  if(useKey){if(!(S.keys[id]>0))return;S.keys[id]--}else{if(!canAfford(c)){toast('Nicht genug Währung',priceText(c)+' nötig');return}const k=Object.keys(c.price)[0];S[k]-=c.price[k]}
-  let rar=rollRarity(c);S.pity=(S.pity||0)+1;
-  if(S.pity>=10&&(rar==='g'||rar==='s'))rar='e';
-  if(rar!=='g'&&rar!=='s')S.pity=0;
-  const pool=SKINS.filter(k=>k.box&&k.rar===rar),un=pool.filter(k=>!S.skins.includes(k.id));
-  const skin=(un.length?un:pool)[Math.floor(Math.random()*(un.length?un:pool).length)],dup=!un.length;
-  let comp='';if(dup){const d=DUP[rar];if(d.gems){S.gems+=d.gems;comp=`+${d.gems} 💠`}else{S.dia+=d.dia;comp=`+${d.dia} 💎`}}else S.skins.push(skin.id);
-  if(rar==='m')S.mythDraw=1;S.chestsOpened=(S.chestsOpened||0)+1;save();
-  $('chestModal').hidden=true;chestAnim(c,skin,rar,dup,comp);
+function thumb(k,p){return mushSVG(k,p)}
+function renderChests(){
+  const b=$('chestBody'),kc=keyCount(),box=SKINS.filter(k=>k.box);
+  const dupN=box.reduce((a,k)=>a+Math.max(0,ownCount(k.id)-1),0);
+  let h=`<div class="cmpills"><span>💠 ${S.gems}</span><span>💎 ${S.dia}</span><span>🗝️ ${kc}</span><span>🎨 ${box.filter(k=>ownCount(k.id)>0).length}/${box.length}</span></div>
+    <div class="cmtabs"><button data-t="chests" aria-pressed="${CH.tab==='chests'}">🎁 Truhen</button><button data-t="inv" aria-pressed="${CH.tab==='inv'}">🎒 Inventar${dupN?` (${dupN})`:''}</button></div><div class="cmscroll">`;
+  if(CH.tab==='chests'){
+    const pl=S.pity||0;
+    h+=`<div class="pitybar">🍀 Garantie: spätestens in ${Math.max(1,10-pl)} ${10-pl===1?'Truhe':'Truhen'} mindestens <b style="color:${RCOL.e}">episch</b><div class="xpbar"><i style="width:${pl*10}%"></i></div></div>`;
+    CHESTS.forEach((c,i)=>{const k=S.keys[c.id]||0,pk=priceKey(c);
+      const pool=box.filter(x=>c.odds[x.rar]).sort((a2,b2)=>RORD.indexOf(b2.rar)-RORD.indexOf(a2.rar));
+      h+=`<div class="cm ${c.id}"><div class="top3"><div class="cmimg">${chestSVG(c,'cg'+i)}</div><div class="cmt"><b>${c.n}</b>${k?`<span class="kc">🗝️ ${k} Schlüssel</span>`:''}
+        <div class="obar">${Object.entries(c.odds).map(([r,v])=>`<i style="width:${v}%;background:${RCOL[r]}"></i>`).join('')}</div>
+        <div class="olist">${Object.entries(c.odds).map(([r,v])=>`<span style="color:${RCOL[r]}"><b>${v} %</b> ${RAR[r]}</span>`).join('')}</div></div></div>
+        <div class="pool">${pool.map((x,j)=>`<button class="${ownCount(x.id)?'':'no'}" style="border-color:${RCOL[x.rar]}" data-sk="${x.id}" aria-label="${esc(x.name)}">${thumb(x,'pl'+i+'_'+j)}${ownCount(x.id)>1?`<i>×${ownCount(x.id)}</i>`:''}</button>`).join('')}</div>
+        <div class="cmbtns">${k?`<button class="key" data-c="${c.id}" data-n="1" data-k="1">🗝️ Öffnen<small>1 Schlüssel</small></button>`:''}${k>=5?`<button class="key" data-c="${c.id}" data-n="5" data-k="1">🗝️ ×5 öffnen<small>5 Schlüssel</small></button>`:''}
+          <button data-c="${c.id}" data-n="1" ${canPay(c,1)?'':'disabled'}>Öffnen<small>${priceOf(c,1)} ${cur(pk)}</small></button><button data-c="${c.id}" data-n="5" ${canPay(c,5)?'':'disabled'}>×5 öffnen<small>${priceOf(c,5)} ${cur(pk)} (−10 %)</small></button></div></div>`});
+  }else{
+    const own=box.filter(k=>ownCount(k.id)>0).sort((a2,b2)=>RORD.indexOf(b2.rar)-RORD.indexOf(a2.rar)||ownCount(b2.id)-ownCount(a2.id));
+    let gG=0,gD=0;box.forEach(k=>{const n=Math.max(0,ownCount(k.id)-1),v=sellVal(k.rar);gG+=(v.gems||0)*n;gD+=(v.dia||0)*n});
+    h+=`<button class="sellall" id="sellAll" ${dupN?'':'disabled'}>💰 Alle ${dupN} Duplikate verkaufen${dupN?`: +${gG} 💠${gD?`, +${gD} 💎`:''}`:''}</button>
+      <p style="color:var(--muted);font-size:.8rem;margin:0 0 8px;text-align:center">Ein Exemplar jedes Skins bleibt immer in deiner Sammlung.</p>`;
+    if(!own.length)h+='<p style="color:var(--muted);text-align:center">Noch keine Truhen-Skins. Öffne eine Truhe!</p>';
+    own.forEach((k,i)=>{const n=ownCount(k.id);
+      h+=`<div class="invrow"><div class="th" style="border-color:${RCOL[k.rar]}">${thumb(k,'iv'+i)}</div><div class="nf"><b>${esc(k.name)}</b><small style="color:${RCOL[k.rar]}">${RAR[k.rar]}</small><small>${powText(k)}</small><small>Verkauf: ${sellTxt(k.rar)} pro Stück</small></div>
+        <div class="cnt">×${n}</div><button data-sell="${k.id}" ${n>1?'':'disabled'}>1 verkaufen</button></div>`});
+  }
+  b.innerHTML=h+'</div>';
+  b.querySelectorAll('.cmtabs button').forEach(x=>x.onclick=()=>{CH.tab=x.dataset.t;renderChests()});
+  b.querySelectorAll('.cmbtns button').forEach(x=>x.onclick=()=>{ensureAudio();openChest(x.dataset.c,+x.dataset.n,!!x.dataset.k)});
+  b.querySelectorAll('.pool button').forEach(x=>x.onclick=()=>{const k=SKINS.find(y=>y.id===x.dataset.sk);toast(`${k.name} (${RAR[k.rar]})`,`${powText(k)}${ownCount(k.id)?', du hast '+ownCount(k.id):''}`)});
+  b.querySelectorAll('[data-sell]').forEach(x=>x.onclick=()=>{sellDup(x.dataset.sell,1);renderChests()});
+  const sa=$('sellAll');if(sa)sa.onclick=()=>queueModal({emoji:'💰',title:'Alle Duplikate verkaufen?',text:`Du verkaufst ${dupN} doppelte Skins. Von jedem Skin bleibt ein Exemplar in deiner Sammlung.`,ok:'Verkaufen',cancel:true,onOk:()=>{sellAllDups();renderChests()}});
 }
-function chestAnim(c,skin,rar,dup,comp){
-  const o=document.createElement('div');o.className='cho';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.style.setProperty('--rc',c.glow);
-  o.innerHTML=`<div class="rays"></div><div class="glow"></div><div class="stage"><div class="prize">${mushSVG(skin,'cp')}</div><div class="bigchest">${chestSVG(c,'cx')}</div>
-    <div class="card2"><span class="rar">${RAR[rar]}</span>${dup?'':'<span class="newb">NEU!</span>'}<h2>${esc(skin.name)}</h2><p>${powText(skin)}<br>${dup?`Schon in deiner Sammlung, dafür bekommst du ${comp}.`:'Jetzt in deiner Skin-Sammlung.'}</p>
-    <div class="btns2">${dup?'':'<button class="b1" data-x="wear">Anlegen</button>'}<button class="${dup?'b1':'b2'}" data-x="again">Nochmal</button><button class="b2" data-x="close">Fertig</button></div></div></div><div class="skip">Tippen zum Überspringen</div>`;
+function sellDup(id,n){const k=SKINS.find(x=>x.id===id),have=ownCount(id);n=Math.min(n,have-1);if(!k||n<1)return 0;setCount(id,have-n);const v=sellVal(k.rar);S.gems+=(v.gems||0)*n;S.dia+=(v.dia||0)*n;save();sfx.gold();toast('💰 Verkauft',`${n}× ${k.name}: +${sellTxt(k.rar,n)}`);render();return n}
+function sellAllDups(){let g=0,d=0,n=0;SKINS.filter(k=>k.box).forEach(k=>{const c=ownCount(k.id)-1;if(c>0){const v=sellVal(k.rar);g+=(v.gems||0)*c;d+=(v.dia||0)*c;n+=c;setCount(k.id,1)}});S.gems+=g;S.dia+=d;save();confetti();sfx.gold();toast('💰 Duplikate verkauft',`${n} Stück: +${g} 💠${d?`, +${d} 💎`:''}`);render()}
+function rollRarity(c){let r=Math.random()*100,acc=0;for(const [k,v] of Object.entries(c.odds)){acc+=v;if(r<acc)return k}return Object.keys(c.odds).pop()}
+function drawOne(c){
+  let rar=rollRarity(c);S.pity=(S.pity||0)+1;if(S.pity>=10&&(rar==='g'||rar==='s'))rar='e';if(rar!=='g'&&rar!=='s')S.pity=0;
+  const pool=SKINS.filter(k=>k.box&&k.rar===rar),skin=pool[Math.floor(Math.random()*pool.length)],had=ownCount(skin.id);
+  setCount(skin.id,had+1);if(rar==='m')S.mythDraw=1;S.chestsOpened=(S.chestsOpened||0)+1;
+  return {skin,rar,isNew:had===0,count:had+1};
+}
+function openChest(id,n,useKey){
+  const c=CHESTS.find(x=>x.id===id);if(!c)return;S.keys=S.keys||{};n=n||1;
+  if(useKey){if((S.keys[id]||0)<n)return;S.keys[id]-=n}else{if(!canPay(c,n)){toast('Nicht genug Währung');return}S[priceKey(c)]-=priceOf(c,n)}
+  const res=[];for(let i=0;i<n;i++)res.push(drawOne(c));save();
+  $('chestModal').hidden=true;chestShow(c,res);
+}
+function chestShow(c,res){
+  const best=res.reduce((a,r)=>RORD.indexOf(r.rar)>RORD.indexOf(a.rar)?r:a,res[0]),rar=best.rar,tgt=RORD.indexOf(rar);
+  const o=document.createElement('div');o.className='co';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.style.setProperty('--rc',c.glow);
+  const bolts=[0,1,2,3].map(i=>{let x=40+i*95,y=10,d=`M${x} ${y}`;for(let k=0;k<6;k++){x+=(Math.random()-.5)*50;y+=55;d+=` L${x.toFixed(0)} ${y}`}return `<path d="${d}"/>`}).join('');
+  o.innerHTML=`<div class="co-bg"></div><div class="co-rays"></div><div class="co-glow"></div><div class="co-flash"></div>
+    <div class="co-stage"><svg class="co-bolts" viewBox="0 0 370 350">${bolts}</svg><div class="co-orbit">${[...Array(10)].map((_,i)=>`<i style="animation-delay:${-i*.2}s"></i>`).join('')}</div>
+      <div class="co-stamp">${rar==='m'?'MYTHISCH!':rar==='l'?'LEGENDÄR!':rar==='e'?'EPISCH!':''}</div>
+      <div class="co-prize">${mushSVG(best.skin,'cop')}</div><div class="co-chest">${chestSVG(c,'cox')}</div></div>
+    <div class="co-result"></div><div class="co-skip">Tippen zum Überspringen</div>`;
   document.body.appendChild(o);document.body.classList.add('locked');
-  const order=['g','s','e','l','m'],tgt=order.indexOf(rar),T=[];let done=false;
-  const at=(ms,fn)=>T.push(setTimeout(fn,reduced?0:ms));
-  const setC=r=>{o.style.setProperty('--rc',RCOL[r])};
-  at(700,()=>{o.classList.add('s1','charge');tone(200,.4,'sawtooth',.04,0,1.5)});
-  for(let i=0;i<=tgt;i++)at(1000+i*380,()=>{setC(order[i]);tone(300+i*120,.25,'triangle',.06,0,1.3);buzz(12+i*6)});
-  at(1000+tgt*380+300,()=>{o.classList.remove('s1');o.classList.add('s2');tone(500,.5,'sawtooth',.04,0,2)});
-  const openT=1000+tgt*380+1000;
-  const reveal=()=>{if(done)return;done=true;T.forEach(clearTimeout);setC(rar);o.classList.remove('s1','s2');o.classList.add('charge','open');
-    const r=o.querySelector('.bigchest').getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.4;
-    fxRing(cx,cy,RCOL[rar],200);fxBurst(cx,cy,{n:rar==='m'||rar==='l'?60:30,colors:[RCOL[rar],'#FFFFFF','#FFD84A'],star:true,speed:9});if(rar==='l'||rar==='m')confetti(true,cx,cy,[RCOL[rar],'#FFFFFF','#FFD84A']);
-    [523,659,784,1047].slice(0,2+Math.min(2,tgt)).forEach((f,i)=>tone(f,.4,'triangle',.08,i*.1));tone(90,.5,'sine',.1,0,.4);buzz([40,40,80]);
-    setTimeout(()=>o.classList.add('reveal'),reduced?0:350);o.querySelector('.skip').remove()};
-  at(openT,reveal);
+  const T=[];let opened=false;const at=(ms,fn)=>T.push(setTimeout(fn,reduced?0:ms));
+  const C=()=>{const r=o.querySelector('.co-chest').getBoundingClientRect();return [r.left+r.width/2,r.top+r.height*.45]};
+  const setC=r=>o.style.setProperty('--rc',RCOL[r]);
+  at(650,()=>{const [x,y]=C();fxRing(x,y+40,'#FFFFFF',140);tone(70,.4,'sine',.1,0,.5);buzz(40);o.classList.add('quake');setTimeout(()=>o.classList.remove('quake'),700)});
+  at(1000,()=>{o.classList.add('float','charge');tone(180,.8,'sawtooth',.035,0,2)});
+  for(let i=0;i<=tgt;i++)at(1400+i*520,()=>{setC(RORD[i]);o.style.setProperty('--lv',i);const [x,y]=C();fxRing(x,y,RCOL[RORD[i]],90+i*20);fxBurst(x,y,{n:8+i*4,colors:[RCOL[RORD[i]],'#FFFFFF'],speed:3+i,glow:true,g:-.02});
+    tone(260*Math.pow(1.26,i),.3,'triangle',.07,0,1.2);buzz(10+i*8);
+    if(i>=1)o.classList.add('s1');if(i>=2){o.classList.add('fast')}if(i>=3){o.classList.remove('s1');o.classList.add('s2','bolt');tone(90,.3,'sawtooth',.05,0,.6)}if(i>=4)o.classList.add('m')});
+  const burstAt=1400+tgt*520+700;
+  at(burstAt-350,()=>{o.classList.remove('float','s1','s2');o.classList.add('pre');const g=o.querySelector('.cgap');if(g){g.style.opacity='1'}tone(700,.3,'sine',.06,0,2.5)});
+  const open=()=>{if(opened)return;opened=true;T.forEach(clearTimeout);setC(rar);o.style.setProperty('--lv',tgt);if(tgt>=4)o.classList.add('m');if(tgt>=3)o.classList.add('bolt');
+    o.classList.remove('pre','float','s1','s2');o.classList.add('charge','open','flash','reveal','quake');if(tgt>=2)o.classList.add('stamp');
+    const [x,y]=C();fxRing(x,y,RCOL[rar],240);fxRing(x,y,'#FFFFFF',160);fxBurst(x,y,{n:30+tgt*12,colors:[RCOL[rar],'#FFFFFF','#FFD84A'],star:true,speed:8+tgt});
+    fxBurst(x,y,{n:20,kind:'coin',colors:['#FFD23F'],speed:7,up:4,g:.3});
+    if(tgt>=3){confetti(true,x,y,[RCOL[rar],'#FFFFFF','#FFD84A']);setTimeout(()=>confetti(true,innerWidth*.2,innerHeight*.35,[RCOL[rar],'#FFF']),350);setTimeout(()=>confetti(true,innerWidth*.8,innerHeight*.35,[RCOL[rar],'#FFF']),700)}
+    if(tgt>=4)setTimeout(()=>confetti(true,innerWidth/2,innerHeight*.25,['#FF3DA8','#FFD84A','#39F5FF','#7CFF6B','#A194FF']),1100);
+    [523,659,784,1047,1319].slice(0,2+tgt).forEach((f,i)=>tone(f,.45,'triangle',.08,i*.1));tone(80,.6,'sine',.12,0,.4);buzz(tgt>=3?[60,40,120,40,200]:[40,40,80]);
+    setTimeout(()=>o.classList.remove('quake','flash'),800);setTimeout(()=>{showResult();o.classList.add('done')},reduced?0:(res.length>1?1300:1500));
+    const sk=o.querySelector('.co-skip');if(sk)sk.remove()};
+  at(burstAt,open);
+  const showResult=()=>{
+    const box=o.querySelector('.co-result');
+    if(res.length===1){const r=res[0];
+      box.innerHTML=`<div class="co-card" style="--rc:${RCOL[r.rar]}"><span class="rar">${RAR[r.rar]}</span>${r.isNew?'<span class="newb">NEU!</span>':`<span class="dupb">×${r.count} in deiner Sammlung</span>`}<h2>${esc(r.skin.name)}</h2><p>${powText(r.skin)}${r.isNew?'':`<br>Duplikat: Verkaufswert ${sellTxt(r.rar)}`}</p>
+        <div class="co-btns">${r.isNew||S.skin!==r.skin.id?'<button class="b1" data-x="wear">Anlegen</button>':''}${r.isNew?'':'<button class="b3" data-x="sell1">Verkaufen</button>'}<button class="b2" data-x="again">Nochmal</button><button class="b2" data-x="close">Fertig</button></div></div>`}
+    else{const nw=res.filter(r=>r.isNew).length;
+      box.innerHTML=`<div class="co-grid">${res.map((r,i)=>`<div class="co-mini" style="--mc:${RCOL[r.rar]};animation-delay:${.15+i*.18}s">${mushSVG(r.skin,'cm'+i)}<b>${esc(r.skin.name)}</b><span style="color:${RCOL[r.rar]}">${RAR[r.rar]}</span><br>${r.isNew?'<span class="newb" style="margin:2px 0 0">NEU</span>':`<span class="dupb" style="margin:2px 0 0">×${r.count}</span>`}</div>`).join('')}</div>
+        <p style="margin:0 0 10px;opacity:.85">${nw} neu, ${res.length-nw} ${res.length-nw===1?'Duplikat':'Duplikate'}</p>
+        <div class="co-btns">${res.length-nw?'<button class="b3" data-x="sellall">Duplikate verkaufen</button>':''}<button class="b2" data-x="again5">Nochmal ×5</button><button class="b1" data-x="close">Fertig</button></div>`}
+  };
   o.addEventListener('click',e=>{const b=e.target.closest('[data-x]');
-    if(!b){if(!done)reveal();return}
-    const x=b.dataset.x;o.remove();document.body.classList.remove('locked');
-    if(x==='wear'){S.skin=skin.id;applySkin();save();toast(`🎨 ${skin.name} angelegt`,'Kraft: '+powText(skin))}
-    if(x==='again')openChests();
+    if(!b){if(!opened)open();return}
+    const x=b.dataset.x,single=res[0];
+    if(x==='sell1'){sellDup(single.skin.id,1);b.remove();return}
+    if(x==='sellall'){sellAllDups();b.remove();return}
+    o.remove();document.body.classList.remove('locked');
+    if(x==='wear'){S.skin=single.skin.id;applySkin();save();toast(`🎨 ${single.skin.name} angelegt`,'Kraft: '+powText(single.skin))}
+    if(x==='again'){if((S.keys[c.id]||0)>=1)openChest(c.id,1,true);else if(canPay(c,1))openChest(c.id,1,false);else openChests();return}
+    if(x==='again5'){if((S.keys[c.id]||0)>=5)openChest(c.id,5,true);else if(canPay(c,5))openChest(c.id,5,false);else openChests();return}
+    if(x==='close')openChests();
     render();
   });
 }
