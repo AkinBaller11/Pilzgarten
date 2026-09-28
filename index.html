@@ -195,6 +195,44 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.skin.r-x{background:linear-gradient(125deg,#0B0818,#2A1F5A 40%,#8A6A1A 60%,#0B0818);background-size:300% 300%;animation:mythbg 5s ease infinite;color:#FFE9A8;border-color:#FFD84A}
+.skin.r-x small{color:#E8DFC0}.skin.r-x .rar{color:#FFD84A!important}.skin.r-x .efx{color:#fff}
+.mush.fx-void{animation:none;filter:drop-shadow(0 0 14px #9A5CFF) drop-shadow(0 0 34px rgba(255,120,60,.35))}
+.mush.fx-whale{animation:none;filter:drop-shadow(0 0 14px #6FA8FF) drop-shadow(0 0 30px rgba(160,200,255,.4))}
+.mush.fx-clock{animation:none;filter:drop-shadow(0 0 14px #FFD84A) drop-shadow(0 0 30px rgba(255,200,80,.4))}
+.mush.fx-elem{animation:none;filter:drop-shadow(0 0 16px #9FE8FF) drop-shadow(0 0 34px rgba(255,140,80,.3))}
+.mush.fx-prism{animation:none;filter:drop-shadow(0 0 14px #FFFFFF) drop-shadow(0 0 34px rgba(200,160,255,.55))}
+.buff.rbb{background:linear-gradient(120deg,#6A3BD8,#D6457E);color:#fff;cursor:pointer;animation:rbpulse 1.6s ease-in-out infinite}
+@keyframes rbpulse{50%{box-shadow:0 0 0 4px rgba(214,69,126,.3)}}
+.rbban{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translateX(-50%);z-index:44;width:min(94vw,400px);border-radius:20px;padding:12px;background:linear-gradient(120deg,#2A1F5A,#7A3BD8 55%,#D6457E);color:#fff;box-shadow:0 12px 34px rgba(60,20,120,.5);display:flex;gap:10px;align-items:center;animation:banin .7s cubic-bezier(.2,1.4,.4,1)}
+@keyframes banin{from{transform:translate(-50%,-140%) scale(.8)}}
+.rbban .ic{font-size:2rem;animation:rbspin 3s linear infinite;flex:none}
+@keyframes rbspin{to{transform:rotate(360deg)}}
+.rbban .tx{flex:1;min-width:0;line-height:1.3}
+.rbban .tx small{display:block;opacity:.85;font-size:.8rem}
+.rbban .go{border:0;border-radius:12px;padding:9px 12px;font-weight:700;background:#FFE7A0;color:#2A1A05;cursor:pointer}
+.rbban .x{border:0;background:none;color:#fff;font-size:1.3rem;cursor:pointer;opacity:.7;width:28px}
+.rbbox{border-radius:18px;padding:12px;margin:0 0 14px;background:linear-gradient(135deg,color-mix(in srgb,#7A3BD8 18%,var(--surface2)),var(--surface2));border:1px solid color-mix(in srgb,#7A3BD8 40%,transparent)}
+.rbbox h3{margin:0 0 6px!important}
+.rbbox p{margin:0 0 8px!important}
+.sil{width:140px;margin:6px auto 4px;position:relative}
+.sil svg{width:100%;height:auto;display:block;filter:brightness(0) drop-shadow(0 0 10px #B070FF);opacity:.9}
+.sil b{position:absolute;inset:0;display:grid;place-items:center;font-size:3rem;color:#fff;text-shadow:0 0 12px #B070FF}
+.rblist{text-align:left;font-size:.88rem;line-height:1.45;color:var(--muted);margin:0 0 14px;padding-left:1.1em}
+.rblist b{color:var(--ink)}
+.rbrev{position:fixed;inset:0;z-index:48;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,#3A2A7A,#07051A 72%);overflow:hidden;animation:mfade .4s}
+.rbrev .rays{position:absolute;width:170vmax;height:170vmax;left:50%;top:42%;margin:-85vmax 0 0 -85vmax;background:repeating-conic-gradient(rgba(255,230,160,.16) 0 9deg,transparent 9deg 18deg);border-radius:50%;animation:rbspin 16s linear infinite}
+.rbrev .inner{position:relative;text-align:center;color:#fff;padding:20px;max-width:380px}
+.rbrev .sk{width:min(58vw,240px);margin:0 auto;animation:revpop 1.2s cubic-bezier(.2,1.5,.4,1)}
+.rbrev .sk svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 24px rgba(255,230,160,.6))}
+.rbrev .rbtag{display:inline-block;margin-top:10px;padding:3px 12px;border-radius:999px;background:#FFD84A;color:#2A1A05;font-weight:700;font-size:.8rem;animation:revtxt .6s .5s both}
+.rbrev h2{font-size:1.8rem;margin:8px 0 6px;animation:revtxt .7s .7s both}
+.rbrev p{opacity:.85;margin:0 0 18px;line-height:1.45;animation:revtxt .7s .9s both}
+.rbrev .primary{background:linear-gradient(120deg,#FFD84A,#FF8FC0);color:#2A1A05;animation:revtxt .7s 1.1s both}
+.rbrev .ghost{color:#fff;border-color:rgba(255,255,255,.35);width:100%;margin:10px 0 0}
+@keyframes revpop{0%{transform:scale(0) rotate(-200deg);filter:brightness(5)}60%{filter:brightness(2)}100%{transform:none}}
+@keyframes revtxt{from{opacity:0;transform:translateY(12px)}}
+@media (prefers-reduced-motion: reduce){.rbrev .rays,.rbban .ic{animation:none}}
 .lbtabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--surface2);border-radius:14px;padding:3px;margin:0 4px 8px}
 .lbtabs button{border:0;background:none;border-radius:11px;padding:7px 2px;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;line-height:1.15}
 .lbtabs button b{display:block;font-size:1rem}
@@ -490,6 +528,9 @@ body.locked{overflow:hidden}
 <div class="modal" id="profModal" hidden>
   <div class="card prof" role="dialog" aria-modal="true" aria-labelledby="pfN"><div id="profBody"></div><button class="primary" id="profClose">Schließen</button></div>
 </div>
+<div class="modal" id="rbModal" hidden>
+  <div class="card tall" role="dialog" aria-modal="true" aria-labelledby="rbT"><div id="rbBody"></div></div>
+</div>
 <canvas id="fxc" aria-hidden="true"></canvas>
 <div class="fx" id="fx"></div>
 <div class="toasts" id="toasts"></div>
@@ -580,7 +621,10 @@ const ACH=[
   {id:'p1',e:'🐾',name:'Tierfreund',desc:'Schalte 3 Begleiter frei.',t:s=>PETS.filter(p=>p.req(s)).length>=3},
   {id:'p2',e:'🏕️',name:'Ganze Bande',desc:'Schalte alle Begleiter frei.',t:s=>PETS.every(p=>p.req(s))},
   {id:'n1',e:'🌳',name:'Weltenwanderer',desc:'Kauf einen Weltenbaum.',t:s=>(s.owned.baum||0)>=1},
-  {id:'n2',e:'⛲',name:'Ursprung',desc:'Kauf eine Sporenquelle.',t:s=>(s.owned.quelle||0)>=1}
+  {id:'n2',e:'⛲',name:'Ursprung',desc:'Kauf eine Sporenquelle.',t:s=>(s.owned.quelle||0)>=1},
+  {id:'r1',e:'🔄',name:'Wiedergeboren',desc:'Werde zum ersten Mal wiedergeboren.',t:s=>(s.rb||0)>=1},
+  {id:'r2',e:'♻️',name:'Kreislauf',desc:'Werde 3-mal wiedergeboren.',t:s=>(s.rb||0)>=3},
+  {id:'r3',e:'🌀',name:'Unendlich',desc:'Werde 5-mal wiedergeboren und finde alle geheimen Skins.',t:s=>(s.rb||0)>=5}
 ];
 function tot(s){let n=0;for(const k in s.owned)n+=s.owned[k];return n}
 const SKINS=[
@@ -626,9 +670,14 @@ const SKINS=[
   {id:'phoenix',name:'Phönixpilz',rar:'m',price:18,myth:'phoenix',c1:'#FFE066',c2:'#E0301A',dots:'#FFF6C8',fx:'phoenix',acc:['flames']},
   {id:'kaiser',name:'Kristallkaiser',rar:'m',price:22,myth:'kaiser',c1:'#F0FCFF',c2:'#6A5CFF',dots:'#FFFFFF',fx:'kaiser',acc:['crown']},
   {id:'galaxis',name:'Galaxienpilz',rar:'m',price:25,myth:'galaxy',c1:'#8A5CFF',c2:'#120A3A',dots:'#FFFFFF',fx:'galaxy',acc:['sparkle']},
+  {id:'loch',name:'Schwarzes Loch',rar:'x',shape:'blackhole',c1:'#3A1A6A',c2:'#000000',secret:1,rb:1,fx:'void'},
+  {id:'wal',name:'Sternenwal',rar:'x',shape:'wal',c1:'#3A5AD8',c2:'#0A1240',secret:1,rb:2,fx:'whale'},
+  {id:'uhr',name:'Zeitwächter',rar:'x',shape:'uhr',c1:'#FFE7A0',c2:'#B8801A',secret:1,rb:3,fx:'clock'},
+  {id:'element',name:'Elementargeist',rar:'x',shape:'element',c1:'#F0FCFF',c2:'#7FB8FF',secret:1,rb:4,fx:'elem'},
+  {id:'prisma',name:'Prismenwesen',rar:'x',shape:'prisma',c1:'#FFFFFF',c2:'#B8C8FF',secret:1,rb:5,fx:'prism'},
   {id:'traenen',name:'Tränenflamme',rar:'l',shape:'flamme',c1:'#FFE066',c2:'#E8421A',fx:'fire',how:'Tippe 1.000-mal in der Lavawelt',req:s=>(s.lavaTaps||0)>=1000}
 ];
-const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch'};
+const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim'};
 const PFX={
   petal:{n:'Blütenblätter',kind:'petal',cols:['#FFC2DA','#FF8FC0','#FFFFFF'],g:.04,up:1.5,sp:3.5,snd:['sine',620]},
   dots:{n:'Punkteregen',kind:'dot',cols:['#FF4B4B','#FFFFFF'],g:.2,up:2.5,sp:4.5,snd:['sine',560]},
@@ -661,9 +710,14 @@ const PFX={
   phoenix:{n:'Phönixfeuer',kind:'ember',cols:['#FFF0A0','#FFB23D','#FF4B1F'],g:-.14,up:3.5,sp:5,glow:true,snd:['sawtooth',330,1.4]},
   dark:{n:'Schattenglut',kind:'puff',cols:['rgba(70,30,110,.85)','rgba(255,61,90,.7)'],g:-.04,up:1,sp:2.6,snd:['sine',140,.7]},
   galaxy:{n:'Sternennebel',kind:'star',cols:['#FFFFFF','#FF9CE0','#8FD7FF','#FFE680'],g:0,up:.8,sp:4,glow:true,snd:['sine',1100,1.6]},
+  voidp:{n:'Ereignishorizont',kind:'dot',cols:['#B070FF','#FF8A3D','#1A0A2E','#FFE7A0'],g:0,up:0,sp:5.5,glow:true,snd:['sine',180,.4]},
+  whale:{n:'Meeresleuchten',kind:'bubble',cols:['#BFE4FF','#FFFFFF','#8FB8FF'],g:-.05,up:1.5,sp:3.5,snd:['sine',330,.7]},
+  clock:{n:'Zeitfunken',kind:'star',cols:['#FFE7A0','#FFD23F','#FFFFFF'],g:.12,up:3,sp:4.5,glow:true,snd:['triangle',1760,.9]},
+  elem:{n:'Vier Elemente',kind:'dot',cols:['#FF6A2A','#39A8FF','#6BD65A','#E8E8FF'],g:0,up:1,sp:5,glow:true,snd:['sine',660,1.5]},
+  prism:{n:'Lichtbrechung',kind:'rainbow',cols:['#fff'],g:.02,up:1.5,sp:5.5,glow:true,snd:['sine',1320,1.3]},
   tears:{n:'Tränen und Funken',kind:'tears',cols:['#7FD4FF','#FFD04A'],g:.2,up:2.5,sp:3.5,snd:['triangle',330,.75]}
 };
-const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy'};
+const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism'};
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const CYCLE=240;
 function phase(){return (Date.now()/1000%CYCLE)/CYCLE}
@@ -673,13 +727,14 @@ function phaseMult(id){if(isNight())return ['wurm','mond','geist'].includes(id)?
 
 const LS='pilzgarten-v1';
 function fresh(){return{spores:0,season:0,allTime:0,taps:0,owned:{},up:[],ach:[],seeds:0,golden:0,seasons:0,last:Date.now(),
-  rushes:0,crits:0,motes:0,questsDone:0,quests:[],dailyDay:null,dailyStreak:0,muted:false,best:0,playSec:0,skin:'rosa',skins:['rosa'],slugs:0,flies:0,introSeen:false,xp:0,passSeason:null,claimed:[],bonusClaimed:0,dim:'wald',dims:['wald'],gems:0,premSeason:null,pclaimed:[],bots:0,nick:'',pid:'',lbPend:0,flagged:false,bossLvl:1,bossWins:0,blocks:0,pet:'',petsSeen:[],bolts:0,stars:0,dia:0,diaGift:false,petLv:{},abilCd:{},pets:0}}
+  rushes:0,crits:0,motes:0,questsDone:0,quests:[],dailyDay:null,dailyStreak:0,muted:false,best:0,playSec:0,skin:'rosa',skins:['rosa'],slugs:0,flies:0,introSeen:false,xp:0,passSeason:null,claimed:[],bonusClaimed:0,dim:'wald',dims:['wald'],gems:0,premSeason:null,pclaimed:[],bots:0,nick:'',pid:'',lbPend:0,flagged:false,bossLvl:1,bossWins:0,blocks:0,pet:'',petsSeen:[],bolts:0,stars:0,dia:0,diaGift:false,petLv:{},abilCd:{},pets:0,rb:0,rbEarn:null,rbNotified:false}}
 let S=fresh();
 const SALT='pg-7f3a91-sporen';
 function hsh(str){let h=0x811c9dc5,k=0x9e3779b9;for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);h=Math.imul(h^c,0x01000193);k=Math.imul(k^c,0x85ebca6b)^(k>>>13)}return (h>>>0).toString(36)+(k>>>0).toString(36)}
 try{const raw=localStorage.getItem(LS);if(raw){S=Object.assign(fresh(),JSON.parse(raw));const sig=localStorage.getItem(LS+'-sig');
   if(sig!==null&&sig!==hsh(raw+SALT))S.flagged=true;
   if(S.spores>S.allTime+1||S.season>S.allTime+1||!isFinite(S.allTime)||S.allTime<0)S.flagged=true}}catch(e){}
+if(S.rbEarn==null)S.rbEarn=S.season||0;
 function save(){S.last=Date.now();try{const raw=JSON.stringify(S);localStorage.setItem(LS,raw);localStorage.setItem(LS+'-sig',hsh(raw+SALT))}catch(e){}}
 
 const buffs={frenzy:0,tap:0,rush:0,swarm:0,dragon:0};
@@ -703,7 +758,7 @@ function fmtTime(sec){if(sec<90)return Math.round(sec)+' Sekunden';if(sec<5400)r
 /* ---------- economy ---------- */
 function mileMult(b){const o=S.owned[b.id]||0;let m=1;for(const x of MILE)if(o>=x)m*=1.5;return m}
 function bRate(b){let r=b.rate;for(let i=0;i<5;i++)if(has(b.id+i))r*=2;return r*mileMult(b)*phaseMult(b.id)}
-function baseMult(){return (1+S.seeds*0.1)*(1+S.ach.length*0.03)*(1+(S.skins.length-1)*0.02)*(dim()==='tiefsee'?1.5:1)*(dim()==='kosmos'?2:1)*(S.pet==='drache'?1+.25*petPf():1)*(S.pet==='eule'&&isNight()?1+.5*petPf():1)}
+function baseMult(){return (1+S.seeds*0.1)*(1+S.ach.length*0.03)*(1+(S.skins.length-1)*0.02)*(dim()==='tiefsee'?1.5:1)*(dim()==='kosmos'?2:1)*(S.pet==='drache'?1+.25*petPf():1)*(S.pet==='eule'&&isNight()?1+.5*petPf():1)*Math.pow(2,S.rb||0)}
 function rawSps(){let t=0;for(const b of B)t+=(S.owned[b.id]||0)*bRate(b);return t*baseMult()}
 let slugsArr=[];
 const slugFactor=()=>Math.pow(S.pet==='frosch'?1-.07/petPf():.85,slugsArr.filter(o=>!o.dead).length);
@@ -712,7 +767,7 @@ function rushPow(){return has('r1')?10:5}
 function tapBase(){
   let base=1,pct=0;
   for(const u of UP){if(!has(u.id))continue;if(u.type==='tapx')base*=2;if(u.type==='tappct')pct+=u.val}
-  let v=base*(1+S.seeds*0.1)+sps()*pct;
+  let v=base*(1+S.seeds*0.1)*Math.pow(2,S.rb||0)+sps()*pct;
   if(now()<buffs.tap)v*=50;
   if(now()<buffs.rush)v*=rushPow();
   if(S.pet==='biene')v*=1+.1*petPf();
@@ -720,7 +775,7 @@ function tapBase(){
   return v;
 }
 function critChance(){let c=0;for(const u of UP)if(u.type==='crit'&&has(u.id))c+=u.val;return c+(dim()==='kristall'?.1:0)}
-function gain(n){if(!(n>0)||!isFinite(n))return;S.spores+=n;S.season+=n;S.allTime+=n;S.lbPend=(S.lbPend||0)+n}
+function gain(n){if(!(n>0)||!isFinite(n))return;S.spores+=n;S.season+=n;S.allTime+=n;S.rbEarn=(S.rbEarn||0)+n;S.lbPend=(S.lbPend||0)+n}
 function costOf(b,k){const o=S.owned[b.id]||0,r=1.15;return Math.ceil(b.base*Math.pow(r,o)*(Math.pow(r,k)-1)/(r-1))}
 function maxAfford(b){const o=S.owned[b.id]||0,r=1.15,c0=b.base*Math.pow(r,o);const k=Math.floor(Math.log(S.spores*(r-1)/c0+1)/Math.log(r));return Math.max(0,k)}
 
@@ -1010,7 +1065,7 @@ function updAch(){
     $('agrid').innerHTML=ACH.map(a=>{const on=S.ach.includes(a.id);return `<div class="ach ${on?'':'off'}"><div class="e">${on?a.e:'🔒'}</div><b>${a.name}</b><span>${a.desc}</span></div>`}).join('');
   }
   if(!$('p-a').hidden){
-    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
+    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Wiedergeburten',S.rb||0],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
     $('stats').innerHTML=st.map(([a,b])=>`<span>${a}</span><b>${b}</b>`).join('');
   }
 }
@@ -1022,14 +1077,15 @@ function updSeason(){
   const p=potential(),next=Math.pow(p+1,2)*1e6;
   $('tabS').classList.toggle('has',p>=Math.max(1,S.seeds*0.5));
   if($('p-s').hidden)return;
-  const key=p+'|'+S.seeds+'|'+Math.floor(S.season/Math.max(1,next/50));
+  const key=p+'|'+S.seeds+'|'+Math.floor(S.season/Math.max(1,next/50))+'|'+(S.rb||0)+'|'+Math.floor(Math.min(1,(S.rbEarn||0)/rbNeed())*50);
   if(key===sKey)return;sKey=key;
-  $('p-s').innerHTML=`<h3>Neue Saison</h3>
+  $('p-s').innerHTML=rbHTML()+`<h3>Neue Saison</h3>
     <p>Starte deinen Garten neu und nimm Sternensamen mit. Jeder Samen erhöht deine Produktion für immer um 10 %. Erfolge bleiben erhalten.</p>
     <p>Du hast <b>${S.seeds}</b> Sternensamen, das sind +${S.seeds*10} % Produktion.</p>
     <p>Bei einem Neustart jetzt bekommst du:<br><span class="big">🌱 ${p}</span></p>
     <p style="color:var(--muted)">Nächster Samen bei ${fmt(next)} Sporen in dieser Saison (gerade ${fmt(S.season)}).</p>
     <button class="primary" id="prestige" ${p<1?'disabled':''}>Neue Saison starten</button>`;
+  const rbo=$('rbOpen');if(rbo)rbo.onclick=openRebirth;
   const btn=$('prestige');
   if(btn)btn.addEventListener('click',()=>{
     const pp=potential();if(pp<1)return;
@@ -1117,6 +1173,42 @@ function shapeSVG(k,p,main){
       <path d="M83 ${fy+6} Q89 ${fy+10} 95 ${fy+6}" stroke="#7FD4FF" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M105 ${fy+6} Q111 ${fy+10} 117 ${fy+6}" stroke="#7FD4FF" stroke-width="3" fill="none" stroke-linecap="round"/>
       <path class="tear" d="M86 ${fy+9} Q82 ${fy+16} 86 ${fy+19} Q90 ${fy+16} 86 ${fy+9}Z" fill="#7FD4FF"/><path class="tear t2" d="M114 ${fy+9} Q110 ${fy+16} 114 ${fy+19} Q118 ${fy+16} 114 ${fy+9}Z" fill="#7FD4FF"/>
       <path ${m?'id="mouth"':''} d="M93 ${fy+24} Q101 ${fy+17} 109 ${fy+24}" stroke="${ink}" stroke-width="3" fill="none" stroke-linecap="round"/>`}}
+    case 'blackhole':{const fy=112,dk=`url(#${p}dk)`;return {fy,body:`<defs><linearGradient id="${p}dk" x1="0" x2="1"><stop offset="0" stop-color="#FF6A2A"/><stop offset=".5" stop-color="#FFE7A0"/><stop offset="1" stop-color="#FF3DA8"/></linearGradient><radialGradient id="${p}bh" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#000"/><stop offset=".78" stop-color="#0A0414"/><stop offset="1" stop-color="#5A2A9A"/></radialGradient></defs>
+      <circle cx="100" cy="118" r="70" fill="none" stroke="#9A5CFF" stroke-width="10" opacity=".25"><animate attributeName="r" values="66;76;66" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".12;.38;.12" dur="2.6s" repeatCount="indefinite"/></circle>
+      <path d="M8 118 A92 24 0 0 1 192 118" fill="none" stroke="${dk}" stroke-width="9" stroke-dasharray="26 10" opacity=".8"><animate attributeName="stroke-dashoffset" from="0" to="-72" dur="1.1s" repeatCount="indefinite"/></path>
+      <circle cx="100" cy="118" r="58" fill="url(#${p}bh)"/><circle cx="100" cy="118" r="58" fill="none" stroke="#C8A0FF" stroke-width="2.5" opacity=".85"/>
+      ${[0,1,2,3].map(i=>`<circle r="2.4" fill="#FFF6D0"><animateMotion dur="3s" begin="${-i*.75}s" repeatCount="indefinite" path="M${i%2?192:8} ${50+i*22} Q100 ${i%2?16:210} 100 118"/><animate attributeName="opacity" values="1;1;0" dur="3s" begin="${-i*.75}s" repeatCount="indefinite"/></circle>`).join('')}
+      <path d="M8 118 A92 24 0 0 0 192 118" fill="none" stroke="${dk}" stroke-width="10" stroke-dasharray="26 10"><animate attributeName="stroke-dashoffset" from="0" to="72" dur="1.1s" repeatCount="indefinite"/></path>`,
+      face:m=>faceAt(100,fy-8,{ec:'#DFF6FF',mc:'#DFF6FF',glow:true,shine:false},m)}}
+    case 'wal':{const fy=100;return {fy,body:`<defs><linearGradient id="${p}wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${k.c1}"/><stop offset="1" stop-color="${k.c2}"/></linearGradient></defs>
+      <g><animateTransform attributeName="transform" type="rotate" values="-10 44 124;14 44 124;-10 44 124" dur="1.8s" repeatCount="indefinite"/><path d="M48 126 Q20 116 6 88 Q22 98 32 104 Q20 82 26 62 Q42 94 56 118Z" fill="url(#${p}wb)"/></g>
+      <path d="M36 128 Q42 70 108 66 Q168 64 182 110 Q188 136 164 152 Q124 178 72 168 Q40 160 36 128Z" fill="url(#${p}wb)"/>
+      <path d="M54 156 Q110 184 166 150 Q128 170 74 164Z" fill="#9FC4FF" opacity=".35"/>
+      <g><animateTransform attributeName="transform" type="rotate" values="0 104 160;18 104 160;0 104 160" dur="1.8s" repeatCount="indefinite"/><path d="M96 160 Q100 188 122 196 Q116 176 112 160Z" fill="${k.c2}"/></g>
+      ${[[70,100],[92,82],[118,88],[76,132],[128,130],[104,114],[160,126],[60,116],[146,146]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${1.4+i%3*.6}" fill="#FFFFFF"><animate attributeName="opacity" values=".15;1;.15" dur="${1.6+i%4*.5}s" begin="${-i*.3}s" repeatCount="indefinite"/></circle>`).join('')}
+      ${[0,1,2,3,4].map(i=>`<circle r="${2.5+i%2}" fill="#DFF6FF"><animateMotion dur="1.6s" begin="${-i*.32}s" repeatCount="indefinite" path="M120 66 Q${104+i*8} 22 ${90+i*10} ${8+i%2*14}"/><animate attributeName="opacity" values="1;.8;0" dur="1.6s" begin="${-i*.32}s" repeatCount="indefinite"/></circle>`).join('')}`,
+      face:m=>faceAt(146,fy,{ec:'#EAF4FF',mc:'#EAF4FF',shine:false},m)}}
+    case 'uhr':{const fy=102,c=`url(#${p}go)`;return {fy,body:`<defs><radialGradient id="${p}go" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#FFF2C0"/><stop offset=".6" stop-color="#F0B840"/><stop offset="1" stop-color="#9A6A10"/></radialGradient></defs>
+      <g><animateTransform attributeName="transform" type="rotate" from="0 50 62" to="360 50 62" dur="9s" repeatCount="indefinite"/><path d="${gearPath(50,62,30,10)}" fill="#C8922A"/><circle cx="50" cy="62" r="9" fill="#7A5210"/></g>
+      <g><animateTransform attributeName="transform" type="rotate" from="360 152 54" to="0 152 54" dur="6s" repeatCount="indefinite"/><path d="${gearPath(152,54,24,8)}" fill="#E0AA3A"/><circle cx="152" cy="54" r="7" fill="#7A5210"/></g>
+      <g><animateTransform attributeName="transform" type="rotate" values="-22 100 176;22 100 176;-22 100 176" dur="1.4s" repeatCount="indefinite"/><path d="M100 176 L100 204" stroke="#9A6A10" stroke-width="4"/><circle cx="100" cy="208" r="9" fill="${c}"/></g>
+      <circle cx="100" cy="122" r="62" fill="${c}"/><circle cx="100" cy="122" r="62" fill="none" stroke="#7A5210" stroke-width="5"/><circle cx="100" cy="122" r="50" fill="#FFF8E4"/>
+      ${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6,r1=44,r2=i%3?40:35;return `<line x1="${(100+Math.cos(a)*r1).toFixed(1)}" y1="${(122+Math.sin(a)*r1).toFixed(1)}" x2="${(100+Math.cos(a)*r2).toFixed(1)}" y2="${(122+Math.sin(a)*r2).toFixed(1)}" stroke="#7A5210" stroke-width="${i%3?2:3.5}" stroke-linecap="round"/>`}).join('')}
+      <g><animateTransform attributeName="transform" type="rotate" from="0 100 122" to="360 100 122" dur="4s" repeatCount="indefinite"/><line x1="100" y1="128" x2="100" y2="80" stroke="#C23A4A" stroke-width="2.5" stroke-linecap="round"/></g>
+      <g><animateTransform attributeName="transform" type="rotate" from="0 100 122" to="360 100 122" dur="40s" repeatCount="indefinite"/><line x1="100" y1="122" x2="130" y2="122" stroke="#5A3A0A" stroke-width="4" stroke-linecap="round"/></g>
+      <circle cx="100" cy="122" r="4" fill="#5A3A0A"/>`,
+      face:m=>faceAt(100,fy,{ec:'#3A2A0A'},m)}}
+    case 'element':{const fy=100;return {fy,body:`<defs><radialGradient id="${p}el" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="${k.c2}"/><stop offset="1" stop-color="#3A6AD8"/></radialGradient></defs>
+      <circle cx="100" cy="104" r="62" fill="none" stroke="#BFE4FF" stroke-width="3" opacity=".4"><animate attributeName="r" values="56;68;56" dur="3s" repeatCount="indefinite"/></circle>
+      <path fill="url(#${p}el)" opacity=".92" d="M52 104 Q52 50 100 50 Q148 50 148 104 Q148 140 120 160 Q104 176 112 204 Q84 186 80 160 Q52 142 52 104Z"><animate attributeName="d" dur="2.6s" repeatCount="indefinite" values="M52 104 Q52 50 100 50 Q148 50 148 104 Q148 140 120 160 Q104 176 112 204 Q84 186 80 160 Q52 142 52 104Z;M52 104 Q52 50 100 50 Q148 50 148 104 Q148 142 124 160 Q96 182 82 206 Q76 180 78 160 Q52 140 52 104Z;M52 104 Q52 50 100 50 Q148 50 148 104 Q148 140 120 160 Q104 176 112 204 Q84 186 80 160 Q52 142 52 104Z"/></path>
+      ${[['#FF6A2A','#FFD04A'],['#39A8FF','#BFE8FF'],['#6BD65A','#D8FFB0'],['#E8E8FF','#FFFFFF']].map(([a,b],i)=>`<g><animateMotion dur="4.8s" begin="${-i*1.2}s" repeatCount="indefinite" path="${ORB(88,24,112)}"/><circle r="9" fill="${a}" style="filter:drop-shadow(0 0 5px ${a})"/><circle r="4" cx="-2" cy="-2" fill="${b}"/></g>`).join('')}`,
+      face:m=>faceAt(100,fy,{ec:'#1A3A8A',mc:'#1A3A8A',mouth:'o'},m)}}
+    case 'prisma':{const fy=116;return {fy,body:`<defs><linearGradient id="${p}pr" x1="0" y1="0" x2="1" y2="1"><animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="6s" repeatCount="indefinite"/><stop offset="0" stop-color="#FF9AD8"/><stop offset=".25" stop-color="#FFF2A0"/><stop offset=".5" stop-color="#9AFFE0"/><stop offset=".75" stop-color="#9AB8FF"/><stop offset="1" stop-color="#E0A0FF"/></linearGradient></defs>
+      <g opacity=".45"><animateTransform attributeName="transform" type="rotate" from="0 100 112" to="360 100 112" dur="16s" repeatCount="indefinite"/>${['#FF4B4B','#FF9A3A','#FFE14D','#5BD66A','#4BA3FF','#8A5CFF'].map((c,i)=>`<path d="M100 112 L${(100+Math.cos(i*1.047)*140).toFixed(0)} ${(112+Math.sin(i*1.047)*140).toFixed(0)} L${(100+Math.cos(i*1.047+.3)*140).toFixed(0)} ${(112+Math.sin(i*1.047+.3)*140).toFixed(0)}Z" fill="${c}"/>`).join('')}</g>
+      <path d="M100 18 L168 108 L100 204 L32 108Z" fill="url(#${p}pr)"/>
+      <path d="M100 18 L124 108 L100 204 L76 108Z M32 108 H168" stroke="#fff" stroke-width="2.5" fill="none" opacity=".75"/>
+      <path d="M100 18 L76 108 L32 108Z" fill="#fff" opacity=".4"/><path d="M168 108 L100 204 L124 108Z" fill="#000" opacity=".08"/>`,
+      face:m=>faceAt(100,fy,{ec:'#3A2A6A'},m)}}
     case 'robo':return {fy:112,body:`<path d="M100 40 V14" stroke="#9AA6BE" stroke-width="5"/><circle cx="100" cy="10" r="8" fill="#FF5A7A"/>
       <rect x="66" y="168" width="68" height="40" rx="12" fill="${k.c2}"/><circle cx="84" cy="188" r="5" fill="#39F5FF"/><circle cx="100" cy="188" r="5" fill="#FFD84A"/><circle cx="116" cy="188" r="5" fill="#FF5A7A"/>
       <rect x="36" y="40" width="128" height="124" rx="30" fill="${F}"/><rect x="58" y="84" width="84" height="60" rx="16" fill="#1C2340"/>
@@ -1148,6 +1240,10 @@ function mythFront(k,p){switch(k.myth){
   case 'shadow':return `<g opacity=".8"><circle cx="100" cy="72" r="3" fill="#FF3D5A"><animate attributeName="opacity" values=".2;1;.2" dur="1.6s" repeatCount="indefinite"/></circle></g>`;
   default:return '';
 }}
+function gearPath(cx,cy,r,n){let d='';for(let i=0;i<n*4;i++){const a=i/(n*4)*Math.PI*2,rr=(i%4<2)?r:r*.78;d+=(i?'L':'M')+(cx+Math.cos(a)*rr).toFixed(1)+' '+(cy+Math.sin(a)*rr).toFixed(1)+' '}return d+'Z'}
+function faceAt(cx,fy,o,m){const ec=o.ec||'#2A2447',mc=o.mc||ec,gl=o.glow?`style="filter:drop-shadow(0 0 4px ${ec})"`:'';
+  const mouth=o.mouth==='o'?`<ellipse ${m?'id="mouth"':''} cx="${cx}" cy="${fy+16}" rx="4" ry="5" fill="${mc}"/>`:`<path ${m?'id="mouth"':''} d="M${cx-7} ${fy+14} Q${cx} ${fy+20} ${cx+7} ${fy+14}" stroke="${mc}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+  return `<g ${m?'id="eyes"':''} style="transform-origin:${cx}px ${fy}px"><g ${m?'id="look"':''}><ellipse cx="${cx-10}" cy="${fy}" rx="5" ry="6.5" fill="${ec}" ${gl}/><ellipse cx="${cx+10}" cy="${fy}" rx="5" ry="6.5" fill="${ec}" ${gl}/>${o.shine===false?'':`<circle cx="${cx-8.5}" cy="${fy-2.5}" r="1.7" fill="#fff"/><circle cx="${cx+11.5}" cy="${fy-2.5}" r="1.7" fill="#fff"/>`}</g></g>${mouth}`}
 function mushSVG(k,p){
   const a=new Set(k.acc||[]),d=k.dots||'#fff',main=p==='';
   const sh=shapeSVG(k,p,main);
@@ -1200,14 +1296,14 @@ function buySkin(id){
 }
 function openSkins(){
   const grid=$('skinGrid'),keep=grid.scrollTop;
-  const order={m:-1,l:0,e:1,s:2,g:3};
+  const order={x:-2,m:-1,l:0,e:1,s:2,g:3};
   renderShopBar();
-  const list=SKINS.slice().sort((a,b)=>(S.skins.includes(b.id)-S.skins.includes(a.id))||(order[a.rar]-order[b.rar]));
+  const list=SKINS.filter(k=>!k.secret||S.skins.includes(k.id)).sort((a,b)=>(S.skins.includes(b.id)-S.skins.includes(a.id))||(order[a.rar]-order[b.rar]));
   $('skinGrid').innerHTML=list.map((k,i)=>{const on=S.skins.includes(k.id);
     const buy=!on&&k.price;
     return `<button class="skin r-${k.rar}" data-k="${k.id}" ${buy?'data-buy="1"':''} aria-pressed="${S.skin===k.id}" ${on||buy?'':'disabled'}>${on||buy?`<div class="pv">${mushSVG(k,'pv'+i)}</div>`:'<div class="lock">🔒</div>'}${on||buy?k.name:'???'}<small class="rar">${RAR[k.rar]}</small>${k.prem?'<span class="pbadge">👑 Premium</span>':''}<small class="efx">✨ ${pfxOf(k).n}</small>${buy?`<span class="price ${S.dia<k.price?'no':''}">💎 ${k.price}</span>`:`<small>${on?(S.skin===k.id?'Ausgewählt':'Auswählen'):skinHow(k)}</small>`}</button>`}).join('');
   $('skinGrid').querySelectorAll('.skin').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.buy){buySkin(b.dataset.k);return}S.skin=b.dataset.k;applySkin();sfx.buy();save();const r=b.getBoundingClientRect();sporeBurst(r.left+r.width/2,r.top+r.height*.35,8);openSkins()}));
-  $('skinModal').querySelector('p').textContent=`${S.skins.length} von ${SKINS.length} Pilzen gesammelt. Jeder bringt dauerhaft +2 % Produktion.`;
+  $('skinModal').querySelector('p').textContent=`${S.skins.length} von ${SKINS.filter(k=>!k.secret||S.skins.includes(k.id)).length} Skins gesammelt. Jeder bringt dauerhaft +2 % Produktion.`;
   $('skinModal').hidden=false;grid.scrollTop=keep;document.body.classList.add('locked');if(!keep)$('skinClose').focus({preventScroll:true});
 }
 $('skinBtn').onclick=()=>{ensureAudio();openSkins()};
@@ -1692,6 +1788,61 @@ function drawWeather(t){
   if(t<rainbowUntil){const a=Math.min(1,(rainbowUntil-t)/3000)*.45;['#FF4B4B','#FF9A3A','#FFE14D','#5BD66A','#4BA3FF','#8A5CFF'].forEach((c,i)=>{g.strokeStyle=c;g.globalAlpha=a;g.lineWidth=5;g.beginPath();g.arc(gw/2,gh*1.02,gw*.62-i*5,Math.PI,0);g.stroke()});g.globalAlpha=1}
 }
 
+/* ---------- rebirth ---------- */
+function rbNeed(){return (S.rb||0)>=1?1e16:1e15}
+function nextSecret(){return SKINS.find(k=>k.rb===(S.rb||0)+1)}
+function rbHTML(){const pr=Math.min(1,(S.rbEarn||0)/rbNeed()),ready=pr>=1,nx=nextSecret();
+  return `<div class="rbbox"><h3>🔄 Wiedergeburt${S.rb?` (schon ${S.rb}×)`:''}</h3><p>${ready?'Du bist bereit! Werde wiedergeboren, verdopple deine Produktion für immer und entdecke einen geheimen Skin.':`Sammle ${fmt(rbNeed())} Sporen seit deiner letzten Wiedergeburt. Dann kannst du wiedergeboren werden.`}</p>
+    <div class="xpbar"><i style="width:${(pr*100).toFixed(1)}%"></i></div><p style="color:var(--muted);font-size:.85rem">${fmt(S.rbEarn||0)} von ${fmt(rbNeed())}${nx?', Belohnung: ein geheimer Skin':''}</p><button class="primary" id="rbOpen">${ready?'Wiedergeburt ansehen':'Mehr erfahren'}</button></div>`}
+function openRebirth(){
+  const ready=(S.rbEarn||0)>=rbNeed(),nx=nextSecret(),mult=Math.pow(2,(S.rb||0)+1);
+  $('rbBody').innerHTML=`<div class="bigemoji">🔄</div><h2 id="rbT">Wiedergeburt ${(S.rb||0)+1}</h2>
+    ${nx?`<div class="sil">${mushSVG(nx,'sil')}<b>?</b></div><p style="text-align:center">Ein geheimer Skin wartet auf dich. Er taucht nirgends auf, bis du ihn durch die Wiedergeburt freischaltest.</p>`:'<p style="text-align:center">Du hast alle geheimen Skins gefunden. Jede weitere Wiedergeburt verdoppelt trotzdem deine Produktion.</p>'}
+    <ul class="rblist"><li><b>Du bekommst:</b> Produktion dauerhaft ×${mult}${nx?', einen geheimen Skin':''} und 10 💎.</li><li><b>Du behältst:</b> Sternensamen, Skins, Begleiter, Erfolge, Juwelen, Diamanten, Pass und Dimensionen.</li><li><b>Zurückgesetzt werden:</b> Sporen, Züchter, Upgrades und Aufgaben.</li></ul>
+    ${ready?'<button class="primary" id="rbGo">Wiedergeburt starten</button>':`<p style="text-align:center;color:var(--muted)">Noch ${fmt(rbNeed()-(S.rbEarn||0))} Sporen bis zur Wiedergeburt.</p>`}
+    <button class="ghost" id="rbX" style="width:100%;margin:10px 0 0">${ready?'Noch nicht':'Schließen'}</button>`;
+  $('rbModal').hidden=false;document.body.classList.add('locked');
+  const go=$('rbGo');if(go)go.onclick=doRebirth;
+  $('rbX').onclick=()=>{$('rbModal').hidden=true;document.body.classList.remove('locked')};
+}
+$('rbModal').addEventListener('click',e=>{if(e.target.id==='rbModal'){$('rbModal').hidden=true;document.body.classList.remove('locked')}});
+$('buffs').addEventListener('click',e=>{if(e.target.closest('.rbb')){ensureAudio();openRebirth()}});
+function showRbBanner(){
+  if(document.querySelector('.rbban'))return;
+  const b=document.createElement('div');b.className='rbban';b.setAttribute('role','alert');
+  b.innerHTML=`<span class="ic">🔄</span><div class="tx"><b>Wiedergeburt möglich!</b><small>Du hast ${fmt(rbNeed())} Sporen gesammelt. Ein geheimer Skin wartet.</small></div><button class="go">Ansehen</button><button class="x" aria-label="Schließen">×</button>`;
+  document.body.appendChild(b);
+  b.querySelector('.go').onclick=()=>{b.remove();ensureAudio();openRebirth()};b.querySelector('.x').onclick=()=>b.remove();
+  [392,523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.07,i*.12));buzz([40,60,40,60,120]);
+  const r=b.getBoundingClientRect();confetti(false,r.left+r.width/2,r.top+r.height);
+}
+function doRebirth(){
+  if((S.rbEarn||0)<rbNeed())return;
+  $('rbModal').hidden=true;document.body.classList.remove('locked');
+  const m=mush.getBoundingClientRect(),cx=m.left+m.width/2,cy=m.top+m.height/2;
+  vortex(cx,cy,Math.max(innerWidth,innerHeight)*.6,['#FFE7A0','#B070FF','#FF8FC0','#FFFFFF']);
+  tone(120,1.4,'sine',.09,0,8);tone(180,1.2,'triangle',.05,.2,6);buzz([60,40,60,40,200]);
+  let an=null;if(mush.animate&&!reduced)an=mush.animate([{transform:'translateX(-50%) scale(1) rotate(0)',filter:'brightness(1)'},{transform:'translateX(-50%) scale(0) rotate(720deg)',filter:'brightness(4)'}],{duration:1000,easing:'cubic-bezier(.6,0,.9,.4)',fill:'forwards'});
+  setTimeout(()=>{
+    S.rb=(S.rb||0)+1;S.rbEarn=0;S.rbNotified=false;S.spores=0;S.season=0;S.owned={};S.up=[];S.quests=[];
+    bVisible=-1;uKey='';sKey='';qKey='';disp=0;slugsArr.forEach(o=>{o.dead=true;o.el.remove()});
+    const nx=SKINS.find(k=>k.rb===S.rb);let ns=null;if(nx&&!S.skins.includes(nx.id)){S.skins.push(nx.id);ns=nx}
+    S.dia+=10;save();if(an)an.cancel();render();showReveal(ns);
+  },reduced?0:1050);
+}
+function showReveal(k){
+  const o=document.createElement('div');o.className='rbrev';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
+  const mult=Math.pow(2,S.rb);
+  o.innerHTML=`<div class="rays"></div><div class="inner">${k?`<div class="sk">${mushSVG(k,'rv')}</div><div class="rbtag">🔓 Geheimer Skin freigeschaltet</div><h2>${k.name}</h2><p>Wiedergeburt ${S.rb} geschafft! Deine Produktion ist jetzt dauerhaft ×${mult}, und du bekommst 10 💎.</p><button class="primary rbwear">Jetzt anlegen</button><button class="ghost rbclose">Später</button>`
+    :`<div class="sk" style="font-size:96px;line-height:1.2">🔄</div><h2>Wiedergeburt ${S.rb}</h2><p>Deine Produktion ist jetzt dauerhaft ×${mult}, und du bekommst 10 💎.</p><button class="primary rbclose">Weiter</button>`}</div>`;
+  document.body.appendChild(o);document.body.classList.add('locked');
+  confetti(true);setTimeout(()=>confetti(true,innerWidth*.25,innerHeight*.4),300);setTimeout(()=>confetti(true,innerWidth*.75,innerHeight*.4),600);
+  [523,659,784,1047,1319].forEach((f,i)=>tone(f,.5,'triangle',.08,.2+i*.14));
+  const close=()=>{o.remove();document.body.classList.remove('locked');jump()};
+  const w=o.querySelector('.rbwear');if(w)w.onclick=()=>{S.skin=k.id;applySkin();save();close();toast(`✨ ${k.name} angelegt`)};
+  o.querySelector('.rbclose').onclick=close;
+}
+
 /* ---------- scene renderer ---------- */
 const gc=$('garden'),g=gc.getContext('2d');let gw=0,gh=0,gdpr=1;
 const bgc=document.createElement('canvas');let bgKey='';
@@ -1887,6 +2038,7 @@ function render(){
   if(now()<buffs.dragon)bf.push(['pink',`🐲 Feueratem ×3 ${Math.ceil((buffs.dragon-now())/1000)} s`]);
   if(chargeTaps>0)bf.push(['pink',`⚡ Aufgeladen ×5, noch ${chargeTaps} Tipps`]);
   if(now()<buffs.tap)bf.push(['',`Tippsturm ${Math.ceil((buffs.tap-now())/1000)} s`]);
+  if((S.rbEarn||0)>=rbNeed())bf.unshift(['rbb','🔄 Wiedergeburt bereit!']);
   $('buffs').innerHTML=bf.map(([c,b])=>`<span class="buff ${c}">${b}</span>`).join('');
   $('meter').style.width=(now()<buffs.rush?((buffs.rush-now())/((has('r0')?13:8)*1000))*100:meter*100)+'%';
   updBList();updUList();updQuests();updAch();updSeason();updPassBar();pushScore(false);if(LB.on&&!$('p-r').hidden&&Date.now()-LB.lastFetch>20000)fetchLB();
@@ -1917,7 +2069,7 @@ function frame(t){
   updSlugs(dt);
   uiAcc+=dt;achAcc+=dt;saveAcc+=dt;
   if(uiAcc>0.1){uiAcc=0;render()}
-  if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
+  if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();if((S.rbEarn||0)>=rbNeed()&&!S.rbNotified){S.rbNotified=true;save();showRbBanner()}updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
   if(saveAcc>8){saveAcc=0;save()}
   updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);
   auraAcc+=dt;if(auraAcc>.22){auraAcc=0;if($('skinModal').hidden&&$('passModal').hidden)auraTick()}
