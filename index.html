@@ -859,6 +859,15 @@ const SKINS=[
   {id:'uhr',name:'Zeitwächter',rar:'x',shape:'uhr',c1:'#FFE7A0',c2:'#B8801A',secret:1,rb:3,fx:'clock'},
   {id:'element',name:'Elementargeist',rar:'x',shape:'element',c1:'#F0FCFF',c2:'#7FB8FF',secret:1,rb:4,fx:'elem'},
   {id:'prisma',name:'Prismenwesen',rar:'x',shape:'prisma',c1:'#FFFFFF',c2:'#B8C8FF',secret:1,rb:5,fx:'prism'},
+  {id:'honig',name:'Honigpilz',rar:'s',c1:'#FFE08A',c2:'#D08A1A',dots:'#FFF6D0'},
+  {id:'moospilz',name:'Moospilz',rar:'e',c1:'#A8E88A',c2:'#2E6B3A',dots:'#E8FFD8',acc:['sparkle']},
+  {id:'glasqualle',name:'Glasqualle',rar:'l',shape:'qualle',c1:'#E8FCFF',c2:'#7FC8E0',fx:'ghost',acc:['sparkle']},
+  {id:'sternkoenig',name:'Sternenkönig',rar:'l',c1:'#FFF6B0',c2:'#D8A020',dots:'#FFFFFF',acc:['crown','halo','sparkle'],fx:'gold'},
+  {prem:1,id:'neonkaktus',name:'Neonkaktus',rar:'e',shape:'kaktus',c1:'#7CFF6B',c2:'#0A6A3A',fx:'neon'},
+  {prem:1,id:'chromrobo',name:'Chromroboter',rar:'e',shape:'robo',c1:'#F4F8FF',c2:'#8A9AB8',fx:'ice'},
+  {prem:1,id:'lavaplanet',name:'Lavaplanet',rar:'l',shape:'planet',c1:'#FFB04A',c2:'#9A1A0A',fx:'fire'},
+  {prem:1,id:'schattenqualle',name:'Schattenqualle',rar:'l',shape:'qualle',c1:'#6A4A9A',c2:'#140A2A',dots:'#FF3D5A',fx:'shadow',eye:'#FF3D5A'},
+  {prem:1,id:'goldkristall',name:'Goldkristall',rar:'l',shape:'kristall',c1:'#FFF2A0',c2:'#D09A20',fx:'gold',acc:['sparkle']},
   {id:'kometenkind',name:'Kometenkind',rar:'v',shape:'komet',c1:'#FF9A3A',c2:'#8A2A1A',fx:'fire',how:'Nimm an einem Live-Event teil (jeden Mittwoch um 11:40 Uhr)'},
   {id:'flocke',name:'Kristallflocke',rar:'u',shape:'flocke',c1:'#DFF6FF',c2:'#2F86C8',fx:'glitter',how:'Besiege 20 Schneekolosse und fang 30 Sternschnuppen im Frostgipfel',prog:s=>`⛄ ${Math.min(20,s.frostBoss||0)}/20, 🌠 ${Math.min(30,s.frostStars||0)}/30`,req:s=>(s.frostBoss||0)>=20&&(s.frostStars||0)>=30},
   {id:'kuschel',name:'Kuschelbär',rar:'u',shape:'kuschel',c1:'#EACB9C',c2:'#C49A62',fx:'cozy',how:'Tippe 1.000.000-mal im Frostgipfel',prog:s=>`${fmt(s.frostTaps||0)} von 1 Mio.`,req:s=>(s.frostTaps||0)>=1e6},
@@ -907,10 +916,11 @@ const PFX={
   cozy:{n:'Kuschelherzen',kind:'heart',cols:['#FFB0C8','#F4EAD6','#EACB9C','#FFFFFF'],g:-.04,up:1.2,sp:3,snd:['sine',520,1.2]},
   tears:{n:'Tränen und Funken',kind:'tears',cols:['#7FD4FF','#FFD04A'],g:.2,up:2.5,sp:3.5,snd:['triangle',330,.75]}
 };
-const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy',flocke:'glitter',kometenkind:'meteor'};
+const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy',flocke:'glitter',kometenkind:'meteor',honig:'coin',moospilz:'leaf',glasqualle:'bubble',sternkoenig:'royal',neonkaktus:'pixel',chromrobo:'shard',lavaplanet:'lava',schattenqualle:'dark',goldkristall:'coin'};
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const CYCLE=240;
-function phase(){return (Date.now()/1000%CYCLE)/CYCLE}
+let DN_OVR=null;
+function phase(){if(DN_OVR)return DN_OVR==='day'?.25:.75;return (Date.now()/1000%CYCLE)/CYCLE}
 function isNight(){return phase()>=.5}
 function nightAmt(){const p=phase();return p<.45?0:p<.55?(p-.45)/.1:p<.95?1:(1-p)/.05}
 function phaseMult(id){if(isNight())return ['wurm','mond','geist'].includes(id)?2:1;return ['moos','igel','wind'].includes(id)?1.5:1}
@@ -952,7 +962,7 @@ function baseMult(){return (1+S.seeds*0.1)*(1+S.ach.length*0.03)*(1+(S.skins.len
 function rawSps(){let t=0;for(const b of B)t+=(S.owned[b.id]||0)*bRate(b);return t*baseMult()}
 let slugsArr=[];
 const slugFactor=()=>Math.pow(S.pet==='frosch'?1-.07/petPf():.85,slugsArr.filter(o=>!o.dead).length);
-function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)*(evParty()?2:1)}
+function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)*(evParty()?2:1)*cfgMult('boost')}
 function rushPow(){return has('r1')?10:5}
 function tapBase(){
   let base=1,pct=0;
@@ -1397,7 +1407,7 @@ function updSeason(){
 /* ---------- golden events ---------- */
 const goldSVG=`<svg viewBox="0 0 100 100"><path d="M40 58 Q37 80 34 92 Q50 97 66 92 Q63 80 60 58Z" fill="#FFF3D6"/><path d="M8 60 Q10 14 50 12 Q90 14 92 60 Q50 70 8 60Z" fill="#FFC23D"/><circle cx="32" cy="36" r="7" fill="#FFF7E0"/><circle cx="62" cy="28" r="5" fill="#FFF7E0"/><circle cx="70" cy="46" r="6" fill="#FFF7E0"/></svg>`;
 let nextGold=now()+18000;
-function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)*(1+Math.max(0,Math.log10(S.allTime+1)-6)*.03)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)}
+function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)/(cfgOn('goldrain')?4:1)*(1+Math.max(0,Math.log10(S.allTime+1)-6)*.03)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)}
 function spawnGold(){
   const g=document.createElement('button');g.className='gold';g.innerHTML=goldSVG;g.setAttribute('aria-label','Goldpilz einsammeln');
   g.style.left=(6+Math.random()*80)+'vw';g.style.top=(14+Math.random()*66)+'vh';document.body.appendChild(g);
@@ -1745,24 +1755,35 @@ const PASSP=[null,
   {t:'petxp',n:400},{t:'gems',n:35},{t:'bot',n:3},{t:'sp',s:10000},{t:'dim',id:'neon'},
   {t:'gems',n:40},{t:'seed',n:6},{t:'dia',n:5},{t:'gems',n:50},{t:'skin',id:'aurora'}
 ];
-const MAXT=60,SEASON_MS=28*864e5,PASS_EPOCH=Date.UTC(2026,0,5),PREM_COST=150,BONUS_XP=800;
+for(let i=61;i<=100;i++){
+  const fs={70:{t:'skin',id:'honig'},80:{t:'skin',id:'moospilz'},90:{t:'skin',id:'glasqualle'},100:{t:'skin',id:'sternkoenig'},65:{t:'seed',n:3},75:{t:'seed',n:4},85:{t:'seed',n:4},95:{t:'seed',n:5}};
+  const cyc=[{t:'sp',s:3000+(i-60)*200},{t:'gold'},{t:'frenzy',s:120},{t:'rush'},{t:'tap'},{t:'petxp',n:200+(i-60)*10}];
+  PASS[i]=fs[i]||cyc[i%6];
+  const ps={65:{t:'skin',id:'neonkaktus'},75:{t:'skin',id:'chromrobo'},85:{t:'skin',id:'lavaplanet'},95:{t:'skin',id:'schattenqualle'},100:{t:'skin',id:'goldkristall'},68:{t:'dia',n:3},78:{t:'dia',n:4},88:{t:'dia',n:5},98:{t:'dia',n:6},72:{t:'bot',n:3},82:{t:'bot',n:3},92:{t:'bot',n:4}};
+  const pc=[{t:'gems',n:40+(i-60)},{t:'sp',s:8000+(i-60)*300},{t:'seed',n:4},{t:'gems',n:50}];
+  PASSP[i]=ps[i]||pc[i%4];
+}
+const MAXT=100,SEASON_MS=56*864e5,PASS_EPOCH=Date.UTC(2026,0,5),PREM_COST=150,BONUS_XP=1000;
 function passTierFor(type,id){for(let i=1;i<=MAXT;i++)if(PASS[i].t===type&&PASS[i].id===id)return i;return 0}
 function premTierFor(type,id){for(let i=1;i<=MAXT;i++)if(PASSP[i].t===type&&PASSP[i].id===id)return i;return 0}
 function passSeasonIdx(){return Math.floor((Date.now()-PASS_EPOCH)/SEASON_MS)}
 const isPrem=()=>S.premSeason===passSeasonIdx();
 function passEndsIn(){const end=PASS_EPOCH+(passSeasonIdx()+1)*SEASON_MS,ms=end-Date.now(),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);return d>0?`${d} T ${h} Std`:`${h} Std ${Math.floor(ms%36e5/6e4)} Min`}
-function tierCost(t){return 80+t*14}
+function tierCost(t){return 80+t*12}
 function tierInfo(){let xp=S.xp,t=0;while(t<MAXT&&xp>=tierCost(t)){xp-=tierCost(t);t++}
   if(t>=MAXT){const b=Math.floor(xp/BONUS_XP);return {tier:MAXT,bonus:b,into:xp-b*BONUS_XP,need:BONUS_XP}}
   return {tier:t,bonus:0,into:xp,need:tierCost(t)}}
-function addXP(n){const b=tierInfo();S.xp+=n*(isPrem()?1.25:1);const a=tierInfo();
+function addXP(n){const b=tierInfo();S.xp+=n*(isPrem()?1.25:1)*cfgMult('xpboost');const a=tierInfo();
   if(a.tier>b.tier||a.bonus>b.bonus){sfx.ach();buzz([20,40,20]);confetti();jump();toast(a.tier>b.tier?`⭐ Pass-Stufe ${a.tier} erreicht!`:'⭐ Bonusstufe erreicht!','Tippe auf den Pass, um die Belohnung abzuholen')}}
 function addGems(n,why){S.gems+=n;if(why)toast(`💠 +${n} Juwelen`,why)}
 function claimable(){const ti=tierInfo();let n=0;for(let i=1;i<=ti.tier;i++){if(!S.claimed.includes(i))n++;if(isPrem()&&!S.pclaimed.includes(i))n++}return n+Math.max(0,ti.bonus-S.bonusClaimed)}
 function checkPassSeason(){
-  if(S.passVer!==2){const oldIdx=Math.floor((Date.now()-PASS_EPOCH)/(14*864e5)),hadPrem=S.premSeason===oldIdx,had=S.passSeason!==null;
-    S.passVer=2;S.passSeason=passSeasonIdx();S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;if(hadPrem)S.premSeason=S.passSeason;
-    if(had)queueModal({emoji:'⭐',title:'Der Pass wurde erneuert!',text:`Der Sporen-Pass hat jetzt 60 Stufen und läuft 28 Tage. Deine XP bleiben erhalten, und alle Belohnungen kannst du neu abholen.${hadPrem?' Dein Premium-Pass bleibt aktiv.':''}`,ok:'Ansehen',onOk:()=>openPass()});return}
+  if(S.passVer===2){const oldIdx=Math.floor((Date.now()-PASS_EPOCH)/(28*864e5)),hadPrem=S.premSeason===oldIdx;
+    S.passVer=3;S.passSeason=passSeasonIdx();if(hadPrem)S.premSeason=S.passSeason;
+    queueModal({emoji:'⭐',title:'Der Pass ist jetzt viel länger!',text:`Der Sporen-Pass hat jetzt 100 Stufen und läuft 8 Wochen. Deine XP und abgeholten Belohnungen bleiben erhalten, und ab Stufe 61 warten neue Skins auf dich.${hadPrem?' Dein Premium-Pass bleibt aktiv.':''}`,ok:'Ansehen',onOk:()=>openPass()});return}
+  if(S.passVer!==3&&S.passVer!==2){const oldIdx=Math.floor((Date.now()-PASS_EPOCH)/(14*864e5)),hadPrem=S.premSeason===oldIdx,had=S.passSeason!==null;
+    S.passVer=3;S.passSeason=passSeasonIdx();S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;if(hadPrem)S.premSeason=S.passSeason;
+    if(had)queueModal({emoji:'⭐',title:'Der Pass wurde erneuert!',text:`Der Sporen-Pass hat jetzt 100 Stufen und läuft 8 Wochen. Deine XP bleiben erhalten, und alle Belohnungen kannst du neu abholen.${hadPrem?' Dein Premium-Pass bleibt aktiv.':''}`,ok:'Ansehen',onOk:()=>openPass()});return}
   const i=passSeasonIdx();if(S.passSeason!==i){const had=S.passSeason!==null;S.passSeason=i;S.xp=0;S.claimed=[];S.pclaimed=[];S.bonusClaimed=0;
   if(had)queueModal({emoji:'⭐',title:'Neue Pass-Saison!',text:'Der Sporen-Pass beginnt von vorn. Alle Figuren und Dimensionen, die du schon hast, behältst du.',ok:'Weiter'})}}
 function rewardInfo(r,p){
@@ -1803,7 +1824,7 @@ function claimBonus(){const ti=tierInfo();if(ti.bonus<=S.bonusClaimed)return;S.b
 function buyPremium(){
   if(isPrem())return;
   if(S.gems<PREM_COST){toast('💠 Nicht genug Juwelen',`Du brauchst ${PREM_COST}, hast aber ${S.gems}`);return}
-  queueModal({emoji:'👑',title:'Premium-Pass freischalten?',text:`Für ${PREM_COST} Juwelen bekommst du in dieser Saison 60 zusätzliche Belohnungen, darunter exklusive Figuren, die Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Außerdem gibt es 25 % mehr XP.`,ok:'Freischalten',cancel:true,onOk:()=>{
+  queueModal({emoji:'👑',title:'Premium-Pass freischalten?',text:`Für ${PREM_COST} Juwelen bekommst du in dieser Saison 100 zusätzliche Belohnungen, darunter exklusive Figuren, die Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Außerdem gibt es 25 % mehr XP.`,ok:'Freischalten',cancel:true,onOk:()=>{
     if(S.gems<PREM_COST)return;S.gems-=PREM_COST;S.premSeason=passSeasonIdx();save();confetti(true);sfx.ach();toast('👑 Premium-Pass aktiv!','Hol dir jetzt alle freigeschalteten Premium-Belohnungen');renderPass();$('passModal').hidden=false;
   }});
   $('passModal').hidden=true;
@@ -1816,8 +1837,8 @@ function cellHTML(r,i,prem,reached,claimed){
 }
 function renderPass(scroll){
   const ti=tierInfo(),pr=isPrem();
-  $('premBox').innerHTML=pr?`<div class="prem on"><h3>👑 Premium-Pass aktiv</h3><p style="margin:0">25 % mehr XP und alle 60 Premium-Belohnungen in dieser Saison.</p></div>`
-    :`<div class="prem"><h3>👑 Premium-Pass</h3><p>60 Extra-Belohnungen: exklusive Figuren wie Glibber, Qualli, Robo und Sternenqualle, die Dimension Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Juwelen und Diamanten gibt es nur im Premium-Pass, nicht im Gratis-Pass. Juwelen verdienst du durch Aufgaben, Erfolge, Bosse, Goldpilze und den Tagesbonus.</p><button id="buyPrem" ${S.gems>=PREM_COST?'':'disabled'}>Freischalten für ${PREM_COST} 💠 (du hast ${S.gems})</button></div>`;
+  $('premBox').innerHTML=pr?`<div class="prem on"><h3>👑 Premium-Pass aktiv</h3><p style="margin:0">25 % mehr XP und alle 100 Premium-Belohnungen in dieser Saison.</p></div>`
+    :`<div class="prem"><h3>👑 Premium-Pass</h3><p>100 Extra-Belohnungen: exklusive Figuren wie Glibber, Qualli, Robo und Sternenqualle, die Dimension Neonstadt, Auto-Tipper, Diamanten und über 400 Juwelen zurück. Juwelen und Diamanten gibt es nur im Premium-Pass, nicht im Gratis-Pass. Juwelen verdienst du durch Aufgaben, Erfolge, Bosse, Goldpilze und den Tagesbonus.</p><button id="buyPrem" ${S.gems>=PREM_COST?'':'disabled'}>Freischalten für ${PREM_COST} 💠 (du hast ${S.gems})</button></div>`;
   const bp=$('buyPrem');if(bp)bp.onclick=buyPremium;
   $('paTier').textContent=ti.tier>=MAXT?`Stufe ${MAXT}, Bonus ${ti.bonus}`:`Stufe ${ti.tier} von ${MAXT}`;
   $('paEnd').textContent='Saison endet in '+passEndsIn();
@@ -1828,7 +1849,7 @@ function renderPass(scroll){
   for(let i=1;i<=MAXT;i++){const reached=ti.tier>=i;
     h+=`<div class="tier2 ${reached?'reached':''} ${i===ti.tier+1?'cur':''}" id="tier${i}"><span class="tn">${i}</span>${cellHTML(PASS[i],i,false,reached,S.claimed.includes(i))}${cellHTML(PASSP[i],i,true,reached,S.pclaimed.includes(i))}</div>`}
   const bc=Math.max(0,ti.bonus-S.bonusClaimed);
-  h+=`<div class="tier ${ti.tier>=MAXT?'reached':''}"><span class="tn">∞</span><span class="ico">⭐</span><span class="info"><strong>Bonusstufen</strong><small>Alle 800 XP nach Stufe 60: Sporen, vielleicht ein Sternensamen und mit Premium 5 Juwelen und 1 Diamant</small></span>${bc?`<button class="claim" data-b="1">Abholen (${bc})</button>`:''}</div>`;
+  h+=`<div class="tier ${ti.tier>=MAXT?'reached':''}"><span class="tn">∞</span><span class="ico">⭐</span><span class="info"><strong>Bonusstufen</strong><small>Alle 1.000 XP nach Stufe 100: Sporen, vielleicht ein Sternensamen und mit Premium 5 Juwelen und 1 Diamant</small></span>${bc?`<button class="claim" data-b="1">Abholen (${bc})</button>`:''}</div>`;
   $('tiers').innerHTML=h;
   $('tiers').querySelectorAll('button[data-t],button[data-b]').forEach(b=>b.addEventListener('click',e=>{
     if(b.dataset.b)claimBonus();else claimTier(+b.dataset.t,b.dataset.p==='1');
@@ -2211,7 +2232,7 @@ function winBoss(){
   if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),3000)}
   gain(sp);S.gems+=gm;S.bossWins++;S.bossLvl++;addXP(60);const dd=(S.bossWins%5===0?3:1)+(stars===3?1:0);S.dia+=dd;petXP(25);
   setTimeout(()=>toast(`⚔️ ${B0.name} besiegt!`,`+${fmt(sp)} Sporen, ${gm} 💠 und ${dd} 💎`),1400);
-  boss=null;nextBoss=now()+240000+Math.random()*120000;setTimeout(jump,900);checkPets();
+  boss=null;nextBoss=cfgOn('bossrush')?now()+45000:now()+240000+Math.random()*120000;setTimeout(jump,900);checkPets();
 }
 function loseBoss(){
   const B0=boss;B0.dead=true;document.querySelectorAll('.proj,.minion').forEach(p=>p.remove());
@@ -2221,7 +2242,7 @@ function loseBoss(){
   setTimeout(()=>{B0.el.classList.remove('laugh');B0.el.classList.add('flee');B0.bar.classList.add('out')},1000);
   setTimeout(()=>{v.remove();B0.el.remove();B0.bar.remove()},2200);
   toast(`${B0.e} ${B0.name} ist entkommen`,'Unterbrich Angriffe und zerschlag Schilde, dann klappt es');
-  boss=null;nextBoss=now()+180000+Math.random()*120000;
+  boss=null;nextBoss=cfgOn('bossrush')?now()+45000:now()+180000+Math.random()*120000;
 }
 function shoot(delay,off){
   if(!boss||boss.dead)return;
@@ -2455,8 +2476,49 @@ function drawEvent(tt){
     for(let x=0;x<=gw;x+=12)g.lineTo(x,gh*(.1+b*.05)+Math.sin(x*.02+t*.0009+b)*18);for(let x=gw;x>=0;x-=12)g.lineTo(x,gh*(.32+b*.05)+Math.sin(x*.018+t*.0007+b*2)*22);g.fill()});g.restore()}
 }
 
+/* ---------- globale Einstellungen, Ankündigungen und Geschenke ---------- */
+const CFG={data:{},ann:[],lastFetch:0};
+function cfgOn(k){const c=CFG.data[k];if(!c)return null;if(c.until&&Date.parse(c.until)<Date.now())return null;return c}
+function cfgMult(k){const c=cfgOn(k);return c&&c.mult?Number(c.mult)||1:1}
+async function cfgFetch(){
+  if(!LB.sb)return;CFG.lastFetch=Date.now();
+  try{const [a,b]=await Promise.all([LB.sb.from('game_config').select('key,value'),LB.sb.from('announcements').select('id,text,kind,until,created_at').order('id',{ascending:false}).limit(5)]);
+    if(!a.error){const d={};(a.data||[]).forEach(r=>d[r.key]=r.value);CFG.data=d}
+    if(!b.error){CFG.ann=(b.data||[]).filter(x=>!x.until||Date.parse(x.until)>Date.now());S.annSeen=S.annSeen||[];
+      CFG.ann.slice().reverse().forEach(x=>{if(!S.annSeen.includes(x.id)){S.annSeen.push(x.id);if(S.annSeen.length>50)S.annSeen.shift();save();showAnn(x)}})}
+    const le=cfgOn('liveevent');if(le&&le.start){const st=Date.parse(le.start);if(Date.now()<st+EV_TOTAL*1000&&evOverride!==st){evOverride=st;evCache.at=0}}
+    const mt=cfgOn('maintenance');const old=document.querySelector('.mtban');if(mt&&mt.text){if(!old){const d=document.createElement('div');d.className='toast mtban';d.style.cssText='position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 8px);z-index:43;width:auto;max-width:92vw;white-space:normal';document.body.appendChild(d)}document.querySelector('.mtban').textContent='🛠️ '+mt.text}else if(old)old.remove();
+  }catch(e){}
+  giftCheck();
+}
+function showAnn(x){
+  const b=document.createElement('div');b.className='evban';b.style.background=x.kind==='warn'?'linear-gradient(120deg,#5A1A0A,#C2183A)':x.kind==='event'?'linear-gradient(120deg,#2A1F5A,#7A3BD8 55%,#D6457E)':'linear-gradient(120deg,#0F3A4A,#1FA89A)';
+  b.innerHTML=`<span class="ic">${x.kind==='warn'?'⚠️':x.kind==='event'?'🎉':'📣'}</span><div class="tx"><b>Nachricht vom Pilzgarten-Team</b><small></small></div><button class="x" aria-label="Schließen">×</button>`;
+  b.querySelector('small').textContent=x.text;document.body.appendChild(b);b.querySelector('.x').onclick=()=>b.remove();setTimeout(()=>b.remove(),20000);tone(660,.2,'sine',.06);tone(880,.25,'sine',.05,.12);
+}
+let giftBusy=false;
+async function giftCheck(){
+  if(!LB.sb||!LB.uid||giftBusy)return;giftBusy=true;
+  try{const r=await LB.sb.rpc('my_gifts');if(!r.error)for(const g of (r.data||[])){const c=await LB.sb.rpc('claim_gift',{p_id:g.id});if(!c.error&&c.data)applyGift(c.data)}}catch(e){}
+  giftBusy=false;
+}
+function applyGift(g){
+  const a=Number(g.amount)||0;let t='';
+  if(g.kind==='gems'){S.gems+=a;t=`${fmt(a)} 💠 Juwelen`}
+  else if(g.kind==='dia'){S.dia+=a;t=`${fmt(a)} 💎 Diamanten`}
+  else if(g.kind==='seed'){S.seeds+=a;t=`${fmt(a)} 🌱 Sternensamen`}
+  else if(g.kind==='xp'){addXP(a);t=`${fmt(a)} Pass-XP`}
+  else if(g.kind==='spores'){const v=Math.max(rawSps()*a,a*5);S.spores+=v;t=`${fmt(v)} Sporen`}
+  else if(g.kind==='skin'){const k=SKINS.find(x=>x.id===g.item);if(k){if(!S.skins.includes(k.id))S.skins.push(k.id);t=`den Skin ${k.name}`}else t='ein Geschenk'}
+  else if(g.kind==='frenzy'){buffs.frenzy=Math.max(now(),buffs.frenzy)+a*1000;t=`${fmt(a)} s Pilzrausch`}
+  save();confetti(true);sfx.gold();
+  queueModal({emoji:'🎁',title:'Ein Geschenk für dich!',text:`Du bekommst ${t}.${g.note?' Nachricht: '+g.note:''}`,ok:'Danke!'});render();
+}
+setInterval(()=>{if(LB.sb&&Date.now()-CFG.lastFetch>60000&&!document.hidden)cfgFetch()},10000);
+setTimeout(()=>{if(LB.sb)cfgFetch()},4000);
+
 /* ---------- admin panel (nur für eingetragene Admins) ---------- */
-const ADM={ok:null,tab:'tools',q:'',sus:false,rows:[],stats:null,ren:null};
+const ADM={ok:null,tab:'tools',q:'',sus:false,rows:[],stats:null,ren:null,gift:null,detail:null,log:[],days:[],fps:false};
 let brandTaps=[];
 document.querySelector('.brand').addEventListener('click',()=>{const t=Date.now();brandTaps=brandTaps.filter(x=>t-x<2500);brandTaps.push(t);if(brandTaps.length>=5){brandTaps=[];openAdmin()}});
 if(/[?&#]admin\b/.test(location.search+location.hash))setTimeout(()=>openAdmin(),2500);
@@ -2471,45 +2533,129 @@ async function openAdmin(){
 }
 function bindCopy(){const b=$('admCopy');if(b)b.onclick=async()=>{try{await navigator.clipboard.writeText(LB.uid);toast('📋 Spieler-ID kopiert')}catch(e){const r=document.createRange();r.selectNodeContents($('admId'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('ID markiert, jetzt kopieren')}}}
 $('admClose').onclick=()=>{$('admModal').hidden=true;document.body.classList.remove('locked')};
+async function admRpc(fn,args,okMsg){try{const r=await LB.sb.rpc(fn,args||{});if(r.error)throw r.error;if(okMsg)toast('🛠️ '+okMsg);return r.data}catch(e){toast('⚠️ Das hat nicht geklappt',/function|schema/i.test((e&&e.message)||'')?'Führe admin-update-2.sql in Supabase aus':((e&&e.message)||'').slice(0,80));return null}}
 function admTool(id){
   const add=n=>{S.spores+=n;disp=S.spores;toast('🛠️ +'+fmt(n)+' Sporen','Zählt nicht für die Rangliste')};
+  const val=id2=>{const e=$(id2);return e?e.value:''};
   const A={
     sp6:()=>add(1e6),sp9:()=>add(1e9),sp12:()=>add(1e12),sp15:()=>add(1e15),
+    spset:()=>{const v=Number(val('tSp').replace(',','.'));if(v>=0){S.spores=v;disp=v;toast('🛠️ Sporen gesetzt',fmt(v))}},
     gems:()=>{S.gems+=100;toast('🛠️ +100 💠')},dia:()=>{S.dia+=50;toast('🛠️ +50 💎')},
+    seeds:()=>{S.seeds+=10;toast('🛠️ +10 🌱')},seedsm:()=>{S.seeds=Math.max(0,S.seeds-10);toast('🛠️ −10 🌱')},
     skins:()=>{SKINS.forEach(k=>{if(!S.skins.includes(k.id))S.skins.push(k.id)});toast('🛠️ Alle Skins freigeschaltet')},
     dims:()=>{DIMS.forEach(d=>{if(!S.dims.includes(d.id))S.dims.push(d.id)});toast('🛠️ Alle Dimensionen freigeschaltet')},
+    ach:()=>{ACH.forEach(a=>{if(!S.ach.includes(a.id))S.ach.push(a.id)});toast('🛠️ Alle Erfolge freigeschaltet')},
     boss:()=>{if(boss){toast('Es läuft schon ein Boss');return}nextBoss=0;toast('🛠️ Boss kommt gleich')},
+    bosslv:()=>{const v=parseInt(val('tBoss'),10);if(v>0){S.bossLvl=v;toast('🛠️ Boss-Stufe '+v)}},
     gold:()=>spawnGold(),slugs:()=>spawnSlugs(),
     rain:()=>{wx={type:'regen',until:now()+50000};toast('🌧️ Regen')},storm:()=>{wx={type:'gewitter',until:now()+50000};toast('⛈️ Gewitter')},stars:()=>{wx={type:'sterne',until:now()+50000};toast('🌠 Sternschnuppen')},
     event:()=>{evOverride=Date.now()+10000;evCache.at=0;toast('🔴 Test-Event startet in 10 Sekunden')},
+    cine:()=>{if(dim()!=='neon'){toast('Nur in der Neonstadt');return}if(cine)cineEnd();nextCine=0;toast('🎬 Cinematic startet')},
     pass:()=>{const ti=tierInfo();S.xp+=ti.need-ti.into+1;toast('⭐ Pass-Stufe '+tierInfo().tier)},
+    pass10:()=>{for(let i=0;i<10;i++){const ti=tierInfo();S.xp+=ti.need-ti.into+1}toast('⭐ Pass-Stufe '+tierInfo().tier)},
+    prem:()=>{S.premSeason=passSeasonIdx();toast('👑 Premium-Pass aktiv')},
     rush:()=>startRush(),frenzy:()=>{buffs.frenzy=now()+60000;toast('🔥 Pilzrausch 60 s')},
     petmax:()=>{PETS.forEach(p=>{S.petLv[p.id]={lv:10,xp:0}});S.bossWins=Math.max(S.bossWins,25);toast('🐾 Alle Begleiter auf Stufe 10')},
+    rbready:()=>{S.rbEarn=rbNeed();S.rbNotified=false;toast('🔄 Wiedergeburt ist bereit')},
+    daily:()=>{S.dailyDay=null;checkDaily();toast('🎁 Tagesbonus zurückgesetzt')},
+    quests:()=>{S.quests=[];fillQuests();qKey='';toast('📜 Neue Aufgaben')},
+    day:()=>{DN_OVR='day';toast('☀️ Tag erzwungen','Bis zum Neuladen')},night:()=>{DN_OVR='night';toast('🌙 Nacht erzwungen','Bis zum Neuladen')},dnoff:()=>{DN_OVR=null;toast('🕐 Echte Tageszeit')},
+    fps:()=>{ADM.fps=!ADM.fps;toast(ADM.fps?'FPS-Anzeige an':'FPS-Anzeige aus')},
+    export:()=>{const t=$('tJson');t.value=JSON.stringify(S);t.select();try{navigator.clipboard.writeText(t.value);toast('📋 Spielstand kopiert')}catch(e){toast('Text markiert, jetzt kopieren')}},
+    import:()=>{try{const d=JSON.parse($('tJson').value);queueModal({emoji:'📥',title:'Spielstand ersetzen?',text:'Dein aktueller Spielstand auf diesem Gerät wird durch den eingefügten ersetzt.',ok:'Ersetzen',cancel:true,onOk:()=>{S=Object.assign(fresh(),d);save();location.reload()}})}catch(e){toast('⚠️ Ungültiger Spielstand')}},
   };
   if(A[id]){A[id]();save();render()}
 }
+function admDimSel(){return `<select id="tDim" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)">${DIMS.map(d=>`<option value="${d.id}" ${dim()===d.id?'selected':''}>${d.e} ${d.name}</option>`).join('')}</select>`}
 function renderAdmin(){
-  const tabs=`<div class="atabs"><button data-t="tools" aria-pressed="${ADM.tab==='tools'}">🧪 Werkzeuge</button><button data-t="players" aria-pressed="${ADM.tab==='players'}">👥 Spieler</button></div>`;
-  let h=tabs+`<div class="aid"><code id="admId">${esc(LB.uid)}</code><button id="admCopy">ID kopieren</button></div>`;
+  const T=[['tools','🧪 Test'],['global','🌍 Global'],['players','👥 Spieler'],['gifts','🎁 Geschenke'],['stats','📊 Statistik'],['log','📜 Protokoll']];
+  let h=`<div class="atabs" style="flex-wrap:wrap">${T.map(([k,n])=>`<button data-t="${k}" aria-pressed="${ADM.tab===k}" style="flex:1 1 30%">${n}</button>`).join('')}</div>`;
+  const B=(id,t,cls)=>`<button class="abtn ${cls||''}" data-a="${id}">${t}</button>`;
+  const G=(id,t)=>`<button class="abtn" data-g="${id}">${t}</button>`;
   if(ADM.tab==='tools'){
-    const B=(id,t)=>`<button class="abtn" data-a="${id}">${t}</button>`;
-    h+=`<p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Diese Werkzeuge ändern nur deinen eigenen Spielstand. Gegebene Sporen zählen nicht für die Rangliste.</p>
-      <h4>Währungen</h4><div class="agrid">${B('sp6','+1 Mio. Sporen')}${B('sp9','+1 Mrd. Sporen')}${B('sp12','+1 Bio. Sporen')}${B('sp15','+1 Brd. Sporen')}${B('gems','+100 💠')}${B('dia','+50 💎')}</div>
-      <h4>Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('pass','Pass +1 Stufe')}${B('petmax','Begleiter max.')}</div>
-      <h4>Ereignisse testen</h4><div class="agrid">${B('boss','⚔️ Boss jetzt')}${B('event','🔴 Live-Event')}${B('gold','🟡 Goldpilz')}${B('slugs','🐌 Schnecken')}${B('rain','🌧️ Regen')}${B('storm','⛈️ Gewitter')}${B('stars','🌠 Sterne')}${B('rush','💫 Sporenrausch')}${B('frenzy','🔥 Pilzrausch')}</div>`;
-  }else{
+    h+=`<div class="aid"><code id="admId">${esc(LB.uid)}</code><button id="admCopy">ID kopieren</button></div>
+      <p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Diese Werkzeuge ändern nur deinen eigenen Spielstand. Gegebene Sporen zählen nicht für die Rangliste.</p>
+      <h4>💰 Währungen</h4><div class="agrid">${B('sp6','+1 Mio. Sporen')}${B('sp9','+1 Mrd. Sporen')}${B('sp12','+1 Bio. Sporen')}${B('sp15','+1 Brd. Sporen')}${B('gems','+100 💠')}${B('dia','+50 💎')}${B('seeds','+10 🌱')}${B('seedsm','−10 🌱')}</div>
+      <div class="afil"><input type="search" id="tSp" inputmode="decimal" placeholder="Sporen genau setzen, z. B. 5e12"><button class="abtn" data-a="spset">Setzen</button></div>
+      <h4>🔓 Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('ach','Alle Erfolge')}${B('petmax','Begleiter max.')}${B('pass','Pass +1 Stufe')}${B('pass10','Pass +10 Stufen')}${B('prem','Premium-Pass an')}${B('rbready','Wiedergeburt bereit')}</div>
+      <h4>⚔️ Ereignisse</h4><div class="agrid">${B('boss','Boss jetzt')}${B('event','Live-Event (nur ich)')}${B('cine','Cinematic')}${B('gold','Goldpilz')}${B('slugs','Schnecken')}${B('rain','Regen')}${B('storm','Gewitter')}${B('stars','Sternschnuppen')}${B('rush','Sporenrausch')}${B('frenzy','Pilzrausch')}</div>
+      <div class="afil"><input type="search" id="tBoss" inputmode="numeric" placeholder="Boss-Stufe setzen, jetzt ${S.bossLvl}"><button class="abtn" data-a="bosslv">Setzen</button></div>
+      <h4>🌓 Welt</h4><div class="agrid">${B('day','☀️ Tag erzwingen')}${B('night','🌙 Nacht erzwingen')}${B('dnoff','🕐 Echte Zeit')}${B('daily','Tagesbonus neu')}${B('quests','Aufgaben neu')}${B('fps','FPS-Anzeige')}</div>
+      <div class="afil">${admDimSel()}<button class="abtn" id="tDimGo">Reisen</button></div>
+      <h4>💾 Spielstand</h4><textarea id="tJson" rows="3" style="width:100%;font:inherit;font-size:.72rem;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);padding:8px" placeholder="Spielstand als Text"></textarea>
+      <div class="agrid" style="margin-top:6px">${B('export','Exportieren')}${B('import','Importieren')}</div>`;
+  }
+  if(ADM.tab==='global'){
+    const act=['boost','xpboost','goldrain','bossrush','liveevent','maintenance'].filter(k=>cfgOn(k));
+    h+=`<p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Alles hier wirkt bei <b>allen Spielern</b> gleichzeitig. Die Spieler sehen es spätestens nach einer Minute.</p>
+      <h4>📣 Ankündigung an alle</h4><textarea id="gAnn" rows="2" maxlength="300" style="width:100%;font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);padding:8px" placeholder="Zum Beispiel: Heute Abend gibt es doppelte Produktion!"></textarea>
+      <div class="afil"><select id="gKind" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)"><option value="info">📣 Info</option><option value="event">🎉 Event</option><option value="warn">⚠️ Warnung</option></select><select id="gHours" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)"><option value="1">1 Std.</option><option value="6">6 Std.</option><option value="24" selected>1 Tag</option><option value="168">1 Woche</option></select><button class="abtn" data-g="ann">Senden</button></div>
+      <div class="agrid">${G('annclear','Ankündigungen beenden')}</div>
+      <h4>🚀 Boosts für alle</h4><div class="agrid">${G('boost1','Produktion ×2 (1 Std.)')}${G('boost24','Produktion ×2 (24 Std.)')}${G('boost3','Produktion ×3 (1 Std.)')}${G('xp1','XP ×2 (1 Std.)')}${G('xp24','XP ×2 (24 Std.)')}${G('gold','Goldpilz-Regen (1 Std.)')}${G('bossr','Boss-Ansturm (30 Min.)')}${G('ev5','Live-Event in 5 Min.')}</div>
+      <h4>🛠️ Wartung</h4><div class="afil"><input type="search" id="gMt" placeholder="Hinweis, z. B. Update um 20 Uhr"><button class="abtn" data-g="mt">Anzeigen</button></div>
+      <div class="agrid">${G('mtoff','Wartungshinweis aus')}${G('alloff','Alle Boosts beenden')}</div>
+      <p style="color:var(--muted);font-size:.8rem">Gerade aktiv: ${act.length?act.map(k=>({boost:'Produktion',xpboost:'XP',goldrain:'Goldpilz-Regen',bossrush:'Boss-Ansturm',liveevent:'Live-Event',maintenance:'Wartung'})[k]).join(', '):'nichts'}</p>`;
+  }
+  if(ADM.tab==='players'){
     const st=ADM.stats;
     h+=st?`<div class="astat"><div><b>${st.total}</b>Spieler</div><div><b>${st.online}</b>online</div><div><b>${st.today}</b>neu heute</div><div><b>${st.sus}</b>auffällig</div><div><b>${st.banned}</b>gesperrt</div></div>`:'';
-    h+=`<div class="afil"><input type="search" id="admQ" placeholder="Name suchen" value="${esc(ADM.q)}"><label><input type="checkbox" id="admSus" ${ADM.sus?'checked':''}> nur auffällige</label><button class="abtn soft" id="admRef">↻</button></div><div id="admList">${ADM.rows.length?'':'<p style="color:var(--muted)">Wird geladen …</p>'}</div>`;
+    h+=`<div class="afil"><input type="search" id="admQ" placeholder="Name suchen" value="${esc(ADM.q)}"><label><input type="checkbox" id="admSus" ${ADM.sus?'checked':''}> nur auffällige</label><button class="abtn soft" id="admRef">↻</button></div><div id="admDetail"></div><div id="admList">${ADM.rows.length?'':'<p style="color:var(--muted)">Wird geladen …</p>'}</div>`;
+  }
+  if(ADM.tab==='gifts'){
+    const tg=ADM.gift;
+    h+=`<p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Geschenke kommen beim Spieler automatisch an, sobald er das Spiel öffnet.</p>
+      <div class="info" style="background:var(--surface2);border-radius:12px;padding:10px;margin-bottom:10px">Empfänger: <b>${tg?esc(tg.nick):'🌍 Alle Spieler'}</b>${tg?' <button class="abtn soft" id="gfAll" style="margin-left:6px">Stattdessen an alle</button>':'<br><span style="font-size:.78rem;color:var(--muted)">Für einen einzelnen Spieler tippe im Tab Spieler auf „🎁 Schenken“.</span>'}</div>
+      <div class="afil"><select id="gfKind" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);flex:1"><option value="dia">💎 Diamanten</option><option value="gems">💠 Juwelen</option><option value="seed">🌱 Sternensamen</option><option value="spores">🍄 Sporen (Sekunden Produktion)</option><option value="xp">⭐ Pass-XP</option><option value="frenzy">🔥 Pilzrausch (Sekunden)</option><option value="skin">🎨 Skin</option></select></div>
+      <div class="afil"><input type="search" id="gfAmt" inputmode="decimal" placeholder="Menge, z. B. 10"><select id="gfSkin" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);max-width:48%">${SKINS.map(k=>`<option value="${k.id}">${esc(k.name)}</option>`).join('')}</select></div>
+      <div class="afil"><input type="search" id="gfNote" maxlength="200" placeholder="Nachricht, z. B. Danke fürs Spielen!"></div>
+      <div class="afil"><label>Gültig</label><select id="gfDays" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)"><option value="1">1 Tag</option><option value="7" selected>7 Tage</option><option value="30">30 Tage</option><option value="0">Unbegrenzt</option></select><button class="abtn" id="gfSend">🎁 Verschicken</button></div>`;
+  }
+  if(ADM.tab==='stats'){
+    const mx=Math.max(1,...ADM.days.map(d=>Math.max(d.new_players,d.active_players)));
+    h+=`<h4>Letzte 14 Tage</h4><div style="display:flex;gap:3px;align-items:flex-end;height:110px;margin-bottom:4px">${ADM.days.map(d=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;height:100%" title="${d.day}"><div style="background:var(--glow);height:${d.active_players/mx*100}%;border-radius:3px 3px 0 0;min-height:2px"></div><div style="background:var(--pink);height:${d.new_players/mx*60}%;border-radius:3px;min-height:1px"></div></div>`).join('')||'<p style="color:var(--muted)">Wird geladen …</p>'}</div>
+      <p style="font-size:.78rem;color:var(--muted)"><span style="color:var(--glow)">■</span> zuletzt aktiv an dem Tag &nbsp; <span style="color:var(--pink)">■</span> neue Spieler</p>
+      <div id="stDist"><p style="color:var(--muted)">Verteilung wird geladen …</p></div>`;
+  }
+  if(ADM.tab==='log'){
+    h+=`<div class="agrid">${G('logref','↻ Aktualisieren')}</div>${ADM.log.length?ADM.log.map(l=>`<div class="aprow"><div class="top2"><span>${esc(l.action)}</span><span style="font-weight:400;color:var(--muted);font-size:.75rem">${fmtAgo(l.at)}</span></div><div class="meta">${l.player_nick?'Spieler: '+esc(l.player_nick)+'<br>':''}${esc(l.value||'')}</div></div>`).join(''):'<p style="color:var(--muted)">Noch keine Einträge oder wird geladen …</p>'}`;
   }
   $('admBody').innerHTML=h;bindCopy();
-  $('admBody').querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>{ADM.tab=b.dataset.t;renderAdmin();if(ADM.tab==='players')admLoad()});
+  $('admBody').querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>{ADM.tab=b.dataset.t;renderAdmin();if(ADM.tab==='players')admLoad();if(ADM.tab==='log')admLog();if(ADM.tab==='stats')admStats()});
   $('admBody').querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ensureAudio();sfx.buy();admTool(b.dataset.a)});
+  $('admBody').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{ensureAudio();admGlobal(b.dataset.g)});
+  const dg=$('tDimGo');if(dg)dg.onclick=()=>{const id=$('tDim').value;if(!S.dims.includes(id))S.dims.push(id);$('admModal').hidden=true;document.body.classList.remove('locked');travel(id)};
   if(ADM.tab==='players'){
     let qt=0;$('admQ').oninput=()=>{clearTimeout(qt);qt=setTimeout(()=>{ADM.q=$('admQ').value.trim().slice(0,20);admLoad()},350)};
     $('admSus').onchange=()=>{ADM.sus=$('admSus').checked;admLoad()};$('admRef').onclick=()=>admLoad();
-    if(ADM.rows.length)admList();
+    if(ADM.rows.length)admList();if(ADM.detail)admDetailRender();
   }
+  if(ADM.tab==='gifts'){
+    const k=$('gfKind'),sk=$('gfSkin'),am=$('gfAmt');const upd=()=>{sk.style.display=k.value==='skin'?'':'none';am.style.display=k.value==='skin'?'none':''};k.onchange=upd;upd();
+    const ga=$('gfAll');if(ga)ga.onclick=()=>{ADM.gift=null;renderAdmin()};
+    $('gfSend').onclick=()=>{const kind=k.value,amt=Number((am.value||'0').replace(',','.')),note=$('gfNote').value.trim(),days=Number($('gfDays').value);
+      if(kind!=='skin'&&!(amt>0)){toast('⚠️ Gib eine Menge ein');return}
+      const who=ADM.gift?ADM.gift.nick:'alle Spieler';
+      queueModal({emoji:'🎁',title:'Geschenk verschicken?',text:`An ${who}: ${kind==='skin'?'Skin '+(SKINS.find(x=>x.id===sk.value)||{}).name:fmt(amt)+' '+k.options[k.selectedIndex].text}.`,ok:'Verschicken',cancel:true,onOk:async()=>{
+        const r=await admRpc('admin_gift',{p_target:ADM.gift?ADM.gift.id:null,p_kind:kind,p_amount:kind==='skin'?0:amt,p_item:kind==='skin'?sk.value:null,p_note:note||null,p_days:days},'Geschenk verschickt');if(r){$('gfNote').value='';$('gfAmt').value=''}}})};
+  }
+  if(ADM.tab==='stats'&&ADM.days.length)admDist();
+}
+async function admGlobal(id){
+  const until=h=>new Date(Date.now()+h*3600e3).toISOString();
+  const set=(k,v,msg)=>admRpc('admin_set_config',{p_key:k,p_value:v},msg).then(()=>{cfgFetch().then(renderAdmin)});
+  const M={
+    ann:async()=>{const t=$('gAnn').value.trim();if(!t){toast('⚠️ Schreib zuerst eine Nachricht');return}await admRpc('admin_announce',{p_text:t,p_hours:Number($('gHours').value),p_kind:$('gKind').value},'Ankündigung gesendet');$('gAnn').value='';cfgFetch()},
+    annclear:()=>admRpc('admin_clear_announce',{},'Ankündigungen beendet'),
+    boost1:()=>set('boost',{mult:2,until:until(1)},'Produktion ×2 für 1 Stunde'),boost24:()=>set('boost',{mult:2,until:until(24)},'Produktion ×2 für 24 Stunden'),boost3:()=>set('boost',{mult:3,until:until(1)},'Produktion ×3 für 1 Stunde'),
+    xp1:()=>set('xpboost',{mult:2,until:until(1)},'XP ×2 für 1 Stunde'),xp24:()=>set('xpboost',{mult:2,until:until(24)},'XP ×2 für 24 Stunden'),
+    gold:()=>set('goldrain',{until:until(1)},'Goldpilz-Regen für 1 Stunde'),bossr:()=>set('bossrush',{until:until(.5)},'Boss-Ansturm für 30 Minuten'),
+    ev5:()=>queueModal({emoji:'🔴',title:'Live-Event für alle starten?',text:'Alle Spieler, die das Spiel geöffnet haben, erleben in 5 Minuten den Kometenschauer. Jeder bekommt dabei die Event-Belohnungen.',ok:'Starten',cancel:true,onOk:()=>set('liveevent',{start:new Date(Date.now()+300000).toISOString(),until:until(1.2)},'Live-Event startet in 5 Minuten')}),
+    mt:()=>{const t=$('gMt').value.trim();if(!t){toast('⚠️ Schreib einen Hinweis');return}set('maintenance',{text:t.slice(0,160)},'Wartungshinweis angezeigt')},
+    mtoff:()=>set('maintenance',null,'Wartungshinweis aus'),
+    alloff:async()=>{for(const k of ['boost','xpboost','goldrain','bossrush','liveevent'])await admRpc('admin_set_config',{p_key:k,p_value:null});toast('🛠️ Alle Boosts beendet');cfgFetch().then(renderAdmin)},
+    logref:()=>admLog(),
+  };
+  if(M[id])await M[id]();
 }
 async function admLoad(){
   try{const [a,b]=await Promise.all([LB.sb.rpc('admin_players',{p_q:ADM.q,p_only_sus:ADM.sus,p_limit:100}),LB.sb.rpc('admin_stats')]);
@@ -2521,18 +2667,53 @@ function admList(){
   if(!ADM.rows.length){l.innerHTML='<p style="color:var(--muted)">Keine Spieler gefunden.</p>';return}
   l.innerHTML=ADM.rows.map(r=>`<div class="aprow" data-id="${esc(r.player_id)}"><div class="top2"><span>${esc(r.nick)}${r.player_id===LB.uid?' (du)':''}${r.nick_locked?' 🔒':''}</span><span>${r.banned?'<span class="susb banb">gesperrt</span>':r.sus?`<span class="susb">Verdacht ${r.sus}</span>`:''}</span></div>
     <div class="meta">${fmt(r.score||0)} Sporen, ${fmt(r.sps||0)}/s, zuletzt ${fmtAgo(r.last_submit)}${r.last_reason?`<br>Grund: ${esc(r.last_reason)}`:''}</div>
-    <div class="acts">${r.banned?'<button class="abtn soft" data-x="unban">Entsperren</button>':'<button class="abtn red" data-x="ban">Sperren</button>'}${r.sus?'<button class="abtn soft" data-x="clear">Verdacht löschen</button>':''}<button class="abtn soft" data-x="rename">Umbenennen</button>${r.nick_locked?'<button class="abtn soft" data-x="unlock">Name freigeben</button>':''}<button class="abtn soft" data-x="reset">Punkte auf 0</button><button class="abtn red" data-x="delete">Löschen</button></div>
-    ${ADM.ren===r.player_id?`<div class="ren"><input maxlength="20" value="${esc(r.nick)}" aria-label="Neuer Name"><button class="abtn" data-x="dorename">OK</button></div>`:''}</div>`).join('');
+    <div class="acts"><button class="abtn" data-x="detail">🔍 Details</button><button class="abtn soft" data-x="gift">🎁 Schenken</button>${r.banned?'<button class="abtn soft" data-x="unban">Entsperren</button>':'<button class="abtn red" data-x="ban">Sperren</button>'}${r.sus?'<button class="abtn soft" data-x="clear">Verdacht löschen</button>':''}<button class="abtn soft" data-x="rename">Umbenennen</button>${r.nick_locked?'<button class="abtn soft" data-x="unlock">Name freigeben</button>':''}<button class="abtn soft" data-x="score">Punkte setzen</button><button class="abtn soft" data-x="reset">Punkte auf 0</button><button class="abtn soft" data-x="mkadmin">Zum Admin</button><button class="abtn red" data-x="delete">Löschen</button></div>
+    ${ADM.ren===r.player_id?`<div class="ren"><input maxlength="20" value="${esc(r.nick)}" aria-label="Neuer Name"><button class="abtn" data-x="dorename">OK</button></div>`:''}
+    ${ADM.ren==='s:'+r.player_id?`<div class="ren"><input inputmode="decimal" placeholder="Neue Punktzahl, z. B. 1e9" aria-label="Neue Punktzahl"><button class="abtn" data-x="doscore">OK</button></div>`:''}</div>`).join('');
   l.querySelectorAll('.aprow').forEach(row=>row.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>admAct(row.dataset.id,b.dataset.x,row)));
 }
+async function admDetail(id){
+  const d=await admRpc('admin_player_detail',{p_player:id});if(!d)return;ADM.detail=d;admDetailRender();
+}
+function admDetailRender(){
+  const el=$('admDetail'),d=ADM.detail;if(!el||!d)return;const r=d.row||{},sv=d.save;
+  const cells=[['Sporen',fmt(r.score||0)],['Pro Sek.',fmt(r.sps||0)],['Woche',fmt(r.week_score||0)],['Bosse',r.boss_wins||0],['Wiedergeburten',r.rb||0],['Skins',r.skins||1],['Dimension',r.dim||'–'],['Begleiter',r.pet?r.pet+' St. '+(r.pet_lv||0):'keiner'],['Dabei seit',r.created_at?new Date(r.created_at).toLocaleDateString('de-DE'):'–'],['Konto',d.email?esc(d.email):'Gast']];
+  if(sv)cells.push(['💠 Juwelen',fmt(Number(sv.gems)||0)],['💎 Diamanten',fmt(Number(sv.dia)||0)],['🌱 Samen',fmt(Number(sv.seeds)||0)],['Tipps',fmt(Number(sv.taps)||0)],['Spielzeit',fmtTime(Number(sv.playSec)||0)]);
+  el.innerHTML=`<div class="aprow" style="border-color:var(--glow)"><div class="top2"><span>🔍 ${esc(r.nick||'?')}</span><button class="abtn soft" id="dClose">✕</button></div>
+    <div class="pgrid" style="margin:8px 0">${cells.map(([a,b])=>`<div>${a}<b>${b}</b></div>`).join('')}</div>
+    ${sv?'':'<div class="meta">Kein Cloud-Spielstand (Spieler ist nicht per E-Mail angemeldet).</div>'}
+    ${(d.events||[]).length?`<div class="meta"><b>Auffälligkeiten:</b><br>${d.events.map(e=>fmtAgo(e.at)+': '+esc(e.reason)).join('<br>')}</div>`:''}
+    <div class="meta" style="word-break:break-all">ID: ${esc(r.player_id||'')}</div></div>`;
+  $('dClose').onclick=()=>{ADM.detail=null;el.innerHTML=''};el.scrollIntoView({block:'nearest'});
+}
 async function admAct(id,x,row){
-  if(x==='rename'){ADM.ren=ADM.ren===id?null:id;admList();return}
   const r=ADM.rows.find(y=>y.player_id===id),nm=r?r.nick:'';
+  if(x==='detail')return admDetail(id);
+  if(x==='gift'){ADM.gift={id,nick:nm};ADM.tab='gifts';renderAdmin();return}
+  if(x==='rename'){ADM.ren=ADM.ren===id?null:id;admList();return}
+  if(x==='score'){ADM.ren=ADM.ren==='s:'+id?null:'s:'+id;admList();return}
+  if(x==='mkadmin'){queueModal({emoji:'🛡️',title:`${nm} zum Admin machen?`,text:'Diese Person bekommt vollen Zugriff auf das Admin-Panel, auch auf Sperren, Geschenke und globale Boosts.',ok:'Ja, zum Admin',cancel:true,onOk:()=>admRpc('admin_manage_admin',{p_player:id,p_add:true},nm+' ist jetzt Admin')});return}
   const run=async(action,val)=>{try{const res=await LB.sb.rpc('admin_set',{p_player:id,p_action:action,p_value:val||null});if(res.error)throw res.error;toast('🛠️ Erledigt',`${nm}: ${({ban:'gesperrt',unban:'entsperrt',clear:'Verdacht gelöscht',rename:'umbenannt',unlock:'Name freigegeben',reset:'Punkte zurückgesetzt',delete:'gelöscht'})[action]}`);ADM.ren=null;admLoad();LB.lastFetch=0}catch(e){toast('⚠️ Aktion fehlgeschlagen','Bist du noch als Admin eingetragen?')}};
   if(x==='dorename'){const v=row.querySelector('.ren input').value.trim();if(v)run('rename',v);return}
+  if(x==='doscore'){const v=Number(row.querySelector('.ren input').value.replace(',','.'));if(v>=0){await admRpc('admin_set_score',{p_player:id,p_score:v},`${nm}: Punkte auf ${fmt(v)}`);ADM.ren=null;admLoad()}return}
   if(x==='ban'||x==='delete'||x==='reset'){queueModal({emoji:x==='delete'?'🗑️':x==='ban'?'⛔':'↩️',title:x==='delete'?`${nm} löschen?`:x==='ban'?`${nm} sperren?`:`Punkte von ${nm} zurücksetzen?`,text:x==='delete'?'Der Eintrag verschwindet aus der Rangliste. Spielt die Person weiter, taucht sie mit null Punkten neu auf.':x==='ban'?'Die Person verschwindet aus der Rangliste und kann keine Punkte mehr eintragen, bis du sie entsperrst.':'Gesamtpunkte, Wochenpunkte und Produktion werden auf 0 gesetzt.',ok:'Ja',cancel:true,onOk:()=>run(x)});return}
   run(x);
 }
+async function admLog(){const d=await admRpc('admin_log_list',{p_limit:80});if(d){ADM.log=d;if(ADM.tab==='log')renderAdmin()}}
+async function admStats(){const d=await admRpc('admin_daily_stats',{});if(d){ADM.days=d;if(ADM.tab==='stats')renderAdmin()}}
+async function admDist(){
+  const el=$('stDist');if(!el)return;
+  try{const r=await LB.sb.from('leaderboard_public').select('dim,pet,skin,prem,rb').limit(1000);if(r.error)throw r.error;const rows=r.data||[];
+    const cnt=(f)=>{const m={};rows.forEach(x=>{const v=x[f]||'–';m[v]=(m[v]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6)};
+    const nm={dim:v=>{const d=DIMS.find(x=>x.id===v);return d?d.e+' '+d.name:v},pet:v=>{const p=PETS.find(x=>x.id===v);return p?p.e+' '+p.name:'keiner'},skin:v=>{const k=SKINS.find(x=>x.id===v);return k?k.name:v}};
+    const blk=(t,f)=>`<h4>${t}</h4>${cnt(f).map(([v,n])=>`<div style="display:flex;align-items:center;gap:6px;font-size:.8rem;margin:2px 0"><span style="width:44%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(nm[f](v))}</span><span style="flex:1;height:8px;border-radius:4px;background:var(--surface2);overflow:hidden"><i style="display:block;height:100%;width:${n/rows.length*100}%;background:var(--glow)"></i></span><b>${n}</b></div>`).join('')}`;
+    const pr=rows.filter(x=>x.prem).length;
+    el.innerHTML=`<p style="font-size:.85rem">👑 Premium-Pass: <b>${pr}</b> von ${rows.length} Spielern</p>`+blk('Beliebteste Dimensionen','dim')+blk('Beliebteste Begleiter','pet')+blk('Beliebteste Skins','skin');
+  }catch(e){el.innerHTML='<p style="color:var(--muted)">Verteilung konnte nicht geladen werden.</p>'}
+}
+/* FPS-Anzeige für Admins */
+let fpsEl=null,fpsN=0,fpsT=performance.now();
+(function fpsLoop(t){fpsN++;if(t-fpsT>1000){if(ADM.fps){if(!fpsEl){fpsEl=document.createElement('div');fpsEl.style.cssText='position:fixed;right:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:60;background:rgba(0,0,0,.7);color:#7CFF6B;font:600 12px ui-monospace,monospace;padding:3px 7px;border-radius:6px;pointer-events:none';document.body.appendChild(fpsEl)}fpsEl.textContent=fpsN+' FPS'}else if(fpsEl){fpsEl.remove();fpsEl=null}fpsN=0;fpsT=t}requestAnimationFrame(fpsLoop)})(performance.now());
 
 /* ---------- cinematics in der Neonstadt ---------- */
 const CINE={
@@ -2904,6 +3085,7 @@ function render(){
   if(now()<buffs.swarm)bf.push(['',`🐝 Bienenschwarm ${Math.ceil((buffs.swarm-now())/1000)} s`]);
   if(now()<buffs.dragon)bf.push(['pink',`🐲 Feueratem ×3 ${Math.ceil((buffs.dragon-now())/1000)} s`]);
   if(cineOn())bf.push(['pink',`🎬 ${CINE[cine.type].n}: Tipps ×2 noch ${Math.ceil((cine.end-performance.now())/1000)} s`]);
+  for(const [k,lbl] of [['boost','Produktion'],['xpboost','XP'],['goldrain','Goldpilz-Regen'],['bossrush','Boss-Ansturm']]){const c=cfgOn(k);if(c)bf.unshift(['evb',`🌍 ${lbl}${c.mult?' ×'+c.mult:''} noch ${fmtClock((Date.parse(c.until)-Date.now())/1000)}`])}
   if(chargeTaps>0)bf.push(['pink',`⚡ Aufgeladen ×5, noch ${chargeTaps} Tipps`]);
   if(now()<buffs.tap)bf.push(['',`Tippsturm ${Math.ceil((buffs.tap-now())/1000)} s`]);
   if((S.rbEarn||0)>=rbNeed())bf.unshift(['rbb','🔄 Wiedergeburt bereit!']);
