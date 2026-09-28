@@ -209,8 +209,39 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.skin.r-v{background:linear-gradient(135deg,#3A0A14,#C2183A 50%,#FF7A2A);background-size:200% 200%;animation:mythbg 4s ease infinite;color:#fff;border-color:#FFD04A}
+.skin.r-v small{color:#FFE0D0}.skin.r-v .rar{color:#FFE27A!important}.skin.r-v .efx{color:#fff}
+.buff.evb{background:linear-gradient(120deg,#C2183A,#FF7A2A);color:#fff;cursor:pointer;animation:rbpulse 1.4s ease-in-out infinite}
+.evban{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translateX(-50%);z-index:44;width:min(94vw,400px);border-radius:20px;padding:12px;background:linear-gradient(120deg,#2A0510,#C2183A 55%,#FF7A2A);color:#fff;box-shadow:0 12px 34px rgba(120,10,30,.5);display:flex;gap:10px;align-items:center;animation:banin .7s cubic-bezier(.2,1.4,.4,1)}
+.evban .ic{font-size:1.9rem;flex:none}
+.evban .tx{flex:1;min-width:0;line-height:1.3}.evban .tx small{display:block;opacity:.85;font-size:.8rem}
+.evban .x{border:0;background:none;color:#fff;font-size:1.3rem;cursor:pointer;opacity:.7;width:28px}
+.live{display:inline-block;background:#FF2A4A;color:#fff;border-radius:6px;padding:0 6px;font-weight:800;font-size:.72rem;letter-spacing:.04em;animation:rbpulse 1s infinite}
+.evhud{position:absolute;left:50%;top:42px;transform:translateX(-50%);z-index:8;background:rgba(10,5,25,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:5px 12px;font-size:.78rem;font-weight:600;white-space:nowrap;display:flex;gap:8px;align-items:center;pointer-events:none}
+.lbx{position:absolute;left:0;right:0;height:0;background:#000;z-index:7;transition:height .9s ease;pointer-events:none}
+.lbx.t{top:0}.lbx.b{bottom:0}
+.scene.cine .lbx{height:8%}
+.evtitle{position:absolute;inset:0;z-index:9;display:grid;place-items:center;text-align:center;color:#fff;pointer-events:none;text-shadow:0 2px 14px rgba(0,0,0,.85);padding:0 16px}
+.evtitle b{display:block;font-size:1.5rem;font-weight:700;animation:evtt 3.8s ease-out forwards}
+.evtitle small{display:block;opacity:.9;margin-top:4px;animation:evtt 3.8s .25s ease-out both}
+@keyframes evtt{0%{opacity:0;transform:scale(1.35);letter-spacing:.25em}15%{opacity:1;transform:none;letter-spacing:.02em}80%{opacity:1}100%{opacity:0}}
+.evboss{position:absolute;left:50%;top:6%;transform:translateX(-50%);z-index:6;width:140px;text-align:center;animation:evdrop 2.2s cubic-bezier(.2,1.2,.4,1)}
+.evboss button{border:0;background:none;padding:0;width:140px;cursor:pointer;touch-action:manipulation;display:block}
+.evboss svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 22px #FF8A3D)}
+.evboss.hit svg{animation:bosshit .15s}
+.evboss .bhp{height:10px;margin:0 8px 4px}
+.evboss .bname{font-size:.75rem}
+.evboss.dead{animation:bossdie 1s ease-in forwards}
+@keyframes evdrop{from{transform:translate(-50%,-180%) scale(.4) rotate(-30deg)}}
+.flashov{position:fixed;inset:0;background:#fff;z-index:47;pointer-events:none;animation:flashov 1.4s ease-out forwards}
+@keyframes flashov{to{opacity:0}}
+.scene.quake{animation:quake .45s linear infinite}
+@keyframes quake{25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,2px)}}
+@media (prefers-reduced-motion: reduce){.scene.quake{animation:none}}
 .skin.r-u{background:linear-gradient(135deg,#FFF6E4,#F1DDB8 55%,#E8C99A);color:#5A3A2A;border-color:#C49A62}
 .skin.r-u small{color:#7A5A3A}.skin.r-u .rar{color:#A0642A!important}.skin.r-u .efx{color:#5A3A2A}
+.mush.fx-glitter{animation:glint 3.2s ease-in-out infinite}
+@keyframes glint{0%,100%{filter:drop-shadow(0 0 10px #8FD8FF) drop-shadow(0 0 24px rgba(160,230,255,.5))}50%{filter:drop-shadow(0 0 18px #FFFFFF) drop-shadow(0 0 40px rgba(160,230,255,.8)) brightness(1.12)}}
 .mush.fx-cozy{animation:none;filter:drop-shadow(0 0 12px rgba(255,225,180,.85)) drop-shadow(0 0 28px rgba(255,190,200,.35))}
 .skin.r-x{background:linear-gradient(125deg,#0B0818,#2A1F5A 40%,#8A6A1A 60%,#0B0818);background-size:300% 300%;animation:mythbg 5s ease infinite;color:#FFE9A8;border-color:#FFD84A}
 .skin.r-x small{color:#E8DFC0}.skin.r-x .rar{color:#FFD84A!important}.skin.r-x .efx{color:#fff}
@@ -659,7 +690,10 @@ const ACH=[
   {id:'n2',e:'⛲',name:'Ursprung',desc:'Kauf eine Sporenquelle.',t:s=>(s.owned.quelle||0)>=1},
   {id:'r1',e:'🔄',name:'Wiedergeboren',desc:'Werde zum ersten Mal wiedergeboren.',t:s=>(s.rb||0)>=1},
   {id:'r2',e:'♻️',name:'Kreislauf',desc:'Werde 3-mal wiedergeboren.',t:s=>(s.rb||0)>=3},
-  {id:'r3',e:'🌀',name:'Unendlich',desc:'Werde 5-mal wiedergeboren und finde alle geheimen Skins.',t:s=>(s.rb||0)>=5}
+  {id:'r3',e:'🌀',name:'Unendlich',desc:'Werde 5-mal wiedergeboren und finde alle geheimen Skins.',t:s=>(s.rb||0)>=5},
+  {id:'e1',e:'🔴',name:'Live dabei',desc:'Nimm an einem Live-Event teil.',t:s=>(s.evCount||0)>=1},
+  {id:'e2',e:'📅',name:'Eventfan',desc:'Nimm an 5 Live-Events teil.',t:s=>(s.evCount||0)>=5},
+  {id:'e3',e:'☄️',name:'Kometenjäger',desc:'Besiege den Kometenkönig in einem Live-Event.',t:s=>(s.evWins||0)>=1}
 ];
 function tot(s){let n=0;for(const k in s.owned)n+=s.owned[k];return n}
 const SKINS=[
@@ -710,10 +744,12 @@ const SKINS=[
   {id:'uhr',name:'Zeitwächter',rar:'x',shape:'uhr',c1:'#FFE7A0',c2:'#B8801A',secret:1,rb:3,fx:'clock'},
   {id:'element',name:'Elementargeist',rar:'x',shape:'element',c1:'#F0FCFF',c2:'#7FB8FF',secret:1,rb:4,fx:'elem'},
   {id:'prisma',name:'Prismenwesen',rar:'x',shape:'prisma',c1:'#FFFFFF',c2:'#B8C8FF',secret:1,rb:5,fx:'prism'},
+  {id:'kometenkind',name:'Kometenkind',rar:'v',shape:'komet',c1:'#FF9A3A',c2:'#8A2A1A',fx:'fire',how:'Nimm an einem Live-Event teil (jeden Mittwoch um 11:40 Uhr)'},
+  {id:'flocke',name:'Kristallflocke',rar:'u',shape:'flocke',c1:'#DFF6FF',c2:'#2F86C8',fx:'glitter',how:'Besiege 20 Schneekolosse und fang 30 Sternschnuppen im Frostgipfel',prog:s=>`⛄ ${Math.min(20,s.frostBoss||0)}/20, 🌠 ${Math.min(30,s.frostStars||0)}/30`,req:s=>(s.frostBoss||0)>=20&&(s.frostStars||0)>=30},
   {id:'kuschel',name:'Kuschelbär',rar:'u',shape:'kuschel',c1:'#EACB9C',c2:'#C49A62',fx:'cozy',how:'Tippe 1.000.000-mal im Frostgipfel',prog:s=>`${fmt(s.frostTaps||0)} von 1 Mio.`,req:s=>(s.frostTaps||0)>=1e6},
   {id:'traenen',name:'Tränenflamme',rar:'l',shape:'flamme',c1:'#FFE066',c2:'#E8421A',fx:'fire',how:'Tippe 1.000-mal in der Lavawelt',req:s=>(s.lavaTaps||0)>=1000}
 ];
-const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim',u:'Einzigartig'};
+const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim',u:'Einzigartig',v:'Event'};
 const PFX={
   petal:{n:'Blütenblätter',kind:'petal',cols:['#FFC2DA','#FF8FC0','#FFFFFF'],g:.04,up:1.5,sp:3.5,snd:['sine',620]},
   dots:{n:'Punkteregen',kind:'dot',cols:['#FF4B4B','#FFFFFF'],g:.2,up:2.5,sp:4.5,snd:['sine',560]},
@@ -751,10 +787,12 @@ const PFX={
   clock:{n:'Zeitfunken',kind:'star',cols:['#FFE7A0','#FFD23F','#FFFFFF'],g:.12,up:3,sp:4.5,glow:true,snd:['triangle',1760,.9]},
   elem:{n:'Vier Elemente',kind:'dot',cols:['#FF6A2A','#39A8FF','#6BD65A','#E8E8FF'],g:0,up:1,sp:5,glow:true,snd:['sine',660,1.5]},
   prism:{n:'Lichtbrechung',kind:'rainbow',cols:['#fff'],g:.02,up:1.5,sp:5.5,glow:true,snd:['sine',1320,1.3]},
+  meteor:{n:'Kometenschweif',kind:'ember',cols:['#FFE9A8','#FF9A3A','#FF3DA8'],g:.12,up:3.5,sp:5.5,glow:true,snd:['sawtooth',300,1.6]},
+  glitter:{n:'Eisglitzer',kind:'flake',cols:['#FFFFFF','#BFF0FF','#8FD8FF'],g:.02,up:1.5,sp:4.5,glow:true,snd:['sine',1760,.8]},
   cozy:{n:'Kuschelherzen',kind:'heart',cols:['#FFB0C8','#F4EAD6','#EACB9C','#FFFFFF'],g:-.04,up:1.2,sp:3,snd:['sine',520,1.2]},
   tears:{n:'Tränen und Funken',kind:'tears',cols:['#7FD4FF','#FFD04A'],g:.2,up:2.5,sp:3.5,snd:['triangle',330,.75]}
 };
-const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy'};
+const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy',flocke:'glitter',kometenkind:'meteor'};
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const CYCLE=240;
 function phase(){return (Date.now()/1000%CYCLE)/CYCLE}
@@ -799,7 +837,7 @@ function baseMult(){return (1+S.seeds*0.1)*(1+S.ach.length*0.03)*(1+(S.skins.len
 function rawSps(){let t=0;for(const b of B)t+=(S.owned[b.id]||0)*bRate(b);return t*baseMult()}
 let slugsArr=[];
 const slugFactor=()=>Math.pow(S.pet==='frosch'?1-.07/petPf():.85,slugsArr.filter(o=>!o.dead).length);
-function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)}
+function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)*(evParty()?2:1)}
 function rushPow(){return has('r1')?10:5}
 function tapBase(){
   let base=1,pct=0;
@@ -849,6 +887,8 @@ const THEMES={
   kosmos:{n:'Sternenmeer',bpm:66,root:59,sc:[0,2,3,7,10],prog:[[0,3,7],[-2,2,5],[-4,0,3],[-5,-1,2]],lead:'bell',den:.25,dr:'none',echo:.5,pad:'triangle',bass:'sine'},
   frost:{n:'Schneeflockenwalzer',bpm:84,root:67,sc:[0,2,4,7,9],prog:[[0,4,7],[-5,-1,2],[-3,0,4],[-7,-3,0]],lead:'box',den:.4,dr:'soft',echo:.3,pad:'sine',bass:'triangle'},
   neon:{n:'Neon Nights',bpm:112,root:57,sc:[0,3,5,7,10],prog:[[0,3,7],[-4,0,3],[-9,-5,-2],[-2,2,5]],lead:'saw',den:.6,dr:'synth',echo:.25,pad:'sawtooth',bass:'sawtooth',arp:true},
+  event:{n:'🔴 Live-Event: Kometenschauer',bpm:124,root:50,sc:[0,2,3,7,10],prog:[[0,3,7],[-4,0,3],[-2,2,5],[-7,-4,0]],lead:'saw',den:.6,dr:'drive',echo:.3,pad:'sawtooth',bass:'sawtooth',arp:true},
+  party:{n:'🎉 Afterparty',bpm:118,root:57,sc:[0,2,4,7,9],prog:[[0,4,7],[-3,0,4],[-7,-3,0],[-5,-1,2]],lead:'saw',den:.6,dr:'synth',echo:.22,pad:'sawtooth',bass:'sawtooth',arp:true},
   boss:{n:'⚔️ Bosskampf!',bpm:132,root:52,sc:[0,1,3,7,8],prog:[[0,3,7],[0,3,7],[1,5,8],[-1,3,6]],lead:'saw',den:.55,dr:'drive',echo:.12,pad:'sawtooth',bass:'sawtooth',arp:true}
 };
 const MUS={on:false,timer:0,next:0,step:0,bus:null,wet:null,noise:null,th:null,key:'',mel:{}};
@@ -872,7 +912,7 @@ function musicStart(){
 function musicStop(){if(!MUS.on)return;MUS.on=false;clearInterval(MUS.timer);if(actx&&MUS.bus)MUS.bus.gain.setTargetAtTime(0,actx.currentTime,.25);updSnd()}
 const musVol=()=>(S.musicVol==null?.5:S.musicVol)*.32;
 function musicTheme(force){
-  const id=(boss&&!boss.dead)?'boss':(THEMES[dim()]?dim():'wald'),night=isNight()&&id!=='boss',key=id+(night?'n':'');
+  const ep=evPhase(),id=['intro','meteors','boss','finale'].includes(ep)?'event':ep==='after'?'party':(boss&&!boss.dead)?'boss':(THEMES[dim()]?dim():'wald'),night=isNight()&&id!=='boss',key=id+(night?'n':'');
   if(key===MUS.key&&!force)return;MUS.key=key;MUS.th=THEMES[id];MUS.night=night;
   if(MUS.wet&&actx){MUS.wet.gain.setTargetAtTime(MUS.th.echo*(night?1.4:1),actx.currentTime,.5);MUS.dly.delayTime.setTargetAtTime(60/MUS.th.bpm*.75,actx.currentTime,.3)}
   updSnd();
@@ -1198,7 +1238,7 @@ function updAch(){
     $('agrid').innerHTML=ACH.map(a=>{const on=S.ach.includes(a.id);return `<div class="ach ${on?'':'off'}"><div class="e">${on?a.e:'🔒'}</div><b>${a.name}</b><span>${a.desc}</span></div>`}).join('');
   }
   if(!$('p-a').hidden){
-    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Wiedergeburten',S.rb||0],['Preisstufe','×'+diffMult().toFixed(2).replace('.',',')],['Tipps im Frostgipfel',fmt(S.frostTaps||0)],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
+    const st=[['Sporen insgesamt',fmt(S.allTime)],['Tipps',fmt(S.taps)],['Glückstreffer',fmt(S.crits)],['Sporenräusche',S.rushes],['Goldpilze',S.golden],['Schnecken verscheucht',S.slugs],['Glühwürmchen gefangen',S.flies],['Aufgaben erledigt',S.questsDone],['Tagesserie',S.dailyStreak+' Tage'],['Auto-Tipps pro Sekunde',S.bots],['Wiedergeburten',S.rb||0],['Live-Events besucht',S.evCount||0],['Preisstufe','×'+diffMult().toFixed(2).replace('.',',')],['Tipps im Frostgipfel',fmt(S.frostTaps||0)],['Schneekolosse besiegt',S.frostBoss||0],['Sternschnuppen im Frostgipfel',S.frostStars||0],['Bosse besiegt',S.bossWins],['Boss-Stufe',S.bossLvl],['Blitze gefangen',S.bolts||0],['Sternschnuppen',S.stars||0],['Juwelen',S.gems],['Spielzeit',fmtTime(S.playSec)]];
     $('stats').innerHTML=st.map(([a,b])=>`<span>${a}</span><b>${b}</b>`).join('');
   }
 }
@@ -1343,6 +1383,14 @@ function shapeSVG(k,p,main){
       <path d="M100 18 L76 108 L32 108Z" fill="#fff" opacity=".4"/><path d="M168 108 L100 204 L124 108Z" fill="#000" opacity=".08"/>`,
       face:m=>faceAt(100,fy,{ec:'#3A2A6A'},m)}}
     case 'kuschel':return kuschelShape(k,p);
+    case 'komet':{const fy=112;return {fy,body:`<defs><radialGradient id="${p}km" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFE9A8"/><stop offset=".55" stop-color="${k.c1}"/><stop offset="1" stop-color="${k.c2}"/></radialGradient><linearGradient id="${p}kt" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFD04A"/><stop offset=".5" stop-color="#FF6A2A" stop-opacity=".85"/><stop offset="1" stop-color="#FF3DA8" stop-opacity="0"/></linearGradient></defs>
+      <g class="flames"><path d="M66 96 Q28 44 -4 -22 Q40 18 60 26 Q42 -12 44 -28 Q82 18 98 58 Q112 16 136 -14 Q126 40 130 78Z" fill="url(#${p}kt)"/></g>
+      ${[0,1,2,3].map(i=>`<circle r="${2+i%2}" fill="#FFE9A8"><animateMotion dur="${1.2+i*.3}s" begin="${-i*.4}s" repeatCount="indefinite" path="M${90+i*8} 70 L${20+i*18} ${-10+i*6}"/><animate attributeName="opacity" values="1;0" dur="${1.2+i*.3}s" begin="${-i*.4}s" repeatCount="indefinite"/></circle>`).join('')}
+      <circle cx="100" cy="118" r="64" fill="none" stroke="#FFD04A" stroke-width="4" opacity=".45"><animate attributeName="r" values="60;70;60" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".2;.6;.2" dur="1.2s" repeatCount="indefinite"/></circle>
+      <circle cx="100" cy="118" r="58" fill="url(#${p}km)"/>
+      <g fill="#5A1A0A" opacity=".28"><circle cx="72" cy="142" r="10"/><circle cx="134" cy="132" r="13"/><circle cx="124" cy="92" r="7"/><circle cx="80" cy="96" r="5"/></g>
+      <ellipse cx="80" cy="88" rx="14" ry="8" fill="#fff" opacity=".35" transform="rotate(-35 80 88)"/>`,face:m=>faceAt(100,fy,{ec:'#3A1A0A'},m)}}
+    case 'flocke':return snowShape(k,p);
     case 'robo':return {fy:112,body:`<path d="M100 40 V14" stroke="#9AA6BE" stroke-width="5"/><circle cx="100" cy="10" r="8" fill="#FF5A7A"/>
       <rect x="66" y="168" width="68" height="40" rx="12" fill="${k.c2}"/><circle cx="84" cy="188" r="5" fill="#39F5FF"/><circle cx="100" cy="188" r="5" fill="#FFD84A"/><circle cx="116" cy="188" r="5" fill="#FF5A7A"/>
       <rect x="36" y="40" width="128" height="124" rx="30" fill="${F}"/><rect x="58" y="84" width="84" height="60" rx="16" fill="#1C2340"/>
@@ -1410,6 +1458,34 @@ face:m=>`<g ${m?'id="eyes"':''} style="transform-origin:100px ${fy}px"><g ${m?'i
 <ellipse cx="78" cy="102" rx="6" ry="3.5" fill="#FF9FB0" opacity=".35"/><ellipse cx="122" cy="102" rx="6" ry="3.5" fill="#FF9FB0" opacity=".35"/>`}}
 
 
+function snowShape(k,p){const cx=100,cy=104,fy=100;
+  const segs=[];const P=(a,r)=>[cx+Math.cos(a)*r,cy+Math.sin(a)*r];
+  for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3;
+    segs.push([P(a,22),P(a,94)]);
+    [[36,20],[54,24],[72,17],[86,9]].forEach(([d,l])=>{const b=P(a,d);[1,-1].forEach(sg=>{const aa=a+sg*Math.PI/3;segs.push([b,[b[0]+Math.cos(aa)*l,b[1]+Math.sin(aa)*l]])})});
+    const m=P(a,30);[1,-1].forEach(sg=>{const aa=a+sg*Math.PI/2.4;segs.push([m,[m[0]+Math.cos(aa)*10,m[1]+Math.sin(aa)*10]])});}
+  const d=segs.map(([a,b])=>`M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}`).join('');
+  const tips=[0,1,2,3,4,5].map(i=>{const a=-Math.PI/2+i*Math.PI/3,t=P(a,97);return `<path d="M${t[0].toFixed(1)} ${(t[1]-7).toFixed(1)} l5 7 l-5 7 l-5 -7Z" fill="#DFF6FF" transform="rotate(${i*60} ${t[0].toFixed(1)} ${t[1].toFixed(1)})"/>`}).join('');
+  const hex=[0,1,2,3,4,5].map(i=>{const a=-Math.PI/2+i*Math.PI/3;return P(a,30).map(v=>v.toFixed(1)).join(',')}).join(' ');
+  const glints=[[100,12],[180,58],[22,152],[160,172],[40,40]].map(([x,y],i)=>`<g transform="translate(${x} ${y})"><path d="M0 -9 L2 -2 L9 0 L2 2 L0 9 L-2 2 L-9 0 L-2 -2Z" fill="#FFFFFF" style="filter:drop-shadow(0 0 3px #BFF0FF)"><animateTransform attributeName="transform" type="scale" values="0;1.2;0;0" keyTimes="0;.15;.3;1" dur="${2.4+i*.5}s" begin="${-i*.7}s" repeatCount="indefinite"/></path></g>`).join('');
+  return {fy,body:`<defs>
+    <linearGradient id="${p}sh" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="200"><stop offset="0" stop-color="#8FD8FF"/><stop offset=".42" stop-color="#8FD8FF"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset=".58" stop-color="#8FD8FF"/><stop offset="1" stop-color="#8FD8FF"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-240 -240;-240 -240;240 240" keyTimes="0;.45;1" dur="3.2s" repeatCount="indefinite"/></linearGradient>
+    <radialGradient id="${p}hx" cx="45%" cy="38%" r="70%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#CFF0FF"/><stop offset="1" stop-color="#7CC8F0"/></radialGradient></defs>
+  <circle cx="${cx}" cy="${cy}" r="84" fill="#BFF0FF" opacity=".12"><animate attributeName="r" values="76;90;76" dur="3.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".08;.2;.08" dur="3.5s" repeatCount="indefinite"/></circle>
+  <g><animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="360 ${cx} ${cy}" dur="40s" repeatCount="indefinite"/>
+    <path d="${d}" stroke="#2F86C8" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="${d}" stroke="url(#${p}sh)" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+    <path d="${d}" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".75"/>
+    ${tips}
+  </g>
+  <polygon points="${hex}" fill="url(#${p}hx)" stroke="#2F86C8" stroke-width="3"/>
+  <polygon points="${hex}" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity=".7" transform="translate(${cx} ${cy}) scale(.78) translate(${-cx} ${-cy})"/>
+  <ellipse cx="90" cy="88" rx="9" ry="5" fill="#fff" opacity=".7" transform="rotate(-30 90 88)"/>
+  ${glints}`,
+  face:m=>faceAt(cx,fy+2,{ec:'#1A4A8A'},m)}}
+
+
 function mushSVG(k,p){
   const a=new Set(k.acc||[]),d=k.dots||'#fff',main=p==='';
   const sh=shapeSVG(k,p,main);
@@ -1462,7 +1538,7 @@ function buySkin(id){
 }
 function openSkins(){
   const grid=$('skinGrid'),keep=grid.scrollTop;
-  const order={u:-3,x:-2,m:-1,l:0,e:1,s:2,g:3};
+  const order={v:-4,u:-3,x:-2,m:-1,l:0,e:1,s:2,g:3};
   renderShopBar();
   const list=SKINS.filter(k=>!k.secret||S.skins.includes(k.id)).sort((a,b)=>(S.skins.includes(b.id)-S.skins.includes(a.id))||(order[a.rar]-order[b.rar]));
   $('skinGrid').innerHTML=list.map((k,i)=>{const on=S.skins.includes(k.id);
@@ -1813,8 +1889,9 @@ function updSlugs(dt){
 const caught={};
 function flyPos(i,t){return [sr(i+30)*gw+Math.sin(t*.001+i)*22,gh*(.18+sr(i+31)*.55)+Math.cos(t*.0013+i*1.7)*16]}
 $('scene').addEventListener('pointerdown',e=>{
-  if(e.target.closest('.mush,.slug,.phase,.dimbtn,.boss,.proj,.abil'))return;
+  if(e.target.closest('.mush,.slug,.phase,.dimbtn,.boss,.proj,.abil,.evboss'))return;
   const r=$('scene').getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,t=reduced?0:performance.now();
+  if(e.isTrusted&&meteorTap(px,py,e.clientX,e.clientY))return;
   if(e.isTrusted&&weatherTap(px,py,e.clientX,e.clientY))return;
   if(e.isTrusted&&petTap(px,py,e.clientX,e.clientY))return;
   const nf=Math.min(30,own('wurm')*2);
@@ -1918,7 +1995,7 @@ function winBoss(){
   const B0=boss;B0.dead=true;const r=B0.el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
   confetti(true,cx,cy);fxRing(cx,cy,'#FFD84A',140);fxBurst(cx,cy,{n:30,colors:['#FFD84A','#FFFFFF','#FF8FC0'],star:true,speed:8});
   const sp=Math.max(rawSps()*240,tapBase()*200,500),gm=Math.min(15,3+S.bossLvl);
-  gain(sp);S.gems+=gm;S.bossWins++;S.bossLvl++;addXP(60);const dd=S.bossWins%5===0?3:1;S.dia+=dd;petXP(25);
+  if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),1600)}gain(sp);S.gems+=gm;S.bossWins++;S.bossLvl++;addXP(60);const dd=S.bossWins%5===0?3:1;S.dia+=dd;petXP(25);
   [523,659,784,1047].forEach((f,i)=>tone(f,.3,'triangle',.08,i*.1));buzz([30,50,30,50,80]);
   toast(`⚔️ ${B0.name} besiegt!`,`+${fmt(sp)} Sporen, ${gm} 💠 und ${dd} 💎`);
   B0.el.classList.add('die');setTimeout(()=>B0.el.remove(),720);
@@ -1984,7 +2061,7 @@ function weatherTap(px,py,cx,cy){
   for(const b of bolts){if(!b.hit&&Math.hypot(b.x-px,b.y-py)<38){b.hit=true;S.bolts=(S.bolts||0)+1;chargeTaps+=10;addXP(5);
     const v=Math.max(rawSps()*25,tapBase()*20,20);gain(v);floatText(cx,cy,'⚡ +'+fmt(v),'crit');fxBurst(cx,cy,{n:20,kind:'shard',colors:['#FFF6B0','#FFFFFF','#9FE8FF'],speed:6,glow:true});fxRing(cx,cy,'#FFF6B0',70);
     toast('⚡ Blitz gefangen!','Deine nächsten 10 Tipps zählen 5-fach');tone(1400,.1,'square',.05,0,.4);buzz([20,20,20]);return true}}
-  for(const s of shooters){if(!s.hit&&s.cx!=null&&Math.hypot(s.cx-px,s.cy-py)<40){s.hit=true;S.stars=(S.stars||0)+1;S.gems+=1;addXP(8);if(Math.random()<.2){S.dia++;toast('💎 Ein Diamant!','In der Sternschnuppe versteckt')}
+  for(const s of shooters){if(!s.hit&&s.cx!=null&&Math.hypot(s.cx-px,s.cy-py)<40){s.hit=true;S.stars=(S.stars||0)+1;if(dim()==='frost'){S.frostStars=(S.frostStars||0)+1;if(S.frostStars<=30&&S.frostStars%5===0)setTimeout(()=>toast(`🌠 ${S.frostStars}/30 Sternschnuppen im Frostgipfel`,'Für die Kristallflocke'),1200)}S.gems+=1;addXP(8);if(Math.random()<.2){S.dia++;toast('💎 Ein Diamant!','In der Sternschnuppe versteckt')}
     fxBurst(cx,cy,{n:20,kind:'star',colors:['#FFFFFF','#FFE680','#A194FF'],speed:5,glow:true});floatText(cx,cy,'🌠 +1 💠','crit');sfx.gold();return true}}
   return false;
 }
@@ -2020,7 +2097,7 @@ function openRebirth(){
   $('rbX').onclick=()=>{$('rbModal').hidden=true;document.body.classList.remove('locked')};
 }
 $('rbModal').addEventListener('click',e=>{if(e.target.id==='rbModal'){$('rbModal').hidden=true;document.body.classList.remove('locked')}});
-$('buffs').addEventListener('click',e=>{if(e.target.closest('.rbb')){ensureAudio();openRebirth()}});
+$('buffs').addEventListener('click',e=>{if(e.target.closest('.rbb')){ensureAudio();openRebirth()}if(e.target.closest('.evb')){ensureAudio();evInfo()}});
 function showRbBanner(){
   if(document.querySelector('.rbban'))return;
   const b=document.createElement('div');b.className='rbban';b.setAttribute('role','alert');
@@ -2055,6 +2132,105 @@ function showReveal(k){
   const close=()=>{o.remove();document.body.classList.remove('locked');jump()};
   const w=o.querySelector('.rbwear');if(w)w.onclick=()=>{S.skin=k.id;applySkin();save();close();toast(`✨ ${k.name} angelegt`)};
   o.querySelector('.rbclose').onclick=close;
+}
+
+/* ---------- live event: jeden Mittwoch 11:40 Uhr (deutsche Zeit) ---------- */
+const EV_TOTAL=3600,EV_HP=900;
+let evOverride=/[?&#]liveevent\b/.test(location.search+location.hash)?Date.now()+15000:null;
+let evCache={start:0,at:0},EV=null,evLastPhase='',meteors=[],evLastDraw=0,evFinT=0;
+function berlinParts(d){const o={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(d).forEach(x=>o[x.type]=x.value);return o}
+function berlinOffset(){const d=new Date(Math.floor(Date.now()/1000)*1000),o=berlinParts(d);return Date.UTC(+o.year,+o.month-1,+o.day,(+o.hour)%24,+o.minute,+o.second)-d.getTime()}
+function computeStart(){
+  if(evOverride&&Date.now()<evOverride+EV_TOTAL*1000)return evOverride;evOverride=null;
+  let off=0;try{off=berlinOffset()}catch(e){}
+  const wall=new Date(Date.now()+off);let t=Date.UTC(wall.getUTCFullYear(),wall.getUTCMonth(),wall.getUTCDate(),11,40,0)+((3-wall.getUTCDay()+7)%7)*864e5;
+  if(t+EV_TOTAL*1000<=wall.getTime())t+=7*864e5;return t-off;
+}
+function evStart(){if(Date.now()-evCache.at>30000||Date.now()>evCache.start+EV_TOTAL*1000){evCache={start:computeStart(),at:Date.now()}}return evCache.start}
+function evT(){return (Date.now()-evStart())/1000}
+function evPhase(){const t=evT();if(t<-43200)return 'none';if(t<-3600)return 'soon';if(t<0)return 'pre';if(t<20)return 'intro';if(t<120)return 'meteors';if(t<240)return 'boss';if(t<300)return 'finale';if(t<330)return 'reward';if(t<EV_TOTAL)return 'after';return 'none'}
+const evParty=()=>{const p=evPhase();return p==='after'||p==='reward'};
+function fmtClock(sec){sec=Math.max(0,Math.floor(sec));const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s2).padStart(2,'0')}
+const kometSkin=()=>SKINS.find(x=>x.id==='kometenkind');
+function evInfo(){
+  const t=evT(),ep=evPhase();
+  queueModal({emoji:'🔴',title:'Live-Event: Der Kometenschauer',text:`Jeden Mittwoch um 11:40 Uhr (deutsche Zeit) erleben alle Spieler gleichzeitig den Kometenschauer. Erst verdunkelt sich der Himmel, dann regnet es Meteore, die du antippst, um Kometensplitter zu sammeln. Danach greift der riesige Kometenkönig an. Wer dabei ist, bekommt Diamanten, Juwelen, Sporen und beim ersten Mal den Event-Skin Kometenkind. Danach gibt es eine Stunde Afterparty mit doppelter Produktion. ${ep==='pre'||ep==='soon'?`Start in ${fmtClock(-t)}.`:ep==='after'?'Die Afterparty läuft gerade!':ep==='none'?'':'Das Event läuft gerade!'}`,ok:'Verstanden'});
+}
+function evBanner(){if(document.querySelector('.evban'))return;const b=document.createElement('div');b.className='evban';b.setAttribute('role','alert');
+  b.innerHTML=`<span class="ic">☄️</span><div class="tx"><b><span class="live">LIVE</span> Event in wenigen Minuten!</b><small>Der Kometenschauer beginnt um 11:40 Uhr. Bleib im Spiel!</small></div><button class="x" aria-label="Schließen">×</button>`;
+  document.body.appendChild(b);b.querySelector('.x').onclick=()=>b.remove();setTimeout(()=>b.remove(),15000);[440,554,659].forEach((f,i)=>tone(f,.3,'triangle',.07,i*.15));buzz([30,50,30])}
+function evEls(on){const sc=$('scene');
+  if(on){if(!sc.querySelector('.lbx')){['t','b'].forEach(c=>{const d=document.createElement('div');d.className='lbx '+c;sc.appendChild(d)})}
+    if(!$('evhud')){const h=document.createElement('div');h.className='evhud';h.id='evhud';sc.appendChild(h)}}
+  else{sc.classList.remove('cine','quake');sc.querySelectorAll('.lbx,.evtitle,.evboss').forEach(e=>e.remove());const h=$('evhud');if(h)h.remove()}}
+function evTitle(a,b){const sc=$('scene');sc.querySelectorAll('.evtitle').forEach(e=>e.remove());const d=document.createElement('div');d.className='evtitle';d.innerHTML=`<div><b>${a}</b><small>${b||''}</small></div>`;sc.appendChild(d);setTimeout(()=>d.remove(),4000)}
+function ensureEV(){const id=evStart();if(!EV||EV.id!==id)EV={id,spl:0,hp:EV_HP,max:EV_HP,done:false,rewarded:S.evLast===id};return EV}
+function evSpawnBoss(){
+  if(document.querySelector('.evboss'))return;const e=ensureEV(),sc=$('scene'),el=document.createElement('div');el.className='evboss';
+  el.innerHTML=`<div class="bhp"><i></i></div><button aria-label="Kometenkönig angreifen">${mushSVG(kometSkin(),'evk')}</button><div class="bname">👑 Kometenkönig</div>`;sc.appendChild(el);
+  el.querySelector('button').addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();if(!ev.isTrusted||e.done||!tapAllowed())return;ensureAudio();
+    let d=1;const crit=Math.random()<critChance()+.1;if(crit)d=3;if(now()<buffs.rush)d*=2;e.hp-=d;addXP(.3);
+    floatText(ev.clientX,ev.clientY,crit?`💥 -${d}`:`-${d}`,crit?'crit':'');fxBurst(ev.clientX,ev.clientY,{n:crit?12:6,kind:'ember',colors:['#FFE9A8','#FF9A3A','#FFFFFF'],speed:5,glow:true});
+    el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit');tone(crit?300:200+Math.random()*60,.08,'square',.05,0,.6);buzz(crit?18:6);
+    if(e.hp<=0&&!e.done){e.done=true;S.evWins=(S.evWins||0)+1;el.classList.add('dead');const r=el.getBoundingClientRect();confetti(true,r.left+r.width/2,r.top+r.height/2);fxRing(r.left+r.width/2,r.top+r.height/2,'#FFD04A',160);
+      evTitle('Kometenkönig besiegt!','Warte auf das große Finale …');[523,659,784,1047].forEach((f,i)=>tone(f,.3,'triangle',.08,i*.1));setTimeout(()=>el.remove(),1000)}});
+}
+function evPhaseStart(p,late){
+  const sc=$('scene');
+  if(['intro','meteors','boss','finale'].includes(p)){evEls(true);sc.classList.add('cine');ensureEV()}
+  if(p==='pre'&&evT()>-600)evBanner();
+  if(p==='intro'){sc.classList.add('quake');evTitle('<span class="live">LIVE</span> Der Kometenschauer','Etwas nähert sich dem Garten …');tone(55,3,'sawtooth',.06,0,.5);tone(82,3,'sine',.06,.3,.7);buzz([80,60,80]);setTimeout(()=>sc.classList.remove('quake'),4000)}
+  if(p==='meteors'){evTitle('Meteorregen!','Tipp die Meteore an, um Kometensplitter zu sammeln');sc.classList.remove('quake')}
+  if(p==='boss'){evTitle('👑 Der Kometenkönig','Tipp ihn an, bis er zerbricht!');evSpawnBoss();sc.classList.add('quake');setTimeout(()=>sc.classList.remove('quake'),2500)}
+  if(p==='finale'){sc.querySelectorAll('.evboss').forEach(e=>{e.classList.add('dead');setTimeout(()=>e.remove(),1000)});
+    if(!late){const f=document.createElement('div');f.className='flashov';document.body.appendChild(f);setTimeout(()=>f.remove(),1500);tone(60,2.5,'sawtooth',.08,0,.4);buzz([200,100,300])}
+    evTitle(EV&&EV.done?'Der Himmel ist gerettet!':'Der Komet zerbricht!','Seht euch das an …');evFinT=performance.now()}
+  if(p==='reward'){evEls(false);evReward()}
+  if(p==='after'){evEls(false);if(!late)toast('🎉 Afterparty!','Eine Stunde lang doppelte Produktion')}
+  if(p==='none'||p==='soon'){evEls(false);meteors=[]}
+  if(MUS.on)musicTheme();
+}
+function evReward(){
+  if(!EV||EV.rewarded||S.evLast===EV.id)return;EV.rewarded=true;S.evLast=EV.id;
+  const first=!S.skins.includes('kometenkind'),d=3+(EV.done?5:0)+Math.min(10,Math.floor(EV.spl/15)),gm=Math.min(60,Math.floor(EV.spl/2)),sp=Math.max(rawSps()*600,tapBase()*300,1000)*(1+EV.spl/40);
+  gain(sp);S.dia+=d;S.gems+=gm;S.evCount=(S.evCount||0)+1;if(first)unlockSkin('kometenkind',true);save();confetti(true);
+  queueModal({emoji:'☄️',title:EV.done?'Kometenkönig besiegt!':'Live-Event geschafft!',text:`Du hast ${EV.spl} Kometensplitter gesammelt. Deine Belohnung: ${fmt(sp)} Sporen, ${d} 💎 und ${gm} 💠${first?' und der Event-Skin Kometenkind':''}. Jetzt läuft eine Stunde Afterparty mit doppelter Produktion!`,ok:first?'Kometenkind anlegen':'Super!',onOk:()=>{if(first){S.skin='kometenkind';applySkin();save()}}});
+}
+let evAcc=0;
+function evTick(dt){
+  evAcc+=dt;if(evAcc<.25)return;evAcc=0;
+  const p=evPhase();
+  if(p!==evLastPhase){const late=evLastPhase==='';evLastPhase=p;evPhaseStart(p,late&&p!=='intro')}
+  const hud=$('evhud');
+  if(hud&&EV){const t=evT(),left={intro:20,meteors:120,boss:240,finale:300}[p]-t;
+    hud.innerHTML=`<span class="live">LIVE</span>${p==='boss'?`Kometenkönig ${EV.done?'besiegt ✓':Math.max(0,Math.ceil(EV.hp/EV.max*100))+' %'}`:p==='meteors'?'Meteorregen':p==='finale'?'Finale':'Der Himmel verdunkelt sich'} <span>${fmtClock(left)}</span> <span>☄️ ${EV.spl}</span>`;
+    const bb=document.querySelector('.evboss .bhp i');if(bb)bb.style.width=Math.max(0,EV.hp/EV.max*100)+'%'}
+  if(p==='finale'&&!reduced&&Math.random()<.6){const r=$('scene').getBoundingClientRect();const x=r.left+r.width*(.1+Math.random()*.8),y=r.top+r.height*(.1+Math.random()*.4);
+    confetti(false,x,y,['#FFD04A','#FF3DA8','#39F5FF','#7CFF6B','#FFFFFF']);fxRing(x,y,['#FFD04A','#FF3DA8','#39F5FF'][Math.random()*3|0],60);tone(200+Math.random()*400,.3,'triangle',.04,0,.5)}
+}
+function meteorTap(px,py,cx,cy){
+  if(!EV)return false;
+  for(const m of meteors){if(!m.hit&&Math.hypot(m.x-px,m.y-py)<34){m.hit=true;EV.spl++;addXP(1);const v=Math.max(rawSps()*2,tapBase()*2,5);gain(v);
+    fxBurst(cx,cy,{n:14,kind:'ember',colors:['#FFE9A8','#FF9A3A','#FF3DA8'],speed:5,glow:true});fxRing(cx,cy,'#FF9A3A',40);floatText(cx,cy,'+1 ☄️','crit');tone(900+Math.random()*300,.1,'triangle',.06,0,1.4);buzz(10);return true}}
+  return false;
+}
+function drawEvent(tt){
+  const p=evPhase(),t=performance.now(),dt=Math.min(.05,(t-(evLastDraw||t))/1000);evLastDraw=t;
+  if(p==='pre'){const q=Math.max(0,Math.min(1,1+evT()/3600)),x=gw*(.88-.3*q),y=gh*(.1+.12*q),r=2+14*q;
+    const lg=g.createLinearGradient(x,y,x+r*6,y-r*4);lg.addColorStop(0,'rgba(255,200,120,.9)');lg.addColorStop(1,'rgba(255,120,80,0)');g.strokeStyle=lg;g.lineWidth=r*1.2;g.lineCap='round';g.beginPath();g.moveTo(x,y);g.lineTo(x+r*6,y-r*4);g.stroke();
+    g.save();g.fillStyle='#FFE9A8';g.shadowColor='#FF9A3A';g.shadowBlur=18;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.restore()}
+  if(['intro','meteors','boss'].includes(p)){const a=p==='intro'?Math.min(1,(evT())/10):1;g.fillStyle=`rgba(30,5,25,${.35*a})`;g.fillRect(0,0,gw,gh);const rg=g.createLinearGradient(0,0,0,gh*.5);rg.addColorStop(0,`rgba(255,80,40,${.25*a})`);rg.addColorStop(1,'rgba(255,80,40,0)');g.fillStyle=rg;g.fillRect(0,0,gw,gh*.5)}
+  if(p==='meteors'||p==='boss'){
+    if(Math.random()<dt*(p==='meteors'?2:.6))meteors.push({x:gw*(.2+Math.random()*1),y:-20,vx:-(50+Math.random()*60),vy:120+Math.random()*90,r:7+Math.random()*6,hit:false});
+    for(const m of meteors){m.x+=m.vx*dt;m.y+=m.vy*dt;
+      const lg=g.createLinearGradient(m.x,m.y,m.x-m.vx*.3,m.y-m.vy*.3);lg.addColorStop(0,'rgba(255,200,120,.95)');lg.addColorStop(1,'rgba(255,60,120,0)');g.strokeStyle=lg;g.lineWidth=m.r*1.3;g.lineCap='round';g.beginPath();g.moveTo(m.x,m.y);g.lineTo(m.x-m.vx*.3,m.y-m.vy*.3);g.stroke();
+      g.save();g.fillStyle='#7A3A2A';g.shadowColor='#FF8A3D';g.shadowBlur=16;g.beginPath();g.arc(m.x,m.y,m.r,0,7);g.fill();g.fillStyle='#FFB070';g.beginPath();g.arc(m.x-m.r*.3,m.y-m.r*.3,m.r*.35,0,7);g.fill();g.restore();
+      if(m.y>groundY(m.x)){m.hit=true;const r=$('scene').getBoundingClientRect();fxBurst(r.left+m.x,r.top+m.y,{n:8,colors:['#FF9A3A','#7A3A2A','#FFE9A8'],speed:3,up:2})}}
+    meteors=meteors.filter(m=>!m.hit&&m.y<gh+30)}
+  else if(meteors.length)meteors=[];
+  if(p==='finale'){const a=.25+.2*Math.sin(t*.01);g.fillStyle=`rgba(255,240,200,${a*.4})`;g.fillRect(0,0,gw,gh)}
+  if(p==='finale'||p==='reward'||p==='after'){g.save();g.globalCompositeOperation='lighter';['rgba(255,80,200,','rgba(80,255,200,','rgba(120,140,255,','rgba(255,200,80,'].forEach((cc,b)=>{const lg=g.createLinearGradient(0,0,0,gh*.55);lg.addColorStop(0,cc+'0)');lg.addColorStop(.5,cc+'.2)');lg.addColorStop(1,cc+'0)');g.fillStyle=lg;g.beginPath();g.moveTo(0,gh*.08+b*12);
+    for(let x=0;x<=gw;x+=12)g.lineTo(x,gh*(.1+b*.05)+Math.sin(x*.02+t*.0009+b)*18);for(let x=gw;x>=0;x-=12)g.lineTo(x,gh*(.32+b*.05)+Math.sin(x*.018+t*.0007+b*2)*22);g.fill()});g.restore()}
 }
 
 /* ---------- scene renderer ---------- */
@@ -2186,7 +2362,7 @@ function drawGarden(tt){
   for(let i=0;i<ngh;i++){g.globalAlpha=.35+.25*Math.sin(t*.0015+i);g.fillText('👻',gw*(.15+.3*i)+Math.sin(t*.0007+i)*30,gh*(.35+.1*i)+Math.sin(t*.002+i)*8)}
   g.globalAlpha=1;
   const sh=g.createRadialGradient(gw/2,groundY(gw/2)+2,4,gw/2,groundY(gw/2)+2,gw*.2);sh.addColorStop(0,'rgba(0,0,0,.25)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(gw/2,groundY(gw/2)+4,gw*.2,10,0,0,7);g.fill();
-  drawWeather(tt);
+  drawWeather(tt);drawEvent(tt);
   if(now()<buffs.rush){g.fillStyle=`rgba(255,80,180,${.08+.06*Math.sin(t*.01)})`;g.fillRect(0,0,gw,gh)}
 }
 
@@ -2273,6 +2449,11 @@ function render(){
   if(chargeTaps>0)bf.push(['pink',`⚡ Aufgeladen ×5, noch ${chargeTaps} Tipps`]);
   if(now()<buffs.tap)bf.push(['',`Tippsturm ${Math.ceil((buffs.tap-now())/1000)} s`]);
   if((S.rbEarn||0)>=rbNeed())bf.unshift(['rbb','🔄 Wiedergeburt bereit!']);
+  {const ep=evPhase(),et=evT();
+   if(ep==='pre')bf.unshift(['evb',`🔴 Live-Event in ${fmtClock(-et)}`]);
+   else if(ep==='soon')bf.unshift(['evb','📅 Heute um 11:40 Uhr: Live-Event']);
+   else if(['intro','meteors','boss','finale','reward'].includes(ep))bf.unshift(['evb','🔴 LIVE: Kometenschauer']);
+   else if(ep==='after')bf.unshift(['evb',`🎉 Afterparty ×2 noch ${fmtClock(EV_TOTAL-et)}`]);}
   $('buffs').innerHTML=bf.map(([c,b])=>`<span class="buff ${c}">${b}</span>`).join('');
   $('meter').style.width=(now()<buffs.rush?((buffs.rush-now())/((has('r0')?13:8)*1000))*100:meter*100)+'%';
   updBList();updUList();updQuests();updAch();updSeason();updPassBar();pushScore(false);if(LB.on&&!$('p-r').hidden&&Date.now()-LB.lastFetch>20000)fetchLB();
@@ -2305,7 +2486,7 @@ function frame(t){
   if(uiAcc>0.1){uiAcc=0;render()}
   if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();if(MUS.on)musicTheme();if((S.rbEarn||0)>=rbNeed()&&!S.rbNotified){S.rbNotified=true;save();showRbBanner()}updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
   if(saveAcc>8){saveAcc=0;save()}
-  updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);
+  updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);evTick(dt);
   auraAcc+=dt;if(auraAcc>.22){auraAcc=0;if($('skinModal').hidden&&$('passModal').hidden)auraTick()}
   drawGarden(t);drawFx();
   requestAnimationFrame(frame);
