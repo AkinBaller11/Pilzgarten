@@ -746,6 +746,10 @@ body.locked{overflow:hidden}
 .tlist{margin-bottom:10px}
 .tlb{display:grid;grid-template-columns:34px 1fr auto;gap:8px;padding:7px 6px;border-bottom:1px solid var(--line);font-size:.86rem}
 .tlb.me{background:color-mix(in srgb,var(--glow) 14%,transparent);border-radius:10px}
+/* Rang-Tab machte die Seite auf dem Handy zu breit */
+.layout>*{min-width:0}
+.nickerr{margin:-4px 2px 10px;font-size:.8rem;color:var(--pink);line-height:1.35}
+#nickIn[aria-invalid="true"]{border-color:var(--pink)!important;outline-color:var(--pink)}
 </style>
 </head>
 <body>
@@ -812,6 +816,7 @@ body.locked{overflow:hidden}
     </div>
     <div class="pane" id="p-r" hidden>
       <div class="lbme"><button class="lbacct" id="acctOpen2" aria-label="Konto">👤</button><input id="nickIn" maxlength="20" placeholder="Dein Gärtnername" aria-label="Dein Gärtnername"><button id="nickSave">Speichern</button></div>
+      <p class="nickerr" id="nickErr" role="alert" hidden></p>
       <div class="lbtabs" id="lbTabs" role="group" aria-label="Kategorie"><button data-m="score" aria-pressed="true"><b>🏆</b>Gesamt</button><button data-m="week" aria-pressed="false"><b>📅</b>Woche</button><button data-m="sps" aria-pressed="false"><b>⚡</b>Pro Sek.</button><button data-m="boss" aria-pressed="false"><b>⚔️</b>Bosse</button></div>
       <div class="lbview" id="lbView"><button data-v="all" aria-pressed="true">Alle</button><button data-v="near" aria-pressed="false">📍 Um mich</button><button data-v="fav" aria-pressed="false">⭐ Favoriten</button><button id="lbRef" aria-label="Rangliste aktualisieren">↻</button></div>
       <div class="lbsearch"><input id="lbQ" type="search" placeholder="Spieler suchen" aria-label="Spieler suchen" maxlength="20"></div>
@@ -2146,7 +2151,37 @@ async function pushScore(force){
   }catch(e){}
   LB.writing=false;
 }
-function lbNick(){return (S.nick||'').trim().slice(0,20)||('Gärtner '+String(LB.uid||'0000').replace(/-/g,'').slice(-4).toUpperCase())}
+/* ---------- Namensfilter ----------
+   Verhindert unanständige Namen. Dieselben Regeln prüft auch der Server (nick-filter.sql),
+   dort kannst du weitere Wörter in die Tabelle blocked_words eintragen. */
+const NICK_SUB=["hurensohn", "hurenkind", "hure", "fotze", "wichs", "wixer", "arschloch", "arschgeige", "arschgesicht", "fick", "schlampe", "missgeburt", "spast", "behindert", "kanake", "kanacke", "neger", "nigg", "zigeuner", "schwuchtel", "transe", "hitler", "siegheil", "heilhitler", "holocaust", "auschwitz", "judensau", "kinderporn", "paedo", "pedophil", "porno", "penis", "vagina", "muschi", "titten", "sperma", "scheis", "kacke", "idiot", "vollpfosten", "bastard", "penner", "vergewalt", "fuck", "shit", "bitch", "whore", "pussy", "faggot", "retard", "asshole", "motherf", "administrator", "moderator", "support", "pilzgarten"];
+const NICK_WHOLE=["arsch", "ass", "anal", "sex", "sexy", "dick", "cock", "cunt", "slut", "rape", "porn", "pedo", "fag", "cum", "mongo", "kkk", "isis", "hh", "nsdap", "nazi", "nazis", "admin", "mod", "88", "1488"];
+const nkCol=s=>s.replace(/(.)\1+/g,'$1');
+function nickNorm(n){
+  let s=n.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');
+  s=s.normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
+  const leet=s.replace(/[013457]/g,c=>({0:'o',1:'i',3:'e',4:'a',5:'s',7:'t'})[c]);
+  return {s,leet,a:leet.replace(/[^a-z]/g,'')};
+}
+function nickCheck(raw){
+  const n=String(raw||'').trim();
+  if(n.length<3)return 'Der Name braucht mindestens 3 Zeichen.';
+  if(n.length>20)return 'Der Name darf höchstens 20 Zeichen haben.';
+  if(!/^[A-Za-z0-9äöüÄÖÜßÀ-ÖØ-öø-ÿ _.\-]+$/.test(n))return 'Erlaubt sind nur Buchstaben, Zahlen, Leerzeichen, Punkt, Minus und Unterstrich.';
+  if((n.match(/[A-Za-zäöüÄÖÜßÀ-ÖØ-öø-ÿ]/g)||[]).length<2)return 'Der Name braucht mindestens 2 Buchstaben.';
+  if(/(.)\1{4,}/.test(n))return 'Bitte nicht so viele gleiche Zeichen hintereinander.';
+  if(/(www|http|\.com|\.de|\.net)/i.test(n)||/\d{6,}/.test(n))return 'Links und lange Zahlenreihen sind im Namen nicht erlaubt.';
+  const {s,leet,a}=nickNorm(n),ac=nkCol(a);
+  if(NICK_SUB.some(w=>a.includes(w)||ac.includes(nkCol(w))))return 'Dieser Name ist nicht erlaubt. Bitte wähl einen freundlichen Namen.';
+  const toks=new Set([...(s.match(/[a-z]+|[0-9]+/g)||[]),...(leet.match(/[a-z]+/g)||[])]);
+  if(NICK_WHOLE.some(w=>toks.has(w)))return 'Dieser Name ist nicht erlaubt. Bitte wähl einen freundlichen Namen.';
+  return '';
+}
+const nickOk=n=>!nickCheck(n);
+const nickTag=id=>String(id||'0000').replace(/-/g,'').slice(-4).toUpperCase();
+function showNick(r){return r&&nickOk(r.nick)?r.nick:(r&&r.player_id?'Gärtner '+nickTag(r.player_id):'Gärtner')}
+if(S.nick&&!nickOk(S.nick)){S.nick='';save()}
+function lbNick(){const n=(S.nick||'').trim().slice(0,20);return nickOk(n)?n:'Gärtner '+nickTag(LB.uid)}
 function lbAvatar(r,p){const k=SKINS.find(x=>x.id===r.skin)||SKINS[0];return mushSVG(k,p)}
 function lbShow(r){const v=lbVal(r),u=LBM[LB.mode].u;return (LB.mode==='boss'?String(v):fmt(v))+u}
 function fmtAgo(ts){if(!ts)return '–';const s2=(Date.now()-new Date(ts).getTime())/1000;if(s2<120)return 'gerade eben';if(s2<3600)return `vor ${Math.round(s2/60)} Min.`;if(s2<86400)return `vor ${Math.round(s2/3600)} Std.`;return `vor ${Math.round(s2/86400)} Tagen`}
@@ -2167,17 +2202,17 @@ function renderLB(){
   const ago=Math.round((Date.now()-LB.lastFetch)/1000);
   $('lbStat').innerHTML=`${LB.total!=null?`<span>👥 ${LB.total} Spieler</span>`:''}${LB.online!=null?`<span class="on">● ${LB.online} online</span>`:''}<span>${ago<5?'gerade aktualisiert':`vor ${ago} s aktualisiert`}</span>${LB.mode==='week'?'<span>Neue Woche jeden Montag</span>':''}`;
   if(LB.status==='banned')$('lbMe').innerHTML='<div class="lbnote">Dein Eintrag wurde vom Spielbetreiber gesperrt. Wenn du glaubst, dass das ein Fehler ist, melde dich bei ihm.</div>';
-  else if(LB.me&&!LB.q){const r=LB.me;$('lbMe').innerHTML=`<div class="lbcard" data-id="${esc(r.player_id)}"><div class="big2">${LB.myRank?'#'+LB.myRank:'–'}<small>dein Platz</small></div><div class="inf"><b>${esc(r.nick)}</b> ${lbShow(r)}<span class="ttl">${titleOf(r.score)}</span><br><span>${LB.myRank===1?'Du bist ganz vorne! 🏆':LB.gap?`Noch ${LB.mode==='boss'?LB.gap.d:fmt(LB.gap.d)}${LBM[LB.mode].u} bis zu ${esc(LB.gap.nick)}`:''}${S.lbPend>1?`<br>${fmt(S.lbPend)} Sporen werden noch gutgeschrieben`:''}</span></div></div>`}
+  else if(LB.me&&!LB.q){const r=LB.me;$('lbMe').innerHTML=`<div class="lbcard" data-id="${esc(r.player_id)}"><div class="big2">${LB.myRank?'#'+LB.myRank:'–'}<small>dein Platz</small></div><div class="inf"><b>${esc(showNick(r))}</b> ${lbShow(r)}<span class="ttl">${titleOf(r.score)}</span><br><span>${LB.myRank===1?'Du bist ganz vorne! 🏆':LB.gap?`Noch ${LB.mode==='boss'?LB.gap.d:fmt(LB.gap.d)}${LBM[LB.mode].u} bis zu ${esc(nickOk(LB.gap.nick)?LB.gap.nick:'einem Gärtner')}`:''}${S.lbPend>1?`<br>${fmt(S.lbPend)} Sporen werden noch gutgeschrieben`:''}</span></div></div>`}
   else $('lbMe').innerHTML='';
   if(!rows.length){box.innerHTML=`<div class="lbnote">${LB.q?`Kein Spieler mit „${esc(LB.q)}“ gefunden.`:LB.view==='fav'?'Du hast noch keine Favoriten. Tippe auf einen Spieler und dann auf ☆, um ihm zu folgen.':'Noch niemand auf der Rangliste. Sammle Sporen, dein Stand wird automatisch eingetragen.'}</div>`;$('lbMore').hidden=true;return}
   let h='',start=0;const podium=LB.view==='all'&&!LB.q;
   if(podium){const top=rows.slice(0,3),medal=['🥇','🥈','🥉'],order=[1,0,2];start=3;
     h+='<div class="podium">';
     order.forEach(i=>{const r=top[i];if(!r){h+='<div></div>';return}
-      h+=`<div class="pod p${i+1} ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><div class="md">${medal[i]}</div><div class="av">${lbAvatar(r,'po'+i)}</div><b>${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}${r.online?'<span class="odot"></span>':''}</b><small>${lbShow(r)}</small></div>`});
+      h+=`<div class="pod p${i+1} ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><div class="md">${medal[i]}</div><div class="av">${lbAvatar(r,'po'+i)}</div><b>${esc(showNick(r))}${r.prem?' 👑':''}${r.online?'<span class="odot"></span>':''}</b><small>${lbShow(r)}</small></div>`});
     h+='</div>'}
   rows.slice(start).forEach((r,j)=>{const i=j+start,pet=PETS.find(x=>x.id===r.pet),rk=LB.ranks[r.player_id];
-    h+=`<div class="lbrow ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><span class="pl">${rk||'·'}${mvHTML(r.player_id)}</span><span class="av">${i<40?lbAvatar(r,'lr'+i):''}</span><span class="nm">${isFav(r.player_id)?'⭐ ':''}${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}${r.online?'<span class="odot" title="online"></span>':''}<small>${titleOf(r.score)}${pet?' · '+pet.e:''}${r.rb?' · 🔄'+r.rb:''}${r.boss_wins?' · ⚔️'+r.boss_wins:''}</small></span><span class="sc">${lbShow(r)}</span></div>`});
+    h+=`<div class="lbrow ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}"><span class="pl">${rk||'·'}${mvHTML(r.player_id)}</span><span class="av">${i<40?lbAvatar(r,'lr'+i):''}</span><span class="nm">${isFav(r.player_id)?'⭐ ':''}${esc(showNick(r))}${r.prem?' 👑':''}${r.online?'<span class="odot" title="online"></span>':''}<small>${titleOf(r.score)}${pet?' · '+pet.e:''}${r.rb?' · 🔄'+r.rb:''}${r.boss_wins?' · ⚔️'+r.boss_wins:''}</small></span><span class="sc">${lbShow(r)}</span></div>`});
   box.innerHTML=h;
   $('lbMore').hidden=!(LB.view==='all'&&!LB.q&&LB.total!=null&&rows.length<LB.total&&rows.length>=LB.limit);
   box.querySelectorAll('[data-id]').forEach(el=>el.addEventListener('click',()=>openProfile(el.dataset.id)));
@@ -2190,8 +2225,8 @@ function openProfile(id){
   if(LB.ver>1)cells.push(['Diese Woche',fmt(r.week_score||0)],['Bosse besiegt',r.boss_wins||0],['Begleiter',pet?`${pet.e} ${pet.name}${r.pet_lv?', Stufe '+r.pet_lv:''}`:'keiner'],['Dimension',D?`${D.e} ${D.name}`:'–'],['Skins',String(r.skins||1)],['Aktueller Skin',k.secret&&!mine?'🔒 Geheim':k.name]);
   if(LB.ver>2)cells.push(['Wiedergeburten',r.rb||0]);
   if(LB.ver>1)cells.push(['Dabei seit',r.created_at?new Date(r.created_at).toLocaleDateString('de-DE'):'–'],['Zuletzt aktiv',r.online?'gerade online':fmtAgo(r.last_submit)]);
-  let cmp='';if(!mine&&LB.me){const d=(r.score||0)-(LB.me.score||0);cmp=`<div class="pcmp">${d>0?`<b>${esc(r.nick)}</b> hat <b>${fmt(d)}</b> Sporen mehr als du.`:d<0?`Du hast <b>${fmt(-d)}</b> Sporen mehr als <b>${esc(r.nick)}</b>. 💪`:'Ihr seid genau gleichauf!'}</div>`}
-  $('profBody').innerHTML=`<div class="pav">${mushSVG(k,'pf')}</div><h2 id="pfN">${esc(r.nick||'Gärtner')}${r.prem?' 👑':''}</h2><div class="ps">${mine?'Das bist du':(r.online?'<span class="odot"></span> online':'offline')}</div>${cmp}<div class="pgrid">${cells.map(([a,b])=>`<div>${a}<b>${esc(b)}</b></div>`).join('')}</div>${mine?'':`<div class="pbtns" style="margin-bottom:8px"><button class="ghost" id="pfFav" style="margin:0">${isFav(id)?'★ Nicht mehr folgen':'☆ Folgen'}</button></div>`}`;
+  let cmp='';if(!mine&&LB.me){const d=(r.score||0)-(LB.me.score||0);cmp=`<div class="pcmp">${d>0?`<b>${esc(showNick(r))}</b> hat <b>${fmt(d)}</b> Sporen mehr als du.`:d<0?`Du hast <b>${fmt(-d)}</b> Sporen mehr als <b>${esc(r.nick)}</b>. 💪`:'Ihr seid genau gleichauf!'}</div>`}
+  $('profBody').innerHTML=`<div class="pav">${mushSVG(k,'pf')}</div><h2 id="pfN">${esc(showNick(r))}${r.prem?' 👑':''}</h2><div class="ps">${mine?'Das bist du':(r.online?'<span class="odot"></span> online':'offline')}</div>${cmp}<div class="pgrid">${cells.map(([a,b])=>`<div>${a}<b>${esc(b)}</b></div>`).join('')}</div>${mine?'':`<div class="pbtns" style="margin-bottom:8px"><button class="ghost" id="pfFav" style="margin:0">${isFav(id)?'★ Nicht mehr folgen':'☆ Folgen'}</button></div>`}`;
   const fb=$('pfFav');if(fb)fb.onclick=()=>{toggleFav(id);fb.textContent=isFav(id)?'★ Nicht mehr folgen':'☆ Folgen';renderLB()};
   $('profModal').hidden=false;document.body.classList.add('locked');sfx.buy();
 }
@@ -2202,7 +2237,11 @@ document.querySelectorAll('#lbView button[data-v]').forEach(b=>b.addEventListene
 $('lbRef').onclick=()=>{if(!LB.busy)fetchLB()};
 let lbQT=0;$('lbQ').addEventListener('input',()=>{clearTimeout(lbQT);lbQT=setTimeout(()=>{LB.q=$('lbQ').value.trim().slice(0,20);LB.limit=50;fetchLB()},350)});
 $('lbMore').onclick=()=>{LB.limit+=50;$('lbMore').textContent='Wird geladen …';fetchLB().then(()=>{$('lbMore').textContent='Mehr Spieler laden'})};
-$('nickSave').onclick=()=>{S.nick=$('nickIn').value.trim().slice(0,20);save();toast('✏️ Name gespeichert',lbNick()+' erscheint beim nächsten Abgleich');renderLB()};
+function nickHint(show){const v=$('nickIn').value.trim(),e=v.length>=3||show?nickCheck(v):'';$('nickIn').setAttribute('aria-invalid',e?'true':'false');$('nickErr').textContent=e;$('nickErr').hidden=!e;return e}
+$('nickIn').addEventListener('input',()=>nickHint(false));
+$('nickSave').onclick=()=>{const v=$('nickIn').value.trim().slice(0,20),e=nickHint(true);
+  if(e){toast('🚫 Name nicht gespeichert',e);sfx&&tone(220,.18,'square',.05);return}
+  S.nick=v;save();LB.lastWrite=0;toast('✏️ Name gespeichert',v+' erscheint beim nächsten Abgleich');renderLB()};
 
 /* ---------- day & night ---------- */
 function updPhase(){
@@ -2876,7 +2915,7 @@ async function admLoad(){
 function admList(){
   const l=$('admList');if(!l)return;
   if(!ADM.rows.length){l.innerHTML='<p style="color:var(--muted)">Keine Spieler gefunden.</p>';return}
-  l.innerHTML=ADM.rows.map(r=>`<div class="aprow" data-id="${esc(r.player_id)}"><div class="top2"><span>${esc(r.nick)}${r.player_id===LB.uid?' (du)':''}${r.nick_locked?' 🔒':''}</span><span>${r.banned?'<span class="susb banb">gesperrt</span>':r.sus?`<span class="susb">Verdacht ${r.sus}</span>`:''}</span></div>
+  l.innerHTML=ADM.rows.map(r=>`<div class="aprow" data-id="${esc(r.player_id)}"><div class="top2"><span>${esc(r.nick)}${nickOk(r.nick)?'':' ⚠️'}${r.player_id===LB.uid?' (du)':''}${r.nick_locked?' 🔒':''}</span><span>${r.banned?'<span class="susb banb">gesperrt</span>':r.sus?`<span class="susb">Verdacht ${r.sus}</span>`:''}</span></div>
     <div class="meta">${fmt(r.score||0)} Sporen, ${fmt(r.sps||0)}/s, zuletzt ${fmtAgo(r.last_submit)}${r.last_reason?`<br>Grund: ${esc(r.last_reason)}`:''}</div>
     <div class="acts"><button class="abtn" data-x="detail">🔍 Details</button><button class="abtn soft" data-x="gift">🎁 Schenken</button>${r.banned?'<button class="abtn soft" data-x="unban">Entsperren</button>':'<button class="abtn red" data-x="ban">Sperren</button>'}${r.sus?'<button class="abtn soft" data-x="clear">Verdacht löschen</button>':''}<button class="abtn soft" data-x="rename">Umbenennen</button>${r.nick_locked?'<button class="abtn soft" data-x="unlock">Name freigeben</button>':''}<button class="abtn soft" data-x="score">Punkte setzen</button><button class="abtn soft" data-x="reset">Punkte auf 0</button><button class="abtn soft" data-x="mkadmin">Zum Admin</button><button class="abtn red" data-x="delete">Löschen</button></div>
     ${ADM.ren===r.player_id?`<div class="ren"><input maxlength="20" value="${esc(r.nick)}" aria-label="Neuer Name"><button class="abtn" data-x="dorename">OK</button></div>`:''}
@@ -3594,7 +3633,7 @@ function towerLose(B0){
 /* ---------- Online-Rangliste ---------- */
 async function towerSubmit(){
   if(!LB.sb||!LB.uid)return;
-  try{await LB.sb.rpc('submit_tower',{p_floor:TS().floor,p_nick:(S.nick||'').slice(0,20)||'Gärtner'});TW.at=0}catch(e){}
+  try{await LB.sb.rpc('submit_tower',{p_floor:TS().floor,p_nick:lbNick()});TW.at=0}catch(e){}
 }
 async function towerFetch(){
   if(!LB.sb||TW.busy)return;TW.busy=true;TW.at=Date.now();
@@ -3614,7 +3653,7 @@ function renderTower(){
   else if(TW.status)lb=`<p class="tnote">${TW.status}</p>`;
   else if(!TW.rows)lb='<p class="tnote">Rangliste wird geladen …</p>';
   else if(!TW.rows.length)lb='<p class="tnote">Diese Woche war noch niemand im Turm. Sei die erste Person!</p>';
-  else lb=TW.rows.map(r=>`<div class="tlb${r.is_me?' me':''}"><span>${r.rank<=3?['🥇','🥈','🥉'][r.rank-1]:r.rank+'.'}</span><span>${esc(r.nick)}${r.is_me?' (du)':''}</span><b>🗼 ${r.floor}</b></div>`).join('');
+  else lb=TW.rows.map(r=>`<div class="tlb${r.is_me?' me':''}"><span>${r.rank<=3?['🥇','🥈','🥉'][r.rank-1]:r.rank+'.'}</span><span>${esc(showNick(r))}${r.is_me?' (du)':''}</span><b>🗼 ${r.floor}</b></div>`).join('');
   b.innerHTML=`<div class="cmpills"><span>🗼 Etage ${t.floor}</span><span>🏆 Rekord ${t.best}</span><span>❤️ ${t.tries} ${t.tries===1?'Versuch':'Versuche'}</span></div>
     <div class="cmscroll">
     <div class="tstack">${fl}<div class="tbase">🍄</div></div>
