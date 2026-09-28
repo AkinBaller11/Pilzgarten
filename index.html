@@ -2840,34 +2840,56 @@ async function acctVerify(){
     LB.user=u;LB.uid=u.id;AC.busy=false;await afterLogin();
   }catch(e){AC.err=acctErr(e);AC.busy=false;renderAcct()}
 }
-async function cloudGet(){const r=await LB.sb.from('saves').select('data,all_time,updated_at').eq('player_id',LB.uid).maybeSingle();if(r.error)throw r.error;return r.data}
+/* Automatischer Abgleich: Jeder Upload bekommt eine Versionsnummer (rev).
+   Hat die Cloud eine neuere Version von einem anderen Gerät, wird sie still übernommen,
+   sonst wird der Stand dieses Geräts hochgeladen. So gibt es keine zwei Spielstände. */
+function devId(){try{let d=localStorage.getItem('pilzgarten-dev');if(!d){d=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem('pilzgarten-dev',d)}return d}catch(e){return 'x'}}
+async function cloudGet(full){const r=await LB.sb.from('saves').select(full?'data,all_time,updated_at':'all_time,updated_at,rev:data->cloudRev,dev:data->cloudDev').eq('player_id',LB.uid).maybeSingle();if(r.error)throw r.error;return r.data}
+let cloudBusy=false,cloudDirtyAt=0;
 async function cloudSave(force,loud){
-  if(!isMember()||!LB.sb)return;const t=Date.now();if(!force&&t-AC.lastCloud<60000)return;AC.lastCloud=t;
-  try{const r=await LB.sb.from('saves').upsert({player_id:LB.uid,data:S,all_time:S.allTime,updated_at:new Date().toISOString()});if(r.error)throw r.error;AC.cloudAt=new Date().toISOString();
-    const el=$('acCloudAt');if(el)el.textContent='Zuletzt gespeichert: gerade eben';if(loud)toast('☁️ In der Cloud gespeichert')}
-  catch(e){if(loud)toast('⚠️ Speichern fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?')}
+  if(!isMember()||!LB.sb||cloudBusy)return;const t=Date.now();if(!force&&t-AC.lastCloud<30000)return;
+  cloudBusy=true;AC.lastCloud=t;
+  try{
+    const c=await cloudGet(false),crev=c?Number(c.rev)||0:0,mine=S.cloudRev||0;
+    const next=Math.max(crev,mine)+1;S.cloudRev=next;S.cloudDev=devId();save();
+    const r=await LB.sb.from('saves').upsert({player_id:LB.uid,data:S,all_time:S.allTime,updated_at:new Date().toISOString()});if(r.error)throw r.error;
+    AC.cloudAt=new Date().toISOString();const el=$('acCloudAt');if(el)el.textContent='Zuletzt gespeichert: gerade eben';if(loud)toast('☁️ In der Cloud gespeichert');
+  }catch(e){if(loud)toast('⚠️ Speichern fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?')}
+  cloudBusy=false;
 }
-async function cloudInfo(){try{const c=await cloudGet();AC.cloudAt=c?c.updated_at:null;const el=$('acCloudAt');if(el)el.textContent=c?'Zuletzt gespeichert: '+fmtAgo(c.updated_at):'Noch nichts in der Cloud gespeichert'}catch(e){}}
-function applyCloud(data){S=Object.assign(fresh(),data);S.flagged=false;save();location.reload()}
+async function cloudPull(msg){
+  try{const c=await cloudGet(true);if(!c||!c.data)return false;const d=c.data;d.cloudRev=Number(d.cloudRev)||0;applyCloud(d,msg);return true}catch(e){return false}
+}
+async function cloudInfo(){try{const c=await cloudGet(false);AC.cloudAt=c?c.updated_at:null;const el=$('acCloudAt');if(el)el.textContent=c?'Zuletzt gespeichert: '+fmtAgo(c.updated_at):'Noch nichts in der Cloud gespeichert'}catch(e){}}
+function applyCloud(data,msg){S=Object.assign(fresh(),data);S.flagged=false;save();try{sessionStorage.setItem('pg-cloudmsg',msg||'Spielstand aus der Cloud geladen')}catch(e){}location.reload()}
+try{const m=sessionStorage.getItem('pg-cloudmsg');if(m){sessionStorage.removeItem('pg-cloudmsg');setTimeout(()=>toast('☁️ '+m),1800)}}catch(e){}
 async function cloudLoadAsk(manual){
-  try{const c=await cloudGet();
-    if(!c){if(manual)toast('☁️ Noch kein Spielstand in der Cloud');else await cloudSave(true);return false}
-    const cl=Number(c.all_time)||0,lo=S.allTime||0;
-    if(!manual&&Math.abs(cl-lo)<1)return false;
-    queueModal({emoji:'☁️',title:'Welchen Spielstand nehmen?',text:`In der Cloud: ${fmt(cl)} Sporen insgesamt, gespeichert ${fmtAgo(c.updated_at)}. Auf diesem Gerät: ${fmt(lo)} Sporen insgesamt. Wenn du den Cloud-Spielstand lädst, wird der Stand auf diesem Gerät ersetzt.`,ok:'Cloud-Spielstand laden',cancel:true,cancelText:'Dieses Gerät behalten',onOk:()=>applyCloud(c.data),onCancel:()=>cloudSave(true)});
+  try{const c=await cloudGet(true);
+    if(!c){toast('☁️ Noch kein Spielstand in der Cloud');return false}
+    queueModal({emoji:'☁️',title:'Cloud-Spielstand laden?',text:`In der Cloud liegt ein Spielstand mit ${fmt(Number(c.all_time)||0)} Sporen insgesamt, gespeichert ${fmtAgo(c.updated_at)}. Er ersetzt den Stand auf diesem Gerät. Normalerweise brauchst du das nicht, denn der Abgleich passiert automatisch.`,ok:'Laden',cancel:true,onOk:()=>applyCloud(c.data)});
     return true}
-  catch(e){if(manual)toast('⚠️ Laden fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?');return false}
+  catch(e){toast('⚠️ Laden fehlgeschlagen','Hast du konto-setup.sql in Supabase ausgeführt?');return false}
 }
 async function afterLogin(){
   $('acctModal').hidden=true;document.body.classList.remove('locked');toast('✅ Angemeldet',AC.email);
-  try{const c=await cloudGet();
-    if(c&&(S.allTime||0)<1000){applyCloud(c.data);return}
-    if(c){queueModal({emoji:'☁️',title:'Spielstand gefunden',text:`Zu deinem Konto gibt es einen Spielstand mit ${fmt(Number(c.all_time)||0)} Sporen insgesamt. Auf diesem Gerät hast du ${fmt(S.allTime||0)}. Welchen möchtest du behalten?`,ok:'Cloud-Spielstand laden',cancel:true,cancelText:'Dieses Gerät behalten',onOk:()=>applyCloud(c.data),onCancel:async()=>{await cloudSave(true);location.reload()}});return}
-    await cloudSave(true);location.reload();
+  try{const c=await cloudGet(true);
+    if(!c){S.cloudRev=0;await cloudSave(true);location.reload();return}
+    const cl=Number(c.all_time)||0,lo=S.allTime||0;
+    if(lo>cl*1.2&&lo>1e4){queueModal({emoji:'☁️',title:'Welchen Spielstand behalten?',text:`Auf diesem Gerät hast du als Gast mehr gespielt (${fmt(lo)} Sporen) als in deinem Konto (${fmt(cl)} Sporen). Diese Frage kommt nur jetzt einmal, danach wird immer automatisch abgeglichen.`,ok:'Konto-Spielstand laden',cancel:true,cancelText:'Diesen Gast-Stand behalten',
+      onOk:()=>applyCloud(c.data,'Konto-Spielstand geladen'),onCancel:async()=>{S.cloudRev=(Number(c.data&&c.data.cloudRev)||0);await cloudSave(true);location.reload()}});return}
+    applyCloud(c.data,'Dein Spielstand wurde geladen');
   }catch(e){location.reload()}
 }
-async function cloudCheckOnStart(){await cloudLoadAsk(false)}
-setInterval(()=>cloudSave(false),15000);
+async function cloudCheckOnStart(){
+  try{const c=await cloudGet(false);
+    if(!c){await cloudSave(true);return}
+    const crev=Number(c.rev)||0,mine=S.cloudRev||0;
+    if(crev>mine&&c.dev!==devId())await cloudPull('Neuester Spielstand von deinem anderen Gerät geladen');
+    else await cloudSave(true);
+  }catch(e){}
+}
+setInterval(()=>cloudSave(false),10000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&isMember())cloudCheckOnStart()});
 setTimeout(()=>{if(LB.on&&LB.user&&LB.user.is_anonymous&&S.playSec>1800&&S.acctNag!==today()){S.acctNag=today();save();toast('👤 Sichere deinen Fortschritt','Melde dich mit deiner E-Mail an, im Menü 🔊 unter Konto')}},20000);
 
 /* ---------- scene renderer ---------- */
