@@ -209,6 +209,60 @@ button{font:inherit;color:inherit}
 .card.skincard .skins{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin:0 -8px 12px;padding:6px 8px 14px;
   -webkit-mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 22px),transparent)}
 body.locked{overflow:hidden}
+.boss2{position:absolute;right:3%;top:20%;z-index:4;width:112px;height:112px;display:grid;place-items:center;animation:bdrop .9s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bdrop{0%{transform:translateY(-280px) scale(.5)}70%{transform:translateY(6px) scale(1.12,.88)}100%{transform:none}}
+.baura{position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,var(--ba,rgba(255,200,80,.5)),transparent 68%);animation:aura 1.6s ease-in-out infinite;pointer-events:none}
+@keyframes aura{50%{transform:scale(1.18);opacity:.7}}
+.boss2.p2 .baura{--ba:rgba(255,40,40,.65);animation-duration:.8s}
+.boss2.p3 .baura{--ba:rgba(170,60,255,.7);animation-duration:.45s}
+.boss2 .bbody{font-size:64px;position:relative;z-index:1}
+.boss2.p2 .bbody{filter:drop-shadow(0 0 10px #FF3A3A) drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+.boss2.p3 .bbody{filter:drop-shadow(0 0 12px #B04AFF) drop-shadow(0 4px 8px rgba(0,0,0,.35));animation-duration:.6s}
+.bbody.kb{animation:kb .18s ease-out}
+@keyframes kb{40%{transform:translateX(12px) scale(.9) rotate(6deg);filter:brightness(2.6)}}
+.bshield{position:absolute;inset:-12px;border-radius:50%;border:3px solid rgba(170,235,255,.95);background:radial-gradient(circle,rgba(160,230,255,.08),rgba(160,230,255,.4));box-shadow:0 0 18px #9FE8FF inset,0 0 16px #9FE8FF;z-index:2;pointer-events:none;animation:shin .3s cubic-bezier(.2,1.6,.4,1)}
+@keyframes shin{from{transform:scale(.3);opacity:0}}
+.bshield b{position:absolute;right:-6px;top:-6px;background:#2F86C8;color:#fff;border-radius:999px;font-size:.72rem;padding:1px 7px}
+.bwarn{position:absolute;top:-34px;left:50%;transform:translateX(-50%);font-size:30px;z-index:3;animation:warnp .25s ease-in-out infinite alternate;pointer-events:none;white-space:nowrap}
+.bwarn b{font-size:.75rem;background:#FF2A2A;color:#fff;border-radius:999px;padding:1px 7px;vertical-align:middle}
+@keyframes warnp{to{transform:translateX(-50%) scale(1.3)}}
+.boss2.charging .bbody{animation:chargeup .12s infinite}
+@keyframes chargeup{50%{transform:translate(-3px,1px) scale(1.1);filter:brightness(1.6) drop-shadow(0 0 14px #FF2A2A)}}
+.boss2.dizzy .bbody{animation:dizzy .5s linear infinite}
+@keyframes dizzy{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+.boss2.dying .bbody{animation:dying .1s infinite}
+@keyframes dying{50%{filter:brightness(4);transform:translate(3px,-2px) scale(1.06)}}
+.boss2.laugh .bbody{animation:laugh .25s 4}
+@keyframes laugh{50%{transform:translateY(-14px) rotate(10deg)}}
+.boss2.flee{animation:bossflee .8s ease-in forwards}
+.boss2.boom{animation:boom .45s ease-out forwards}
+@keyframes boom{to{transform:scale(2.4);opacity:0;filter:brightness(5)}}
+.bossbar{position:absolute;left:8px;right:8px;top:6px;z-index:8;background:rgba(10,5,25,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:14px;padding:6px 10px;color:#fff;animation:bbin .5s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
+.bossbar.out{transition:transform .4s,opacity .4s;transform:translateY(-130%);opacity:0}
+@keyframes bbin{from{transform:translateY(-130%)}}
+.bossbar .r1{display:flex;justify-content:space-between;font-size:.74rem;font-weight:700;margin-bottom:4px;gap:6px;white-space:nowrap}
+.bossbar .hpw{position:relative;height:11px;border-radius:6px;background:rgba(255,255,255,.15);overflow:hidden}
+.bossbar .gh,.bossbar .hp{position:absolute;left:0;top:0;bottom:0;width:100%}
+.bossbar .gh{background:#fff;opacity:.55}
+.bossbar .hp{background:linear-gradient(90deg,#FF4B4B,#FF9A3A);transition:width .08s}
+.bossbar.p2 .hp{background:linear-gradient(90deg,#FF1A3A,#FF5A2A)}
+.bossbar.p3 .hp{background:linear-gradient(90deg,#8A2AFF,#FF3DA8)}
+.bossbar .hpw i{position:absolute;top:0;bottom:0;width:2px;background:rgba(0,0,0,.45)}
+.bossbar .tw{height:4px;border-radius:3px;background:rgba(255,255,255,.15);margin-top:4px;overflow:hidden}
+.bossbar .tw b{display:block;height:100%;background:#fff;width:100%}
+.bossbar .cb{color:#FFD84A}
+.bstrip{position:absolute;left:0;right:0;top:42%;z-index:9;background:repeating-linear-gradient(45deg,#E01A2A 0 16px,#1A0508 16px 32px);color:#fff;font-weight:800;text-align:center;padding:9px 0;letter-spacing:.12em;animation:strip 1.7s ease-in-out forwards;pointer-events:none;text-shadow:0 2px 6px #000;font-size:1.05rem}
+@keyframes strip{0%{transform:translateX(-110%)}18%,82%{transform:none}100%{transform:translateX(110%)}}
+.bvict{position:absolute;inset:0;z-index:9;display:grid;place-items:center;pointer-events:none;text-align:center;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.85)}
+.bvict b{display:block;font-size:2.3rem;font-weight:800;animation:vpop .6s cubic-bezier(.2,1.8,.4,1)}
+.bvict small{display:block;font-size:.9rem;opacity:.9;animation:vpop .6s .2s both}
+.bvict .st{font-size:1.9rem;letter-spacing:.08em}
+.bvict .st span{display:inline-block;animation:vpop .5s cubic-bezier(.2,1.8,.4,1) both}
+.bvict .st span.off{filter:grayscale(1);opacity:.35}
+@keyframes vpop{from{transform:scale(0) rotate(-20deg);opacity:0}}
+.minion{position:absolute;z-index:5;font-size:26px;border:0;background:none;padding:0;width:46px;height:46px;margin:-23px 0 0 -23px;left:0;top:0;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 6px rgba(255,60,60,.7))}
+.scene.bflash::after{content:"";position:absolute;inset:0;background:rgba(255,30,30,.35);animation:flashov .7s forwards;pointer-events:none;z-index:6}
+@media (prefers-reduced-motion: reduce){.boss2,.boss2 .bbody,.baura,.bstrip,.bwarn{animation:none!important}}
 .skin.r-v{background:linear-gradient(135deg,#3A0A14,#C2183A 50%,#FF7A2A);background-size:200% 200%;animation:mythbg 4s ease infinite;color:#fff;border-color:#FFD04A}
 .skin.r-v small{color:#FFE0D0}.skin.r-v .rar{color:#FFE27A!important}.skin.r-v .efx{color:#fff}
 .buff.evb{background:linear-gradient(120deg,#C2183A,#FF7A2A);color:#fff;cursor:pointer;animation:rbpulse 1.4s ease-in-out infinite}
@@ -1981,67 +2035,162 @@ function petTick(dt){
 /* ---------- bosses ---------- */
 const BOSSES={wald:['🐌','Riesenschnecke','🟢'],kristall:['🦂','Kristallskorpion','💎'],lava:['🦎','Glutechse','🔥'],wolken:['🦅','Sturmadler','🌪️'],tiefsee:['🦑','Tiefseekrake','💧'],kosmos:['👾','Sternenfresser','☄️'],frost:['⛄','Schneekoloss','❄️'],neon:['🤖','Neon-Mech','⚡']};
 let boss=null,nextBoss=now()+90000,stunUntil=0,chargeTaps=0;
-function bossHP(){const L=S.bossLvl||1;return Math.round((30+12*L+Math.pow(L,1.7)*.6)*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
+const BOSS_TIME=30000;
+function bossHP(){const L=S.bossLvl||1;return Math.round((30+12*L+Math.pow(L,1.7)*.6)*1.5*(S.pet==='fuchs'?1-Math.min(.5,.25*petPf()):1))}
+function roar(){tone(110,.7,'sawtooth',.07,0,.5);tone(82,.9,'square',.04,.1,.6);tone(60,1,'sawtooth',.05,.25,.7)}
+function sceneFx(cls,ms){const sc=$('scene');sc.classList.remove(cls);void sc.offsetWidth;sc.classList.add(cls);setTimeout(()=>sc.classList.remove(cls),ms)}
+function bossCenter(){if(!boss)return null;const r=boss.el.querySelector('.bbody').getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}
+function bossFloat(t,cls){const c=bossCenter();if(c)floatText(c[0],c[1]-40,t,cls||'crit')}
 function spawnBoss(){
-  const [e,n,pr]=BOSSES[dim()]||BOSSES.wald,sc=$('scene'),el=document.createElement('div');el.className='boss';
-  el.innerHTML=`<div class="bhp"><i></i></div><div class="btime"><i></i></div><button class="bbody" aria-label="${n} angreifen">${e}</button><div class="bname">${n}<br>Stufe ${S.bossLvl}</div>`;
-  sc.appendChild(el);const hp=bossHP();
-  boss={el,hp,max:hp,start:now(),end:now()+25000,nextShot:now()+2500,name:n,e,pr};
+  const [e,n,pr]=BOSSES[dim()]||BOSSES.wald,sc=$('scene'),L=S.bossLvl||1;
+  const strip=document.createElement('div');strip.className='bstrip';strip.textContent='⚠️ BOSS-ALARM ⚠️';sc.appendChild(strip);setTimeout(()=>strip.remove(),1800);
+  sceneFx('bflash',700);roar();buzz([60,40,60,40,120]);
+  const bar=document.createElement('div');bar.className='bossbar';
+  bar.innerHTML=`<div class="r1"><span>${e} ${n}, Stufe ${L}</span><span class="cb"></span><span class="bt"></span></div><div class="hpw"><div class="gh"></div><div class="hp"></div><i style="left:60%"></i><i style="left:25%"></i></div><div class="tw"><b></b></div>`;
+  const el=document.createElement('div');el.className='boss2';
+  el.innerHTML=`<div class="baura"></div><button class="bbody" aria-label="${n} angreifen">${e}</button>`;
+  setTimeout(()=>{if(!boss||boss.el!==el)return;sc.appendChild(bar);sc.appendChild(el);const c=bossCenter();if(c){fxRing(c[0],c[1]+30,'#FFFFFF',120);fxBurst(c[0],c[1]+40,{n:16,kind:'puff',colors:['rgba(255,255,255,.8)','rgba(200,190,180,.7)'],speed:3,up:.5,g:-.02,size:4})}sceneFx('quake',500);tone(70,.5,'sine',.1,0,.4);buzz(80)},900);
+  const hp=bossHP(),t=now();
+  boss={el,bar,hp,max:hp,ghost:1,name:n,e,pr,L,introUntil:t+1700,end:t+1700+BOSS_TIME,dur:BOSS_TIME,nextAtk:t+3500,phase:1,combo:0,lastHit:0,vuln:0,shield:null,charge:null,stuns:0,dead:false};
   el.querySelector('.bbody').addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();if(!ev.isTrusted)return;hitBoss(ev.clientX,ev.clientY)});
-  toast(`${e} ${n} greift an!`,'Tipp ihn schnell an und wehr seine Angriffe ab');
-  tone(90,.6,'sawtooth',.07,0,.6);tone(70,.8,'square',.04,.2,.5);buzz([40,60,40]);
 }
 function hitBoss(x,y){
-  if(!boss||boss.dead||!tapAllowed())return;ensureAudio();
+  if(!boss||boss.dead||!tapAllowed())return;ensureAudio();const t=now();if(t<boss.introUntil)return;
+  const body=boss.el.querySelector('.bbody');
+  if(boss.charge){boss.charge.need--;fxBurst(x,y,{n:8,colors:['#FFFFFF','#FFD84A'],speed:4});tone(500+boss.charge.need*-40+600,.06,'square',.05);buzz(8);
+    const w=boss.el.querySelector('.bwarn b');if(w)w.textContent=Math.max(0,boss.charge.need);if(boss.charge.need<=0)interruptCharge();return}
+  if(boss.shield){boss.shield.need--;fxBurst(x,y,{n:8,kind:'shard',colors:['#DFF6FF','#9FE8FF','#FFFFFF'],speed:5,glow:true});tone(1500+Math.random()*300,.06,'sine',.06);buzz(8);
+    const b2=boss.el.querySelector('.bshield b');if(b2)b2.textContent=Math.max(0,boss.shield.need);if(boss.shield.need<=0)breakShield();return}
+  boss.combo=(t-boss.lastHit<450)?boss.combo+1:1;boss.lastHit=t;
   let d=1;const crit=Math.random()<critChance()+.08;if(crit)d=3;if(now()<buffs.rush)d*=2;if(chargeTaps>0){d*=2;chargeTaps--}
+  if(t<boss.vuln)d*=2;d=Math.round(d*(1+Math.min(boss.combo,20)*.025)*10)/10;
   boss.hp-=d;addXP(.3);
-  floatText(x,y,crit?`💥 -${d}`:`-${d}`,crit?'crit':'');fxBurst(x,y,{n:crit?12:6,colors:['#FFFFFF','#FFD84A','#FF7A3D'],speed:4.5,star:crit});
-  const b=boss.el.querySelector('.bbody');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');
-  tone(crit?260:180+Math.random()*60,.08,'square',.05,0,.6);buzz(crit?20:8);if(crit)hitstop();
+  floatText(x,y,crit?`💥 -${fmt(d)}`:`-${fmt(d)}`,crit||t<boss.vuln?'crit':'');
+  fxBurst(x,y,{n:crit?14:7,colors:['#FFFFFF','#FFD84A','#FF7A3D'],speed:crit?6:4.5,star:crit});fxRing(x,y,crit?'#FFD84A':'rgba(255,255,255,.8)',crit?50:28);
+  body.classList.remove('kb');void body.offsetWidth;body.classList.add('kb');
+  tone(crit?280:170+Math.random()*60+Math.min(boss.combo,20)*8,.07,'square',.05,0,.6);buzz(crit?18:6);if(crit)hitstop();
+  const ph=boss.hp/boss.max>.6?1:boss.hp/boss.max>.25?2:3;if(ph!==boss.phase)enterPhase(ph);
   if(boss.hp<=0)winBoss();
 }
+function enterPhase(ph){
+  boss.phase=ph;boss.el.classList.remove('p2','p3');boss.bar.classList.remove('p2','p3');if(ph>1){boss.el.classList.add('p'+ph);boss.bar.classList.add('p'+ph)}
+  roar();sceneFx('quake',600);sceneFx('bflash',700);buzz([50,30,50]);
+  bossFloat(ph===2?'😡 Er wird wütend!':'💀 Letzte Kraft!');boss.nextAtk=now()+900;
+  const c=bossCenter();if(c)fxRing(c[0],c[1],ph===2?'#FF2A2A':'#B04AFF',120);
+}
+function atkInterval(){return Math.max(1300,[0,3200,2400,1800][boss.phase]-boss.L*25)}
+function projDur(){return Math.max(1250,[0,2200,1900,1650][boss.phase]-boss.L*15)}
+function bossAttack(){
+  const ph=boss.phase,r=Math.random();
+  const pool=ph===1?['shot','shot','shot','shield']:ph===2?['triple','shot','shield','charge']:['triple','charge','minions','shield'];
+  const a=pool[Math.floor(r*pool.length)];
+  if(a==='shot')shoot(0,0);
+  if(a==='triple'){shoot(0,-40);setTimeout(()=>shoot(0,0),180);setTimeout(()=>shoot(0,40),360)}
+  if(a==='shield')doShield();
+  if(a==='charge')doCharge();
+  if(a==='minions')doMinions();
+}
+function doShield(){
+  const need=5+Math.min(7,Math.floor(boss.L/5));boss.shield={need,until:now()+4200};
+  const sh=document.createElement('div');sh.className='bshield';sh.innerHTML=`<b>${need}</b>`;boss.el.appendChild(sh);
+  bossFloat('🛡️ Schild! Zerschlag ihn!');tone(900,.3,'sine',.06,0,1.6);
+}
+function breakShield(){
+  const sh=boss.el.querySelector('.bshield');if(sh)sh.remove();boss.shield=null;boss.vuln=now()+1800;
+  const c=bossCenter();if(c){fxBurst(c[0],c[1],{n:26,kind:'shard',colors:['#DFF6FF','#9FE8FF','#FFFFFF'],speed:7,glow:true});fxRing(c[0],c[1],'#9FE8FF',90)}
+  bossFloat('💥 Schild zerbrochen! ×2 Schaden');tone(1800,.2,'square',.05,0,.4);tone(300,.3,'sawtooth',.05,.05,.5);buzz([20,20,40]);
+}
+function shieldHeal(){
+  const sh=boss.el.querySelector('.bshield');if(sh)sh.remove();boss.shield=null;const h=Math.round(boss.max*.08);boss.hp=Math.min(boss.max,boss.hp+h);
+  bossFloat(`💚 +${h} geheilt`,'');tone(600,.4,'sine',.06,0,1.5);
+}
+function doCharge(){
+  const need=4+Math.min(5,Math.floor(boss.L/6));boss.charge={need,until:now()+1700};boss.el.classList.add('charging');
+  const w=document.createElement('div');w.className='bwarn';w.innerHTML=`❗ <b>${need}</b>`;boss.el.appendChild(w);
+  bossFloat('⚡ Er lädt auf! Schnell tippen!');tone(200,1.6,'sawtooth',.05,0,3);buzz([30,30,30,30,30]);
+}
+function interruptCharge(){
+  boss.charge=null;boss.el.classList.remove('charging');const w=boss.el.querySelector('.bwarn');if(w)w.remove();
+  boss.el.classList.add('dizzy');setTimeout(()=>boss&&boss.el.classList.remove('dizzy'),2200);boss.vuln=now()+2400;boss.nextAtk=now()+2600;
+  bossFloat('😵 Unterbrochen! ×2 Schaden');const c=bossCenter();if(c)fxBurst(c[0],c[1]-30,{n:10,kind:'star',colors:['#FFE680','#FFFFFF'],speed:3,up:1,g:.02});tone(1000,.15,'triangle',.07);tone(1300,.2,'triangle',.06,.08);
+}
+function slam(){
+  boss.charge=null;boss.el.classList.remove('charging');const w=boss.el.querySelector('.bwarn');if(w)w.remove();
+  const body=boss.el.querySelector('.bbody'),br=body.getBoundingClientRect(),m=mush.getBoundingClientRect(),dx=(m.left+m.width/2)-(br.left+br.width/2),dy=(m.top+m.height*.4)-(br.top+br.height/2);
+  if(body.animate&&!reduced)body.animate([{transform:'none'},{transform:`translate(${dx*.9}px,${dy*.9}px) scale(1.3)`,offset:.45},{transform:`translate(${dx*.9}px,${dy*.9}px) scale(1.3)`,offset:.55},{transform:'none'}],{duration:700,easing:'ease-in-out'});
+  setTimeout(()=>{const cx=m.left+m.width/2,cy=m.top+m.height*.5;fxRing(cx,cy,'#FF2A2A',140);fxBurst(cx,cy,{n:24,colors:['#FF4B4B','#FFFFFF','#FF9A3A'],speed:7});sceneFx('quake',600);sceneFx('bflash',700);tone(60,.6,'sawtooth',.09,0,.4);stun(3000)},320);
+}
+function doMinions(){
+  const sc=$('scene'),s2=sc.getBoundingClientRect(),c=bossCenter(),m=mush.getBoundingClientRect();if(!c)return;
+  const n=2+(boss.L>10?1:0)+(boss.L>25?1:0);bossFloat('👥 Verstärkung!');tone(400,.2,'square',.05);
+  for(let i=0;i<n;i++){const el=document.createElement('button');el.className='minion';el.textContent=boss.e;el.setAttribute('aria-label','Helfer besiegen');sc.appendChild(el);
+    const x0=c[0]-s2.left,y0=c[1]-s2.top+20,x1=m.left-s2.left+m.width*(.2+i*.2),y1=s2.height*.86,dur=4200+Math.random()*800-boss.L*20;let dead=false;
+    const an=el.animate([{transform:`translate(${x0}px,${y0}px) scale(.3)`},{transform:`translate(${x0-20-i*15}px,${y1}px) scale(1)`,offset:.2},{transform:`translate(${x1}px,${y1}px) scale(1)`}],{duration:Math.max(2600,dur),fill:'forwards'});
+    el.addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();if(!ev.isTrusted||dead)return;dead=true;an.cancel();el.remove();fxBurst(ev.clientX,ev.clientY,{n:12,colors:['#FFFFFF','#FF9A3A'],speed:4});floatText(ev.clientX,ev.clientY,'💥');tone(700,.08,'square',.05);S.blocks=(S.blocks||0)+1;addXP(1)});
+    an.onfinish=()=>{if(dead)return;dead=true;el.remove();if(!boss||boss.dead)return;const h=Math.round(boss.max*.06);boss.hp=Math.min(boss.max,boss.hp+h);bossFloat(`💚 +${h}`,'');stun(1000)}}
+}
 function winBoss(){
-  const B0=boss;B0.dead=true;const r=B0.el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-  confetti(true,cx,cy);fxRing(cx,cy,'#FFD84A',140);fxBurst(cx,cy,{n:30,colors:['#FFD84A','#FFFFFF','#FF8FC0'],star:true,speed:8});
-  const sp=Math.max(rawSps()*240,tapBase()*200,500),gm=Math.min(15,3+S.bossLvl);
-  if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),1600)}gain(sp);S.gems+=gm;S.bossWins++;S.bossLvl++;addXP(60);const dd=S.bossWins%5===0?3:1;S.dia+=dd;petXP(25);
-  [523,659,784,1047].forEach((f,i)=>tone(f,.3,'triangle',.08,i*.1));buzz([30,50,30,50,80]);
-  toast(`⚔️ ${B0.name} besiegt!`,`+${fmt(sp)} Sporen, ${gm} 💠 und ${dd} 💎`);
-  B0.el.classList.add('die');setTimeout(()=>B0.el.remove(),720);
-  document.querySelectorAll('.proj').forEach(p=>p.remove());
-  boss=null;nextBoss=now()+240000+Math.random()*120000;jump();checkPets();
+  const B0=boss;if(!B0||B0.dead)return;B0.dead=true;freezeT=performance.now()+300;
+  document.querySelectorAll('.proj,.minion').forEach(p=>p.remove());
+  const left=Math.max(0,(B0.end-now())/B0.dur),stars=1+(left>.4?1:0)+(B0.stuns===0?1:0);
+  B0.el.classList.remove('charging','dizzy');B0.el.classList.add('dying');roar();
+  setTimeout(()=>{
+    const r=B0.el.querySelector('.bbody').getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    B0.el.classList.add('boom');sceneFx('quake',700);
+    fxRing(cx,cy,'#FFFFFF',180);fxRing(cx,cy,'#FFD84A',120);fxBurst(cx,cy,{n:40,colors:['#FFD84A','#FFFFFF','#FF8FC0','#FF7A3D'],star:true,speed:9});fxBurst(cx,cy,{n:24,kind:'coin',colors:['#FFD23F'],speed:7,up:4,g:.3});
+    confetti(true,cx,cy);homeSpores(cx,cy,14);tone(60,.8,'sawtooth',.08,0,.3);buzz([80,40,80,40,160]);
+    const v=document.createElement('div');v.className='bvict';v.innerHTML=`<div><b>SIEG!</b><div class="st">${[0,1,2].map(i=>`<span class="${i<stars?'':'off'}" style="animation-delay:${.3+i*.2}s">⭐</span>`).join('')}</div><small>${stars===3?'Perfekt! +50 % Belohnung und 1 💎 extra':stars===2?'Stark gekämpft!':'Knapp geschafft!'}</small></div>`;
+    $('scene').appendChild(v);[523,659,784,1047,1319].forEach((f,i)=>tone(f,.35,'triangle',.08,.25+i*.12));
+    setTimeout(()=>{v.remove();B0.el.remove();B0.bar.classList.add('out');setTimeout(()=>B0.bar.remove(),450)},2600);
+  },750);
+  let sp=Math.max(rawSps()*300,tapBase()*240,600);const gm=Math.min(15,3+S.bossLvl);if(stars===3)sp*=1.5;
+  if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),3000)}
+  gain(sp);S.gems+=gm;S.bossWins++;S.bossLvl++;addXP(60);const dd=(S.bossWins%5===0?3:1)+(stars===3?1:0);S.dia+=dd;petXP(25);
+  setTimeout(()=>toast(`⚔️ ${B0.name} besiegt!`,`+${fmt(sp)} Sporen, ${gm} 💠 und ${dd} 💎`),1400);
+  boss=null;nextBoss=now()+240000+Math.random()*120000;setTimeout(jump,900);checkPets();
 }
 function loseBoss(){
-  const B0=boss;B0.dead=true;B0.el.classList.add('flee');setTimeout(()=>B0.el.remove(),820);document.querySelectorAll('.proj').forEach(p=>p.remove());
-  toast(`${B0.e} ${B0.name} ist entkommen`,'Beim nächsten Mal klappt es bestimmt');tone(300,.3,'triangle',.06,0,.5);
+  const B0=boss;B0.dead=true;document.querySelectorAll('.proj,.minion').forEach(p=>p.remove());
+  B0.el.classList.remove('charging','dizzy');B0.el.classList.add('laugh');const sh=B0.el.querySelector('.bshield,.bwarn');if(sh)sh.remove();
+  bossFloat('😂 Hahaha!','');tone(300,.15,'triangle',.06);tone(350,.15,'triangle',.06,.15);tone(300,.15,'triangle',.06,.3);
+  const v=document.createElement('div');v.className='bvict';v.innerHTML=`<div><b style="font-size:1.7rem">Zu langsam!</b><small>${B0.name} ist entkommen</small></div>`;$('scene').appendChild(v);
+  setTimeout(()=>{B0.el.classList.remove('laugh');B0.el.classList.add('flee');B0.bar.classList.add('out')},1000);
+  setTimeout(()=>{v.remove();B0.el.remove();B0.bar.remove()},2200);
+  toast(`${B0.e} ${B0.name} ist entkommen`,'Unterbrich Angriffe und zerschlag Schilde, dann klappt es');
   boss=null;nextBoss=now()+180000+Math.random()*120000;
 }
-function shoot(){
-  if(!boss||reduced&&false)return;
-  const sc=$('scene'),s=sc.getBoundingClientRect(),br=boss.el.querySelector('.bbody').getBoundingClientRect(),m=mush.getBoundingClientRect();
-  const x0=br.left-s.left+br.width/2,y0=br.top-s.top+br.height/2,x1=m.left-s.left+m.width/2,y1=m.top-s.top+m.height*.45;
+function shoot(delay,off){
+  if(!boss||boss.dead)return;
+  const sc=$('scene'),s2=sc.getBoundingClientRect(),br=boss.el.querySelector('.bbody').getBoundingClientRect(),m=mush.getBoundingClientRect();
+  const x0=br.left-s2.left+br.width/2,y0=br.top-s2.top+br.height/2,x1=m.left-s2.left+m.width/2+(off||0)*.4,y1=m.top-s2.top+m.height*.45;
   const p=document.createElement('button');p.className='proj';p.textContent=boss.pr;p.setAttribute('aria-label','Angriff abwehren');sc.appendChild(p);
-  const mid=[(x0+x1)/2,Math.min(y0,y1)-50];
-  const a=p.animate([{transform:`translate(${x0}px,${y0}px) scale(.6) rotate(0)`},{transform:`translate(${mid[0]}px,${mid[1]}px) scale(1.1) rotate(200deg)`},{transform:`translate(${x1}px,${y1}px) scale(1) rotate(400deg)`}],{duration:2300,easing:'linear',fill:'forwards'});
+  const mid=[(x0+x1)/2+(off||0),Math.min(y0,y1)-50-Math.abs(off||0)];
+  const a=p.animate([{transform:`translate(${x0}px,${y0}px) scale(.6) rotate(0)`},{transform:`translate(${mid[0]}px,${mid[1]}px) scale(1.15) rotate(200deg)`},{transform:`translate(${x1}px,${y1}px) scale(1) rotate(400deg)`}],{duration:projDur(),easing:'linear',fill:'forwards'});
   let done=false;
   p.addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();if(!ev.isTrusted||done)return;done=true;a.cancel();
-    const q=ev;fxBurst(q.clientX,q.clientY,{n:14,colors:['#FFFFFF','#7FE3D6','#FFD84A'],speed:5});fxRing(q.clientX,q.clientY,'#FFFFFF',40);
-    S.blocks=(S.blocks||0)+1;addXP(2);tone(1200,.08,'sine',.07,0,.5);floatText(q.clientX,q.clientY,'Abgewehrt!');p.remove()});
-  a.onfinish=()=>{if(done)return;done=true;p.remove();if(!boss)return;stun()};
+    fxBurst(ev.clientX,ev.clientY,{n:14,colors:['#FFFFFF','#7FE3D6','#FFD84A'],speed:5});fxRing(ev.clientX,ev.clientY,'#FFFFFF',40);
+    S.blocks=(S.blocks||0)+1;addXP(2);tone(1200,.08,'sine',.07,0,.5);floatText(ev.clientX,ev.clientY,'Abgewehrt!');p.remove()});
+  a.onfinish=()=>{if(done)return;done=true;p.remove();if(!boss||boss.dead)return;const c=[m.left+m.width/2,m.top+m.height*.45];fxRing(c[0],c[1],'#FF4B4B',60);stun(2200)};
   tone(400,.15,'sine',.05,0,.4);
 }
-function stun(){
-  stunUntil=now()+2000;spring.rv+=2.2;spring.sv+=.6;sprOn=true;buzz([60,30,60]);tone(150,.4,'sawtooth',.06,0,.5);
+function stun(ms){
+  if(boss)boss.stuns++;stunUntil=Math.max(stunUntil,now()+(ms||2000));spring.rv+=2.2;spring.sv+=.6;sprOn=true;buzz([60,30,60]);tone(150,.4,'sawtooth',.06,0,.5);
   const m=mush.getBoundingClientRect();fxBurst(m.left+m.width/2,m.top+m.height*.2,{n:10,kind:'star',colors:['#FFE680','#FFFFFF'],g:.02,up:1,speed:3});
   floatText(m.left+m.width/2,m.top+m.height*.15,'💫 Autsch!','crit');
 }
 function updBoss(){
-  if(!boss){if(now()>=nextBoss){if(S.allTime>2000&&!document.hidden&&$('modal').hidden)spawnBoss();else nextBoss=now()+30000}return}
-  if(boss.dead)return;
-  boss.el.querySelector('.bhp i').style.width=Math.max(0,boss.hp/boss.max*100)+'%';
-  boss.el.querySelector('.btime i').style.width=Math.max(0,(boss.end-now())/25000*100)+'%';
-  if(now()>=boss.end){loseBoss();return}
-  if(now()>=boss.nextShot){boss.nextShot=now()+3000+Math.random()*1600;shoot()}
+  if(!boss){if(now()>=nextBoss){const ep=typeof evPhase==='function'?evPhase():'none';if(S.allTime>2000&&!document.hidden&&$('modal').hidden&&!['intro','meteors','boss','finale'].includes(ep))spawnBoss();else nextBoss=now()+30000}return}
+  if(boss.dead)return;const t=now(),B=boss;
+  const f=Math.max(0,B.hp/B.max);B.ghost=f<B.ghost?B.ghost+(f-B.ghost)*.05:f;
+  if(B.bar.isConnected){B.bar.querySelector('.hp').style.width=(f*100)+'%';B.bar.querySelector('.gh').style.width=(B.ghost*100)+'%';
+    B.bar.querySelector('.tw b').style.width=Math.max(0,Math.min(1,(B.end-t)/B.dur))*100+'%';
+    B.bar.querySelector('.bt').textContent=t<B.introUntil?'':Math.ceil(Math.max(0,B.end-t)/1000)+' s';
+    B.bar.querySelector('.cb').textContent=B.combo>=5&&t-B.lastHit<600?`Combo ×${B.combo}`:(t<B.vuln?'×2 Schaden!':'')}
+  if(t<B.introUntil)return;
+  if(t>=B.end){loseBoss();return}
+  if(B.shield&&t>=B.shield.until)shieldHeal();
+  if(B.charge&&t>=B.charge.until)slam();
+  if(!B.shield&&!B.charge&&t>=B.nextAtk){bossAttack();B.nextAtk=t+atkInterval()}
 }
 
 /* ---------- weather ---------- */
