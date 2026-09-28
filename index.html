@@ -39,7 +39,21 @@ body{margin:0;min-height:100%;font-family:"Fredoka",ui-rounded,"Nunito","Segoe U
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--glow);outline-offset:2px;border-radius:10px}
 
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1100px;margin:0 auto;padding:12px 18px 0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1100px;margin:0 auto;padding:12px 18px 0;position:relative}
+.sndp{position:absolute;right:14px;top:58px;z-index:36;width:240px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 12px 30px rgba(30,20,80,.25);animation:popin .25s cubic-bezier(.2,1.5,.4,1)}
+.sndp[hidden]{display:none}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:4px 2px;font-weight:500}
+.tg{width:44px;height:26px;border-radius:13px;border:0;background:var(--line);position:relative;cursor:pointer;transition:background .2s;flex:none}
+.tg::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tg[aria-pressed="true"]{background:var(--glow)}
+.tg[aria-pressed="true"]::after{left:21px}
+.sndp input[type=range]{width:100%;margin:4px 0 8px;accent-color:var(--glow)}
+.sndp .now{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:4px;display:flex;align-items:center;gap:6px}
+.eq{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.eq i{width:3px;background:var(--glow);border-radius:2px;animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
+.eq.off i{animation:none;height:3px!important}
+@keyframes eq{0%,100%{height:3px}50%{height:12px}}
 .brand{font-weight:700;font-size:1.25rem;display:flex;align-items:center;gap:8px}
 .topr{display:flex;align-items:center;gap:10px}
 .seeds{font-size:.95rem;color:var(--muted);font-weight:500}
@@ -441,7 +455,13 @@ body.locked{overflow:hidden}
     <div class="seeds" id="seedsTop" hidden>🌱 <b id="seedsNum">0</b></div>
     <button class="ibtn" id="petBtn" aria-label="Begleiter wählen">🐾</button>
     <button class="ibtn" id="skinBtn" aria-label="Pilz-Aussehen wählen">🎨</button>
-    <button class="ibtn" id="muteBtn" aria-label="Ton aus">🔊</button>
+    <button class="ibtn" id="muteBtn" aria-label="Ton und Musik" aria-expanded="false">🔊</button>
+  </div>
+  <div class="sndp" id="sndPanel" hidden>
+    <div class="srow"><span>🎵 Musik</span><button class="tg" id="tgMusic" aria-label="Musik an oder aus"></button></div>
+    <input type="range" id="musVol" min="0" max="100" step="1" aria-label="Musik-Lautstärke">
+    <div class="srow"><span>🔔 Effekte</span><button class="tg" id="tgSfx" aria-label="Effekte an oder aus"></button></div>
+    <div class="now"><span class="eq" id="eqv"><i></i><i></i><i></i></span><span id="nowPlaying">Musik startet beim ersten Tippen</span></div>
   </div>
 </header>
 
@@ -739,7 +759,7 @@ function phaseMult(id){if(isNight())return ['wurm','mond','geist'].includes(id)?
 
 const LS='pilzgarten-v1';
 function fresh(){return{spores:0,season:0,allTime:0,taps:0,owned:{},up:[],ach:[],seeds:0,golden:0,seasons:0,last:Date.now(),
-  rushes:0,crits:0,motes:0,questsDone:0,quests:[],dailyDay:null,dailyStreak:0,muted:false,best:0,playSec:0,skin:'rosa',skins:['rosa'],slugs:0,flies:0,introSeen:false,xp:0,passSeason:null,claimed:[],bonusClaimed:0,dim:'wald',dims:['wald'],gems:0,premSeason:null,pclaimed:[],bots:0,nick:'',pid:'',lbPend:0,flagged:false,favs:[],bossLvl:1,bossWins:0,blocks:0,pet:'',petsSeen:[],bolts:0,stars:0,dia:0,diaGift:false,petLv:{},abilCd:{},pets:0,rb:0,rbEarn:null,rbNotified:false}}
+  rushes:0,crits:0,motes:0,questsDone:0,quests:[],dailyDay:null,dailyStreak:0,muted:false,best:0,playSec:0,skin:'rosa',skins:['rosa'],slugs:0,flies:0,introSeen:false,xp:0,passSeason:null,claimed:[],bonusClaimed:0,dim:'wald',dims:['wald'],gems:0,premSeason:null,pclaimed:[],bots:0,nick:'',pid:'',lbPend:0,flagged:false,favs:[],bossLvl:1,bossWins:0,blocks:0,pet:'',petsSeen:[],bolts:0,stars:0,dia:0,diaGift:false,petLv:{},abilCd:{},pets:0,rb:0,rbEarn:null,rbNotified:false,music:true,musicVol:.5}}
 let S=fresh();
 const SALT='pg-7f3a91-sporen';
 function hsh(str){let h=0x811c9dc5,k=0x9e3779b9;for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);h=Math.imul(h^c,0x01000193);k=Math.imul(k^c,0x85ebca6b)^(k>>>13)}return (h>>>0).toString(36)+(k>>>0).toString(36)}
@@ -793,7 +813,7 @@ function maxAfford(b){const o=S.owned[b.id]||0,r=1.15,c0=b.base*Math.pow(r,o);co
 
 /* ---------- audio ---------- */
 let actx=null;
-function ensureAudio(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(actx&&actx.state==='suspended')actx.resume()}
+function ensureAudio(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(actx&&actx.state==='suspended')actx.resume();if(actx&&S.music!==false&&!MUS.on&&!document.hidden)musicStart()}
 function tone(f,dur,type,vol,delay,slide){
   if(S.muted||!actx)return;const t0=actx.currentTime+(delay||0),o=actx.createOscillator(),g=actx.createGain();
   o.type=type||'sine';o.frequency.setValueAtTime(f,t0);if(slide)o.frequency.exponentialRampToValueAtTime(f*slide,t0+dur);
@@ -810,8 +830,98 @@ const sfx={
   mote:()=>tone(1200+Math.random()*400,.08,'sine',.07,0,1.3)
 };
 function buzz(p){if(navigator.vibrate)try{navigator.vibrate(p)}catch(e){}}
-function updMute(){$('muteBtn').textContent=S.muted?'🔇':'🔊';$('muteBtn').setAttribute('aria-label',S.muted?'Ton an':'Ton aus')}
-$('muteBtn').onclick=()=>{S.muted=!S.muted;ensureAudio();updMute();save()};
+/* ---------- lobby music (generated live, no files) ---------- */
+const THEMES={
+  wald:{n:'Pilzwald-Thema',bpm:92,root:60,sc:[0,2,4,7,9],prog:[[0,4,7],[-3,0,4],[-7,-3,0],[-5,-1,2]],lead:'mallet',den:.45,dr:'soft',echo:.2,pad:'triangle',bass:'triangle'},
+  kristall:{n:'Kristallklänge',bpm:80,root:57,sc:[0,3,5,7,10],prog:[[0,3,7],[-4,0,3],[-7,-4,0],[-2,2,5]],lead:'bell',den:.35,dr:'none',echo:.38,pad:'sine',bass:'sine'},
+  lava:{n:'Glutrhythmus',bpm:104,root:50,sc:[0,1,5,7,8],prog:[[0,3,7],[1,5,8],[0,3,7],[-2,1,5]],lead:'saw',den:.5,dr:'tom',echo:.15,pad:'sawtooth',bass:'sawtooth'},
+  wolken:{n:'Über den Wolken',bpm:76,root:65,sc:[0,2,4,7,11],prog:[[0,4,7],[2,6,9],[-1,2,7],[-3,0,4]],lead:'flute',den:.3,dr:'soft',echo:.32,pad:'sine',bass:'sine'},
+  tiefsee:{n:'Tiefseetraum',bpm:70,root:52,sc:[0,3,5,7,10],prog:[[0,3,7],[-4,0,3],[-2,2,5],[-5,-2,2]],lead:'bubble',den:.3,dr:'none',echo:.45,pad:'sine',bass:'sine'},
+  kosmos:{n:'Sternenmeer',bpm:66,root:59,sc:[0,2,3,7,10],prog:[[0,3,7],[-2,2,5],[-4,0,3],[-5,-1,2]],lead:'bell',den:.25,dr:'none',echo:.5,pad:'triangle',bass:'sine'},
+  frost:{n:'Schneeflockenwalzer',bpm:84,root:67,sc:[0,2,4,7,9],prog:[[0,4,7],[-5,-1,2],[-3,0,4],[-7,-3,0]],lead:'box',den:.4,dr:'soft',echo:.3,pad:'sine',bass:'triangle'},
+  neon:{n:'Neon Nights',bpm:112,root:57,sc:[0,3,5,7,10],prog:[[0,3,7],[-4,0,3],[-9,-5,-2],[-2,2,5]],lead:'saw',den:.6,dr:'synth',echo:.25,pad:'sawtooth',bass:'sawtooth',arp:true},
+  boss:{n:'⚔️ Bosskampf!',bpm:132,root:52,sc:[0,1,3,7,8],prog:[[0,3,7],[0,3,7],[1,5,8],[-1,3,6]],lead:'saw',den:.55,dr:'drive',echo:.12,pad:'sawtooth',bass:'sawtooth',arp:true}
+};
+const MUS={on:false,timer:0,next:0,step:0,bus:null,wet:null,noise:null,th:null,key:'',mel:{}};
+const mfreq=m=>440*Math.pow(2,(m-69)/12);
+function mrng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function melodyFor(id){if(MUS.mel[id])return MUS.mel[id];const T=THEMES[id],r=mrng([...id].reduce((a,c)=>a*31+c.charCodeAt(0),7)),m=[];let idx=2;
+  for(let i=0;i<128;i++){const on=T.arp?(i%2===0):(i%2===0&&r()<T.den)||(i%4===0&&r()<T.den*.6);if(!on){m.push(null);continue}
+    if(T.arp){m.push({arp:(i/2)%4});continue}idx=Math.max(0,Math.min(T.sc.length*2-1,idx+[-2,-1,-1,0,1,1,2][r()*7|0]));m.push({deg:idx,len:r()<.25?2:1})}
+  return MUS.mel[id]=m}
+function musicStart(){
+  if(MUS.on||!actx)return;MUS.on=true;
+  if(!MUS.bus){MUS.bus=actx.createGain();MUS.bus.gain.value=0;MUS.bus.connect(actx.destination);
+    const d=actx.createDelay(1.5),fb=actx.createGain(),wet=actx.createGain(),lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2200;
+    d.delayTime.value=.33;fb.gain.value=.32;wet.gain.value=.2;MUS.wet=wet;MUS.dly=d;
+    MUS.fx=actx.createGain();MUS.fx.connect(d);d.connect(lp);lp.connect(fb);fb.connect(d);lp.connect(wet);wet.connect(MUS.bus);
+    const len=actx.sampleRate*.5,buf=actx.createBuffer(1,len,actx.sampleRate),ch=buf.getChannelData(0);for(let i=0;i<len;i++)ch[i]=Math.random()*2-1;MUS.noise=buf}
+  musicTheme(true);MUS.next=actx.currentTime+.1;
+  MUS.bus.gain.cancelScheduledValues(actx.currentTime);MUS.bus.gain.setTargetAtTime(musVol(),actx.currentTime,.8);
+  clearInterval(MUS.timer);MUS.timer=setInterval(musTick,25);updSnd();
+}
+function musicStop(){if(!MUS.on)return;MUS.on=false;clearInterval(MUS.timer);if(actx&&MUS.bus)MUS.bus.gain.setTargetAtTime(0,actx.currentTime,.25);updSnd()}
+const musVol=()=>(S.musicVol==null?.5:S.musicVol)*.32;
+function musicTheme(force){
+  const id=(boss&&!boss.dead)?'boss':(THEMES[dim()]?dim():'wald'),night=isNight()&&id!=='boss',key=id+(night?'n':'');
+  if(key===MUS.key&&!force)return;MUS.key=key;MUS.th=THEMES[id];MUS.night=night;
+  if(MUS.wet&&actx){MUS.wet.gain.setTargetAtTime(MUS.th.echo*(night?1.4:1),actx.currentTime,.5);MUS.dly.delayTime.setTargetAtTime(60/MUS.th.bpm*.75,actx.currentTime,.3)}
+  updSnd();
+}
+function env(g,t,a,peak,dec){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+a+dec)}
+function voice(type,f,t,dur,vol,opt){
+  opt=opt||{};const o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(opt.glide)o.frequency.exponentialRampToValueAtTime(f*opt.glide,t+dur);if(opt.det)o.detune.value=opt.det;
+  let out=g;if(opt.lp){const f2=actx.createBiquadFilter();f2.type='lowpass';f2.frequency.value=opt.lp;g.connect(f2);out=f2}
+  o.connect(g);out.connect(MUS.bus);if(opt.echo)out.connect(MUS.fx);
+  if(opt.pad){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+Math.min(.8,dur*.4));g.gain.setValueAtTime(vol,t+dur*.7);g.gain.linearRampToValueAtTime(0,t+dur)}else env(g,t,opt.a||.005,vol,dur);
+  o.start(t);o.stop(t+dur+.1);
+}
+function noiseHit(t,dur,vol,type,freq){const s=actx.createBufferSource(),f=actx.createBiquadFilter(),g=actx.createGain();s.buffer=MUS.noise;f.type=type;f.frequency.value=freq;s.connect(f);f.connect(g);g.connect(MUS.bus);env(g,t,.002,vol,dur);s.start(t);s.stop(t+dur+.05)}
+function kick(t,vol){const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(42,t+.16);o.connect(g);g.connect(MUS.bus);env(g,t,.002,vol,.28);o.start(t);o.stop(t+.35)}
+function lead(T,m,t,dur,vol){
+  const f=mfreq(m);
+  switch(T.lead){
+    case 'mallet':voice('sine',f,t,.45,vol,{echo:1});voice('triangle',f*2,t,.18,vol*.25);break;
+    case 'bell':voice('sine',f,t,1.4,vol*.8,{echo:1});voice('sine',f*2.76,t,.6,vol*.18,{echo:1});break;
+    case 'saw':voice('sawtooth',f,t,Math.max(.14,dur),vol*.55,{lp:T.arp?2400:1800,echo:1});break;
+    case 'flute':voice('triangle',f,t,Math.max(.35,dur*1.4),vol*.8,{a:.06,echo:1});break;
+    case 'bubble':voice('sine',f,t,.35,vol,{glide:1.5,echo:1});break;
+    case 'box':voice('sine',f*2,t,.9,vol*.7,{echo:1});voice('sine',f*4,t,.25,vol*.12);break;
+  }
+}
+function musStep(i,t){
+  const T=MUS.th,beat=60/T.bpm,st=beat/4,night=MUS.night,ci=Math.floor(i/32)%4,ch=T.prog[ci];
+  if(i%32===0)ch.forEach((c,k)=>voice(T.pad,mfreq(T.root+c),t,beat*8,(T.pad==='sawtooth'?.035:.06)*(night?.8:1),{pad:1,lp:T.pad==='sawtooth'?900:1400,det:k===1?7:-5,echo:1}));
+  const bpat=T.dr==='synth'||T.dr==='drive'?(i%2===0):(i%8===0||(i%16===14&&!night));
+  if(bpat)voice(T.bass,mfreq(T.root+ch[0]-12-(T.root>60?12:0)),t,T.dr==='drive'?st*1.6:beat*.9,T.bass==='sawtooth'?.09:.16,{lp:T.bass==='sawtooth'?520:900});
+  const n=melodyFor(MUS.key.replace(/n$/,''))[i];
+  if(n&&!(night&&i%4!==0)){const m=n.arp!=null?T.root+12+ch[n.arp%3]+(n.arp===3?12:0):T.root+12+T.sc[n.deg%T.sc.length]+12*Math.floor(n.deg/T.sc.length);lead(T,m,t,st*(n.len||1)*2,night?.07:.1)}
+  const dr=night&&T.dr!=='drive'?'none':T.dr;
+  if(dr==='soft'){if(i%16===0)kick(t,.18);if(i%4===2)noiseHit(t,.03,.025,'highpass',7000)}
+  if(dr==='tom'){if(i%8===0)kick(t,.3);if(i%16===12)voice('sine',120,t,.2,.2,{glide:.6});if(i%2===1)noiseHit(t,.02,.02,'highpass',8000)}
+  if(dr==='synth'||dr==='drive'){if(i%4===0)kick(t,dr==='drive'?.38:.32);if(i%8===4)noiseHit(t,.14,.12,'bandpass',1800);if(i%2===1||dr==='drive')noiseHit(t,.025,.03,'highpass',8000)}
+}
+function musTick(){
+  if(!MUS.on||!actx)return;
+  if(MUS.next<actx.currentTime-.5)MUS.next=actx.currentTime+.05;
+  while(MUS.next<actx.currentTime+.12){try{musStep(MUS.step,MUS.next)}catch(e){}MUS.next+=60/MUS.th.bpm/4;MUS.step=(MUS.step+1)%128}
+}
+function updSnd(){
+  const m=S.music!==false,fx=!S.muted;
+  $('muteBtn').textContent=(m||fx)?'🔊':'🔇';
+  $('tgMusic').setAttribute('aria-pressed',m);$('tgSfx').setAttribute('aria-pressed',fx);
+  $('musVol').value=Math.round((S.musicVol==null?.5:S.musicVol)*100);$('musVol').disabled=!m;
+  $('nowPlaying').textContent=m?(MUS.on&&MUS.th?`♪ ${MUS.th.n}${MUS.night?' (Nacht)':''}`:'Musik startet beim ersten Tippen'):'Musik ist aus';
+  $('eqv').classList.toggle('off',!(m&&MUS.on));
+}
+function updMute(){updSnd()}
+$('muteBtn').onclick=e=>{e.stopPropagation();ensureAudio();const p=$('sndPanel');p.hidden=!p.hidden;$('muteBtn').setAttribute('aria-expanded',!p.hidden);updSnd()};
+$('tgMusic').onclick=()=>{S.music=S.music===false;save();if(S.music!==false){ensureAudio();musicStart()}else musicStop();updSnd()};
+$('tgSfx').onclick=()=>{S.muted=!S.muted;save();ensureAudio();if(!S.muted)tone(880,.1,'sine',.08);updSnd()};
+$('musVol').oninput=()=>{S.musicVol=$('musVol').value/100;if(MUS.bus&&actx&&MUS.on)MUS.bus.gain.setTargetAtTime(musVol(),actx.currentTime,.1)};
+$('musVol').onchange=()=>save();
+document.addEventListener('pointerdown',e=>{const p=$('sndPanel');if(!p.hidden&&!e.target.closest('#sndPanel,#muteBtn')){p.hidden=true;$('muteBtn').setAttribute('aria-expanded','false')}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(MUS.on){musicStop();MUS.resume=true}}else if(MUS.resume&&S.music!==false&&actx){MUS.resume=false;musicStart()}});
 
 /* ---------- tapping ---------- */
 const mush=$('mush'),fx=$('fx');
@@ -2149,7 +2259,7 @@ function frame(t){
   updSlugs(dt);
   uiAcc+=dt;achAcc+=dt;saveAcc+=dt;
   if(uiAcc>0.1){uiAcc=0;render()}
-  if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();if((S.rbEarn||0)>=rbNeed()&&!S.rbNotified){S.rbNotified=true;save();showRbBanner()}updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
+  if(achAcc>0.5){achAcc=0;checkAch();checkSkins();checkPets();if(MUS.on)musicTheme();if((S.rbEarn||0)>=rbNeed()&&!S.rbNotified){S.rbNotified=true;save();showRbBanner()}updPhase();checkPassSeason();if(!$('passModal').hidden)renderPass()}
   if(saveAcc>8){saveAcc=0;save()}
   updSpring(Math.min(dt,.033));personality(t);updBoss();updWx(dt);petTick(dt);
   auraAcc+=dt;if(auraAcc>.22){auraAcc=0;if($('skinModal').hidden&&$('passModal').hidden)auraTick()}
