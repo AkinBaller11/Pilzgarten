@@ -3133,7 +3133,7 @@ const PETS=[
   {id:'fuchs',e:'🦊',name:'Flinki',need:15,desc:'Bosse haben deutlich weniger Leben.',say:['Wo ist der Boss?','Flink wie der Wind!','Hehe!','Auf in den Kampf!']},
   {id:'drache',e:'🐲',name:'Funki',need:25,desc:'Deine gesamte Produktion steigt stark.',say:['Rawr!','Feuer frei!','Ich bin der Größte!','Heiß!']}
 ];
-PETS.forEach(p=>p.req=s=>(s.bossWins||0)>=p.need);
+PETS.forEach(p=>p.req=s=>(s.bossWins||0)>=p.need||!!s.petsAll);
 let petHopAt=0,petAcc=0,petPos=null,petSay=null,nextSay=performance.now()+15000,petPetAt=0;
 const ABIL={wurmi:{n:'Lichtfang',cd:90,d:'Fängt sofort alle Glühwürmchen im Garten.'},frosch:{n:'Zungenschlag',cd:60,d:'Schnappt sich alle Schnecken und bringt Bonus-Sporen.'},eule:{n:'Nachtblick',cd:180,d:'Findet sofort einen Goldpilz.'},biene:{n:'Bienenschwarm',cd:120,d:'Ein Schwarm tippt 10 Sekunden lang 15-mal pro Sekunde.'},fuchs:{n:'Fuchsbiss',cd:90,d:'Beißt einem Boss ein Viertel seines Lebens ab oder lockt sofort einen an.'},drache:{n:'Feueratem',cd:240,d:'20 Sekunden lang dreifache Produktion.'}};
 function pd(id){id=id||S.pet;if(!S.petLv[id])S.petLv[id]={lv:1,xp:0};return S.petLv[id]}
@@ -3814,7 +3814,7 @@ function admTool(id){
     pass10:()=>{for(let i=0;i<10;i++){const ti=tierInfo();S.xp+=ti.need-ti.into+1}toast('⭐ Pass-Stufe '+tierInfo().tier)},
     prem:()=>{S.premSeason=passSeasonIdx();toast('👑 Premium-Pass aktiv')},
     rush:()=>startRush(),frenzy:()=>{buffs.frenzy=now()+60000;toast('🔥 Pilzrausch 60 s')},
-    petmax:()=>{PETS.forEach(p=>{S.petLv[p.id]={lv:10,xp:0}});S.bossWins=Math.max(S.bossWins,25);toast('🐾 Alle Begleiter auf Stufe 10')},
+    petmax:()=>{S.petsAll=true;PETS.forEach(p=>{S.petLv[p.id]={lv:10,xp:0}});save();toast(`🐾 Alle ${PETS.length} Begleiter freigeschaltet, Stufe 10`,'Zählt nicht als Boss-Siege')},
     rbready:()=>{S.rbEarn=rbNeed();S.rbNotified=false;toast('🔄 Wiedergeburt ist bereit')},
     daily:()=>{S.dailyDay=null;checkDaily();toast('🎁 Tagesbonus zurückgesetzt')},
     quests:()=>{S.quests=[];fillQuests();qKey='';toast('📜 Neue Aufgaben')},
@@ -3836,7 +3836,7 @@ function renderAdmin(){
       <p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Diese Werkzeuge ändern nur deinen eigenen Spielstand. Gegebene Sporen zählen nicht für die Rangliste.</p>
       <h4>💰 Währungen</h4><div class="agrid">${B('sp6','+1 Mio. Sporen')}${B('sp9','+1 Mrd. Sporen')}${B('sp12','+1 Bio. Sporen')}${B('sp15','+1 Brd. Sporen')}${B('gems','+100 💠')}${B('dia','+50 💎')}${B('seeds','+10 🌱')}${B('seedsm','−10 🌱')}</div>
       <div class="afil"><input type="search" id="tSp" inputmode="decimal" placeholder="Sporen genau setzen, z. B. 5e12"><button class="abtn" data-a="spset">Setzen</button></div>
-      <h4>🔓 Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('ach','Alle Erfolge')}${B('petmax','Begleiter max.')}${B('pass','Pass +1 Stufe')}${B('pass10','Pass +10 Stufen')}${B('prem','Premium-Pass an')}${B('rbready','Wiedergeburt bereit')}</div>
+      <h4>🔓 Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('ach','Alle Erfolge')}${B('petmax','Alle Begleiter')}${B('pass','Pass +1 Stufe')}${B('pass10','Pass +10 Stufen')}${B('prem','Premium-Pass an')}${B('rbready','Wiedergeburt bereit')}</div>
       <h4>⚔️ Ereignisse</h4><div class="agrid">${B('boss','Boss jetzt')}${B('event','Live-Event (nur ich)')}${B('cine','Cinematic')}${B('gold','Goldpilz')}${B('slugs','Schnecken')}${B('rain','Regen')}${B('storm','Gewitter')}${B('stars','Sternschnuppen')}${B('rush','Sporenrausch')}${B('frenzy','Pilzrausch')}</div>
       <div class="afil"><input type="search" id="tBoss" inputmode="numeric" placeholder="Boss-Stufe setzen, jetzt ${S.bossLvl}"><button class="abtn" data-a="bosslv">Setzen</button></div>
       <h4>🌓 Welt</h4><div class="agrid">${B('day','☀️ Tag erzwingen')}${B('night','🌙 Nacht erzwingen')}${B('dnoff','🕐 Echte Zeit')}${B('daily','Tagesbonus neu')}${B('quests','Aufgaben neu')}${B('fps','FPS-Anzeige')}</div>
@@ -4735,7 +4735,7 @@ PETS.push(
   {id:'einhorn',e:'🦄',name:'Sterni',need:80,desc:'Mehr Pass-XP und öfter Regenbogenpilze.',say:['Glitzer!','Regenbogen-Zeit!','Wiiieher!','Magie!']},
   {id:'okto',e:'🐙',name:'Okto',need:100,desc:'Deine Auto-Tipps sind doppelt so stark.',say:['Acht Arme, acht Tipps!','Blubb!','Ich helfe mit!','Tentakel-Power!']}
 );
-PETS.forEach(p=>{if(!p.req)p.req=s=>(s.bossWins||0)>=p.need});
+PETS.forEach(p=>{if(!p.req||p.need>25)p.req=s=>(s.bossWins||0)>=p.need||!!s.petsAll});
 Object.assign(ABIL,{
   schildi:{n:'Zeitsprung',cd:300,d:'Holt sofort die Sporen von 10 Minuten Produktion.'},
   katze:{n:'Schnurren',cd:120,d:'20 Sekunden lang dreifache Tippkraft.'},
@@ -5800,6 +5800,8 @@ $('mkClose').onclick=()=>{$('mkModal').hidden=true;document.body.classList.remov
 async function devSkinCheck(){
   if(!LB.sb||!LB.uid){setTimeout(devSkinCheck,4000);return}
   try{const r=await LB.sb.rpc('is_admin');if(r.error)return;const admin=r.data===true,has=S.skins.includes('goldloch');
+    if(admin&&!S.petsAll){S.petsAll=true;PETS.forEach(p=>{const d=pd(p.id);if(d.lv<10)S.petLv[p.id]={lv:10,xp:0}});save();setTimeout(()=>toast(`🐾 Alle ${PETS.length} Begleiter gehören dir`,'Auf Stufe 10, als Entwickler-Geschenk'),2500)}
+    if(!admin&&S.petsAll){S.petsAll=false;save()}
     if(admin&&!has){S.skins.push('goldloch');save();confetti(true);sfx.ach();setTimeout(()=>queueModal({emoji:'👑',title:'Dein Entwickler-Skin ist da!',text:'Das Goldene Schwarze Loch gibt es nur für dich. Du findest es bei deinen Skins.',ok:'Anlegen',cancel:true,cancelText:'Später',onOk:()=>{S.skin='goldloch';applySkin();save();render()}}),800)}
     if(!admin&&has){S.skins=S.skins.filter(x=>x!=='goldloch');if(S.skin==='goldloch'){S.skin='rosa';applySkin()}save()}}catch(e){}
 }
