@@ -2921,7 +2921,8 @@ function drawWeather(t){
 }
 
 /* ---------- rebirth ---------- */
-function rbNeed(){return (S.rb||0)>=1?1e16:1e15}
+/* Kosten: 1. Wiedergeburt 10 Brd., jede weitere 10-mal so viel wie die davor */
+function rbNeed(){return 1e16*Math.pow(10,S.rb||0)}
 function nextSecret(){return SKINS.find(k=>k.rb===(S.rb||0)+1)}
 function rbHTML(){const pr=Math.min(1,(S.rbEarn||0)/rbNeed()),ready=pr>=1,nx=nextSecret();
   return `<div class="rbbox"><h3>🔄 Wiedergeburt${S.rb?` (schon ${S.rb}×)`:''}</h3><p>${ready?'Du bist bereit! Werde wiedergeboren, verdopple deine Produktion für immer und entdecke einen geheimen Skin.':`Sammle ${fmt(rbNeed())} Sporen seit deiner letzten Wiedergeburt. Dann kannst du wiedergeboren werden.`}</p>
