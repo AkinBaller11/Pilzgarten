@@ -5507,21 +5507,27 @@ function mwWorldSVG(){
   ${[[140,220],[260,220]].map(([x,y])=>`<g transform="translate(${x} ${y})"><rect x="-2" y="-40" width="4" height="40" fill="#3A2A20"/><rect x="-7" y="-52" width="14" height="14" rx="3" fill="#FFE27A" opacity=".95"><animate attributeName="opacity" values=".95;.7;.95" dur="2s" repeatCount="indefinite"/></rect></g>`).join('')}
   </svg>`;
 }
+/* Der Kanal bleibt nach dem ersten Betreten bestehen. Beim Verlassen meldet man sich nur ab (untrack),
+   beim erneuten Betreten wieder an (track). Ein neuer Kanal mit gleichem Namen würde sich mit dem alten beißen. */
 function mwJoin(){
-  if(MW.on)return;MW.on=true;MW.players={};MW.seenChat=MK.chat.length?MK.chat[MK.chat.length-1].id:0;
+  if(MW.on)return;MW.on=true;MW.seenChat=MK.chat.length?MK.chat[MK.chat.length-1].id:0;
   const m=MW.me;m.x=m.tx=.3+Math.random()*.4;m.y=m.ty=.78+Math.random()*.12;
   if(!LB.sb||!LB.uid)return;
-  try{MW.ch=LB.sb.channel('pg-markt',{config:{presence:{key:LB.uid}}});
-    MW.ch.on('presence',{event:'sync'},mwSync).subscribe(s=>{if(s==='SUBSCRIBED')mwTrack(true)})}catch(e){}
+  const st=MW.ch&&MW.ch.state;
+  if(MW.ch&&(st==='joined'||st==='joining')){if(st==='joined'){mwSync();mwTrack(true)}else MW.wantTrack=true;return}
+  const make=()=>{try{MW.ch=LB.sb.channel('pg-markt',{config:{presence:{key:LB.uid}}});
+    MW.ch.on('presence',{event:'sync'},mwSync).subscribe(s=>{if(s==='SUBSCRIBED'){mwSync();if(MW.on||MW.wantTrack){MW.wantTrack=false;mwTrack(true)}}else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'||s==='CLOSED'){MW.ch=null}})}catch(e){MW.ch=null}};
+  if(MW.ch){const old=MW.ch;MW.ch=null;Promise.resolve(LB.sb.removeChannel(old)).catch(()=>{}).then(()=>setTimeout(make,300))}else make();
 }
-function mwLeave(){MW.on=false;cancelAnimationFrame(MW.raf);try{if(MW.ch){MW.ch.untrack();LB.sb.removeChannel(MW.ch)}}catch(e){}MW.ch=null;MW.players={}}
+function mwLeave(){MW.on=false;MW.wantTrack=false;cancelAnimationFrame(MW.raf);MW.raf=0;try{if(MW.ch&&MW.ch.state==='joined')MW.ch.untrack()}catch(e){}
+  Object.values(MW.players).forEach(o=>{if(o.el){o.el.remove();o.el=null}});if(MW.me.el){MW.me.el.remove();MW.me.el=null}}
 function mwTrack(force){
-  if(!MW.ch)return;const n=Date.now();if(!force&&n-MW.trackAt<300){if(!MW.trackQ){MW.trackQ=true;setTimeout(()=>{MW.trackQ=false;mwTrack(true)},320)}return}
+  if(!MW.ch||!MW.on)return;const n=Date.now();if(!force&&n-MW.trackAt<300){if(!MW.trackQ){MW.trackQ=true;setTimeout(()=>{MW.trackQ=false;mwTrack(true)},320)}return}
   MW.trackAt=n;const m=MW.me;
   MW.ch.track({n:lbNick(),sk:S.skin,x:+m.x.toFixed(3),y:+m.y.toFixed(3),tx:+m.tx.toFixed(3),ty:+m.ty.toFixed(3),em:MW.emo,emAt:MW.emoAt,inv:S.skins.filter(tradeable).slice(0,150),t:n}).catch(()=>{});
 }
 function mwSync(){
-  const st=MW.ch.presenceState(),seen={};
+  if(!MW.ch)return;const st=MW.ch.presenceState(),seen={};
   for(const [uid,arr] of Object.entries(st)){if(uid===LB.uid||!arr.length)continue;const p=arr[arr.length-1];seen[uid]=1;
     let o=MW.players[uid];if(!o){o=MW.players[uid]={x:p.x??.5,y:p.y??.8,dir:1}}
     Object.assign(o,{n:p.n,sk:p.sk,tx:p.tx??p.x,ty:p.ty??p.y,inv:p.inv||[],uid});
