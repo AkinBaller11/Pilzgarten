@@ -293,7 +293,7 @@ body.locked{overflow:hidden}
 .co.quake .co-stage{animation:quake .35s linear 2}
 .co-chest{position:absolute;left:10px;right:10px;bottom:0;animation:chdrop .7s cubic-bezier(.3,1.6,.5,1)}
 .co-chest svg{width:100%;height:auto;display:block;overflow:visible;transition:transform .25s}
-.co.float .co-chest{animation:cofloat 1.1s ease-in-out infinite}
+.co.cofl .co-chest{animation:cofloat 1.1s ease-in-out infinite}
 @keyframes cofloat{50%{transform:translateY(-18px)}}
 .co.s1 .co-chest svg{animation:chs .16s infinite}.co.s2 .co-chest svg{animation:chs .06s infinite}
 .co.pre .co-chest svg{transform:scale(.82,.9)!important;animation:none}
@@ -4208,14 +4208,14 @@ function chestShow(c,res){
   const C=()=>{const r=o.querySelector('.co-chest').getBoundingClientRect();return [r.left+r.width/2,r.top+r.height*.45]};
   const setC=r=>o.style.setProperty('--rc',RCOL[r]);
   at(650,()=>{const [x,y]=C();fxRing(x,y+40,'#FFFFFF',140);tone(70,.4,'sine',.1,0,.5);buzz(40);o.classList.add('quake');setTimeout(()=>o.classList.remove('quake'),700)});
-  at(1000,()=>{o.classList.add('float','charge');tone(180,.8,'sawtooth',.035,0,2)});
+  at(1000,()=>{o.classList.add('cofl','charge');tone(180,.8,'sawtooth',.035,0,2)});
   for(let i=0;i<=tgt;i++)at(1400+i*520,()=>{setC(RORD[i]);o.style.setProperty('--lv',i);const [x,y]=C();fxRing(x,y,RCOL[RORD[i]],90+i*20);fxBurst(x,y,{n:8+i*4,colors:[RCOL[RORD[i]],'#FFFFFF'],speed:3+i,glow:true,g:-.02});
     tone(260*Math.pow(1.26,i),.3,'triangle',.07,0,1.2);buzz(10+i*8);
     if(i>=1)o.classList.add('s1');if(i>=2){o.classList.add('fast')}if(i>=3){o.classList.remove('s1');o.classList.add('s2','bolt');tone(90,.3,'sawtooth',.05,0,.6)}if(i>=4)o.classList.add('m')});
   const burstAt=1400+tgt*520+700;
-  at(burstAt-350,()=>{o.classList.remove('float','s1','s2');o.classList.add('pre');const g=o.querySelector('.cgap');if(g){g.style.opacity='1'}tone(700,.3,'sine',.06,0,2.5)});
+  at(burstAt-350,()=>{o.classList.remove('cofl','s1','s2');o.classList.add('pre');const g=o.querySelector('.cgap');if(g){g.style.opacity='1'}tone(700,.3,'sine',.06,0,2.5)});
   const open=()=>{if(opened)return;opened=true;T.forEach(clearTimeout);setC(rar);o.style.setProperty('--lv',tgt);if(tgt>=4)o.classList.add('m');if(tgt>=3)o.classList.add('bolt');
-    o.classList.remove('pre','float','s1','s2');o.classList.add('charge','open','flash','reveal','quake');if(tgt>=2)o.classList.add('stamp');
+    o.classList.remove('pre','cofl','s1','s2');o.classList.add('charge','open','flash','reveal','quake');if(tgt>=2)o.classList.add('stamp');
     const [x,y]=C();fxRing(x,y,RCOL[rar],240);fxRing(x,y,'#FFFFFF',160);fxBurst(x,y,{n:30+tgt*12,colors:[RCOL[rar],'#FFFFFF','#FFD84A'],star:true,speed:8+tgt});
     fxBurst(x,y,{n:20,kind:'coin',colors:['#FFD23F'],speed:7,up:4,g:.3});
     if(tgt>=3){confetti(true,x,y,[RCOL[rar],'#FFFFFF','#FFD84A']);setTimeout(()=>confetti(true,innerWidth*.2,innerHeight*.35,[RCOL[rar],'#FFF']),350);setTimeout(()=>confetti(true,innerWidth*.8,innerHeight*.35,[RCOL[rar],'#FFF']),700)}
