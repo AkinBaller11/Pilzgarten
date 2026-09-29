@@ -1610,7 +1610,7 @@ const SKINS=[
   /* eigener Astronauten-Skin */
   {box:1,id:'kometenpilot',name:'Kometenpilot',rar:'l',c1:'#FF9A4A',c2:'#1A2A5A',dots:'#FFE9C8',acc:['antenna','shades'],fx:'neon',pow:'boss'},
   /* nur für den Entwickler */
-  {id:'goldloch',name:'Goldenes Schwarzes Loch',rar:'x',shape:'goldhole',c1:'#FFD23F',c2:'#000000',eye:'#FFE7A0',secret:1,dev:1,fx:'goldvoid',pow:'prod',how:'👑 Nur für den Entwickler'}
+  {id:'goldloch',name:'Goldenes Schwarzes Loch',rar:'x',shape:'goldhole',c1:'#FFD23F',c2:'#000000',eye:'#FFE7A0',noBlush:1,secret:1,dev:1,fx:'goldvoid',pow:'prod',how:'👑 Nur für den Entwickler'}
 ];
 const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim',u:'Einzigartig',v:'Event'};
 const PFX={
@@ -2255,7 +2255,7 @@ function faceSVG(fy,k,main){
   const ink='#2A2447',ec=k.eye||ink;
   return `<g ${main?'id="eyes"':''} style="transform-origin:100px ${fy}px"><g ${main?'id="look"':''}><ellipse cx="91" cy="${fy}" rx="4.5" ry="6" fill="${ec}" ${k.eye?`style="filter:drop-shadow(0 0 3px ${k.eye})"`:''}/><ellipse cx="111" cy="${fy}" rx="4.5" ry="6" fill="${ec}" ${k.eye?`style="filter:drop-shadow(0 0 3px ${k.eye})"`:''}/><circle cx="92.5" cy="${fy-2.5}" r="1.6" fill="#fff"/><circle cx="112.5" cy="${fy-2.5}" r="1.6" fill="#fff"/></g></g>
   <path ${main?'id="mouth"':''} d="M94 ${fy+14} Q101 ${fy+20} 108 ${fy+14}" stroke="${ink}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  <ellipse cx="83" cy="${fy+10}" rx="5.5" ry="3.2" fill="#FF7FA8" opacity=".45"/><ellipse cx="119" cy="${fy+10}" rx="5.5" ry="3.2" fill="#FF7FA8" opacity=".45"/>`;
+  ${k.noBlush?'':`<ellipse cx="83" cy="${fy+10}" rx="5.5" ry="3.2" fill="#FF7FA8" opacity=".45"/><ellipse cx="119" cy="${fy+10}" rx="5.5" ry="3.2" fill="#FF7FA8" opacity=".45"/>`}`;
 }
 function grad(p,k){return `<defs><radialGradient id="${p}cg" cx="42%" cy="28%" r="80%"><stop offset="0" stop-color="${k.c1}"/><stop offset="1" stop-color="${k.c2}"/></radialGradient></defs>`}
 const SHINE='<path d="M36 84 Q48 46 88 36" stroke="#fff" stroke-width="6" opacity=".3" fill="none" stroke-linecap="round"/>';
