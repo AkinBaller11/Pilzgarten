@@ -1248,7 +1248,22 @@ const SKINS=[
   {id:'kometenkind',name:'Kometenkind',rar:'v',shape:'komet',c1:'#FF9A3A',c2:'#8A2A1A',fx:'fire',how:'Nimm an einem Live-Event teil (jeden Mittwoch um 11:40 Uhr)'},
   {id:'flocke',name:'Kristallflocke',rar:'u',shape:'flocke',c1:'#DFF6FF',c2:'#2F86C8',fx:'glitter',how:'Besiege 20 Schneekolosse und fang 30 Sternschnuppen im Frostgipfel',prog:s=>`⛄ ${Math.min(20,s.frostBoss||0)}/20, 🌠 ${Math.min(30,s.frostStars||0)}/30`,req:s=>(s.frostBoss||0)>=20&&(s.frostStars||0)>=30},
   {id:'kuschel',name:'Kuschelbär',rar:'u',shape:'kuschel',c1:'#EACB9C',c2:'#C49A62',fx:'cozy',how:'Tippe 1.000.000-mal im Frostgipfel',prog:s=>`${fmt(s.frostTaps||0)} von 1 Mio.`,req:s=>(s.frostTaps||0)>=1e6},
-  {id:'traenen',name:'Tränenflamme',rar:'l',shape:'flamme',c1:'#FFE066',c2:'#E8421A',fx:'fire',how:'Tippe 1.000-mal in der Lavawelt',req:s=>(s.lavaTaps||0)>=1000}
+  {id:'traenen',name:'Tränenflamme',rar:'l',shape:'flamme',c1:'#FFE066',c2:'#E8421A',fx:'fire',how:'Tippe 1.000-mal in der Lavawelt',req:s=>(s.lavaTaps||0)>=1000},
+  /* Planeten-Reihe im Premium-Pass, von schwach nach stark */
+  {prem:1,id:'merkur',name:'Merkur',rar:'s',shape:'planet',c1:'#DCD2C6',c2:'#7A6A5A',pow:'prod'},
+  {prem:1,id:'mars',name:'Mars',rar:'e',shape:'planet',c1:'#FF9A6A',c2:'#A8321A',pow:'prod',fx:'fire'},
+  {prem:1,id:'saturn',name:'Saturn',rar:'l',shape:'planet',c1:'#FFE3A0',c2:'#B8862A',acc:['sparkle'],pow:'prod',fx:'gold'},
+  {prem:1,id:'jupiter',name:'Jupiter',rar:'m',shape:'planet',c1:'#FFD9B0',c2:'#9A3A1A',acc:['crown','sparkle'],pow:'prod',fx:'rainbow'},
+  /* Fußball-Skins, alle in den Truhen */
+  {box:1,id:'strassenkick',name:'Straßenkicker',rar:'g',shape:'ball',c1:'#FFFFFF',c2:'#26262E',pow:'tap'},
+  {box:1,id:'lederball',name:'Lederball',rar:'g',shape:'ball',c1:'#E8C08A',c2:'#7A4A1A',pow:'offline'},
+  {box:1,id:'trainingsball',name:'Trainingsball',rar:'s',shape:'ball',c1:'#FFF36A',c2:'#1A3AA8',pow:'xp'},
+  {box:1,id:'flutlicht',name:'Flutlichtball',rar:'s',shape:'ball',c1:'#E6F4FF',c2:'#1F9E4A',acc:['sparkle'],pow:'gold'},
+  {box:1,id:'torjaeger',name:'Torjäger',rar:'e',shape:'ball',c1:'#FFFFFF',c2:'#D8202A',fx:'fire',pow:'crit'},
+  {box:1,id:'kapitaen',name:'Kapitänsball',rar:'e',shape:'ball',c1:'#FFFFFF',c2:'#1A2A7A',acc:['band'],pow:'boss'},
+  {box:1,id:'goldball',name:'Goldener Ball',rar:'l',shape:'ball',c1:'#FFF2A0',c2:'#C08A18',fx:'gold',acc:['sparkle'],pow:'gems'},
+  {box:1,id:'pokalball',name:'Pokalsieger',rar:'l',shape:'ball',c1:'#FFFFFF',c2:'#6A2AD0',acc:['crown'],fx:'rainbow',pow:'prod'},
+  {box:1,id:'weltball',name:'Weltmeisterball',rar:'m',shape:'ball',c1:'#E8FFF4',c2:'#0A7A4A',acc:['crown','sparkle'],fx:'neon',pow:'tap'}
 ];
 const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',x:'Geheim',u:'Einzigartig',v:'Event'};
 const PFX={
@@ -1294,6 +1309,7 @@ const PFX={
   tears:{n:'Tränen und Funken',kind:'tears',cols:['#7FD4FF','#FFD04A'],g:.2,up:2.5,sp:3.5,snd:['triangle',330,.75]}
 };
 const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy',flocke:'glitter',kometenkind:'meteor',honig:'coin',moospilz:'leaf',glasqualle:'bubble',sternkoenig:'royal',neonkaktus:'pixel',chromrobo:'shard',lavaplanet:'lava',schattenqualle:'dark',goldkristall:'coin',minzpilz:'petal',lavendel:'petal',pfirsich:'petal',nebelwolke:'rain',ozean:'bubble',abendrot:'sparks',kirschkaktus:'bloom',kupferrobo:'pixel',feenpilz:'stars',hexenpilz:'shadow',rubin:'shard',nebelqualle:'ghost',smaragd:'shard',saphir:'snow',vampir:'dark',obsidian:'dragon',regenkaktus:'rainbow'};
+Object.assign(SKIN_PFX,{merkur:'rocks',mars:'lava',saturn:'coin',jupiter:'galaxy',strassenkick:'party',lederball:'leaf',trainingsball:'party',flutlicht:'stars',torjaeger:'sparks',kapitaen:'royal',goldball:'coin',pokalball:'rainbow',weltball:'royal'});
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const POW={tap:{e:'👆',f:v=>`+${v} % Tippkraft`},prod:{e:'🍄',f:v=>`+${v} % Produktion`},crit:{e:'🎯',f:v=>`+${Math.round(v*.4)} % Glückstreffer`},gold:{e:'🟡',f:v=>`+${v} % mehr Goldpilze`},boss:{e:'⚔️',f:v=>`+${v} % Bossschaden`},xp:{e:'⭐',f:v=>`+${v} % Pass-XP`},gems:{e:'💠',f:v=>`+${v} % Juwelen`},rush:{e:'💫',f:v=>`+${v} % Sporenrausch-Dauer`},offline:{e:'🌙',f:v=>`+${v*2} % Offline-Ertrag`},bot:{e:'🤖',f:v=>`+${v*3} % Auto-Tipps`}};
 const RARVAL={g:5,s:8,e:12,l:18,m:25,x:35,u:30,v:25};
@@ -1856,6 +1872,11 @@ function shapeSVG(k,p,main){
     case 'planet':return {fy:124,body:`<path d="M14 142 Q100 96 186 118" stroke="${k.c1}" stroke-width="10" fill="none" opacity=".7" stroke-linecap="round"/>
       <circle cx="100" cy="126" r="70" fill="${F}"/><g fill="${k.c2}" opacity=".35"><circle cx="70" cy="90" r="12"/><circle cx="136" cy="150" r="16"/><circle cx="128" cy="86" r="7"/></g>
       <path d="M186 118 Q100 150 14 142" stroke="#FFF1C8" stroke-width="10" fill="none" stroke-linecap="round"/><ellipse cx="72" cy="92" rx="16" ry="9" fill="#fff" opacity=".35" transform="rotate(-30 72 92)"/>`};
+    case 'ball':{const pg=(cx,cy,r,rot)=>{let s='';for(let i=0;i<5;i++){const a=(rot+i*72-90)*Math.PI/180;s+=(i?'L':'M')+(cx+r*Math.cos(a)).toFixed(1)+' '+(cy+r*Math.sin(a)).toFixed(1)}return s+'Z'};
+      const P=[[100,70,17,0],[42,112,16,-20],[158,112,16,20],[62,182,16,36],[138,182,16,-36]];
+      return {fy:132,body:`<defs><clipPath id="${p}bcl"><circle cx="100" cy="126" r="70"/></clipPath></defs><circle cx="100" cy="126" r="70" fill="${F}"/>
+      <g clip-path="url(#${p}bcl)"><g stroke="${k.c2}" stroke-width="3" opacity=".45" fill="none"><path d="M100 87 L100 60 M84 75 L64 104 M116 75 L136 104 M56 120 L70 160 M144 120 L130 160 M74 176 L126 176"/></g><g fill="${k.c2}">${P.map(q=>`<path d="${pg(...q)}"/>`).join('')}</g></g>
+      <circle cx="100" cy="126" r="70" fill="none" stroke="${k.c2}" stroke-opacity=".25" stroke-width="3"/><ellipse cx="72" cy="92" rx="16" ry="9" fill="#fff" opacity=".45" transform="rotate(-30 72 92)"/>`}}
     case 'flamme':{const fy=148,ink='#5A1A10';return {fy,body:`<g class="flames"><path d="M100 -18 Q128 26 150 56 Q192 118 162 180 Q142 214 100 214 Q58 214 38 180 Q8 118 50 58 Q60 82 74 86 Q66 38 100 -18Z" fill="${F}"/>
       <path d="M100 58 Q122 92 134 122 Q152 162 128 192 Q116 206 100 206 Q84 206 72 192 Q48 162 66 122 Q76 134 86 136 Q80 100 100 58Z" fill="#FFE98A" opacity=".85"/></g>
       <path d="M52 110 Q46 150 64 180" stroke="#fff" stroke-width="5" opacity=".3" fill="none" stroke-linecap="round"/>`,
@@ -2144,7 +2165,7 @@ for(let i=61;i<=100;i++){
   const fs={70:{t:'skin',id:'honig'},80:{t:'skin',id:'moospilz'},90:{t:'skin',id:'glasqualle'},100:{t:'skin',id:'sternkoenig'},65:{t:'seed',n:3},75:{t:'seed',n:4},85:{t:'seed',n:4},95:{t:'seed',n:5}};
   const cyc=[{t:'sp',s:3000+(i-60)*200},{t:'gold'},{t:'frenzy',s:120},{t:'rush'},{t:'tap'},{t:'petxp',n:200+(i-60)*10}];
   PASS[i]=fs[i]||cyc[i%6];
-  const ps={65:{t:'skin',id:'neonkaktus'},75:{t:'skin',id:'chromrobo'},85:{t:'skin',id:'lavaplanet'},95:{t:'skin',id:'schattenqualle'},100:{t:'skin',id:'goldkristall'},68:{t:'dia',n:3},78:{t:'dia',n:4},88:{t:'dia',n:5},98:{t:'dia',n:6},72:{t:'bot',n:3},82:{t:'bot',n:3},92:{t:'bot',n:4}};
+  const ps={65:{t:'skin',id:'neonkaktus'},75:{t:'skin',id:'chromrobo'},85:{t:'skin',id:'lavaplanet'},95:{t:'skin',id:'schattenqualle'},99:{t:'skin',id:'goldkristall'},70:{t:'skin',id:'merkur'},80:{t:'skin',id:'mars'},90:{t:'skin',id:'saturn'},100:{t:'skin',id:'jupiter'},68:{t:'dia',n:3},78:{t:'dia',n:4},88:{t:'dia',n:5},98:{t:'dia',n:6},72:{t:'bot',n:3},82:{t:'bot',n:3},92:{t:'bot',n:4}};
   const pc=[{t:'gems',n:40+(i-60)},{t:'sp',s:8000+(i-60)*300},{t:'seed',n:4},{t:'gems',n:50}];
   PASSP[i]=ps[i]||pc[i%4];
 }
