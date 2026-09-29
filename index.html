@@ -184,8 +184,8 @@ button{font:inherit;color:inherit}
 .spore{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--glow);box-shadow:0 0 8px var(--glow);animation:fly .7s ease-out forwards}
 @keyframes fly{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
 
-.gold{position:fixed;z-index:25;width:74px;height:74px;border:0;background:none;padding:0;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 16px var(--amber));animation:bob 1.6s ease-in-out infinite,fadein .4s ease-out}
-.gold svg{width:100%;height:100%;pointer-events:none}
+.goldm{position:fixed;z-index:25;width:74px;height:74px;border:0;background:none;padding:0;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 16px var(--amber));animation:bob 1.6s ease-in-out infinite,fadein .4s ease-out}
+.goldm svg{width:100%;height:100%;pointer-events:none}
 .mote{position:fixed;z-index:25;width:44px;height:44px;border:0;padding:0;background:none;cursor:pointer;touch-action:manipulation;transition:transform .08s}
 .mote::after{content:"";position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle,#FFF4C2,#FFB23D);box-shadow:0 0 14px #FFB23D}
 @keyframes bob{50%{transform:translateY(-8px) rotate(6deg)}}
@@ -735,7 +735,7 @@ body.locked{overflow:hidden}
 .tentacles{animation:tent 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
 @keyframes tent{50%{transform:skewX(6deg) scaleY(1.04)}}
 @media (prefers-reduced-motion: reduce){.mush svg,.tentacles{animation:none}.modal:not([hidden]) .card,.pane:not([hidden]),.row.flash,.row.flash .ico,.count.bump{animation:none}}
-@media (prefers-reduced-motion: reduce){.mush,.gold{animation:none}.spore{display:none}.float{animation-duration:.6s}}
+@media (prefers-reduced-motion: reduce){.mush,.goldm{animation:none}.spore{display:none}.float{animation-duration:.6s}}
 /* Fenster dürfen auf dem Handy schmaler werden (behebt überbreites Truhen-Fenster) */
 .modal>.card{min-width:0}
 /* ---------- boss-turm ---------- */
@@ -1008,8 +1008,8 @@ button:not(:disabled):active{transform:scale(.97)}
 @keyframes tin2{0%{transform:translateY(30px) scale(.7);opacity:0;filter:blur(4px)}60%{transform:translateY(-5px) scale(1.04);opacity:1;filter:blur(0)}100%{transform:none}}
 .toast.out{transform:translateY(10px) scale(.9);opacity:0;filter:blur(3px);transition:opacity .35s,transform .35s,filter .35s}
 /* Goldpilz */
-.gold{animation:goldin .6s cubic-bezier(.2,1.8,.4,1),goldbob 1.6s .6s ease-in-out infinite}
-.gold::after{content:"";position:absolute;inset:-18px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 10%,rgba(255,230,120,.55) 14%,transparent 18% 35%,rgba(255,230,120,.55) 39%,transparent 43% 60%,rgba(255,230,120,.55) 64%,transparent 68% 85%,rgba(255,230,120,.55) 89%,transparent 93%);-webkit-mask:radial-gradient(circle,transparent 30%,#000 45%,transparent 70%);mask:radial-gradient(circle,transparent 30%,#000 45%,transparent 70%);animation:spin 5s linear infinite;pointer-events:none;z-index:-1}
+.goldm{animation:goldin .6s cubic-bezier(.2,1.8,.4,1),goldbob 1.6s .6s ease-in-out infinite}
+.goldm::after{content:"";position:absolute;inset:-18px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 10%,rgba(255,230,120,.55) 14%,transparent 18% 35%,rgba(255,230,120,.55) 39%,transparent 43% 60%,rgba(255,230,120,.55) 64%,transparent 68% 85%,rgba(255,230,120,.55) 89%,transparent 93%);-webkit-mask:radial-gradient(circle,transparent 30%,#000 45%,transparent 70%);mask:radial-gradient(circle,transparent 30%,#000 45%,transparent 70%);animation:spin 5s linear infinite;pointer-events:none;z-index:-1}
 @keyframes goldin{0%{transform:scale(0) rotate(-180deg);opacity:0}100%{transform:none;opacity:1}}
 @keyframes goldbob{50%{transform:translateY(-10px) rotate(6deg) scale(1.05)}}
 /* Dimensionsreise: Warp-Tunnel */
@@ -1021,7 +1021,7 @@ button:not(:disabled):active{transform:scale(.97)}
 .passbar.has{animation:barpulse 1.8s ease-in-out infinite}
 @keyframes barpulse{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--pink) 25%,transparent)}}
 }
-body.lowfx .mush,body.lowfx .mush svg,body.lowfx .gold{filter:none!important}
+body.lowfx .mush,body.lowfx .mush svg,body.lowfx .goldm{filter:none!important}
 body.lowfx .mush svg{animation-duration:4.5s}
 .updov{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:rgba(20,15,45,.55);animation:mfade2 .3s ease-out}
 .updov div{display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--surface);color:var(--ink);padding:22px 28px;border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.35);font-weight:600;animation:popin2 .5s cubic-bezier(.2,1.4,.35,1)}
@@ -1048,15 +1048,15 @@ body.lowfx .mush svg{animation-duration:4.5s}
 .tut-b button[hidden]{display:none}
 .count{contain:layout style}
 /* ---------- Goldpilz 2.0 ---------- */
-.gold{width:84px;height:84px;filter:none!important;animation:goldin .6s cubic-bezier(.2,1.8,.4,1),goldbob 1.8s .6s ease-in-out infinite;transform-origin:50% 80%}
-.gold::before{content:"";position:absolute;inset:-22px;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,220,90,.75),rgba(255,190,40,.25) 55%,transparent 75%);animation:gglow 1.4s ease-in-out infinite;pointer-events:none}
-.gold.rainbow::before{background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(255,120,200,.35) 45%,rgba(100,200,255,.2) 60%,transparent 76%)}
-.gold.rainbow::after{background:conic-gradient(from 0deg,#FF7AC8,#FFD84A,#7DFF9A,#6AC8FF,#B48CFF,#FF7AC8)!important;opacity:.55;animation-duration:2.2s!important}
+.goldm{width:84px;height:84px;filter:none!important;animation:goldin .6s cubic-bezier(.2,1.8,.4,1),goldbob 1.8s .6s ease-in-out infinite;transform-origin:50% 80%}
+.goldm::before{content:"";position:absolute;inset:-22px;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,220,90,.75),rgba(255,190,40,.25) 55%,transparent 75%);animation:gglow 1.4s ease-in-out infinite;pointer-events:none}
+.goldm.rainbow::before{background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(255,120,200,.35) 45%,rgba(100,200,255,.2) 60%,transparent 76%)}
+.goldm.rainbow::after{background:conic-gradient(from 0deg,#FF7AC8,#FFD84A,#7DFF9A,#6AC8FF,#B48CFF,#FF7AC8)!important;opacity:.55;animation-duration:2.2s!important}
 @keyframes gglow{50%{transform:scale(1.18);opacity:.75}}
-.gold small{position:absolute;left:50%;top:-18px;transform:translateX(-50%);white-space:nowrap;background:#2A1A05;color:#FFE27A;font-weight:700;font-size:.7rem;padding:2px 8px;border-radius:999px;animation:jhint .4s ease-in-out infinite alternate;pointer-events:none}
-.gold.ending{animation:goldblink .25s steps(2) infinite}
+.goldm small{position:absolute;left:50%;top:-18px;transform:translateX(-50%);white-space:nowrap;background:#2A1A05;color:#FFE27A;font-weight:700;font-size:.7rem;padding:2px 8px;border-radius:999px;animation:jhint .4s ease-in-out infinite alternate;pointer-events:none}
+.goldm.ending{animation:goldblink .25s steps(2) infinite}
 @keyframes goldblink{50%{opacity:.35}}
-.gold.gone{transition:transform .4s,opacity .4s;transform:scale(.3) translateY(-30px);opacity:0}
+.goldm.gone{transition:transform .4s,opacity .4s;transform:scale(.3) translateY(-30px);opacity:0}
 .goldpop{position:fixed;z-index:26;pointer-events:none;animation:goldpop .6s cubic-bezier(.2,1.4,.4,1) forwards}
 .goldpop svg{width:100%;height:100%}
 @keyframes goldpop{0%{transform:scale(1)}30%{transform:scale(1.7) rotate(-12deg);filter:brightness(1.8)}100%{transform:scale(2.4) rotate(20deg);opacity:0;filter:brightness(3)}}
@@ -1068,7 +1068,7 @@ body.lowfx .mush svg{animation-duration:4.5s}
 .goldban.rb b{background:linear-gradient(90deg,#FF7AC8,#FFD84A,#7DFF9A,#6AC8FF,#B48CFF,#FF7AC8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(2px 2px 0 #5A2A8A) drop-shadow(0 0 12px rgba(255,255,255,.6));animation:rainb .8s linear infinite}
 .goldban small{margin-top:2px;font-weight:600;font-size:.82rem;background:rgba(30,18,4,.78);padding:3px 10px;border-radius:999px}
 @keyframes gban{0%{transform:translate(-50%,-50%) scale(.3);opacity:0}15%{transform:translate(-50%,-60%) scale(1.12);opacity:1}25%{transform:translate(-50%,-62%) scale(1)}80%{opacity:1}100%{transform:translate(-50%,-110%) scale(.95);opacity:0}}
-@media (prefers-reduced-motion: reduce){.gold,.gold::before,.gold small,.goldban,.goldban b{animation:none!important}.goldban{opacity:1}}
+@media (prefers-reduced-motion: reduce){.goldm,.goldm::before,.goldm small,.goldban,.goldban b{animation:none!important}.goldban{opacity:1}}
 .pecv{display:block;width:80px;height:62px;margin:0 auto 2px}
 .pecr{position:absolute;top:6px;right:8px;font-size:1rem}
 #petGrid .skin{position:relative}
@@ -2174,7 +2174,7 @@ function goldArt(kind){
 }
 function spawnGold(force){
   const kind=force||(Math.random()<.06+curPow('gold')*.05+(S.pet==='einhorn'?.08:0)?'rainbow':'gold');
-  const gd=document.createElement('button');gd.className='gold '+kind;gd.innerHTML=goldArt(kind)+(S.golden<3?'<small>Tipp mich!</small>':'');gd.setAttribute('aria-label',kind==='rainbow'?'Regenbogenpilz einsammeln':'Goldpilz einsammeln');
+  const gd=document.createElement('button');gd.className='goldm '+kind;gd.innerHTML=goldArt(kind)+(S.golden<3?'<small>Tipp mich!</small>':'');gd.setAttribute('aria-label',kind==='rainbow'?'Regenbogenpilz einsammeln':'Goldpilz einsammeln');
   let x=6+Math.random()*78,y=16+Math.random()*60;const vx=(Math.random()<.5?-1:1)*(kind==='rainbow'?.05:.025),ph=Math.random()*6,life=(kind==='rainbow'?9000:13000)*(S.pet==='eule'?2:1),born=now();
   gd.style.left=x+'vw';gd.style.top=y+'vh';document.body.appendChild(gd);
   tone(1568,.18,'sine',.05);tone(2093,.25,'sine',.04,.08);
@@ -4651,7 +4651,7 @@ function drawPet(t,naV){
   A.x=Math.max(gw*.06,Math.min(gw*.94,A.x));
   /* Blick: Zeiger, Boss oder Pilz */
   let lx=gw/2,ly=gh*.55;
-  const gdEl=document.querySelector('.gold');
+  const gdEl=document.querySelector('.goldm');
   if(petLook&&n-petLook.t<2500){lx=petLook.x;ly=petLook.y}else if(gdEl){const r=$('scene').getBoundingClientRect(),q=gdEl.getBoundingClientRect();lx=q.left+q.width/2-r.left;ly=q.top+q.height/2-r.top}else if(boss&&!boss.dead){const c=bossCenter&&bossCenter();if(c){const r=$('scene').getBoundingClientRect();lx=c[0]-r.left;ly=c[1]-r.top}}
   if(A.mode==='idle'&&Math.abs(lx-A.x)>20)A.dir=lx>A.x?1:-1;
   A.face+=(A.dir-A.face)*.18;
@@ -5229,7 +5229,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(
     if(document.querySelector('.modal:not([hidden])'))return false;
     if(typeof TUT_S!=='undefined'&&TUT_S.on)return false;
     const ep=typeof evPhase==='function'?evPhase():'none';if(['intro','meteors','boss','finale'].includes(ep))return false;
-    if(document.querySelector('.dcine,.bcine,.warp,.cho,.co-prize,.goldban,.gold'))return false;
+    if(document.querySelector('.dcine,.bcine,.warp,.cho,.co-prize,.goldban,.goldm'))return false;
     return true;
   };
   const keepUI=()=>{try{const tab=document.querySelector('.tab[aria-selected="true"]');sessionStorage.setItem('pg-ui',JSON.stringify({tab:tab&&tab.dataset.pane,y:scrollY,news}))}catch(e){}};
