@@ -5507,35 +5507,67 @@ function mwWorldSVG(){
   ${[[140,220],[260,220]].map(([x,y])=>`<g transform="translate(${x} ${y})"><rect x="-2" y="-40" width="4" height="40" fill="#3A2A20"/><rect x="-7" y="-52" width="14" height="14" rx="3" fill="#FFE27A" opacity=".95"><animate attributeName="opacity" values=".95;.7;.95" dur="2s" repeatCount="indefinite"/></rect></g>`).join('')}
   </svg>`;
 }
-/* Der Kanal bleibt nach dem ersten Betreten bestehen. Beim Verlassen meldet man sich nur ab (untrack),
-   beim erneuten Betreten wieder an (track). Ein neuer Kanal mit gleichem Namen würde sich mit dem alten beißen. */
+/* Anwesenheit auf dem Platz, doppelt abgesichert:
+   1. Datenbank (market_ping): funktioniert immer, alle 1,5 Sekunden
+   2. Supabase Realtime: zusätzlich, für flüssigere Bewegung, wenn verfügbar
+   Beide füllen dieselbe Spielerliste. Fällt eins aus, läuft das andere weiter. */
+function mwPayload(){const m=MW.me;return {n:lbNick(),sk:S.skin,x:+m.x.toFixed(3),y:+m.y.toFixed(3),tx:+m.tx.toFixed(3),ty:+m.ty.toFixed(3),em:MW.emo,emAt:MW.emoAt,inv:S.skins.filter(tradeable).slice(0,150),t:Date.now()}}
+function mwUpsert(uid,p,src){
+  if(!uid||uid===LB.uid||!p)return;let o=MW.players[uid];
+  if(!o){o=MW.players[uid]={x:p.x??.5,y:p.y??.8,dir:1,uid}}
+  if(src==='rt'||!o.rtAt||Date.now()-o.rtAt>4000){o.tx=p.tx??p.x??o.tx;o.ty=p.ty??p.y??o.ty}
+  o.n=p.n||o.n;o.sk=p.sk||o.sk;o.inv=p.inv||o.inv||[];
+  if(src==='rt')o.rtAt=Date.now();else o.dbAt=Date.now();
+  if(p.em&&p.emAt&&p.emAt!==o.emAt&&Date.now()-p.emAt<8000){o.emAt=p.emAt;o.bub={t:p.em,at:Date.now(),emo:1}}
+}
+function mwClean(){const n=Date.now();let ch=false;for(const [uid,o] of Object.entries(MW.players)){const last=Math.max(o.rtAt&&o.rtLive?o.rtAt:0,o.dbAt||0,o.rtLive?n:0);if(n-last>15000){if(o.el)o.el.remove();delete MW.players[uid];ch=true}}if(ch)mwCount()}
+async function mwPing(){
+  if(!MW.on||!LB.sb||!LB.uid||MW.pinging)return;MW.pinging=true;
+  try{const r=await LB.sb.rpc('market_ping',{p_nick:lbNick(),p_state:mwPayload()});
+    if(r.error)throw r.error;MW.dbOk=true;MW.dbErr='';const got={};(r.data||[]).forEach(x=>{got[x.uid]=1;mwUpsert(x.uid,Object.assign({},x.state,{n:x.nick}),'db')});
+    for(const [uid,o] of Object.entries(MW.players))if(!got[uid]&&!o.rtLive){if(o.el)o.el.remove();delete MW.players[uid]}mwClean();mwCount()}
+  catch(e){MW.dbOk=false;MW.dbErr=/function|schema/i.test((e&&e.message)||'')?'setup':'net';mwCount()}
+  MW.pinging=false;
+}
+function mwRtConnect(){
+  if(!LB.sb||!LB.uid)return;const st=MW.ch&&MW.ch.state;
+  if(MW.ch&&(st==='joined'||st==='joining'))return;
+  const make=()=>{try{const ch=LB.sb.channel('pg-markt',{config:{presence:{key:LB.uid}}});MW.ch=ch;
+    ch.on('presence',{event:'sync'},mwSync).subscribe(s=>{if(ch!==MW.ch)return;
+      if(s==='SUBSCRIBED'){MW.rtOk=true;mwSync();if(MW.on)mwTrack(true)}
+      else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'||s==='CLOSED'){MW.rtOk=false;MW.rtFails=(MW.rtFails||0)+1}mwCount()})}catch(e){MW.rtOk=false}};
+  if(MW.ch){const old=MW.ch;MW.ch=null;Promise.resolve(LB.sb.removeChannel(old)).catch(()=>{}).then(()=>setTimeout(make,400))}else make();
+}
 function mwJoin(){
   if(MW.on)return;MW.on=true;MW.seenChat=MK.chat.length?MK.chat[MK.chat.length-1].id:0;
   const m=MW.me;m.x=m.tx=.3+Math.random()*.4;m.y=m.ty=.78+Math.random()*.12;
-  if(!LB.sb||!LB.uid)return;
-  const st=MW.ch&&MW.ch.state;
-  if(MW.ch&&(st==='joined'||st==='joining')){if(st==='joined'){mwSync();mwTrack(true)}else MW.wantTrack=true;return}
-  const make=()=>{try{MW.ch=LB.sb.channel('pg-markt',{config:{presence:{key:LB.uid}}});
-    MW.ch.on('presence',{event:'sync'},mwSync).subscribe(s=>{if(s==='SUBSCRIBED'){mwSync();if(MW.on||MW.wantTrack){MW.wantTrack=false;mwTrack(true)}}else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'||s==='CLOSED'){MW.ch=null}})}catch(e){MW.ch=null}};
-  if(MW.ch){const old=MW.ch;MW.ch=null;Promise.resolve(LB.sb.removeChannel(old)).catch(()=>{}).then(()=>setTimeout(make,300))}else make();
+  clearInterval(MW.iv);let tick=0;
+  const beat=()=>{if(!MW.on){clearInterval(MW.iv);return}tick++;
+    if(!LB.sb||!LB.uid){mwCount();return}
+    mwPing();
+    if(!MW.rtOk&&(MW.rtFails||0)<6&&tick%4===1)mwRtConnect();
+    if(MW.rtOk&&MW.ch&&MW.ch.state==='joined'&&tick%10===0)mwTrack(true)};
+  beat();MW.iv=setInterval(beat,1500);
+  if(MW.rtOk&&MW.ch&&MW.ch.state==='joined'){mwSync();mwTrack(true)}
 }
-function mwLeave(){MW.on=false;MW.wantTrack=false;cancelAnimationFrame(MW.raf);MW.raf=0;try{if(MW.ch&&MW.ch.state==='joined')MW.ch.untrack()}catch(e){}
+function mwLeave(){MW.on=false;clearInterval(MW.iv);cancelAnimationFrame(MW.raf);MW.raf=0;
+  try{if(MW.ch&&MW.ch.state==='joined')MW.ch.untrack()}catch(e){}
+  try{if(LB.sb&&LB.uid)LB.sb.rpc('market_bye').then(()=>{},()=>{})}catch(e){}
   Object.values(MW.players).forEach(o=>{if(o.el){o.el.remove();o.el=null}});if(MW.me.el){MW.me.el.remove();MW.me.el=null}}
 function mwTrack(force){
-  if(!MW.ch||!MW.on)return;const n=Date.now();if(!force&&n-MW.trackAt<300){if(!MW.trackQ){MW.trackQ=true;setTimeout(()=>{MW.trackQ=false;mwTrack(true)},320)}return}
-  MW.trackAt=n;const m=MW.me;
-  MW.ch.track({n:lbNick(),sk:S.skin,x:+m.x.toFixed(3),y:+m.y.toFixed(3),tx:+m.tx.toFixed(3),ty:+m.ty.toFixed(3),em:MW.emo,emAt:MW.emoAt,inv:S.skins.filter(tradeable).slice(0,150),t:n}).catch(()=>{});
+  if(!MW.ch||!MW.on||MW.ch.state!=='joined'){if(force&&MW.on)mwPing();return}
+  const n=Date.now();if(!force&&n-MW.trackAt<300){if(!MW.trackQ){MW.trackQ=true;setTimeout(()=>{MW.trackQ=false;mwTrack(true)},320)}return}
+  MW.trackAt=n;MW.ch.track(mwPayload()).catch(()=>{});
 }
 function mwSync(){
-  if(!MW.ch)return;const st=MW.ch.presenceState(),seen={};
-  for(const [uid,arr] of Object.entries(st)){if(uid===LB.uid||!arr.length)continue;const p=arr[arr.length-1];seen[uid]=1;
-    let o=MW.players[uid];if(!o){o=MW.players[uid]={x:p.x??.5,y:p.y??.8,dir:1}}
-    Object.assign(o,{n:p.n,sk:p.sk,tx:p.tx??p.x,ty:p.ty??p.y,inv:p.inv||[],uid});
-    if(p.em&&p.emAt&&p.emAt!==o.emAt){o.emAt=p.emAt;o.bub={t:p.em,at:Date.now(),emo:1}}}
-  for(const uid of Object.keys(MW.players))if(!seen[uid]){const o=MW.players[uid];if(o.el)o.el.remove();delete MW.players[uid]}
-  mwCount();
+  if(!MW.ch)return;let st={};try{st=MW.ch.presenceState()}catch(e){}
+  Object.values(MW.players).forEach(o=>o.rtLive=false);
+  for(const [uid,arr] of Object.entries(st)){if(uid===LB.uid||!arr.length)continue;const p=arr[arr.length-1];mwUpsert(uid,p,'rt');MW.players[uid].rtLive=true}
+  mwClean();mwCount();
 }
-function mwCount(){const c=$('mwCount');if(c)c.textContent=`${Object.keys(MW.players).length+1} auf dem Platz`}
+function mwCount(){const c=$('mwCount');if(!c)return;const n=Object.keys(MW.players).length+1;
+  const st=!LB.sb||!LB.uid?'🔴 keine Verbindung':MW.dbErr==='setup'&&!MW.rtOk?'🟠 Server noch nicht eingerichtet':MW.rtOk?'🟢 live':MW.dbOk?'🟢 verbunden':'🟡 verbinde …';
+  c.textContent=`${n} auf dem Platz · ${st}`}
 function mwAvatar(o,me){
   const skId=me?S.skin:o.sk,k=skById(skId)||SKINS[0],el=document.createElement('div');el.className='mwav'+(me?' me':'');
   el.innerHTML=`<div class="mwbub" hidden></div><div class="mwname">${esc(me?lbNick():showNick({nick:o.n,player_id:o.uid}))}</div><div class="mwbody">${mushSVG(k,'mw'+(o.uid||'me').slice(0,6)+Math.random().toString(36).slice(2,5))}</div><i class="mwshadow"></i>`;
@@ -5562,7 +5594,7 @@ function mwStart(){
   Object.values(MW.players).forEach(o=>{o.el=null});MW.me.el=null;
   W.addEventListener('pointerdown',e=>{if(e.target.closest('.mwpop,.mwbar,.mwreq,.mwav'))return;const r=W.getBoundingClientRect();
     const x=Math.max(.05,Math.min(.95,(e.clientX-r.left)/r.width)),y=Math.max(.44,Math.min(.96,(e.clientY-r.top)/r.height));
-    MW.me.tx=x;MW.me.ty=y;mwClosePop();mwTrack(false);const dot=document.createElement('i');dot.className='mwdot';dot.style.left=(x*100)+'%';dot.style.top=(y*100)+'%';$('mwLayer').appendChild(dot);setTimeout(()=>dot.remove(),600)});
+    MW.me.tx=x;MW.me.ty=y;mwClosePop();mwTrack(false);if(!MW.rtOk)mwPing();const dot=document.createElement('i');dot.className='mwdot';dot.style.left=(x*100)+'%';dot.style.top=(y*100)+'%';$('mwLayer').appendChild(dot);setTimeout(()=>dot.remove(),600)});
   W.querySelectorAll('[data-emo]').forEach(b=>b.onclick=e=>{e.stopPropagation();MW.emo=b.dataset.emo;MW.emoAt=Date.now();MW.me.bub={t:MW.emo,at:MW.emoAt,emo:1};mwTrack(true);tone(880,.08,'sine',.04)});
   $('mwSend').onclick=()=>{const i=$('mkText');const v=i.value.trim();if(!v)return;MW.me.bub={t:msgClean(v).slice(0,60),at:Date.now()};mkSend()};
   $('mkText').onkeydown=e=>{if(e.key==='Enter')$('mwSend').click()};
