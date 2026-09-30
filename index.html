@@ -5880,13 +5880,15 @@ async function mkPoll(first){
     if(MK.tab==='chat'||MK.tab==='platz'){const r=await LB.sb.rpc('chat_list',{p_after:MK.lastId});if(r.error)throw r.error;const nw=r.data||[];
       if(nw.length){MK.chat=[...MK.chat,...nw].slice(-80);MK.lastId=nw[nw.length-1].id;if(!first&&nw.some(m=>!m.is_me))tone(1320,.05,'sine',.03);if(MK.tab==='chat')mkRenderChat(true);else mwChatBubbles()}
       if(MK.tab==='platz'&&(first||(MK.pc=(MK.pc||0)+1)%2===0))await mkTrack()}
-    else if(MK.tab==='offers'||MK.tab==='new'||first){const r=await LB.sb.rpc('trade_list');if(r.error)throw r.error;MK.offers=r.data||[];if(MK.tab!=='chat')mkRender()}
+    else if(MK.tab==='offers'||MK.tab==='new'||first){const r=await LB.sb.rpc('trade_list');if(r.error)throw r.error;const js=JSON.stringify(r.data||[]);const changed=js!==MK.offersJS;MK.offersJS=js;MK.offers=r.data||[];if(MK.tab!=='chat'&&(changed||first))mkRender()}
     MK.err=''}
   catch(e){MK.err=/function|schema/i.test((e&&e.message)||'')?'Der Marktplatz ist noch nicht eingerichtet. Führe market-setup.sql in Supabase aus.':'Verbindung zum Marktplatz gestört. Versuch es gleich nochmal.';mkRender()}
   MK.busy=false;
 }
 function mkRender(){
   const b=$('mkBody');
+  /* Scrollpositionen merken, damit die Liste beim Aktualisieren nicht nach oben springt */
+  const keep={card:($('mkModal').querySelector('.card')||{}).scrollTop||0,tab:MK.tab};b.querySelectorAll('.mkgrid,.mkoffers,.mkchat').forEach((el,i)=>keep['s'+i]=el.scrollTop);
   const tabs=`<div class="mktabs">${[['platz','🏪 Platz'],['chat','💬 Chat'],['offers','🤝 Angebote'],['new','➕ Anbieten']].map(([k,n])=>`<button data-mt="${k}" aria-pressed="${MK.tab===k}">${n}</button>`).join('')}</div>`;
   let h=tabs;
   if(MK.err)h+=`<p class="mknote">${MK.err}</p>`;
@@ -5921,6 +5923,8 @@ function mkRender(){
   b.querySelectorAll('[data-give]').forEach(x=>x.onclick=()=>{MK.sel=x.dataset.give;mkRender()});
   const w=$('mkWant');if(w)w.onchange=()=>{MK.want=w.value};
   const c=$('mkCreate');if(c)c.onclick=mkCreate;
+  if(keep.tab===MK.tab&&MK.lastTab===MK.tab){const cd=$('mkModal').querySelector('.card');if(cd)cd.scrollTop=keep.card;b.querySelectorAll('.mkgrid,.mkoffers').forEach((el,i)=>{if(keep['s'+i]!=null)el.scrollTop=keep['s'+i]})}
+  MK.lastTab=MK.tab;
 }
 function mkRenderChat(keepInput){
   const box=$('mkChat');if(!box)return;const atBottom=box.scrollHeight-box.scrollTop-box.clientHeight<40;
