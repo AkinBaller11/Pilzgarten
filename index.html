@@ -3534,7 +3534,7 @@ async function fetchLB(){
 }
 async function pushScore(force){
   if(!LB.sb||!LB.uid||LB.writing||LB.status==='banned')return;
-  if(!force&&Date.now()-LB.lastWrite<(S.lbPend>0?(!$('p-r').hidden?2500:5000):20000))return;
+  if(!force&&Date.now()-LB.lastWrite<(S.lbPend>0?(!$('p-r').hidden||S.lbPend>rawSps()*60?2000:5000):20000))return;
   LB.writing=true;LB.lastWrite=Date.now();
   const p1={p_gain:Math.floor(S.lbPend||0),p_sps:Math.floor(rawSps()),p_nick:lbNick(),p_skin:S.skin,p_prem:isPrem()};
   const p2=Object.assign({},p1,{p_boss:S.bossWins||0,p_pet:S.pet||'',p_pet_lv:S.pet?pd().lv:0,p_dim:dim(),p_skins:S.skins.length});
@@ -3619,7 +3619,7 @@ function renderLB(){
   const ago=Math.round((Date.now()-LB.lastFetch)/1000);
   $('lbStat').innerHTML=`${LB.total!=null?`<span>👥 ${LB.total} Spieler</span>`:''}${LB.online!=null?`<span class="on">● ${LB.online} online</span>`:''}<span>${ago<5?'gerade aktualisiert':`vor ${ago} s aktualisiert`}</span>${LB.mode==='week'?'<span>Neue Woche jeden Montag</span>':''}`;
   if(LB.status==='banned')$('lbMe').innerHTML='<div class="lbnote">Dein Eintrag wurde vom Spielbetreiber gesperrt. Wenn du glaubst, dass das ein Fehler ist, melde dich bei ihm.</div>';
-  else if(LB.me&&!LB.q){const r=LB.me;$('lbMe').innerHTML=`<div class="lbcard" data-id="${esc(r.player_id)}"><div class="big2">${LB.myRank?'#'+LB.myRank:'–'}<small>dein Platz</small></div><div class="inf"><b>${esc(showNick(r))}</b> ${lbShow(r)}<span class="ttl">${titleOf(r.score)}</span><br><span>${LB.myRank===1?'Du bist ganz vorne! 🏆':LB.gap?`Noch ${LB.mode==='boss'?LB.gap.d:fmt(LB.gap.d)}${LBM[LB.mode].u} bis zu ${esc(nickOk(LB.gap.nick)?LB.gap.nick:'einem Gärtner')}`:''}${S.lbPend>1?`<br>${fmt(S.lbPend)} Sporen werden noch gutgeschrieben`:''}</span></div></div>`}
+  else if(LB.me&&!LB.q){const r=LB.me;$('lbMe').innerHTML=`<div class="lbcard" data-id="${esc(r.player_id)}"><div class="big2">${LB.myRank?'#'+LB.myRank:'–'}<small>dein Platz</small></div><div class="inf"><b>${esc(showNick(r))}</b> ${lbShow(r)}<span class="ttl">${titleOf(r.score)}</span><br><span>${LB.myRank===1?'Du bist ganz vorne! 🏆':LB.gap?`Noch ${LB.mode==='boss'?LB.gap.d:fmt(LB.gap.d)}${LBM[LB.mode].u} bis zu ${esc(nickOk(LB.gap.nick)?LB.gap.nick:'einem Gärtner')}`:''}${S.lbPend>1&&ADM.ok!==true&&S.lbPend>(Number(r.score)||0)*.01?`<br>${fmt(S.lbPend)} Sporen werden gerade gutgeschrieben`:''}</span></div></div>`}
   else $('lbMe').innerHTML='';
   if(!rows.length){box.innerHTML=`<div class="lbnote">${LB.q?`Kein Spieler mit „${esc(LB.q)}“ gefunden.`:LB.view==='fav'?'Du hast noch keine Favoriten. Tippe auf einen Spieler und dann auf ☆, um ihm zu folgen.':'Noch niemand auf der Rangliste. Sammle Sporen, dein Stand wird automatisch eingetragen.'}</div>`;$('lbMore').hidden=true;return}
   let h='',start=0;const podium=LB.view==='all'&&!LB.q;
@@ -6721,9 +6721,11 @@ $('scene').addEventListener('pointerdown',e=>{if(!boss||boss.dead||!e.isTrusted)
 async function admScoreSync(){
   if(!ADM.ok||!LB.sb||!LB.uid)return;
   try{const r=await base().select('score').eq('player_id',LB.uid).maybeSingle();const cur=Number(r&&r.data&&r.data.score)||0,mine=Math.floor(Math.max(S.allTime||0,S.spores||0));
-    if(mine>cur){const res=await LB.sb.rpc('admin_set_score',{p_player:LB.uid,p_score:mine});if(!res.error){S.lbPend=0;LB.lastFetch=0;if(!$('p-r').hidden)setTimeout(fetchLB,300)}}}catch(e){}
+    if(mine>cur){const res=await LB.sb.rpc('admin_set_score',{p_player:LB.uid,p_score:mine});if(!res.error){LB.lastFetch=0;if(!$('p-r').hidden)setTimeout(fetchLB,300)}}
+    /* beim Admin zählt der direkt gesetzte Stand, es muss nichts mehr nachgereicht werden */
+    S.lbPend=0;save();if(!$('p-r').hidden)renderLB()}catch(e){}
 }
-setInterval(()=>{if(!document.hidden)admScoreSync()},30000);/* =====================================================================
+setInterval(()=>{if(!document.hidden)admScoreSync()},10000);/* =====================================================================
    BANNER UND TITEL: 30 Banner und 26 Titel zum Freischalten
    ===================================================================== */
 const petsOwned=()=>PETS.filter(p=>p.req&&p.req(S)).length;
