@@ -6762,14 +6762,14 @@ function mwStart(){
     const x=Math.max(.05,Math.min(.95,(e.clientX-r.left)/r.width)),y=Math.max(.44,Math.min(.96,(e.clientY-r.top)/r.height));
     MW.me.tx=x;MW.me.ty=y;mwClosePop();mwTrack(false);if(!MW.rtOk)mwPing();const dot=document.createElement('i');dot.className='mwdot';dot.style.left=(x*100)+'%';dot.style.top=(y*100)+'%';$('mwLayer').appendChild(dot);setTimeout(()=>dot.remove(),600)});
   W.querySelectorAll('[data-emo]').forEach(b=>b.onclick=e=>{e.stopPropagation();MW.emo=b.dataset.emo;MW.emoAt=Date.now();MW.me.bub={t:MW.emo,at:MW.emoAt,emo:1};mwTrack(true);tone(880,.08,'sine',.04)});
-  $('mwSend').onclick=()=>{const i=$('mkText');const v=i.value.trim();if(!v)return;MW.me.bub={t:msgClean(v).slice(0,60),at:Date.now()};mkSend()};
+  $('mwSend').onclick=()=>{const i=$('mkText');const v=i.value.trim();if(!v)return;if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}MW.me.bub={t:msgClean(v).slice(0,60),at:Date.now()};mkSend()};
   $('mkText').onkeydown=e=>{if(e.key==='Enter')$('mwSend').click()};
   mwCount();mwReqRender();if(!MW.raf){MW.lastT=0;MW.raf=requestAnimationFrame(mwLoop)}
 }
 /* Chatnachrichten als Sprechblasen über den Köpfen */
 function mwChatBubbles(){
   if(!MW.on)return;const nw=MK.chat.filter(m=>m.id>MW.seenChat);if(!nw.length)return;MW.seenChat=nw[nw.length-1].id;
-  nw.forEach(m=>{if(m.is_me){MW.me.bub={t:m.text.slice(0,60),at:Date.now()};return}
+  nw.filter(m=>!nameBanned(m.text)).forEach(m=>{if(m.is_me){MW.me.bub={t:m.text.slice(0,60),at:Date.now()};return}
     const o=Object.values(MW.players).find(p=>p.n===m.nick);if(o)o.bub={t:m.text.slice(0,60),at:Date.now()}});
 }
 /* Antippen eines anderen Spielers */
@@ -6878,7 +6878,7 @@ function mkRender(){
 }
 function mkRenderChat(keepInput){
   const box=$('mkChat');if(!box)return;const atBottom=box.scrollHeight-box.scrollTop-box.clientHeight<40;
-  box.innerHTML=MK.chat.length?MK.chat.map(m=>`<div class="mkmsg${m.is_me?' me':''}"><div><b>${esc(showNick(m))}</b><span>${new Date(m.at).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}</span>
+  box.innerHTML=MK.chat.length?MK.chat.filter(m=>!nameBanned(m.text)).map(m=>`<div class="mkmsg${m.is_me?' me':''}"><div><b>${esc(showNick(m))}</b><span>${new Date(m.at).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}</span>
       ${m.is_me?'':`<button data-rep="${m.id}" title="Melden">🚩</button>`}${ADM.ok?`<button data-hide="${m.id}" title="Löschen">🗑️</button><button data-mute="${m.id}" title="24 Std. stummschalten">🔇</button>`:''}</div>${esc(m.text)}</div>`).join(''):'<p class="mknote">Noch keine Nachrichten. Sag hallo! 👋</p>';
   if(atBottom||!keepInput)box.scrollTop=box.scrollHeight;
   box.querySelectorAll('[data-rep]').forEach(x=>x.onclick=async()=>{await LB.sb.rpc('chat_report',{p_id:+x.dataset.rep});x.disabled=true;toast('🚩 Gemeldet','Danke, wir schauen es uns an')});
@@ -6886,7 +6886,7 @@ function mkRenderChat(keepInput){
   box.querySelectorAll('[data-mute]').forEach(x=>x.onclick=async()=>{await admRpc('admin_chat_mute',{p_id:+x.dataset.mute,p_hours:24},'Spieler 24 Stunden stummgeschaltet');const mm=MK.chat.find(m=>m.id===+x.dataset.mute);MK.chat=MK.chat.filter(m=>!mm||m.nick!==mm.nick);mkRenderChat(true)});
 }
 async function mkSend(){
-  const inp=$('mkText'),v=inp.value.trim();if(!v)return;if(Date.now()-MK.chatAt<1500)return;MK.chatAt=Date.now();
+  const inp=$('mkText'),v=inp.value.trim();if(!v)return;if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}if(Date.now()-MK.chatAt<1500)return;MK.chatAt=Date.now();
   try{const r=await LB.sb.rpc('chat_send',{p_nick:lbNick(),p_text:msgClean(v)});if(r.error)throw r.error;
     const m={ok:'',zu_schnell:'⏳ Nicht so schnell, warte kurz',stumm:'🔇 Du bist gerade stummgeschaltet',unfreundlich:'🚫 Diese Nachricht ist nicht erlaubt. Bitte bleib freundlich.',leer:'Schreib etwas'}[r.data];
     if(m){toast(m);return}inp.value='';mkPoll(false)}
@@ -7958,9 +7958,9 @@ async function clTabRender(){
   const b=$('clTab');if(!b)return;clearInterval(CC.iv);
   if(CC.tab==='chat'){b.innerHTML=`<div class="mkchat" id="ccList"></div><div class="mkin"><input id="ccText" maxlength="200" placeholder="Nachricht an deine Gilde"><button id="ccSend">Senden</button></div><p class="mknote">Nur deine Gilde sieht diesen Chat. Bleib freundlich, keine Kontaktdaten.</p>`;
     const load=async()=>{try{const nw=await gmRpc('clan_chat_list',{p_after:CC.last});if(nw&&nw.length){CC.msgs=[...CC.msgs,...nw].slice(-80);CC.last=nw[nw.length-1].id}
-      const l=$('ccList');if(!l)return;l.innerHTML=CC.msgs.map(m=>`<div class="mkmsg${m.is_me?' me':''}"><b>${esc(showNick(m))}</b><span>${esc(m.text)}</span></div>`).join('')||'<p class="mknote">Noch keine Nachrichten.</p>';l.scrollTop=1e9}catch(e){}};
+      const l=$('ccList');if(!l)return;l.innerHTML=CC.msgs.filter(m=>!nameBanned(m.text)).map(m=>`<div class="mkmsg${m.is_me?' me':''}"><b>${esc(showNick(m))}</b><span>${esc(m.text)}</span></div>`).join('')||'<p class="mknote">Noch keine Nachrichten.</p>';l.scrollTop=1e9}catch(e){}};
     load();CC.iv=setInterval(()=>{if(!$('gmModal').hidden&&CC.tab==='chat')load();else clearInterval(CC.iv)},3000);
-    const send=async()=>{const v=$('ccText').value.trim();if(!v)return;try{const r=await gmRpc('clan_chat_send',{p_text:v,p_nick:lbNick()});if(r==='ok'){$('ccText').value='';load()}else toast({zu_schnell:'Kurz warten …',kontakt:'Bitte keine Links oder Nummern',verboten:'Diese Nachricht ist nicht erlaubt',keine_gilde:'Du bist in keiner Gilde'}[r]||'Senden ging nicht')}catch(e){toast(gmErr(e))}};
+    const send=async()=>{const v=$('ccText').value.trim();if(!v)return;if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}try{const r=await gmRpc('clan_chat_send',{p_text:v,p_nick:lbNick()});if(r==='ok'){$('ccText').value='';load()}else toast({zu_schnell:'Kurz warten …',kontakt:'Bitte keine Links oder Nummern',verboten:'Diese Nachricht enthält gesperrte Wörter',keine_gilde:'Du bist in keiner Gilde'}[r]||'Senden ging nicht')}catch(e){toast(gmErr(e))}};
     $('ccSend').onclick=send;$('ccText').onkeydown=e=>{if(e.key==='Enter')send()};return}
   if(CC.tab==='boss'){b.innerHTML='<p class="mknote">Lade …</p>';try{let s=await gmRpc('cb_state');const cl=await gmRpc('cb_claim');if(cl){S.gems+=25;S.dia+=2;save();render();confetti(true);toast('🐲 Gilden-Boss besiegt!','+25 💠 und +2 💎 für dich')}
       const draw=()=>{const left=Math.max(0,s.ends-Date.now()),d=Math.floor(left/864e5),h=Math.floor(left%864e5/36e5);
