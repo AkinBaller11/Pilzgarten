@@ -6,9 +6,13 @@
 <title>Pilzgarten</title>
 <meta name="description" content="Züchte Pilze, sammle Sporen, besiege Bosse und kletter im Boss-Turm nach oben.">
 <meta name="theme-color" content="#2B2657">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pilzgarten">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self' https://yrbohhkvmjhfbigtjujc.supabase.co wss://yrbohhkvmjhfbigtjujc.supabase.co; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="pg-news" content="Riesen-Update: Gilden 🛡️, Wochenturnier 🏆, Gärten besuchen 🏡, Minispiele 🎲, Begleiter-Superform ✨ und Freunde einladen 🎁!">
+<meta name="pg-news" content="Neu: Freunde 👥, Gemeinschaftsziel 🌐, Tränke 🧪, Skin-Fusion ✨, Begleiter-Eier 🥚, Angeln 🎣, Glücksrad 🎡 und mehr!">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAT90lEQVR42n16S6xl2Vne9/1rn8d91b1Vdet2V3dV2dXdbtsdN02byCAbjICY2IoUKUIQIkWMMiGTSMkkkwwyijKKEhATBokAESGBEkAYEELYYF4xxq9OhN1u3KYf1d3VVXXrPs5j77X+L4O11t773HJzdO6+62ydx//4/vfPD97+aaMBgTTCyEAaaYDVO0YY6hlgvUOCgJEECJAkACDfzw8CqmcBEJT/CwIkCXBBkASHXJDk9ezDuX+p1B8Ab4hMKwutmdCB4kCQDCSBygOtJ50gMlcgMgPqObn4EMTKhkmiAK9MOkSRhBdmSYggISBfyp/lO4AkNCQHSVdhj6gvFGNQBTdVQYCVpayMQRUbxOcfBAQnIIpykIBQDk5AmWgQAyeSQACEpPLdEmCgGqCSQkNP3xg/m3Aq56IQ9pwUwkmCIlh+kYLYk8/831BwQmbkkFUVBLyIXKi0Ip9UPwCINEGUNQPpGJH+iE7eg5nMOQs/5UADMNgDAHGAvyRBEk1yKTPoEEHfJPoCDyqCr+AhJKJhpnvDBjgmd0R9KMz0WrL6fqsaAMcQYqFkw3YLA5LI/E+iCg9Ub0KVh2xVkrGIIYOniKRBjwcW/KCCfsMRMaCHUM8qzcwAMxa6q5EU0WcIYTA5sfy5SwTdRdAxAn0lvVpuwXv9BiPV2wXJpviTbIK9vCvQ38u4zQYeihsozmAkflIV15JgGMveJIlmGUyUKMG9GH8Fjwp4svZohCQjJJIwCU1vixU85BgkF4A0ot5shKLCWAbR4FJthGcU2UuS0IPHJciL8M3oXqnPn2BWwMAGINCgfGBDsgKGoFUXZij3iU2zNhvxwLEerKc+P1QgBCtIHlEOk1xOgQ7SCDGzYSb3HDKUZQyqhJASc3ozcIgN0P/k2HyzBjgObaSZhcpDPdNQOKlvtl4JvR2XUCsILpWwShk948dpgBvM4ejBY1XwBAwQ2JuDgfkNakokKvGoD6sjxOc4lUm7wEN2TVZeVkYGf1rziZorZMfpSTIl76l3AxwGOEWAHLIPiYSJIFyZE3r1zAStqW6RRfwYcMwKpKIWK5jJdJermYVAs8KGVW9WjLmGzRIAnJI7JYmJTs+wcbkBLhroGUXK8Y7MvovZ/wDMgke2Y7FhNnv2AbzaAHqu2MOjcMtgWRUhmAULRguFerNBB9mhZtvL6ZibJLrL3Qk54URKDtABE11Gc4gUB/NxkYBB1UllUMgFllSiTydH6M8sGcZev2CGNGMIFoIFMwsWguVHMMGcjDDl4EkCMihAITjdJaZEOOUJqc+X5ElGOMHKgIo/MmZHVCwhR+Ei96ZIuIaCqvQhVR65eTJDxCrpwawJwUIIQWZrBMHmgftTXJ36paBt80CcJ5xF3uvCwxgWMUDeIDYGTzXWQWAAkJJIo0Q6aaRnCxa8op8Qx3bbDEQPaX1J8Vnj0ShjzbIvpFsITQhuYYFmr+EHd/25ve7pnfTYJG7Tpw2sOE+1CYuIe619e9n8zWLy8nlzv7UQYkPEFAAgQkGGkEouYZkHyVGzXMgEDf4GhNCMX+cTBquwPriWa6WeIZhZE2yJcHlin77WfeIwXZ/5jJ5CSPMtbM+644W3Masd9G3z3SY9tdX98P7i3ZZfPp1+/nj++rKZBhkkyWCSLJjLs5jzTwoOGXoHC2pTAz29QJ8FD4kkSjjrqbdAsxCIYAvYxw/9p262T2whOuJ0uj7YCfvbzSSojThfZ9/jq1aCmtBFtu6iX56mTx2cvzg/+fzJ3u/dnycpBJfMgkukGeWiQc4KMgySzXlRDhY1kI24YO9/RvhBH6YYaMGcZsafuRU/c10OnitMj/Zmh5co6HSpuyt10WgKUOD0g0+mk/PuO3fZmBJcSEkdp42d/9jOW09NL//yO7v3PEyDOmVX5vQqfnoPeuUabcNQEa4f/sBAGmkMmzVaqFlnY41ZCCEEWmAI//rp9OOP6TwRs+n8/deagx09WPi7J1h1JK0JNBLc+scvzD/x7OzDN/zhIt45ZiiJBeUTa47b7kAnL+7ppdXsNKEpRbFDUInZkrykQKWSRs1bHSzheqSg3tHW/Licihc1GlvYv7wVP3HVj1uE+XR2+wiu+O27Oj43mk2bMG1s0hAM+9vN+w79dAXj9NknIJXIXixQl+fbJ8nm3fG/OjzeapiMZrC+5uuzcoyhsUFnn72916PasAFEMC7cfvRa+tRherhWMw2TJ6/4+TrdP4Ok5CXfdMkdxnS6Sq/ds905XN3Lb5UKva/whUC7PJsfR7/qD37i4LRD6HPiUmXhvToE5dFsEvsej+o/O+CJLf3EY2mVSGM42ufObP7hG+GxfbRp9WffiC+/hfkEyZnjUEzL3/9qeOm1dLbsXrvHSfDocEmAEU6nz5vpVgj32vb55v6L29MvndnM6LZJeF9Y9iVe7dfYewq+2kqFEUi04qcP4+VJWrcpHOxwazp77sbk6ccYzC5tbf3Y8zzYTsvWY0pt9C66e1p3q//3Wvedd0V48pzlKKV0tvLFOp2tmHw+mRJadOsf2TqeWzbgmoU9ItvaInhEA7zQwinPQrqRLXhjro9diuctbDIJBzu+asOVXV+1ALBquT2zxy51b94nZ7n6LVl0Y0jymDK0FBOA3U8+N33/UffOw5M//r/Td9eBXEZc48lH5jv/57SZcnDjg/D/fgjpUTZGt0h04kf3uktMZ2vMr+yJal99x1ddszvXspMRQLx/llKyLhbqSwHQuxOXy9t4+Sc/vv2xZ7SOWy/cnn/wibd+7nfC4gxC9O755vSv7MrQZOF3YWHc7rMiqu/aRyN6JTg0Mz0/j21MIMKV3Xi8iA/OTv/wa0huOzPbmS2/9Mrq5TsyprZLXUwpefSUknfJY/IYPXlarpvrB/Pnb6WTpa86f3g+vXW488Lt0DqgVdJ1nRyGGLO9c4SGTWz0PDUXMCOIpdxEbYgBUAc8OUlPNN26IxuL5+t496GacP7Xr3RvH09vHvrpsv3bt0GgEwQSvo7FbzYBGfpAarvpzhxm8IhACYgeDnYakO4paY71DVvdwWxayxoNeNb4nAuNRhuwUe1gXnzZCTcncUdpGS0grb51J5c0MFv93d3Vq+/QzOYT5h4bqZh2P/Gh+TOPH//ul7u3HjBYQRG5evXt9PA8HOxo2XHSADx76TuBhpQtPD6J8y9yNuoB951JPAoWQ29utXFWfXRtJrOw/kSIStGTx8Uqrdu4WKcupS6KxCSoMe9S6mKKKS5W4ejSpc98dOuF23v/6HvSqk0xpZi8i5K6uyd3f+Vz8e6JIF+17/zPz599/VWbTnKbKEZd9uUEuTvRC77XA3pV5GfTq6P2gOtzaOKUhtQ16zwprtf7L96++k+///Qvv/nwc1+32QRMpKFvCZFK3t0/6946tpuH6+/cTV20WibCpWBnX3l18c03w9W9+PC8fechp40W6/TwLFGxsUu+miotMSJ+RH0m6xEbyOopYXr8GUFy1zSkXcWYlJbr3Y99YPvDNzgNx3/0Ne8iSNJBDNGfSPdO7vzCZ5sre+tvvy0ytV31SJAcjcXzVfvgTASnTVqut566/vT3f/zv/uCLZy+/Pm0wRTwXCO9bkaW2HOJZ4aHJqmHu0NcKJGfdhCSHlOBb8C2PXSsG3vvslxjs5C++kVYtZxMMaVMOkaU73b7zcH3nPqeT2tDFoNFsD8Hk7l30Nh798x/c/9izk6P9v/r3v9hsh23v3lUTfIBK4aTQWb8Laqrsc4YojJrd2SNJDoUg305dApKF02++cfqfX7NJCPMJiwZq2YTxdIYIphjH1KP0VnLa6e4CEGM6+dqrk/cd3f3yK+7epG6q6ApBjlEqWltaGBntYANZQTa4VGUeLAcgF+93mLjPLDVGzM3B2EUf9y6A3GUb92g1DJYKGuXKXYrsW+k+MT38tc+99Rt/dP/B/TCdnnqIUB035YsPSNrgCk3PCiGx9ASqHvJHPciXyf7r8vLVBkeNrof0eIqHjFfQbTEXLQX9ImN038zENMhLjYlZgi4XorASjzm9Fyavtf7G7uVjn95PYRnVeHSvM7JB/F7ttWCxqV1SVXmN5lYS5RDl7p7WiW9w8jqb3FHZMl42v8p4Fd0l+BbSNtJceubGdCsgtVHJlQSJwUQ4HY19+66fRq4YFrAzNA8Y3tX0vsK5IwVXjPAIdVKU8vAv8yChn/8NkOmN2Ee9ChdIlrlVmT7IKYO8UWxc5jKXGO5Zcy/MEEII1hgN2Nuy//RvPnR1r2lXkTUQMVjbrU5P7s22Jr/+aydf/dZyMrUuekpSSkgJMU5TUowppuQpeSpQ81TKMTlG80zIs0eS1PTyVvVCpQvJMvmRU5bcyQQnI2meLCEARhnclKhgjXUJW0c7B9f3wsxm6stvELR2uWgW8+1me3/RdT4NHpJbTJ7ck3tKycsjJfeU5F54kAYNyEsYKP44a6BCqBpudie5k1pmKHTCkjvhCQ6kkicqYeh8U+3ar+6F2YRxnTYmXKR3jigkP7xknqInpuhKmd58iOXsqWStqnqoNV6RcuGnGHTVQCUXIPL8kI7SxYOL5hSTHEo5aI1MFDLBqa5NVy9POAveeSBDYzF6zionk0kOcEeHkxRTivSUlJSJ9gKcXvZJnuTuSkD2OT6aijtGjmisAR/5H0ff1wThSUTu96G0M4dU0SBIyYLH+Pi1eW3n4fR0sbe3nVJqJs2De6dmdNflPWvoqVMGj7xAqBe/e8GPeyrD+r6kwMiZ1oF+7nhlnrIZuMZzfbiQys94qj+Q3JOn5DF6jB5TitG7qJSuH83hPtue//zP/6//8t9+6+HJotna/ezv/Nl/+I+/+vbdM4BXLzezCbo2ZqJTShk8yk8fPysllQ1oLP58lg3BvawkZPfkNeLX9YQN6qNS8pRLlpRi9JS6Lk4bHB1uyYVgX/naK//jv//222/dR5h+65U3f+mXPvs3L7/ezKa7O9yZs2u78sEYPWbxX3xW2Q9EZ4p7q8gSD4eXv6cCuo4q+yHjhUaRcKH7yIw9CUCKvrMT/sVPPbttxGl769bRR164/clPfm/qVs889eSTT1754RefCq2m280Xv3z82utnTVCp8VMWiivVa1bFeNMDY0SMIkN1o6WEkiqBPa1DOlBuOgQEQiZzhL6Xv279ffs7+/tzvXmiV+5/9MM3P/IPP+DRp/uX5ovVz/7sP1v9+TeWr5/Mv+/q4eG0W3fzSSgMeGFjwwYuUL+xrTLsrwDelP51JpU1oys8cFRF1xlbCg5RAXm0a6UPuV60j117fDJv2ms7OJjj0tZf/slX//dv/unNW9fvvPn2v/13Pz17/87yGiczPnE0id06xUmKLs9tIs/OVJ48pTGA8V2IVoETXCoMcDQ58zIX4oUNhexsyiSOtGR5IUYkUuT5Ynn98WcRTGTYmaqLP/TJ771x4+jOG3f/wc98av9g9923zzA1gI8fNV17vFpOPOX9GynnRyXPK/5+k/rcIa13UGMcahyQNvsVoyUHDP0vCUlKHqOQBAez41JoeH6+uHVjq0yBXAC6dXv7qSduf+iWluvYRaNR6Dp//GhKPjg5SZY3I2BQHhEFsyZvKF3wh9B3d4+QN3XLoh/CEqNuvAZO8rJA6tIyxqWrzVPr0vttMTG/desKPHHkBrp1q1VbJlMkiBj92uH27ra/eed4Mgk1N8uty2kTtpqwRYYaufwRVaTary5eyDZ2uoY31QhQXuakKuVdpWEGnOsfIcZ0sL9z6+ZVtWmjpVlIR18wpOSX9ma3blxuV9HEkinXSpRl5SO7oFSfG5tmQBr4kXobGJurVXXYgJ8yGYfZdMIQNM9eOU9wuvXq6aduXrm61667MTnDnDgX9C4XmobPPvPkF77wxqTZCtZzWgbP5d1VwIP4K9HY9KeNSi50sWU3btGR/djZQBonhknfdgyBKzYfeOZ9YXselEBmY0HybGkWAibNTjczrUJjuzuTjzx3Yzb5xmQy87TZdiulZ60EMC4JBs8zXvrj0zf/CRlQNvvG+1kcbwcNG3L9nhyGYaaLu7uzp58+fPbZo+eee/zosd39/fnBwfalSzMznp21D46XZyfHy/PT118/+8pX33nppbtvvHnSBCvVcYmGtWIcXcerjBvUw6UEOZ+68Zk6gg91B+7ChhyHzcayvzKaeZAUQXrSuk0xOsnJJMznk9ms2dmZhmBnZ+vVsssZ2WIRAZ9ObTINeeMDtdTP9UoVuSq5vSpGS5lKPTMZQtXdwx4ZJmhkA71Lsvq6dpBFBmzvBGOTt6nc02IRz86WkkKwvvTf2wuAuUuehv25izukw1WjxOxiUBsFspHjH5ZEKukSWNYtBDEvfanOPERlPThcnvo9OZKGJs+L5H3PMqW6fElR425P2SYaAWYDSI+cCzNFA0OmUNyyqU/4af2yGmRgXoEZb4bkDdXS2StTaD06lpDGnXDPaVUv+34cMqpdagWjYa+3FJMaIKQ04GRj4tTjp7+SlIsE88JdreNI0ftslqgdjnLmsHxYd7cyzjjgZ2Bjcxl55E+LVWAzzX4EQmXJru6lMReMmZYMoUK9ZKpED+sjQ3+GvcxVe8e5pYV+pjL0af2iHgrdj5jyYNw1Gy3pdJZQ7jHKxuDp1zYHq6X1Gy+gyUvx4P32cV5ryCtJ403Ksq4qYliCJZGFWC21b1t56RdqZMpFA32ZXyDUk9vjXnUxanQtJmvslVXNufRWi2aGLEraWH2t42Fp3ObXuHfnFzxSbwy9G93calcPIRuWGjdyB4Gm0ieiik7K5gK9n5wTuZPR72aPhox18tBnuqpGoGEIpB48YxtQX0Zu5tjD+f8DaLLDfgGMvJsAAAAASUVORK5CYII=" type="image/png">
 <style>
 /* Schrift ist direkt eingebettet (kein Google Fonts) */
@@ -1673,6 +1677,84 @@ html,body{max-width:100%;overflow-x:hidden}
 .spad.lit{background:var(--c);transform:scale(1.06);box-shadow:0 0 30px var(--c)}
 .axspear{position:fixed;z-index:24;height:6px;width:120px;pointer-events:none;background:linear-gradient(90deg,transparent,#8A5A10 20%,#E8B04A 70%,#FFF6C8 92%,#fff);clip-path:polygon(0 35%,88% 35%,88% 0,100% 50%,88% 100%,88% 65%,0 65%);filter:drop-shadow(0 0 6px #FFD23F);animation:axspear .65s cubic-bezier(.3,0,.6,1) forwards}
 @keyframes axspear{to{transform:translateX(var(--w))}}
+/* ---------- Update 3 ---------- */
+.hubt.xm{border-color:#E0203A;background:linear-gradient(135deg,rgba(224,32,58,.15),rgba(30,122,58,.15))}
+.advgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.advd{aspect-ratio:1;border:2px solid #C8901A;border-radius:12px;background:linear-gradient(135deg,#B0182A,#6A0A14);color:#FFE680;font:inherit;font-weight:900;font-size:1.2rem;cursor:pointer;box-shadow:inset 0 0 0 3px rgba(255,230,140,.25)}
+.advd:disabled{opacity:.55;cursor:default}.advd.can{animation:advcan 1.2s ease-in-out infinite;opacity:1}
+.advd.open{background:linear-gradient(135deg,#1E5A34,#0E3A20);opacity:1;font-size:1.4rem}.advd.big{grid-column:span 2;grid-row:span 1;aspect-ratio:auto}
+.advd.pop{animation:dures .6s cubic-bezier(.2,1.8,.4,1)}
+@keyframes advcan{50%{transform:scale(1.06);box-shadow:0 0 16px rgba(255,210,80,.8)}}
+.edov{position:absolute;inset:0;z-index:30;background:rgba(10,6,30,.25)}
+.edbar{position:absolute;left:8px;right:8px;top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:var(--surface);color:var(--ink);border-radius:14px;padding:8px;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.edbar span{flex:1;font-size:.72rem;color:var(--muted);min-width:120px}.edbar button{border:0;border-radius:10px;padding:6px 10px;font:inherit;font-weight:700;background:var(--surface2);color:var(--ink);cursor:pointer}.edbar button.on{background:var(--ink);color:var(--surface)}
+.edh{position:absolute;width:52px;height:52px;margin:-46px 0 0 -26px;border-radius:50%;background:rgba(255,255,255,.92);border:3px dashed var(--glow);display:grid;place-items:center;font-size:1.6rem;cursor:grab;touch-action:none;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.edh:active{cursor:grabbing;transform:scale(1.15)}
+.vitrine{display:flex;justify-content:center;gap:8px;margin:8px 0}
+.vit{width:30%;max-width:100px;border-radius:14px;padding:6px;text-align:center;background:var(--surface2);border:2px solid var(--line)}
+.vit.r-h,.vit.r-m{border-color:#FFD23F;box-shadow:0 0 12px rgba(255,210,80,.4)}.vit svg{width:100%;height:auto}.vit small{font-size:.62rem;display:block;line-height:1.1}
+.vsk{display:block;width:48px;margin:0 auto}.vsk svg{width:100%;height:auto}
+.map{position:relative;min-height:880px;border-radius:18px;background:linear-gradient(180deg,#BFE8B0,#8AC88A 40%,#E8D4A0 75%,#C8A86A);overflow:hidden}
+.mappath{position:absolute;inset:0;width:100%;height:100%}
+.mst{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;width:46%}
+.mst>span{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;background:#fff;border:3px solid #C8A86A;box-shadow:0 3px 8px rgba(0,0,0,.25);filter:grayscale(.9);opacity:.6}
+.mst.done>span{filter:none;opacity:1;background:#7DFF9A;border-color:#2A8A4A;color:#0E3A20;font-weight:900}
+.mst.cur>span{filter:none;opacity:1;border-color:#FFD23F;animation:advcan 1.2s ease-in-out infinite}
+.mtip{text-align:center;background:rgba(255,255,255,.85);border-radius:10px;padding:3px 6px;margin-top:3px;color:#2A2447}
+.mtip b{display:block;font-size:.72rem}.mtip small{display:block;font-size:.6rem}.mtip .dcbtn{margin-top:3px;font-size:.66rem;padding:5px 7px}
+.mst:not(.cur):not(.done) .mtip{opacity:.7}
+.mapdone{position:absolute;left:8px;right:8px;bottom:10px;text-align:center;font-weight:900;background:#FFE680;border-radius:12px;padding:8px}
+.cltabs{margin:8px 0}.cltabs button{font-size:.72rem}
+.aov{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin-bottom:10px}
+.aov div{background:var(--surface2);border-radius:12px;padding:8px;text-align:center}.aov span{font-size:1.3rem}.aov b{display:block;font-size:1.3rem}.aov small{font-size:.62rem;color:var(--muted);line-height:1.2}
+.aclan{display:flex;align-items:center;gap:6px;background:var(--surface2);border-radius:12px;padding:8px;text-align:left}.aclan>div:first-child{flex:1;min-width:0}.aclan b{font-size:.82rem}.aclan small{display:block;font-size:.66rem;color:var(--muted)}
+.aclbtn{display:flex;gap:4px}.aclbtn .abtn{padding:6px 8px;min-width:0}
+.abtn.danger{background:#E0203A22;color:#E0203A}
+.wbwave{position:absolute;top:8px;left:8px;z-index:2;background:rgba(0,0,0,.45);color:#FFE680;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px}
+.wbstage.rage{background:radial-gradient(circle at 50% 60%,#A8142E,#2A0410 70%)}.wbstage.rage .wbboss{animation:wbfloat 1s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(255,40,40,.95))}
+.wbstage.roar{animation:wbroar .6s ease-in-out}
+@keyframes wbroar{20%,60%{transform:translate(-6px,2px)}40%,80%{transform:translate(6px,-2px)}}
+.wbwavecine{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,0,10,.75);color:#fff;text-align:center;animation:dures .6s cubic-bezier(.2,1.6,.4,1)}
+.wbwavecine small{font-weight:900;color:#FF8FA8;letter-spacing:.2em}.wbwavecine b{font-size:1.6rem}.wbwavecine em{font-style:normal;color:#FFE680;font-weight:700}
+.wbboss{font-size:120px!important}
+.cgbar .pl{color:#39F5FF}
+.frrow{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:12px;padding:6px 8px;margin:4px 0;text-align:left}.frrow>div{flex:1;min-width:0}.frrow b{font-size:.84rem;display:block}.frrow small{font-size:.66rem;color:var(--muted)}.frrow em{font-style:normal;font-weight:800;font-size:.8rem}
+.frsk{width:34px;flex:none}.frsk svg{width:100%;height:auto;display:block}
+.stkbar{display:flex;gap:4px;overflow-x:auto;padding:4px 0;margin:4px 0}.stkbar button{flex:none;border:1px solid var(--line);background:var(--surface2);border-radius:12px;font-size:1.3rem;padding:4px 8px;cursor:pointer}
+.stk{display:inline-flex;flex-direction:column;align-items:center;background:linear-gradient(135deg,#FFE680,#FF8FC8);color:#2A1A40;border-radius:16px;padding:6px 12px;margin-top:2px;animation:dures .5s cubic-bezier(.2,1.8,.4,1)}.stk i{font-style:normal;font-size:1.9rem;line-height:1}.stk b{font-size:.74rem}
+.herb{position:absolute;z-index:6;width:44px;height:44px;margin:-22px 0 0 -22px;border:0;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 70%);border-radius:50%;font-size:1.6rem;cursor:pointer;animation:herbin .4s cubic-bezier(.2,1.6,.4,1),herbb 2s ease-in-out .4s infinite;touch-action:manipulation}
+.herb.got{animation:dutghit .3s forwards}.herb.gone{animation:dutgmiss .4s forwards}
+@keyframes herbin{from{transform:scale(0)}}@keyframes herbb{50%{transform:translateY(-5px) rotate(6deg)}}
+.herbinv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 10px}.herbinv div{background:var(--surface2);border-radius:12px;padding:8px 4px;text-align:center}.herbinv span{font-size:1.5rem}.herbinv b{display:block;font-size:1.2rem}.herbinv small{font-size:.66rem;color:var(--muted)}
+.potrow{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:12px;padding:8px;margin:5px 0;text-align:left}.potrow>div{flex:1;min-width:0}.potrow b{display:block;font-size:.84rem}.potrow small{display:block;font-size:.68rem;color:var(--muted)}
+.potrow.on{box-shadow:0 0 0 2px var(--glow)}.potrow em{font-style:normal;font-weight:800;color:var(--glow);font-size:.78rem;white-space:nowrap}.pote{font-size:1.7rem}
+.fusr{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:1rem!important;font-weight:900;color:#fff;background:var(--c,#888)}
+.fusr.r-g{background:#9AA6BC}.fusr.r-s{background:#5B8CFF}.fusr.r-e{background:#B25BFF}.fusr.r-l{background:#FFAA33}.fusr.r-m{background:#FF3DA8}
+.fuse3{position:relative;display:flex;gap:10px}.fuse3 span{width:80px;animation:fusein 1.3s ease-in forwards;animation-delay:calc(var(--i)*.1s)}.fuse3 svg{width:100%;height:auto}
+@keyframes fusein{to{transform:translateX(calc((1 - var(--i))*90px)) scale(.3);opacity:0}}
+.fusenew{position:relative;width:min(50vw,200px);opacity:0;transform:scale(.3)}.evocine.boom .fusenew{animation:fusenew .7s cubic-bezier(.2,1.6,.4,1) forwards}.fusenew svg{width:100%;height:auto;filter:drop-shadow(0 0 24px #FFD23F)}
+.evocine.fuse .fuse3{position:absolute}.evocine.boom .fuse3{display:none}
+@keyframes fusenew{to{opacity:1;transform:scale(1)}}
+.eggnest{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 0}.egg{font-size:5rem;animation:eggw 2s ease-in-out infinite}.egg.ready{animation:eggr .5s ease-in-out infinite}.egg.idle{animation:none}
+@keyframes eggw{50%{transform:rotate(-6deg)}}@keyframes eggr{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+.pond{position:relative;height:170px;border-radius:18px;background:linear-gradient(180deg,#5AC8E8,#1E6AA8);overflow:hidden;cursor:pointer;touch-action:manipulation}
+.pond .wave{position:absolute;inset:0;background:repeating-linear-gradient(170deg,rgba(255,255,255,.12) 0 6px,transparent 6px 22px);animation:dufloor 3s linear infinite}
+.bobber{position:absolute;left:50%;top:40%;transform:translateX(-50%);font-size:2.2rem;animation:herbb 2s ease-in-out infinite}.bobber.bite{animation:eggr .25s ease-in-out infinite}
+.fbar{position:absolute;left:10%;right:10%;bottom:16px;height:14px;border-radius:8px;background:rgba(0,0,0,.35)}.fbar i{position:absolute;top:0;bottom:0;background:#7DFF9A;border-radius:6px}.fbar b{position:absolute;top:-4px;width:4px;height:22px;margin-left:-2px;background:#fff;border-radius:2px;box-shadow:0 0 8px #fff}
+.wheelw{position:relative;width:min(70vw,260px);aspect-ratio:1;margin:8px auto}
+.wheel{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#FF8FC8 0 45deg,#7FE3D6 45deg 90deg,#FFE680 90deg 135deg,#B48CFF 135deg 180deg,#FF8FC8 180deg 225deg,#7FE3D6 225deg 270deg,#FFE680 270deg 315deg,#B48CFF 315deg 360deg);border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.wheel span{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(calc(var(--a) + 22.5deg))}.wheel i{position:absolute;left:-14px;top:calc(min(70vw,260px)*-.38);font-style:normal;font-size:1.6rem}
+.wpin{position:absolute;left:50%;top:-14px;transform:translateX(-50%);font-size:1.8rem;color:#E0203A;text-shadow:0 2px 4px rgba(0,0,0,.4)}
+.weekcal{border:1px solid var(--line);border-radius:14px;padding:8px 10px;margin:0 0 8px;text-align:left}.weekcal small{display:block;font-size:.7rem;color:var(--muted)}
+.weekcal>div{display:flex;gap:4px;margin-top:6px}.weekcal span{flex:1;aspect-ratio:1;max-width:40px;border-radius:10px;display:grid;place-items:center;background:var(--surface2);font-weight:800;font-size:.8rem}
+.weekcal span.on{background:var(--glow);color:#06302B}.weekcal span.big{font-size:1.1rem;box-shadow:0 0 0 2px #FFD23F}
+.prest{font-size:.62rem;margin-left:2px;letter-spacing:-1px}
+.a11y{display:flex;flex-direction:column;gap:4px;font-size:.82rem}.a11y label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.chatoff [data-mt="chat"],.chatoff .mwbub:not(.emo),.chatoff #mkChat,.chatoff [data-ct="chat"],.chatoff #mkStk{display:none!important}
+.bigtext{font-size:112%}.bigtext .card{font-size:1.05em}
+.lessmove *,.lessmove *::before,.lessmove *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+.cbmode{--pink:#E69F00;--glow:#0072B2}.cbmode .wbhp i,.cbmode .dutug i{background:linear-gradient(90deg,#0072B2,#56B4E9)!important}.cbmode .dutug{background:#E69F00!important}
+.iosg{text-align:left;padding-left:20px;font-size:.88rem;line-height:1.5}.iosg li{margin:4px 0}
 </style>
 <script>/* Supabase-Bibliothek, eingebettet */
 var supabase=(function(e){function t(e,t){var n={};for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&t.indexOf(r)<0&&(n[r]=e[r]);if(e!=null&&typeof Object.getOwnPropertySymbols==`function`)for(var i=0,r=Object.getOwnPropertySymbols(e);i<r.length;i++)t.indexOf(r[i])<0&&Object.prototype.propertyIsEnumerable.call(e,r[i])&&(n[r[i]]=e[r[i]]);return n}function n(e,t,n,r){function i(e){return e instanceof n?e:new n(function(t){t(e)})}return new(n||=Promise)(function(n,a){function o(e){try{c(r.next(e))}catch(e){a(e)}}function s(e){try{c(r.throw(e))}catch(e){a(e)}}function c(e){e.done?n(e.value):i(e.value).then(o,s)}c((r=r.apply(e,t||[])).next())})}let r=e=>e?(...t)=>e(...t):(...e)=>fetch(...e);var i=class extends Error{constructor(e,t=`FunctionsError`,n){super(e),this.name=t,this.context=n}toJSON(){return{name:this.name,message:this.message,context:this.context}}},a=class extends i{constructor(e){super(`Failed to send a request to the Edge Function`,`FunctionsFetchError`,e)}},o=class extends i{constructor(e){super(`Relay Error invoking the Edge Function`,`FunctionsRelayError`,e)}},s=class extends i{constructor(e){super(`Edge Function returned a non-2xx status code`,`FunctionsHttpError`,e)}},c;(function(e){e.Any=`any`,e.ApNortheast1=`ap-northeast-1`,e.ApNortheast2=`ap-northeast-2`,e.ApSouth1=`ap-south-1`,e.ApSoutheast1=`ap-southeast-1`,e.ApSoutheast2=`ap-southeast-2`,e.CaCentral1=`ca-central-1`,e.EuCentral1=`eu-central-1`,e.EuWest1=`eu-west-1`,e.EuWest2=`eu-west-2`,e.EuWest3=`eu-west-3`,e.SaEast1=`sa-east-1`,e.UsEast1=`us-east-1`,e.UsWest1=`us-west-1`,e.UsWest2=`us-west-2`})(c||={});var l=class{constructor(e,{headers:t={},customFetch:n,region:i=c.Any}={}){this.url=e,this.headers=t,this.region=i,this.fetch=r(n)}setAuth(e){this.headers.Authorization=`Bearer ${e}`}invoke(e){return n(this,arguments,void 0,function*(e,t={}){var n;let r,i,c;try{let{headers:n,method:l,body:u,signal:d,timeout:f}=t,p={},{region:m}=t;m||=this.region;let h=new URL(`${this.url}/${e}`);m&&m!==`any`&&(p[`x-region`]=m,h.searchParams.set(`forceFunctionRegion`,m));let g,ee=!!n&&Object.keys(n).some(e=>e.toLowerCase()===`content-type`);u&&!ee?typeof Blob<`u`&&u instanceof Blob||u instanceof ArrayBuffer?(p[`Content-Type`]=`application/octet-stream`,g=u):typeof u==`string`?(p[`Content-Type`]=`text/plain`,g=u):typeof FormData<`u`&&u instanceof FormData?g=u:(p[`Content-Type`]=`application/json`,g=JSON.stringify(u)):g=u&&typeof u!=`string`&&!(typeof Blob<`u`&&u instanceof Blob)&&!(u instanceof ArrayBuffer)&&!(typeof FormData<`u`&&u instanceof FormData)?JSON.stringify(u):u;let te=d;f&&(i=new AbortController,r=setTimeout(()=>i.abort(),f),d?(te=i.signal,c=()=>i.abort(),d.addEventListener(`abort`,c)):te=i.signal);let _=yield this.fetch(h.toString(),{method:l||`POST`,headers:Object.assign(Object.assign(Object.assign({},p),this.headers),n),body:g,signal:te}).catch(e=>{throw new a(e)}),ne=_.headers.get(`x-relay-error`);if(ne&&ne===`true`)throw new o(_);if(!_.ok)throw new s(_);let re=(_.headers.get(`Content-Type`)??`text/plain`).split(`;`)[0].trim().toLowerCase(),ie;return ie=re===`application/json`?yield _.json():re===`application/octet-stream`||re===`application/pdf`?yield _.blob():re===`text/event-stream`?_:re===`multipart/form-data`?yield _.formData():yield _.text(),{data:ie,error:null,response:_}}catch(e){return{data:null,error:e,response:e instanceof s||e instanceof o?e.context:void 0}}finally{r&&clearTimeout(r),c&&((n=t.signal)==null||n.removeEventListener(`abort`,c))}})}},u=class extends Error{constructor(e){super(e.message),this.name=`PostgrestError`,this.details=e.details,this.hint=e.hint,this.code=e.code}toJSON(){return{name:this.name,message:this.message,details:this.details,hint:this.hint,code:this.code}}};let d=e=>Math.min(1e3*2**e,3e4),f=[520,503],p=[`GET`,`HEAD`,`OPTIONS`];function m(e){"@babel/helpers - typeof";return m=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},m(e)}function h(e,t){if(m(e)!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(m(r)!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function g(e){var t=h(e,`string`);return m(t)==`symbol`?t:t+``}function ee(e,t,n){return(t=g(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function te(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function _(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?te(Object(n),!0).forEach(function(t){ee(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):te(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function ne(e,t){return new Promise(n=>{if(t?.aborted){n();return}let r=setTimeout(()=>{t?.removeEventListener(`abort`,i),n()},e);function i(){clearTimeout(r),n()}t?.addEventListener(`abort`,i)})}function re(e,t,n,r){return!(!r||n>=3||!p.includes(e)||!f.includes(t))}async function ie(e,t,n,r){let i=0;for(;;){let a=_({},n.headers);i>0&&(a[`X-Retry-Count`]=String(i));let o;try{o=await e(t,{method:n.method,headers:a,body:n.body,signal:n.signal})}catch(e){if(e?.name===`AbortError`||e?.code===`ABORT_ERR`||!p.includes(n.method))throw e;if(r&&i<3){let e=d(i);i++,await ne(e,n.signal);continue}throw e}if(re(n.method,o.status,i,r)){let e=o.headers?.get(`Retry-After`)??null,t=e===null?d(i):Math.max(0,parseInt(e,10)||0)*1e3;await o.text(),i++,await ne(t,n.signal);continue}return o}}var ae=class{constructor(e){this.shouldThrowOnError=!1,this.retryEnabled=!0,this.method=e.method,this.url=e.url,this.headers=new Headers(e.headers),this.schema=e.schema,this.body=e.body,this.shouldThrowOnError=e.shouldThrowOnError??!1,this.signal=e.signal,this.isMaybeSingle=e.isMaybeSingle??!1,this.shouldStripNulls=e.shouldStripNulls??!1,this.urlLengthLimit=e.urlLengthLimit??8e3,this.retryEnabled=e.retry??!0,e.fetch?this.fetch=e.fetch:this.fetch=fetch}throwOnError(){return this.shouldThrowOnError=!0,this}stripNulls(){if(this.headers.get(`Accept`)===`text/csv`)throw Error(`stripNulls() cannot be used with csv()`);return this.shouldStripNulls=!0,this}setHeader(e,t){return this.headers=new Headers(this.headers),this.headers.set(e,t),this}retry(e){return this.retryEnabled=e,this}then(e,t){var n=this;if(this.schema===void 0||([`GET`,`HEAD`].includes(this.method)?this.headers.set(`Accept-Profile`,this.schema):this.headers.set(`Content-Profile`,this.schema)),this.method!==`GET`&&this.method!==`HEAD`&&this.headers.set(`Content-Type`,`application/json`),this.shouldStripNulls){let e=this.headers.get(`Accept`);e===`application/vnd.pgrst.object+json`?this.headers.set(`Accept`,`application/vnd.pgrst.object+json;nulls=stripped`):(!e||e===`application/json`)&&this.headers.set(`Accept`,`application/vnd.pgrst.array+json;nulls=stripped`)}let r=this.fetch,i=(async()=>{let e={};n.headers.forEach((t,n)=>{e[n]=t});let t=await ie(r,n.url.toString(),{method:n.method,headers:e,body:JSON.stringify(n.body,(e,t)=>typeof t==`bigint`?t.toString():t),signal:n.signal},n.retryEnabled);return await n.processResponse(t)})();return this.shouldThrowOnError||(i=i.catch(e=>{let t=``,n=``,r=``,i=e?.cause;if(i){let n=i?.message??``,r=i?.code??``;t=`${e?.name??`FetchError`}: ${e?.message}`,t+=`\n\nCaused by: ${i?.name??`Error`}: ${n}`,r&&(t+=` (${r})`),i?.stack&&(t+=`\n${i.stack}`)}else t=e?.stack??``;let a=this.url.toString().length;return e?.name===`AbortError`||e?.code===`ABORT_ERR`?(r=``,n=`Request was aborted (timeout or manual cancellation)`,a>this.urlLengthLimit&&(n+=`. Note: Your request URL is ${a} characters, which may exceed server limits. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [many IDs])), consider using an RPC function to pass values server-side.`)):(i?.name===`HeadersOverflowError`||i?.code===`UND_ERR_HEADERS_OVERFLOW`)&&(r=``,n=`HTTP headers exceeded server limits (typically 16KB)`,a>this.urlLengthLimit&&(n+=`. Your request URL is ${a} characters. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [200+ IDs])), consider using an RPC function instead.`)),{success:!1,error:{message:`${e?.name??`FetchError`}: ${e?.message}`,details:t,hint:n,code:r},data:null,count:null,status:0,statusText:``}})),i.then(e,t)}async processResponse(e){var t=this;let n=null,r=null,i=null,a=e.status,o=e.statusText;if(e.ok){if(t.method!==`HEAD`){let i=await e.text();if(i!==``)if(t.headers.get(`Accept`)===`text/csv`)r=i;else if(t.headers.get(`Accept`)&&t.headers.get(`Accept`)?.includes(`application/vnd.pgrst.plan+text`))r=i;else try{r=JSON.parse(i)}catch{if(n={message:i},r=null,t.shouldThrowOnError)throw new u({message:i,details:``,hint:``,code:``})}}let s=t.headers.get(`Prefer`)?.match(/count=(exact|planned|estimated)/),c=e.headers.get(`content-range`)?.split(`/`);if(s&&c&&c.length>1&&(i=parseInt(c[1])),t.isMaybeSingle&&Array.isArray(r))if(r.length>1){if(n={code:`PGRST116`,details:`Results contain ${r.length} rows, application/vnd.pgrst.object+json requires 1 row`,hint:null,message:`JSON object requested, multiple (or no) rows returned`},r=null,i=null,a=406,o=`Not Acceptable`,t.shouldThrowOnError)throw new u(_(_({},n),{},{hint:n.hint??``}))}else r=r.length===1?r[0]:null}else{let i=await e.text();try{n=JSON.parse(i),Array.isArray(n)&&e.status===404&&(r=[],n=null,a=200,o=`OK`)}catch{e.status===404&&i===``?(a=204,o=`No Content`):n={message:i}}if(n&&t.shouldThrowOnError)throw new u(n)}return{success:n===null,error:n,data:r,count:i,status:a,statusText:o}}returns(){return this}overrideTypes(){return this}},oe=class extends ae{throwOnError(){return super.throwOnError()}select(e){let t=!1,n=(e??`*`).split(``).map(e=>/\s/.test(e)&&!t?``:(e===`"`&&(t=!t),e)).join(``);return this.url.searchParams.set(`select`,n),this.headers.append(`Prefer`,`return=representation`),this}order(e,{ascending:t=!0,nullsFirst:n,foreignTable:r,referencedTable:i=r}={}){let a=i?`${i}.order`:`order`,o=this.url.searchParams.get(a);return this.url.searchParams.set(a,`${o?`${o},`:``}${e}.${t?`asc`:`desc`}${n===void 0?``:n?`.nullsfirst`:`.nullslast`}`),this}limit(e,{foreignTable:t,referencedTable:n=t}={}){let r=n===void 0?`limit`:`${n}.limit`;return this.url.searchParams.set(r,`${e}`),this}range(e,t,{foreignTable:n,referencedTable:r=n}={}){let i=r===void 0?`offset`:`${r}.offset`,a=r===void 0?`limit`:`${r}.limit`;return this.url.searchParams.set(i,`${e}`),this.url.searchParams.set(a,`${t-e+1}`),this}abortSignal(e){return this.signal=e,this}single(){return this.headers.set(`Accept`,`application/vnd.pgrst.object+json`),this}maybeSingle(){return this.isMaybeSingle=!0,this}csv(){return this.headers.set(`Accept`,`text/csv`),this}geojson(){return this.headers.set(`Accept`,`application/geo+json`),this}explain({analyze:e=!1,verbose:t=!1,settings:n=!1,buffers:r=!1,wal:i=!1,format:a=`text`}={}){let o=[e?`analyze`:null,t?`verbose`:null,n?`settings`:null,r?`buffers`:null,i?`wal`:null].filter(Boolean).join(`|`),s=this.headers.get(`Accept`)??`application/json`;return this.headers.set(`Accept`,`application/vnd.pgrst.plan+${a}; for="${s}"; options=${o};`),this}rollback(){return this.headers.append(`Prefer`,`tx=rollback`),this}returns(){return this}maxAffected(e){return this.headers.append(`Prefer`,`handling=strict`),this.headers.append(`Prefer`,`max-affected=${e}`),this}};let se=RegExp(`[,()]`);var ce=class extends oe{throwOnError(){return super.throwOnError()}eq(e,t){return this.url.searchParams.append(e,`eq.${t}`),this}neq(e,t){return this.url.searchParams.append(e,`neq.${t}`),this}gt(e,t){return this.url.searchParams.append(e,`gt.${t}`),this}gte(e,t){return this.url.searchParams.append(e,`gte.${t}`),this}lt(e,t){return this.url.searchParams.append(e,`lt.${t}`),this}lte(e,t){return this.url.searchParams.append(e,`lte.${t}`),this}like(e,t){return this.url.searchParams.append(e,`like.${t}`),this}likeAllOf(e,t){return this.url.searchParams.append(e,`like(all).{${t.join(`,`)}}`),this}likeAnyOf(e,t){return this.url.searchParams.append(e,`like(any).{${t.join(`,`)}}`),this}ilike(e,t){return this.url.searchParams.append(e,`ilike.${t}`),this}ilikeAllOf(e,t){return this.url.searchParams.append(e,`ilike(all).{${t.join(`,`)}}`),this}ilikeAnyOf(e,t){return this.url.searchParams.append(e,`ilike(any).{${t.join(`,`)}}`),this}regexMatch(e,t){return this.url.searchParams.append(e,`match.${t}`),this}regexIMatch(e,t){return this.url.searchParams.append(e,`imatch.${t}`),this}is(e,t){return this.url.searchParams.append(e,`is.${t}`),this}isDistinct(e,t){return this.url.searchParams.append(e,`isdistinct.${t}`),this}in(e,t){let n=Array.from(new Set(t)).map(e=>typeof e==`string`&&se.test(e)?`"${e}"`:`${e}`).join(`,`);return this.url.searchParams.append(e,`in.(${n})`),this}notIn(e,t){let n=Array.from(new Set(t)).map(e=>typeof e==`string`&&se.test(e)?`"${e}"`:`${e}`).join(`,`);return this.url.searchParams.append(e,`not.in.(${n})`),this}contains(e,t){return typeof t==`string`?this.url.searchParams.append(e,`cs.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cs.{${t.join(`,`)}}`):this.url.searchParams.append(e,`cs.${JSON.stringify(t)}`),this}containedBy(e,t){return typeof t==`string`?this.url.searchParams.append(e,`cd.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cd.{${t.join(`,`)}}`):this.url.searchParams.append(e,`cd.${JSON.stringify(t)}`),this}rangeGt(e,t){return this.url.searchParams.append(e,`sr.${t}`),this}rangeGte(e,t){return this.url.searchParams.append(e,`nxl.${t}`),this}rangeLt(e,t){return this.url.searchParams.append(e,`sl.${t}`),this}rangeLte(e,t){return this.url.searchParams.append(e,`nxr.${t}`),this}rangeAdjacent(e,t){return this.url.searchParams.append(e,`adj.${t}`),this}overlaps(e,t){return typeof t==`string`?this.url.searchParams.append(e,`ov.${t}`):this.url.searchParams.append(e,`ov.{${t.join(`,`)}}`),this}textSearch(e,t,{config:n,type:r}={}){let i=``;r===`plain`?i=`pl`:r===`phrase`?i=`ph`:r===`websearch`&&(i=`w`);let a=n===void 0?``:`(${n})`;return this.url.searchParams.append(e,`${i}fts${a}.${t}`),this}match(e){return Object.entries(e).filter(([e,t])=>t!==void 0).forEach(([e,t])=>{this.url.searchParams.append(e,`eq.${t}`)}),this}not(e,t,n){return this.url.searchParams.append(e,`not.${t}.${n}`),this}or(e,{foreignTable:t,referencedTable:n=t}={}){let r=n?`${n}.or`:`or`;return this.url.searchParams.append(r,`(${e})`),this}filter(e,t,n){return this.url.searchParams.append(e,`${t}.${n}`),this}},le=class{constructor(e,{headers:t={},schema:n,fetch:r,urlLengthLimit:i=8e3,retry:a}){this.url=e,this.headers=new Headers(t),this.schema=n,this.fetch=r,this.urlLengthLimit=i,this.retry=a}cloneRequestState(){return{url:new URL(this.url.toString()),headers:new Headers(this.headers)}}select(e,t){let{head:n=!1,count:r}=t??{},i=n?`HEAD`:`GET`,a=!1,o=(e??`*`).split(``).map(e=>/\s/.test(e)&&!a?``:(e===`"`&&(a=!a),e)).join(``),{url:s,headers:c}=this.cloneRequestState();return s.searchParams.set(`select`,o),r&&c.append(`Prefer`,`count=${r}`),new ce({method:i,url:s,headers:c,schema:this.schema,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}insert(e,{count:t,defaultToNull:n=!0}={}){let{url:r,headers:i}=this.cloneRequestState();if(t&&i.append(`Prefer`,`count=${t}`),n||i.append(`Prefer`,`missing=default`),Array.isArray(e)){let t=e.reduce((e,t)=>e.concat(Object.keys(t)),[]);if(t.length>0){let e=[...new Set(t)].map(e=>`"${e}"`);r.searchParams.set(`columns`,e.join(`,`))}}return new ce({method:`POST`,url:r,headers:i,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}upsert(e,{onConflict:t,ignoreDuplicates:n=!1,count:r,defaultToNull:i=!0}={}){let{url:a,headers:o}=this.cloneRequestState();if(o.append(`Prefer`,`resolution=${n?`ignore`:`merge`}-duplicates`),t!==void 0&&a.searchParams.set(`on_conflict`,t),r&&o.append(`Prefer`,`count=${r}`),i||o.append(`Prefer`,`missing=default`),Array.isArray(e)){let t=e.reduce((e,t)=>e.concat(Object.keys(t)),[]);if(t.length>0){let e=[...new Set(t)].map(e=>`"${e}"`);a.searchParams.set(`columns`,e.join(`,`))}}return new ce({method:`POST`,url:a,headers:o,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}update(e,{count:t}={}){let{url:n,headers:r}=this.cloneRequestState();return t&&r.append(`Prefer`,`count=${t}`),new ce({method:`PATCH`,url:n,headers:r,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}delete({count:e}={}){let{url:t,headers:n}=this.cloneRequestState();return e&&n.append(`Prefer`,`count=${e}`),new ce({method:`DELETE`,url:t,headers:n,schema:this.schema,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}};function ue(e,t){try{let t=JSON.parse(e);if(t&&typeof t==`object`&&!Array.isArray(t))return new u({message:String(t.message??e),details:t.details??``,hint:t.hint??``,code:t.code??``})}catch{}return new u({message:e||t,details:``,hint:``,code:``})}function de(e,t,n){let r=e;return{success:!1,error:new u({message:`${r?.name??`FetchError`}: ${r?.message}`,details:``,hint:``,code:``}),data:null,count:null,status:t,statusText:n}}var fe=class e{constructor(e,{headers:t={},schema:n,fetch:r,timeout:i,urlLengthLimit:a=8e3,retry:o}={}){this.url=e,this.headers=new Headers(t),this.schemaName=n,this.urlLengthLimit=a;let s=r??globalThis.fetch;i!==void 0&&i>0?this.fetch=(e,t)=>{let n=new AbortController,r=setTimeout(()=>n.abort(),i),a=t?.signal;if(a){if(a.aborted)return clearTimeout(r),s(e,t);let i=()=>{clearTimeout(r),n.abort()};return a.addEventListener(`abort`,i,{once:!0}),s(e,_(_({},t),{},{signal:n.signal})).finally(()=>{clearTimeout(r),a.removeEventListener(`abort`,i)})}return s(e,_(_({},t),{},{signal:n.signal})).finally(()=>clearTimeout(r))}:this.fetch=s,this.retry=o}from(e){if(!e||typeof e!=`string`||e.trim()===``)throw Error(`Invalid relation name: relation must be a non-empty string.`);return new le(new URL(`${this.url}/${e}`),{headers:new Headers(this.headers),schema:this.schemaName,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}schema(t){return new e(this.url,{headers:this.headers,schema:t,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}async getOpenApiSpec(){var e=this;let t=new Headers(e.headers);t.set(`Accept`,`application/openapi+json`),e.schemaName&&t.set(`Accept-Profile`,e.schemaName);let n={};t.forEach((e,t)=>{n[t]=e});let r=e.fetch??globalThis.fetch,i;try{i=await ie(r,`${e.url}/`,{method:`GET`,headers:n},e.retry??!0)}catch(e){return de(e,0,``)}let a;try{a=await i.text()}catch(e){return de(e,i.status,i.statusText)}if(i.ok)try{return{success:!0,error:null,data:JSON.parse(a),count:null,status:i.status,statusText:i.statusText}}catch{}return{success:!1,error:ue(a,i.statusText),data:null,count:null,status:i.status,statusText:i.statusText}}rpc(e,t={},{head:n=!1,get:r=!1,count:i}={}){let a,o=new URL(`${this.url}/rpc/${e}`),s,c=e=>typeof e==`object`&&!!e&&(!Array.isArray(e)||e.some(c)),l=n&&Object.values(t).some(c);l?(a=`POST`,s=t):n||r?(a=n?`HEAD`:`GET`,Object.entries(t).filter(([e,t])=>t!==void 0).map(([e,t])=>[e,Array.isArray(t)?`{${t.join(`,`)}}`:`${t}`]).forEach(([e,t])=>{o.searchParams.append(e,t)})):(a=`POST`,s=t);let u=new Headers(this.headers);return l?u.set(`Prefer`,i?`count=${i},return=minimal`:`return=minimal`):i&&u.set(`Prefer`,`count=${i}`),new ce({method:a,url:o,headers:u,schema:this.schemaName,body:s,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}},pe=class{constructor(){}static detectEnvironment(){if(typeof WebSocket<`u`)return{type:`native`,wsConstructor:WebSocket};let e=globalThis;if(typeof globalThis<`u`&&e.WebSocket!==void 0)return{type:`native`,wsConstructor:e.WebSocket};let t=typeof global<`u`?global:void 0;if(t&&t.WebSocket!==void 0)return{type:`native`,wsConstructor:t.WebSocket};if(typeof globalThis<`u`&&e.WebSocketPair!==void 0&&globalThis.WebSocket===void 0)return{type:`cloudflare`,error:`Cloudflare Workers detected. WebSocket clients are not supported in Cloudflare Workers.`,workaround:`Use Cloudflare Workers WebSocket API for server-side WebSocket handling, or deploy to a different runtime.`};if(typeof globalThis<`u`&&e.EdgeRuntime||typeof navigator<`u`&&navigator.userAgent?.includes(`Vercel-Edge`))return{type:`unsupported`,error:`Edge runtime detected (Vercel Edge/Netlify Edge). WebSockets are not supported in edge functions.`,workaround:`Use serverless functions or a different deployment target for WebSocket functionality.`};let n=globalThis.process;if(n){let e=n.versions;if(e&&e.node)return{type:`unsupported`,error:`Node.js detected but native WebSocket not found.`,workaround:`Ensure you are running Node.js 22+ or provide a WebSocket implementation via the transport option.`}}return{type:`unsupported`,error:`Unknown JavaScript runtime without WebSocket support.`,workaround:`Ensure you're running in a supported environment (browser, Node.js, Deno) or provide a custom WebSocket implementation.`}}static getWebSocketConstructor(){let e=this.detectEnvironment();if(e.wsConstructor)return e.wsConstructor;let t=e.error||`WebSocket not supported in this environment.`;throw e.workaround&&(t+=`\n\nSuggested solution: ${e.workaround}`),Error(t)}static isWebSocketSupported(){try{return this.detectEnvironment().type===`native`}catch{return!1}}};let v={closed:`closed`,errored:`errored`,joined:`joined`,joining:`joining`,leaving:`leaving`},me={close:`phx_close`,error:`phx_error`,join:`phx_join`,reply:`phx_reply`,leave:`phx_leave`,access_token:`access_token`},he={connecting:`connecting`,open:`open`,closing:`closing`,closed:`closed`};var ge=class{constructor(e){this.HEADER_LENGTH=1,this.USER_BROADCAST_PUSH_META_LENGTH=6,this.KINDS={userBroadcastPush:3,userBroadcast:4},this.BINARY_ENCODING=0,this.JSON_ENCODING=1,this.BROADCAST_EVENT=`broadcast`,this.allowedMetadataKeys=[],this.allowedMetadataKeys=e??[]}encode(e,t){if(e.event===this.BROADCAST_EVENT&&!(e.payload instanceof ArrayBuffer)&&typeof e.payload.event==`string`)return t(this._binaryEncodeUserBroadcastPush(e));let n=[e.join_ref,e.ref,e.topic,e.event,e.payload];return t(JSON.stringify(n))}_binaryEncodeUserBroadcastPush(e){return this._isArrayBuffer(e.payload?.payload)?this._encodeBinaryUserBroadcastPush(e):this._encodeJsonUserBroadcastPush(e)}_encodeBinaryUserBroadcastPush(e){let t=e.payload?.payload??new ArrayBuffer(0);return this._encodeUserBroadcastPush(e,this.BINARY_ENCODING,t)}_encodeJsonUserBroadcastPush(e){let t=e.payload?.payload??{},n=new TextEncoder().encode(JSON.stringify(t)).buffer;return this._encodeUserBroadcastPush(e,this.JSON_ENCODING,n)}_encodeUserBroadcastPush(e,t,n){let r=new TextEncoder,i=r.encode(e.topic),a=r.encode(e.ref??``),o=r.encode(e.join_ref??``),s=r.encode(e.payload.event),c=this.allowedMetadataKeys?this._pick(e.payload,this.allowedMetadataKeys):{},l=r.encode(Object.keys(c).length===0?``:JSON.stringify(c));if(o.length>255)throw Error(`joinRef length ${o.length} exceeds maximum of 255`);if(a.length>255)throw Error(`ref length ${a.length} exceeds maximum of 255`);if(i.length>255)throw Error(`topic length ${i.length} exceeds maximum of 255`);if(s.length>255)throw Error(`userEvent length ${s.length} exceeds maximum of 255`);if(l.length>255)throw Error(`metadata length ${l.length} exceeds maximum of 255`);let u=this.USER_BROADCAST_PUSH_META_LENGTH+o.length+a.length+i.length+s.length+l.length,d=new ArrayBuffer(this.HEADER_LENGTH+u),f=new DataView(d),p=new Uint8Array(d),m=0;f.setUint8(m++,this.KINDS.userBroadcastPush),f.setUint8(m++,o.length),f.setUint8(m++,a.length),f.setUint8(m++,i.length),f.setUint8(m++,s.length),f.setUint8(m++,l.length),f.setUint8(m++,t),p.set(o,m),m+=o.length,p.set(a,m),m+=a.length,p.set(i,m),m+=i.length,p.set(s,m),m+=s.length,p.set(l,m),m+=l.length;var h=new Uint8Array(d.byteLength+n.byteLength);return h.set(new Uint8Array(d),0),h.set(new Uint8Array(n),d.byteLength),h.buffer}decode(e,t){if(this._isArrayBuffer(e))return t(this._binaryDecode(e));if(typeof e==`string`){let[n,r,i,a,o]=JSON.parse(e);return t({join_ref:n,ref:r,topic:i,event:a,payload:o})}return t({})}_binaryDecode(e){let t=new DataView(e),n=t.getUint8(0),r=new TextDecoder;switch(n){case this.KINDS.userBroadcast:return this._decodeUserBroadcast(e,t,r)}}_decodeUserBroadcast(e,t,n){let r=t.getUint8(1),i=t.getUint8(2),a=t.getUint8(3),o=t.getUint8(4),s=this.HEADER_LENGTH+4,c=n.decode(e.slice(s,s+r));s+=r;let l=n.decode(e.slice(s,s+i));s+=i;let u=n.decode(e.slice(s,s+a));s+=a;let d=e.slice(s,e.byteLength),f=o===this.JSON_ENCODING?JSON.parse(n.decode(d)):d,p={type:this.BROADCAST_EVENT,event:l,payload:f};return a>0&&(p.meta=JSON.parse(u)),{join_ref:null,ref:null,topic:c,event:this.BROADCAST_EVENT,payload:p}}_isArrayBuffer(e){return e instanceof ArrayBuffer||e?.constructor?.name===`ArrayBuffer`}_pick(e,t){return!e||typeof e!=`object`?{}:Object.fromEntries(Object.entries(e).filter(([e])=>t.includes(e)))}},y;(function(e){e.abstime=`abstime`,e.bool=`bool`,e.date=`date`,e.daterange=`daterange`,e.float4=`float4`,e.float8=`float8`,e.int2=`int2`,e.int4=`int4`,e.int4range=`int4range`,e.int8=`int8`,e.int8range=`int8range`,e.json=`json`,e.jsonb=`jsonb`,e.money=`money`,e.numeric=`numeric`,e.oid=`oid`,e.reltime=`reltime`,e.text=`text`,e.time=`time`,e.timestamp=`timestamp`,e.timestamptz=`timestamptz`,e.timetz=`timetz`,e.tsrange=`tsrange`,e.tstzrange=`tstzrange`})(y||={});let _e=(e,t,n={})=>{let r=n.skipTypes??[];return t?Object.keys(t).reduce((n,i)=>(n[i]=ve(i,e,t,r),n),{}):{}},ve=(e,t,n,r)=>{let i=t.find(t=>t.name===e)?.type,a=n[e];return i&&!r.includes(i)?ye(i,a):be(a)},ye=(e,t)=>{if(e.charAt(0)===`_`)return we(t,e.slice(1,e.length));switch(e){case y.bool:return xe(t);case y.float4:case y.float8:case y.int2:case y.int4:case y.int8:case y.numeric:case y.oid:return Se(t);case y.json:case y.jsonb:return Ce(t);case y.timestamp:return Te(t);case y.abstime:case y.date:case y.daterange:case y.int4range:case y.int8range:case y.money:case y.reltime:case y.text:case y.time:case y.timestamptz:case y.timetz:case y.tsrange:case y.tstzrange:return be(t);default:return be(t)}},be=e=>e,xe=e=>{switch(e){case`t`:return!0;case`f`:return!1;default:return e}},Se=e=>{if(typeof e==`string`){let t=parseFloat(e);if(!Number.isNaN(t))return t}return e},Ce=e=>{if(typeof e==`string`)try{return JSON.parse(e)}catch{return e}return e},we=(e,t)=>{if(typeof e!=`string`)return e;let n=e.length-1,r=e[n];if(e[0]===`{`&&r===`}`){let r,i=e.slice(1,n);try{r=JSON.parse(`[`+i+`]`)}catch{r=i?i.split(`,`):[]}return r.map(e=>ye(t,e))}return e},Te=e=>typeof e==`string`?e.replace(` `,`T`):e,Ee=e=>{let t=new URL(e);return t.protocol=t.protocol.replace(/^ws/i,`http`),t.pathname=t.pathname.replace(/\/+$/,``).replace(/\/socket\/websocket$/i,``).replace(/\/socket$/i,``).replace(/\/websocket$/i,``),t.pathname===``||t.pathname===`/`?t.pathname=`/api/broadcast`:t.pathname+=`/api/broadcast`,t.href};var b=e=>typeof e==`function`?e:function(){return e},De=typeof self<`u`?self:null,Oe=typeof window<`u`?window:null,x=De||Oe||globalThis,ke=`2.0.0`,Ae=1e4,je=1e3,Me=100,S={connecting:0,open:1,closing:2,closed:3},C={closed:`closed`,errored:`errored`,joined:`joined`,joining:`joining`,leaving:`leaving`},w={close:`phx_close`,error:`phx_error`,join:`phx_join`,reply:`phx_reply`,leave:`phx_leave`},Ne={longpoll:`longpoll`,websocket:`websocket`},Pe={complete:4},Fe=`base64url.bearer.phx.`,Ie=class{constructor(e,t,n,r){this.channel=e,this.event=t,this.payload=n||function(){return{}},this.receivedResp=null,this.timeout=r,this.timeoutTimer=null,this.recHooks=[],this.sent=!1,this.ref=void 0}resend(e){this.timeout=e,this.reset(),this.send()}send(){this.hasReceived(`timeout`)||(this.startTimeout(),this.sent=!0,this.channel.socket.push({topic:this.channel.topic,event:this.event,payload:this.payload(),ref:this.ref,join_ref:this.channel.joinRef()}))}receive(e,t){return this.hasReceived(e)&&t(this.receivedResp.response),this.recHooks.push({status:e,callback:t}),this}reset(){this.cancelRefEvent(),this.ref=null,this.refEvent=null,this.receivedResp=null,this.sent=!1}destroy(){this.cancelRefEvent(),this.cancelTimeout()}matchReceive({status:e,response:t,_ref:n}){this.recHooks.filter(t=>t.status===e).forEach(e=>e.callback(t))}cancelRefEvent(){this.refEvent&&this.channel.off(this.refEvent)}cancelTimeout(){clearTimeout(this.timeoutTimer),this.timeoutTimer=null}startTimeout(){this.timeoutTimer&&this.cancelTimeout(),this.ref=this.channel.socket.makeRef(),this.refEvent=this.channel.replyEventName(this.ref),this.channel.on(this.refEvent,e=>{this.cancelRefEvent(),this.cancelTimeout(),this.receivedResp=e,this.matchReceive(e)}),this.timeoutTimer=setTimeout(()=>{this.trigger(`timeout`,{})},this.timeout)}hasReceived(e){return this.receivedResp&&this.receivedResp.status===e}trigger(e,t){this.channel.trigger(this.refEvent,{status:e,response:t})}},Le=class{constructor(e,t){this.callback=e,this.timerCalc=t,this.timer=void 0,this.tries=0}reset(){this.tries=0,clearTimeout(this.timer)}scheduleTimeout(){clearTimeout(this.timer),this.timer=setTimeout(()=>{this.tries+=1,this.callback()},this.timerCalc(this.tries+1))}},Re=class{constructor(e,t,n){this.state=C.closed,this.topic=e,this.params=b(t||{}),this.socket=n,this.bindings=[],this.bindingRef=0,this.timeout=this.socket.timeout,this.joinedOnce=!1,this.joinPush=new Ie(this,w.join,this.params,this.timeout),this.pushBuffer=[],this.stateChangeRefs=[],this.rejoinTimer=new Le(()=>{this.socket.isConnected()&&this.rejoin()},this.socket.rejoinAfterMs),this.stateChangeRefs.push(this.socket.onError(()=>this.rejoinTimer.reset())),this.stateChangeRefs.push(this.socket.onOpen(()=>{this.rejoinTimer.reset(),this.isErrored()&&this.rejoin()})),this.joinPush.receive(`ok`,()=>{this.state=C.joined,this.rejoinTimer.reset(),this.pushBuffer.forEach(e=>e.send()),this.pushBuffer=[]}),this.joinPush.receive(`error`,e=>{this.state=C.errored,this.socket.hasLogger()&&this.socket.log(`channel`,`error ${this.topic}`,e),this.socket.isConnected()&&this.rejoinTimer.scheduleTimeout()}),this.onClose(()=>{this.rejoinTimer.reset(),this.socket.hasLogger()&&this.socket.log(`channel`,`close ${this.topic}`),this.state=C.closed,this.socket.remove(this)}),this.onError(e=>{this.socket.hasLogger()&&this.socket.log(`channel`,`error ${this.topic}`,e),this.isJoining()&&this.joinPush.reset(),this.state=C.errored,this.socket.isConnected()&&this.rejoinTimer.scheduleTimeout()}),this.joinPush.receive(`timeout`,()=>{this.socket.hasLogger()&&this.socket.log(`channel`,`timeout ${this.topic}`,this.joinPush.timeout),new Ie(this,w.leave,b({}),this.timeout).send(),this.state=C.errored,this.joinPush.reset(),this.socket.isConnected()&&this.rejoinTimer.scheduleTimeout()}),this.on(w.reply,(e,t)=>{this.trigger(this.replyEventName(t),e)})}join(e=this.timeout){if(this.joinedOnce)throw Error(`tried to join multiple times. 'join' can only be called a single time per channel instance`);return this.timeout=e,this.joinedOnce=!0,this.rejoin(),this.joinPush}teardown(){this.pushBuffer.forEach(e=>e.destroy()),this.pushBuffer=[],this.rejoinTimer.reset(),this.joinPush.destroy(),this.state=C.closed,this.bindings=[]}onClose(e){this.on(w.close,e)}onError(e){return this.on(w.error,t=>e(t))}on(e,t){let n=this.bindingRef++;return this.bindings.push({event:e,ref:n,callback:t}),n}off(e,t){this.bindings=this.bindings.filter(n=>!(n.event===e&&(t===void 0||t===n.ref)))}canPush(){return this.socket.isConnected()&&this.isJoined()}push(e,t,n=this.timeout){if(t||={},!this.joinedOnce)throw Error(`tried to push '${e}' to '${this.topic}' before joining. Use channel.join() before pushing events`);let r=new Ie(this,e,function(){return t},n);return this.canPush()?r.send():(r.startTimeout(),this.pushBuffer.push(r)),r}leave(e=this.timeout){this.rejoinTimer.reset(),this.joinPush.cancelTimeout(),this.state=C.leaving;let t=()=>{this.socket.hasLogger()&&this.socket.log(`channel`,`leave ${this.topic}`),this.trigger(w.close,`leave`)},n=new Ie(this,w.leave,b({}),e);return n.receive(`ok`,()=>t()).receive(`timeout`,()=>t()),n.send(),this.canPush()||n.trigger(`ok`,{}),n}onMessage(e,t,n){return t}filterBindings(e,t,n){return!0}isMember(e,t,n,r){return this.topic===e?r&&r!==this.joinRef()?(this.socket.hasLogger()&&this.socket.log(`channel`,`dropping outdated message`,{topic:e,event:t,payload:n,joinRef:r}),!1):!0:!1}joinRef(){return this.joinPush.ref}rejoin(e=this.timeout){this.isLeaving()||(this.socket.leaveOpenTopic(this.topic),this.state=C.joining,this.joinPush.resend(e))}trigger(e,t,n,r){let i=this.onMessage(e,t,n,r);if(t&&!i)throw Error(`channel onMessage callbacks must return the payload, modified or unmodified`);let a=this.bindings.filter(r=>r.event===e&&this.filterBindings(r,t,n));for(let e=0;e<a.length;e++)a[e].callback(i,n,r||this.joinRef())}replyEventName(e){return`chan_reply_${e}`}isClosed(){return this.state===C.closed}isErrored(){return this.state===C.errored}isJoined(){return this.state===C.joined}isJoining(){return this.state===C.joining}isLeaving(){return this.state===C.leaving}},ze=class{static request(e,t,n,r,i,a,o){if(x.XDomainRequest){let n=new x.XDomainRequest;return this.xdomainRequest(n,e,t,r,i,a,o)}else if(x.XMLHttpRequest){let s=new x.XMLHttpRequest;return this.xhrRequest(s,e,t,n,r,i,a,o)}else if(x.fetch&&x.AbortController)return this.fetchRequest(e,t,n,r,i,a,o);else throw Error(`No suitable XMLHttpRequest implementation found`)}static fetchRequest(e,t,n,r,i,a,o){let s={method:e,headers:n,body:r},c=null;return i&&(c=new AbortController,setTimeout(()=>c.abort(),i),s.signal=c.signal),x.fetch(t,s).then(e=>e.text()).then(e=>this.parseJSON(e)).then(e=>o&&o(e)).catch(e=>{e.name===`AbortError`&&a?a():o&&o(null)}),c}static xdomainRequest(e,t,n,r,i,a,o){return e.timeout=i,e.open(t,n),e.onload=()=>{let t=this.parseJSON(e.responseText);o&&o(t)},a&&(e.ontimeout=a),e.onprogress=()=>{},e.send(r),e}static xhrRequest(e,t,n,r,i,a,o,s){e.open(t,n,!0),e.timeout=a;for(let[t,n]of Object.entries(r))e.setRequestHeader(t,n);return e.onerror=()=>s&&s(null),e.onreadystatechange=()=>{e.readyState===Pe.complete&&s&&s(this.parseJSON(e.responseText))},o&&(e.ontimeout=o),e.send(i),e}static parseJSON(e){if(!e||e===``)return null;try{return JSON.parse(e)}catch{return console&&console.log(`failed to parse JSON response`,e),null}}static serialize(e,t){let n=[];for(var r in e){if(!Object.prototype.hasOwnProperty.call(e,r))continue;let i=t?`${t}[${r}]`:r,a=e[r];typeof a==`object`?n.push(this.serialize(a,i)):n.push(encodeURIComponent(i)+`=`+encodeURIComponent(a))}return n.join(`&`)}static appendParams(e,t){return Object.keys(t).length===0?e:`${e}${e.match(/\?/)?`&`:`?`}${this.serialize(t)}`}},Be=e=>{let t=``,n=new Uint8Array(e),r=n.byteLength;for(let e=0;e<r;e++)t+=String.fromCharCode(n[e]);return btoa(t)},Ve=class{constructor(e,t){t&&t.length===2&&t[1].startsWith(Fe)&&(this.authToken=atob(t[1].slice(Fe.length))),this.endPoint=null,this.token=null,this.skipHeartbeat=!0,this.reqs=new Set,this.awaitingBatchAck=!1,this.currentBatch=null,this.currentBatchTimer=null,this.batchBuffer=[],this.onopen=function(){},this.onerror=function(){},this.onmessage=function(){},this.onclose=function(){},this.pollEndpoint=this.normalizeEndpoint(e),this.readyState=S.connecting,setTimeout(()=>this.poll(),0)}normalizeEndpoint(e){return e.replace(`ws://`,`http://`).replace(`wss://`,`https://`).replace(RegExp(`(.*)/`+Ne.websocket),`$1/`+Ne.longpoll)}endpointURL(){return ze.appendParams(this.pollEndpoint,{token:this.token})}closeAndRetry(e,t,n){this.close(e,t,n),this.readyState=S.connecting}ontimeout(){this.onerror(`timeout`),this.closeAndRetry(1005,`timeout`,!1)}isActive(){return this.readyState===S.open||this.readyState===S.connecting}poll(){let e={Accept:`application/json`};this.authToken&&(e[`X-Phoenix-AuthToken`]=this.authToken),this.ajax(`GET`,e,null,()=>this.ontimeout(),e=>{if(e){var{status:t,token:n,messages:r}=e;if(t===410&&this.token!==null){this.onerror(410),this.closeAndRetry(3410,`session_gone`,!1);return}this.token=n}else t=0;switch(t){case 200:r.forEach(e=>{setTimeout(()=>this.onmessage({data:e}),0)}),this.poll();break;case 204:this.poll();break;case 410:this.readyState=S.open,this.onopen({}),this.poll();break;case 403:this.onerror(403),this.close(1008,`forbidden`,!1);break;case 0:case 500:this.onerror(500),this.closeAndRetry(1011,`internal server error`,500);break;default:throw Error(`unhandled poll status ${t}`)}})}send(e){typeof e!=`string`&&(e=Be(e)),this.currentBatch?this.currentBatch.push(e):this.awaitingBatchAck?this.batchBuffer.push(e):(this.currentBatch=[e],this.currentBatchTimer=setTimeout(()=>{this.batchSend(this.currentBatch),this.currentBatch=null},0))}batchSend(e,t=0){this.awaitingBatchAck=!0;let n=t+Me,r=e.slice(t,n);this.ajax(`POST`,{"Content-Type":`application/x-ndjson`},r.join(`
@@ -1706,6 +1788,9 @@ Resources:`;for(let t of c){if(!t||typeof t!=`string`)throw Error(`@supabase/aut
     <div class="srow"><span>🔔 Effekte</span><button class="tg" id="tgSfx" aria-label="Effekte an oder aus"></button></div>
     <button class="acctbtn" id="acctOpen">👤 Konto: Gast</button>
     <div class="gqrow"><span>⚡ Grafik</span><div class="gqopts"><button data-gq="auto">Automatisch</button><button data-gq="2">Schön</button><button data-gq="0">Flüssig</button></div></div>
+    <div id="pushRow"></div>
+    <div id="a11yRow"></div>
+    <div class="gqrow"><span>⏰ Pausen-Erinnerung</span><div class="gqopts" id="pauseOpts"><button data-pz="0">Aus</button><button data-pz="30">30 Min</button><button data-pz="60">60 Min</button><button data-pz="90">90 Min</button></div></div>
     <button class="acctbtn" id="calOpen">📅 Event-Kalender</button>
     <div class="moonrow" id="moonRow" hidden></div>
     <button class="acctbtn" id="msgOpen">✉️ Schreib mir</button>
@@ -1731,6 +1816,7 @@ Resources:`;for(let t of c){if(!t||typeof t!=`string`)throw Error(`@supabase/aut
     <div class="meter" aria-hidden="true"><i id="meter"></i></div>
     <button class="passbar" id="passBar" aria-label="Sporen-Pass öffnen"><span class="pl">⭐ Stufe <b id="pTier">0</b></span><span class="pbar"><i id="pFill"></i></span><span class="pdot" id="pDot">!</span></button>
     <button class="passbar towerbar wbbar" id="wbBar" aria-label="Weltboss öffnen"><span class="pl">🌍 Weltboss</span><span class="twm" id="wbInfo">Gemeinsam gegen den Boss</span></button>
+<button class="passbar towerbar cgbar" id="cgBar" aria-label="Gemeinschaftsziel öffnen"><span class="pl">🌐 Gemeinschaftsziel</span><span class="twm" id="cgInfo">Alle tippen zusammen</span></button>
 <button class="passbar towerbar hubbar" id="hubBar" aria-label="Gemeinschaft und Spiele öffnen"><span class="pl">🎮 Gemeinschaft</span><span class="twm">Gilde · Minispiele · Freunde</span></button>
 <button class="passbar towerbar duelbar" id="duelBar" aria-label="1 gegen 1 öffnen"><span class="pl">⚔️ 1 gegen 1</span><span class="twm" id="duInfo">Tritt gegen andere an</span></button>
 <button class="passbar towerbar" id="towerBar" aria-label="Boss-Turm öffnen"><span class="pl">🗼 Boss-Turm</span><span class="twm">Etage <b id="twF">0</b></span><span class="twt" id="twT"></span></button>
@@ -2185,6 +2271,11 @@ const SKINS=[
   {box:1,hw:1,id:'hw_hexe',leg:'hexe',name:'Hexenpilz',rar:'e',c1:'#7A4AB8',c2:'#3A1A6A',dots:'#7FE36A',pow:'gold',how:'🎃 Nur zu Halloween in Truhen'},
   {box:1,hw:1,id:'hw_gespenst',leg:'gespenst',name:'Gespensterpilz',rar:'l',c1:'#F4F6FF',c2:'#B8C2D4',dots:'#F4F6FF',pow:'offline',how:'🎃 Nur zu Halloween in Truhen'},
   {box:1,hw:1,id:'hw_fleder',leg:'fleder',name:'Fledermauspilz',rar:'m',c1:'#2A1A3A',c2:'#120A1A',dots:'#FF8A3A',eye:'#FFB23D',pow:'crit',how:'🎃 Nur zu Halloween in Truhen'},
+  /* Weihnachten (nur im Dezember in den Truhen) und Adventskalender */
+  {box:1,xm:1,id:'xm_santa',leg:'santa',name:'Weihnachtspilz',rar:'e',c1:'#D8202A',c2:'#8A0A1A',dots:'#FFFFFF',pow:'gold',how:'🎄 Nur im Dezember in Truhen'},
+  {box:1,xm:1,id:'xm_rentier',leg:'rentier',name:'Rentierpilz',rar:'l',c1:'#A8744A',c2:'#5A3418',dots:'#E8C890',pow:'prod',how:'🎄 Nur im Dezember in Truhen'},
+  {box:1,xm:1,id:'xm_schneemann',leg:'schneemann',name:'Schneemannpilz',rar:'m',c1:'#F4F8FF',c2:'#B8C8E0',dots:'#FFFFFF',pow:'offline',how:'🎄 Nur im Dezember in Truhen'},
+  {id:'xm_stern',leg:'stern',name:'Weihnachtsstern-Pilz',rar:'h',c1:'#FFE27A',c2:'#C8901A',dots:'#FFFFFF',fx:'gold',pow:'gems',powV:30,secret:1,how:'🎄 Türchen 24 im Adventskalender'},
 ];
 const RAR={g:'Gewöhnlich',s:'Selten',e:'Episch',l:'Legendär',m:'Mythisch',h:'Legende',x:'Geheim',u:'Einzigartig',v:'Event'};
 const PFX={
@@ -2231,7 +2322,7 @@ const PFX={
 };
 const SKIN_PFX={rosa:'petal',flie:'dots',stein:'leaf',leucht:'glow',nacht:'stars',rausch:'party',gold:'coin',kosmo:'cosmos',kaktus:'bloom',wolke:'rain',kuerbis:'autumn',glibber:'slime',qualli:'bubble',robo:'pixel',juwel:'shard',planet:'rocks',lavaglibber:'lava',goldrobo:'coin',sternqualle:'rainbow',kronjuwel:'shard',aurora:'rainbow',cool:'party',ninja:'shadow',pirat:'coin',koenig:'royal',engel:'hearts',teufel:'hell',zylinder:'gent',flamme:'sparks',geist:'ghost',eis:'snow',cyber:'pixel',drache:'dragon',regen:'rainbow',traenen:'tears',sakura:'petal',holo:'pixel',sturm:'volt',neon:'rainbow',schatten:'dark',phoenix:'phoenix',kaiser:'shard',galaxis:'galaxy',loch:'voidp',wal:'whale',uhr:'clock',element:'elem',prisma:'prism',kuschel:'cozy',flocke:'glitter',kometenkind:'meteor',honig:'coin',moospilz:'leaf',glasqualle:'bubble',sternkoenig:'royal',neonkaktus:'pixel',chromrobo:'shard',lavaplanet:'lava',schattenqualle:'dark',goldkristall:'coin',minzpilz:'petal',lavendel:'petal',pfirsich:'petal',nebelwolke:'rain',ozean:'bubble',abendrot:'sparks',kirschkaktus:'bloom',kupferrobo:'pixel',feenpilz:'stars',hexenpilz:'shadow',rubin:'shard',nebelqualle:'ghost',smaragd:'shard',saphir:'snow',vampir:'dark',obsidian:'dragon',regenkaktus:'rainbow'};
 Object.assign(PFX,{moonaura:{n:'Mondstaub',kind:'star',cols:['#8FD8FF','#FFFFFF','#E8EDF6','#8FD8FF'],g:-.02,up:.6,sp:3.5,glow:true,snd:['sine',988,1.8]},goldvoid:{n:'Goldener Ereignishorizont',kind:'star',cols:['#FFE7A0','#FFD23F','#FFFFFF','#FFB23D'],g:0,up:0,sp:5.5,glow:true,snd:['sine',140,.5]}});
-Object.assign(SKIN_PFX,{leg_alexander:'coin',hw_hexe:'glow',hw_gespenst:'snow',hw_fleder:'lava',leg_napoleon:'coin',leg_robin:'party',leg_artus:'coin',leg_thor:'volt',leg_zeus:'volt',leg_dracula:'hearts',leg_medusa:'glow',leg_rotkaeppchen:'hearts',leg_sherlock:'pixel',leg_mozart:'rainbow',leg_leonardo:'rainbow',blitzadmin:'volt',donut:'party',eistuete:'snow',kaffee:'cozy',tropfen:'rain',wuerfel:'pixel',burger:'party',lolli:'rainbow',gluehbirne:'volt',rakete:'meteor',feuerball:'phoenix',laterne:'glow',lavalampe:'lava',kristallherz:'hearts',goldregen:'coin',mondlicht:'moonaura',goldloch:'goldvoid',kometenpilot:'meteor',sheriff:'coin',wikinger:'leaf',marsmann:'slime',zauberlehrling:'stars',ritter:'shard',dinopilz:'leaf',kaktuscowboy:'bloom',piratenkapitaen:'coin',samurai:'petal',mumie:'ghost',steampunk:'pixel',cyberninja:'pixel',leuchtqualle:'bubble',eisriese:'snow',waldgeist:'leaf',ufokommandant:'cosmos',erzmagier:'galaxy',pharao:'coin',trexkoenig:'dragon',neonmech:'pixel',lavagolem:'lava',drachenreiter:'dragon',sternenkaiser:'royal',zeitreisender:'glitter',phantomkoenig:'dark',unterwelt:'hell',merkur:'rocks',mars:'lava',saturn:'coin',jupiter:'galaxy',strassenkick:'party',lederball:'leaf',trainingsball:'party',flutlicht:'stars',torjaeger:'sparks',kapitaen:'royal',goldball:'coin',pokalball:'rainbow',weltball:'royal'});
+Object.assign(SKIN_PFX,{xm_santa:'snow',xm_rentier:'snow',xm_schneemann:'snow',xm_stern:'coin',leg_alexander:'coin',hw_hexe:'glow',hw_gespenst:'snow',hw_fleder:'lava',leg_napoleon:'coin',leg_robin:'party',leg_artus:'coin',leg_thor:'volt',leg_zeus:'volt',leg_dracula:'hearts',leg_medusa:'glow',leg_rotkaeppchen:'hearts',leg_sherlock:'pixel',leg_mozart:'rainbow',leg_leonardo:'rainbow',blitzadmin:'volt',donut:'party',eistuete:'snow',kaffee:'cozy',tropfen:'rain',wuerfel:'pixel',burger:'party',lolli:'rainbow',gluehbirne:'volt',rakete:'meteor',feuerball:'phoenix',laterne:'glow',lavalampe:'lava',kristallherz:'hearts',goldregen:'coin',mondlicht:'moonaura',goldloch:'goldvoid',kometenpilot:'meteor',sheriff:'coin',wikinger:'leaf',marsmann:'slime',zauberlehrling:'stars',ritter:'shard',dinopilz:'leaf',kaktuscowboy:'bloom',piratenkapitaen:'coin',samurai:'petal',mumie:'ghost',steampunk:'pixel',cyberninja:'pixel',leuchtqualle:'bubble',eisriese:'snow',waldgeist:'leaf',ufokommandant:'cosmos',erzmagier:'galaxy',pharao:'coin',trexkoenig:'dragon',neonmech:'pixel',lavagolem:'lava',drachenreiter:'dragon',sternenkaiser:'royal',zeitreisender:'glitter',phantomkoenig:'dark',unterwelt:'hell',merkur:'rocks',mars:'lava',saturn:'coin',jupiter:'galaxy',strassenkick:'party',lederball:'leaf',trainingsball:'party',flutlicht:'stars',torjaeger:'sparks',kapitaen:'royal',goldball:'coin',pokalball:'rainbow',weltball:'royal'});
 const pfxOf=k=>PFX[SKIN_PFX[k.id]]||PFX.petal;
 const POW={tap:{e:'👆',f:v=>`+${v} % Tippkraft`},prod:{e:'🍄',f:v=>`+${v} % Produktion`},crit:{e:'🎯',f:v=>`+${Math.round(v*.4)} % Glückstreffer`},gold:{e:'🟡',f:v=>`+${v} % mehr Goldpilze`},boss:{e:'⚔️',f:v=>`+${v} % Bossschaden`},xp:{e:'⭐',f:v=>`+${v} % Pass-XP`},gems:{e:'💠',f:v=>`+${v} % Juwelen`},rush:{e:'💫',f:v=>`+${v} % Sporenrausch-Dauer`},offline:{e:'🌙',f:v=>`+${v*2} % Offline-Ertrag`},bot:{e:'🤖',f:v=>`+${v*3} % Auto-Tipps`}};
 const RARVAL={g:5,s:8,e:12,l:18,m:25,h:30,x:35,u:30,v:25};
@@ -2285,13 +2376,13 @@ function baseMult(){return PROG*setBonus()*(1+S.seeds*0.1)*(1+S.ach.length*0.03)
 function rawSps(){let t=0;for(const b of B)t+=(S.owned[b.id]||0)*bRate(b);return t*baseMult()}
 let slugsArr=[];
 const slugFactor=()=>Math.pow(S.pet==='frosch'?1-.07/petPf():.85,slugsArr.filter(o=>!o.dead).length);
-function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)*(evParty()?2:1)*(geHour()?1.5:1)*cfgMult('boost')}
+function sps(){return rawSps()*(now()<buffs.frenzy?7:1)*slugFactor()*(wx.type==='regen'?1.5:1)*(now()<buffs.dragon?3:1)*(evParty()?2:1)*(geHour()?1.5:1)*cfgMult('boost')*(potOn('spore')?2:1)}
 function rushPow(){return has('r1')?10:5}
 function tapBase(){
   let base=1,pct=0;
   for(const u of UP){if(!has(u.id))continue;if(u.type==='tapx')base*=2;if(u.type==='tappct')pct+=u.val}
   let v=base*(1+S.seeds*0.1)*Math.pow(2,S.rb||0)*PROG+sps()*pct;
-  if(now()<buffs.tap)v*=50;
+  if(now()<buffs.tap)v*=50;if(potOn('tipp'))v*=3;
   if(now()<buffs.rush)v*=rushPow();
   if(S.pet==='biene')v*=1+.1*petPf();
   if(now()<(buffs.purr||0))v*=3;
@@ -2301,7 +2392,7 @@ function tapBase(){
   if(dim()==='thron')v*=2;
   return v;
 }
-function critChance(){let c=0;for(const u of UP)if(u.type==='crit'&&has(u.id))c+=u.val;return c+(dim()==='kristall'?.1:0)+curPow('crit')*.4+(S.pet==='katze'?.06*petPf():0)}
+function critChance(){let c=0;for(const u of UP)if(u.type==='crit'&&has(u.id))c+=u.val;return c+(dim()==='kristall'?.1:0)+curPow('crit')*.4+(S.pet==='katze'?.06*petPf():0)+(potOn('glueck')?.15:0)}
 function gain(n){if(!(n>0)||!isFinite(n))return;S.spores+=n;S.season+=n;S.allTime+=n;S.rbEarn=(S.rbEarn||0)+n;S.lbPend=(S.lbPend||0)+n}
 /* Schwierigkeit: je weiter man ist, desto teurer wird alles */
 function diffMult(){const t=tot(S);return (1+Math.pow(t/250,1.5))*(1+(S.rb||0)*.25)}
@@ -2416,7 +2507,7 @@ function updSnd(){
   $('eqv').classList.toggle('off',!(m&&MUS.on));
 }
 function updMute(){updSnd()}
-let sndDownAt=0;const sndToggle=()=>{ensureAudio();const p=$('sndPanel');p.hidden=!p.hidden;moonRowUpd();gqUpd();$('muteBtn').setAttribute('aria-expanded',!p.hidden);updSnd()};
+let sndDownAt=0;const sndToggle=()=>{ensureAudio();const p=$('sndPanel');p.hidden=!p.hidden;moonRowUpd();gqUpd();pzUpd();a11yUpd();pushRowRender();$('muteBtn').setAttribute('aria-expanded',!p.hidden);updSnd()};
 $('muteBtn').addEventListener('pointerdown',e=>{if(e.button>0)return;e.stopPropagation();sndDownAt=performance.now();sndToggle()});
 $('muteBtn').onclick=e=>{e.stopPropagation();if(performance.now()-sndDownAt<800)return;sndToggle()};
 $('tgMusic').onclick=()=>{S.music=S.music===false;save();if(S.music!==false){ensureAudio();musicStart()}else musicStop();updSnd()};
@@ -2745,6 +2836,7 @@ function checkDaily(){
   if(!dailyAvailable())return;
   const t=today(),prev=dayIndex(S.dailyDay),cur=dayIndex(t);
   S.dailyStreak=(prev!==null&&cur-prev===1)?S.dailyStreak+1:1;
+  if(S.dailyStreak%7===0)setTimeout(()=>{addKey('gold',1);toast('📅 7 Tage am Stück!','Deine Wochen-Belohnung: ein Goldtruhen-Schlüssel')},2500);
   S.dailyDay=t;
   const d=((S.dailyStreak-1)%7)+1,amt=Math.max(100*d,rawSps()*60*d);
   gain(amt);addXP(60);S.gems+=5+d;if(d===7)setTimeout(()=>addKey('silver'),1500);let extra='';
@@ -2806,7 +2898,7 @@ function updSeason(){
 /* ---------- golden events ---------- */
 const goldSVG=`<svg viewBox="0 0 100 100"><path d="M40 58 Q37 80 34 92 Q50 97 66 92 Q63 80 60 58Z" fill="#FFF3D6"/><path d="M8 60 Q10 14 50 12 Q90 14 92 60 Q50 70 8 60Z" fill="#FFC23D"/><circle cx="32" cy="36" r="7" fill="#FFF7E0"/><circle cx="62" cy="28" r="5" fill="#FFF7E0"/><circle cx="70" cy="46" r="6" fill="#FFF7E0"/></svg>`;
 let nextGold=now()+18000;
-function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)/(cfgOn('goldrain')?4:1)/(1+curPow('gold'))*(1+Math.max(0,Math.log10(S.allTime+1)-6)*.03)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)/(S.pet==='pingu'?1.3+.3*petPf():1)/(geHour()?3:1)}
+function scheduleGold(){nextGold=now()+(35000+Math.random()*55000)/(cfgOn('goldrain')?4:1)/(1+curPow('gold'))*(1+Math.max(0,Math.log10(S.allTime+1)-6)*.03)/(has('g0')?1.7:1)/(dim()==='wolken'?2:1)/(S.pet==='pingu'?1.3+.3*petPf():1)/(geHour()?3:1)/(potOn('gold')?3:1)}
 /* ---------- Goldpilz 2.0 ---------- */
 function goldArt(kind){
   const rb=kind==='rainbow',id='gp'+Math.random().toString(36).slice(2,7);
@@ -3266,6 +3358,11 @@ function napoTap(x,y,crit){
 
 function legendBack(k,p){
   switch(k.leg){
+    case 'santa':return '';
+    case 'rentier':return `${[-1,1].map(s=>`<path d="M${100+s*34} 40 Q${100+s*50} 6 ${100+s*44} -14 M${100+s*44} 14 Q${100+s*62} 4 ${100+s*68} -8 M${100+s*47} 0 Q${100+s*34} -10 ${100+s*30} -20" stroke="#8A5A2A" stroke-width="7" stroke-linecap="round" fill="none"/>`).join('')}`;
+    case 'schneemann':return '';
+    case 'stern':return `<g><animateTransform attributeName="transform" type="rotate" from="0 100 112" to="360 100 112" dur="16s" repeatCount="indefinite"/>${[0,1,2,3,4,5,6,7].map(i=>`<path d="M100 112 L${100+Math.cos(i*.785)*96} ${112+Math.sin(i*.785)*96}" stroke="#FFE680" stroke-width="3" opacity=".35"/>`).join('')}</g>`;
+
     case 'hexe':return `<path d="M14 210 L60 130" stroke="#8A5A2A" stroke-width="6" stroke-linecap="round"/><path d="M4 216 Q10 196 22 200 Q16 208 20 222Z M14 214 Q18 196 30 198" fill="#D8A040"/>`;
     case 'gespenst':return `<path d="M20 112 Q14 40 100 16 Q186 40 180 112 Q186 170 170 214 Q160 200 150 214 Q140 200 130 214 Q120 200 110 214 Q100 200 90 214 Q80 200 70 214 Q60 200 50 214 Q40 200 30 214 Q14 170 20 112Z" fill="#F4F6FF" opacity=".92"><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.4s" repeatCount="indefinite"/></path>`;
     case 'fleder':return `${[-1,1].map(s=>`<g><animateTransform attributeName="transform" type="rotate" values="${s*-8} 100 120;${s*12} 100 120;${s*-8} 100 120" dur=".9s" repeatCount="indefinite"/><path d="M${100+s*40} 130 Q${100+s*70} 70 ${100+s*98} 60 Q${100+s*90} 90 ${100+s*98} 104 Q${100+s*84} 100 ${100+s*86} 124 Q${100+s*70} 116 ${100+s*66} 140 Q${100+s*56} 130 ${100+s*44} 150Z" fill="#3A1A4A" stroke="#1A0A24" stroke-width="2"/></g>`).join('')}`;
@@ -3291,6 +3388,15 @@ function legendBack(k,p){
 }
 function legendFront(k,p){
   switch(k.leg){
+    case 'santa':return `<path d="M28 64 Q96 -60 150 -4 Q170 12 176 30" fill="none"/><path d="M26 66 Q60 -4 120 -2 Q156 0 174 40 L178 60 Q100 40 26 66Z" fill="#D8202A"/><path d="M120 -2 Q170 -6 186 36" stroke="#D8202A" stroke-width="16" fill="none" stroke-linecap="round"/><circle cx="188" cy="44" r="12" fill="#fff"/>
+      <path d="M20 66 Q100 36 182 64" stroke="#fff" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <path d="M70 172 Q66 214 100 224 Q134 214 130 172 Q118 182 100 180 Q82 182 70 172Z" fill="#fff"/><path d="M84 184 Q100 192 116 184" stroke="#E8E4F0" stroke-width="2" fill="none"/>`;
+    case 'rentier':return `<circle cx="100" cy="174" r="9" fill="#E0203A"><animate attributeName="opacity" values="1;.6;1" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="97" cy="171" r="3" fill="#fff" opacity=".7"/>`;
+    case 'schneemann':return `<path d="M100 168 L124 176 L100 180Z" fill="#FF8A1A"/><path d="M52 188 Q100 206 148 188 L150 202 Q100 220 50 202Z" fill="#E0203A"/><path d="M128 196 L136 226 L150 222 L140 194Z" fill="#E0203A"/>
+      <rect x="62" y="-18" width="76" height="52" rx="6" fill="#1A1A2A"/><rect x="44" y="30" width="112" height="12" rx="6" fill="#1A1A2A"/><rect x="62" y="20" width="76" height="8" fill="#E0203A"/>`;
+    case 'stern':return `<path d="M100 -30 L110 -6 L136 -4 L116 12 L122 38 L100 24 L78 38 L84 12 L64 -4 L90 -6Z" fill="#FFD23F" stroke="#fff" stroke-width="3" stroke-linejoin="round"><animate attributeName="opacity" values="1;.75;1" dur="1.6s" repeatCount="indefinite"/></path>
+      ${[[24,40],[176,60],[30,190],[172,180]].map(([x,y],i)=>`<path d="M${x} ${y-7} L${x+2} ${y-2} L${x+7} ${y} L${x+2} ${y+2} L${x} ${y+7} L${x-2} ${y+2} L${x-7} ${y} L${x-2} ${y-2}Z" fill="#FFF6C8"><animate attributeName="opacity" values="0;1;0" dur="${1.3+i*.3}s" begin="${-i*.4}s" repeatCount="indefinite"/></path>`).join('')}`;
+
     case 'hexe':return `<path d="M20 62 Q100 34 180 62 Q100 78 20 62Z" fill="#3A1A5A"/><path d="M58 56 Q74 -10 128 -26 Q112 0 130 52 Q100 60 58 56Z" fill="#4A2A7A" stroke="#2A0A4A" stroke-width="3" stroke-linejoin="round"/><rect x="66" y="40" width="60" height="10" rx="2" fill="#7FE36A"/><rect x="88" y="38" width="14" height="14" rx="2" fill="none" stroke="#FFD23F" stroke-width="3"/>
       ${[[40,30],[160,40]].map(([x,y],i)=>`<path d="M${x} ${y-6} L${x+2} ${y-2} L${x+6} ${y} L${x+2} ${y+2} L${x} ${y+6} L${x-2} ${y+2} L${x-6} ${y} L${x-2} ${y-2}Z" fill="#B48CFF"><animate attributeName="opacity" values="0;1;0" dur="${1.4+i*.4}s" repeatCount="indefinite"/></path>`).join('')}`;
     case 'gespenst':return `<g><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.4s" repeatCount="indefinite"/><ellipse cx="80" cy="80" rx="12" ry="16" fill="#1A1028"/><ellipse cx="120" cy="80" rx="12" ry="16" fill="#1A1028"/><ellipse cx="100" cy="112" rx="10" ry="12" fill="#1A1028"/></g>`;
@@ -3886,8 +3992,14 @@ function nickCheckStrict(raw){
 }
 /* fragt den Server, ob ein Name schon vergeben ist (braucht nick-security.sql) */
 async function nickTaken(n){if(!LB.sb)return false;try{const r=await LB.sb.rpc('nick_taken',{p_nick:n});return !r.error&&r.data===true}catch(e){return false}}
+/* gesperrte Wörter in Namen: Länder, Religionen, Kulturen, Politik, Unanständiges (gleiche Liste wie auf dem Server) */
+const NAME_SUB=["deutschland", "germany", "frankreich", "spanien", "spain", "italien", "italy", "portugal", "england", "britain", "grossbritannien", "schottland", "scotland", "irland", "ireland", "oesterreich", "austria", "schweiz", "switzerland", "niederlande", "netherlands", "holland", "belgien", "belgium", "luxemburg", "luxembourg", "daenemark", "denmark", "norwegen", "norway", "schweden", "sweden", "finnland", "finland", "iceland", "polen", "poland", "tschechien", "czech", "slowakei", "slovakia", "ungarn", "hungary", "rumaenien", "romania", "bulgarien", "bulgaria", "griechenland", "greece", "tuerkei", "turkey", "turkiye", "zypern", "cyprus", "albanien", "albania", "serbien", "serbia", "kroatien", "croatia", "bosnien", "bosnia", "slowenien", "slovenia", "montenegro", "mazedonien", "macedonia", "kosovo", "moldawien", "moldova", "ukraine", "weissrussland", "belarus", "russland", "russia", "litauen", "lithuania", "lettland", "latvia", "estland", "estonia", "georgien", "georgia", "armenien", "armenia", "aserbaidschan", "azerbaijan", "kasachstan", "kazakhstan", "usbekistan", "uzbekistan", "turkmenistan", "kirgisistan", "kyrgyzstan", "tadschikistan", "tajikistan", "afghanistan", "pakistan", "indien", "hindustan", "bangladesch", "bangladesh", "srilanka", "myanmar", "thailand", "kambodscha", "cambodia", "vietnam", "malaysia", "singapur", "singapore", "indonesien", "indonesia", "philippinen", "philippines", "china", "taiwan", "mongolei", "mongolia", "nordkorea", "northkorea", "suedkorea", "southkorea", "japan", "saudiarabien", "saudiarabia", "emirate", "emirates", "jemen", "yemen", "syrien", "syria", "libanon", "lebanon", "jordanien", "israel", "palaestina", "palestine", "westjordanland", "aegypten", "egypt", "libyen", "libya", "tunesien", "tunisia", "algerien", "algeria", "marokko", "morocco", "sudan", "aethiopien", "ethiopia", "somalia", "kenia", "kenya", "tansania", "tanzania", "uganda", "ruanda", "rwanda", "nigeria", "ghana", "kamerun", "cameroon", "senegal", "elfenbeinkueste", "kongo", "congo", "angola", "sambia", "zambia", "simbabwe", "zimbabwe", "mosambik", "mozambique", "madagaskar", "madagascar", "namibia", "botswana", "suedafrika", "southafrica", "eritrea", "burundi", "gambia", "liberia", "sierraleone", "guinea", "mauretanien", "mauritania", "burkinafaso", "amerika", "america", "vereinigtestaaten", "unitedstates", "kanada", "canada", "mexiko", "mexico", "guatemala", "honduras", "nicaragua", "costarica", "panama", "kolumbien", "colombia", "venezuela", "ecuador", "brasilien", "brazil", "brasil", "bolivien", "bolivia", "paraguay", "uruguay", "argentinien", "argentina", "jamaika", "jamaica", "haiti", "dominikanisch", "australien", "australia", "neuseeland", "newzealand", "deutsche", "deutscher", "deutsch", "german", "franzose", "french", "spanier", "spanish", "italiener", "italian", "englaender", "english", "amerikaner", "american", "russisch", "russian", "ukrainer", "ukrainian", "chinese", "chinesisch", "japaner", "japanese", "koreaner", "korean", "indisch", "tuerke", "tuerkisch", "turkish", "araber", "arabisch", "arabic", "perser", "persisch", "israeli", "israelisch", "palaestinenser", "kurdisch", "afghane", "pakistani", "mexikaner", "brasilianer", "afrikan", "afrika", "africa", "asiat", "europa", "europe", "europaeer", "christ", "christus", "jesus", "kirche", "church", "bibel", "bible", "papst", "vatikan", "islam", "muslim", "moslem", "allah", "koran", "quran", "moschee", "mosque", "mohammed", "muhammad", "prophet", "judentum", "judaism", "juedisch", "jewish", "synagog", "rabbi", "zion", "hindu", "buddha", "buddhis", "atheis", "satanis", "luzifer", "lucifer", "jihad", "dschihad", "kalifat", "caliph", "scientology", "zeugenjehovas", "jehova", "mormon", "evangel", "katholi", "protestan", "orthodox", "zigeuner", "sinti", "kanake", "kanacke", "polack", "russki", "yankee", "gringo", "indianer", "eskimo", "aborigine", "nazi", "hitler", "fuehrer", "fuhrer", "drittesreich", "reichsbuerger", "nsdap", "gestapo", "wehrmacht", "holocaust", "siegheil", "antifa", "kommunis", "communis", "sozialis", "socialis", "faschis", "fascis", "nationalis", "rassis", "racis", "kapitalis", "anarchis", "trump", "biden", "obama", "putin", "merkel", "scholz", "habeck", "weidel", "hoecke", "selensk", "zelensk", "erdogan", "kimjong", "stalin", "lenin", "castro", "guevara", "netanjahu", "netanyahu", "hamas", "hisbollah", "hezbollah", "taliban", "alqaida", "alkaida", "islamist", "terroris", "partei", "regierung", "praesident", "president", "kanzler", "chancellor", "diktator", "dictator", "propaganda", "politik", "politic", "wahlkampf", "porno", "porn", "penis", "vagina", "titte", "wichs", "fick", "fotze", "schlampe", "hure", "nutte", "bitch", "fuck", "shit", "pussy", "boob", "nackt", "naked", "horny", "milf", "sperma", "orgasm", "dildo", "bdsm", "kondom", "condom", "erotik", "erotic", "stripper", "onlyfans", "nippel", "nipple", "busen", "hurensohn", "missgeburt", "behindert", "spast", "kokain", "cocaine", "heroin", "kiffen", "drogen", "marihuana", "marijuana", "cannabis", "arschloch"];
+const NAME_TOK=new Set(["usa", "us", "uk", "eu", "brd", "ddr", "udssr", "ussr", "gb", "nrw", "oman", "iran", "iraq", "irak", "peru", "laos", "mali", "togo", "chad", "tschad", "cuba", "kuba", "fiji", "niger", "benin", "gabun", "katar", "qatar", "chile", "india", "malta", "nepal", "korea", "tonga", "samoa", "nauru", "roma", "arab", "kurd", "kurde", "turk", "pole", "jude", "juden", "jew", "afro", "ossi", "wessi", "inuit", "latino", "gott", "god", "jahwe", "imam", "pope", "ss", "sa", "afd", "cdu", "csu", "spd", "fdp", "npd", "bsw", "dkp", "kpd", "gruene", "linke", "kkk", "maga", "isis", "marx", "mao", "heil", "sex", "dick", "cock", "geil", "anal", "cum", "xxx", "69", "88", "1488", "mongo", "opfer", "weed", "meth", "arsch", "russe", "inder", "sikh", "asien", "island", "france", "gaza", "cock", "nude", "sexy"]);
+function nameBanned(s){const l=String(s||'').toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss'),lt=l.replace(/[013457@$]/g,c=>({'0':'o','1':'i','3':'e','4':'a','5':'s','7':'t','@':'a','$':'s'})[c]),a=lt.replace(/[^a-z0-9]/g,'');
+  if(NAME_SUB.some(w=>a.includes(w)))return true;return [...(l.match(/[a-z]+|[0-9]+/g)||[]),...(lt.match(/[a-z]+/g)||[])].some(w=>NAME_TOK.has(w))}
 function nickCheck(raw){
   const n=String(raw||'').trim();
+  if(nameBanned(n))return 'Bitte keine Länder, Religionen, Politik oder unpassenden Wörter im Namen.';
   if(n.length<3)return 'Der Name braucht mindestens 3 Zeichen.';
   if(n.length>20)return 'Der Name darf höchstens 20 Zeichen haben.';
   if(!/^[A-Za-z0-9äöüÄÖÜßÀ-ÖØ-öø-ÿ _.\-]+$/.test(n))return 'Erlaubt sind nur Buchstaben, Zahlen, Leerzeichen, Punkt, Minus und Unterstrich.';
@@ -3939,7 +4051,7 @@ function renderLB(){
       const pst=styleOf(r.player_id);h+=`<div class="pod p${i+1} ${r.player_id===LB.uid?'me':''}${pst?' hasbn':''}" data-id="${esc(r.player_id)}">${pst?`<i class="podbn" style="${bannerCSS(pst.banner)}"></i>`:''}<div class="md">${medal[i]}</div><div class="av">${lbAvatar(r,'po'+i)}</div><b>${esc(showNick(r))}${r.prem?' 👑':''}${r.online?'<span class="odot"></span>':''}</b>${pst&&pst.title!=='neu'?`<span class="lbtt">${esc(titleName(pst.title))}</span>`:''}<small>${lbShow(r)}</small></div>`});
     h+='</div>'}
   rows.slice(start).forEach((r,j)=>{const i=j+start,pet=PETS.find(x=>x.id===r.pet),rk=LB.ranks[r.player_id];
-    const st=styleOf(r.player_id),ct=clTag(r.player_id);h+=`<div class="lbrow lbrow-bn ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}">${st?`<i class="lbbnbg" style="${bannerCSS(st.banner,i>=15||IS_TABLET)}"></i>`:''}<span class="pl">${rk||'·'}${mvHTML(r.player_id)}</span><span class="av">${i<40?lbAvatar(r,'lr'+i):''}</span><span class="nm">${isFav(r.player_id)?'⭐ ':''}${ct}${esc(showNick(r))}${r.prem?' 👑':''}${r.online?'<span class="odot" title="online"></span>':''}${st&&st.title&&st.title!=='neu'?`<span class="lbtt">${esc(titleName(st.title))}</span>`:''}<small>${titleOf(r.score)}${pet?' · '+pet.e:''}${r.rb?' · 🔄'+r.rb:''}${r.boss_wins?' · ⚔️'+r.boss_wins:''}</small></span><span class="sc">${lbShow(r)}</span></div>`});
+    const st=styleOf(r.player_id),ct=clTag(r.player_id);h+=`<div class="lbrow lbrow-bn ${r.player_id===LB.uid?'me':''}" data-id="${esc(r.player_id)}">${st?`<i class="lbbnbg" style="${bannerCSS(st.banner,i>=15||IS_TABLET)}"></i>`:''}<span class="pl">${rk||'·'}${mvHTML(r.player_id)}</span><span class="av">${i<40?lbAvatar(r,'lr'+i):''}</span><span class="nm">${isFav(r.player_id)?'⭐ ':''}${ct}${esc(showNick(r))}${prestige(r.rb)}${r.prem?' 👑':''}${r.online?'<span class="odot" title="online"></span>':''}${st&&st.title&&st.title!=='neu'?`<span class="lbtt">${esc(titleName(st.title))}</span>`:''}<small>${titleOf(r.score)}${pet?' · '+pet.e:''}${r.rb?' · 🔄'+r.rb:''}${r.boss_wins?' · ⚔️'+r.boss_wins:''}</small></span><span class="sc">${lbShow(r)}</span></div>`});
   const lbChanged=lbSwap(box,h);styleFetch(rows.slice(0,60).map(r=>r.player_id));clTagsFetch(rows.slice(0,60).map(r=>r.player_id));
   $('lbMore').hidden=!(LB.view==='all'&&!LB.q&&LB.total!=null&&rows.length<LB.total&&rows.length>=LB.limit);
   if(lbChanged)box.querySelectorAll('[data-id]').forEach(el=>el.addEventListener('click',()=>openProfile(el.dataset.id)));
@@ -3954,8 +4066,10 @@ function openProfile(id){
   if(LB.ver>1)cells.push(['Dabei seit',r.created_at?new Date(r.created_at).toLocaleDateString('de-DE'):'–'],['Zuletzt aktiv',r.online?'gerade online':fmtAgo(r.last_submit)]);
   let cmp='';if(!mine&&LB.me){const d=(r.score||0)-(LB.me.score||0);cmp=`<div class="pcmp">${d>0?`<b>${esc(showNick(r))}</b> hat <b>${fmt(d)}</b> Sporen mehr als du.`:d<0?`Du hast <b>${fmt(-d)}</b> Sporen mehr als <b>${esc(showNick(r))}</b>. 💪`:'Ihr seid genau gleichauf!'}</div>`}
   const pst=styleOf(r.player_id);
-  $('profBody').innerHTML=`${pst?`<div class="pfbn">${bannerHTML(showNick(r),titleName(pst.title),pst.banner,r.skin,true)}</div>`:''}<div class="pav">${mushSVG(k,'pf')}</div><h2 id="pfN">${esc(showNick(r))}${r.prem?' 👑':''}</h2><div class="ps">${mine?'Das bist du':(r.online?'<span class="odot"></span> online':'offline')}</div>${cmp}<div class="pgrid">${cells.map(([a,b])=>`<div>${a}<b>${esc(b)}</b></div>`).join('')}</div>${mine?'':`<div class="pbtns" style="margin-bottom:8px"><button class="ghost" id="pfFav" style="margin:0">${isFav(id)?'★ Nicht mehr folgen':'☆ Folgen'}</button><button class="ghost" id="pfRep" style="margin:0">🚩 Melden</button></div><button class="primary" id="pfGarden" style="margin-bottom:8px">🏡 Garten besuchen</button>`}`;
+  $('profBody').innerHTML=`${pst?`<div class="pfbn">${bannerHTML(showNick(r),titleName(pst.title),pst.banner,r.skin,true)}</div>`:''}<div class="pav">${mushSVG(k,'pf')}</div><h2 id="pfN">${esc(showNick(r))}${r.prem?' 👑':''}</h2><div class="ps">${mine?'Das bist du':(r.online?'<span class="odot"></span> online':'offline')}</div>${cmp}<div class="pgrid">${cells.map(([a,b])=>`<div>${a}<b>${esc(b)}</b></div>`).join('')}</div>${mine?'':`<div class="pbtns" style="margin-bottom:8px"><button class="ghost" id="pfFav" style="margin:0">${isFav(id)?'★ Nicht mehr folgen':'☆ Folgen'}</button><button class="ghost" id="pfRep" style="margin:0">🚩 Melden</button></div><button class="primary" id="pfGarden" style="margin-bottom:8px">🏡 Garten besuchen</button><button class="ghost" id="pfFriend" style="margin-bottom:8px">👥 Als Freund hinzufügen</button>`}`;
   const rp=$('pfRep');if(rp)rp.onclick=()=>reportPlayer(id);
+  if(LB.sb)gmRpc('garden_get',{p_player:id}).then(gr=>{const sh=gr&&gr.data&&gr.data.show;if(sh&&sh.length&&!$('profModal').hidden){const av=$('profBody').querySelector('.pav');if(av)av.insertAdjacentHTML('afterend',showcaseHTML(sh))}}).catch(()=>{});
+  const pf2=$('pfFriend');if(pf2)pf2.onclick=async()=>{try{const x=await gmRpc('friend_add',{p_player:id});toast(x==='ok'?'👥 Ihr seid jetzt Freunde!':x==='gesendet'?'📩 Freundschaftsanfrage gesendet':'Das ging nicht');pf2.disabled=true}catch(e){toast(gmErr(e))}};
   const pg=$('pfGarden');if(pg)pg.onclick=()=>{$('profModal').hidden=true;visitGarden(id,showNick(r))};
   const fb=$('pfFav');if(fb)fb.onclick=()=>{toggleFav(id);fb.textContent=isFav(id)?'★ Nicht mehr folgen':'☆ Folgen';renderLB()};
   $('profModal').hidden=false;document.body.classList.add('locked');sfx.buy();
@@ -4122,7 +4236,7 @@ let lastMushTap=0;
 mush.addEventListener('pointerdown',()=>{lastMushTap=now();if(boss&&boss.wave&&!boss.dead)jump()});
 
 function spawnBoss(o){o=o||{};
-  const [e,n,pr]=o.def||(isHalloween()&&!o.tower&&Math.random()<.5?HW_BOSS:null)||BOSSES[dim()]||BOSSES.wald,sc=SCN(),L=o.L||S.bossLvl||1,R=sc.getBoundingClientRect();
+  const [e,n,pr]=o.def||(isHalloween()&&!o.tower&&Math.random()<.5?HW_BOSS:null)||(isXmas()&&!o.tower&&Math.random()<.5?XM_BOSS:null)||BOSSES[dim()]||BOSSES.wald,sc=SCN(),L=o.L||S.bossLvl||1,R=sc.getBoundingClientRect();
   const bw=Math.round(Math.min(R.width*.6,R.height*.42,320));
   /* ---------- Kino-Auftritt ----------
      0,0 s  Himmel wird dunkel, Kinobalken, Garten zoomt heran, Grollen
@@ -4189,7 +4303,7 @@ function hitBoss(x,y){
     if(boss.shield.need<=0)breakShield();return}
   boss.combo=(t-boss.lastHit<450)?boss.combo+1:1;boss.lastHit=t;
   let d=1;const crit=Math.random()<critChance()+.08;if(crit)d=3;if(now()<buffs.rush)d*=2;if(chargeTaps>0){d*=2;chargeTaps--}
-  const vul=t<boss.vuln;if(vul)d*=2;d*=1+curPow('boss');d=Math.round(d*(1+Math.min(boss.combo,20)*.025)*10)/10;
+  const vul=t<boss.vuln;if(vul)d*=2;d*=(1+curPow('boss'))*(potOn('boss')?2:1);d=Math.round(d*(1+Math.min(boss.combo,20)*.025)*10)/10;
   boss.hp-=d;addXP(.3);
   dmgText(x,y,d,crit,vul);slashAt(x,y,crit);hitReact(x,y,crit);showCombo();
   fxBurst(x,y,{n:crit?18:8,colors:crit?['#FFFFFF','#FFD84A','#FF3D6E']:['#FFFFFF','#FFD84A','#FF7A3D'],speed:crit?7:4.5,star:crit,glow:crit});
@@ -4406,7 +4520,7 @@ function winBoss(){
   let sp=Math.max(rawSps()*300,tapBase()*240,600);if(dim()==='drachen')sp*=2;const gm=Math.min(15,3+S.bossLvl);if(stars===3)sp*=1.5;
   if(dim()==='frost'){S.frostBoss=(S.frostBoss||0)+1;if(S.frostBoss<=20)setTimeout(()=>toast(`⛄ Schneekoloss ${S.frostBoss}/20 besiegt`,'Für die Kristallflocke'),3000)}
   liveEv(`hat ${B0.e} ${B0.name} besiegt (${stars} ⭐)`);
-  gain(sp);S.gems+=Math.round(gm*(1+curPow('gems')));S.bossWins++;S.bossLvl++;addXP(60);if(Math.random()<.35)setTimeout(()=>addKey('wood'),2200);if(S.bossWins%10===0)setTimeout(()=>addKey('silver'),2600);const dd=(S.bossWins%5===0?3:1)+(stars===3?1:0);S.dia+=dd;petXP(25);
+  gain(sp);S.gems+=Math.round(gm*(1+curPow('gems')));S.bossWins++;if(Math.random()<.12)setTimeout(()=>eggAdd(1),2500);S.bossLvl++;addXP(60);if(Math.random()<.35)setTimeout(()=>addKey('wood'),2200);if(S.bossWins%10===0)setTimeout(()=>addKey('silver'),2600);const dd=(S.bossWins%5===0?3:1)+(stars===3?1:0);S.dia+=dd;petXP(25);
   setTimeout(()=>toast(`⚔️ ${B0.name} besiegt!`,`+${fmt(sp)} Sporen, ${gm} 💠 und ${dd} 💎`),1600);
   boss=null;nextBoss=cfgOn('bossrush')?now()+45000:now()+(240000+Math.random()*120000)*(dim()==='drachen'?.5:1);setTimeout(jump,1100);checkPets();
 }
@@ -4718,6 +4832,45 @@ async function admScoreAdd(n){
     LB.lastFetch=0;if(!$('p-r').hidden)setTimeout(fetchLB,300)}
   catch(e){toast('⚠️ Rangliste nicht aktualisiert','Bist du als Admin eingetragen?')}
 }
+/* ---------- Admin: neue Bereiche ---------- */
+const ADX={clans:null,clanSel:null,chat:null,bz:null,ov:null};
+async function admx(fn,args){const r=await LB.sb.rpc(fn,args||{});if(r.error)throw r.error;return r.data}
+const admxErr=e=>/function|schema/i.test((e&&e.message)||'')?'Führe admin-update.sql in Supabase aus.':'Das hat nicht geklappt.';
+async function admOverview(){const b=$('admNew');if(!b)return;b.innerHTML='<p class="mknote">Lade …</p>';
+  try{const o=await admx('adm_overview');ADX.ov=o;const w=o.wb;
+    b.innerHTML=`<div class="aov">${[['🛡️','Gilden',o.clans,`${o.clan_members} Mitglieder`],['💬','Gildenchat heute',o.clan_msgs_today,'Nachrichten'],['💰','Basar offen',o.bazaar_open,`${o.bazaar_sold_week} verkauft (7 Tage)`],
+      ['🤺','Duelle heute',o.duels_today,`${o.duel_players} Duellanten`],['🏡','Gärten',o.gardens,`${o.waters_today}× gegossen heute`],['🎁','Einladungen',o.referrals,`${o.referrals_done} auf Stufe 10`],['📅','Monats-Saison',o.month_players,'Teilnehmer']]
+      .map(([e,n,v,s])=>`<div><span>${e}</span><b>${v}</b><small>${n}<br>${s}</small></div>`).join('')}</div>
+      ${w?`<h4>🌍 Weltboss heute · Welle ${w.wave||1}</h4><div class="wbhp"><i style="width:${w.hp/w.max*100}%"></i><span>${w.e} ${esc(w.name)}: ${fmt(w.hp)} / ${fmt(w.max)} · ${w.players} Spieler${w.dead?' · besiegt':''}</span></div>
+      <div class="agrid">${[100,50,10,0].map(p=>`<button class="abtn" data-wb="${p}">${p===0?'💀 Sofort besiegen':p===100?'❤️ Voll heilen':`Auf ${p} % setzen`}</button>`).join('')}</div>`:''}
+      <h4>🔤 Namens- und Chatfilter testen</h4><div class="afil"><input id="admBanQ" placeholder="Wort oder Satz eingeben" maxlength="60"><button class="abtn" id="admBanGo">Prüfen</button></div><p class="mknote" id="admBanR"></p>`;
+    b.querySelectorAll('[data-wb]').forEach(x=>x.onclick=async()=>{try{await admx('adm_wb_set',{p_pct:+x.dataset.wb});toast('🌍 Weltboss angepasst');admOverview()}catch(e){toast(admxErr(e))}});
+    $('admBanGo').onclick=()=>{const v=$('admBanQ').value.trim();if(!v)return;const ban=nameBanned(v),e=nickCheck(v);$('admBanR').innerHTML=ban?'🚫 <b>Gesperrt</b> (Länder, Religion, Politik oder Unanständiges)':e?`⚠️ Als Name nicht erlaubt: ${esc(e)}`:'✅ Erlaubt'}}
+  catch(e){b.innerHTML=`<p class="mknote">${admxErr(e)}</p>`}}
+async function admClans(){const b=$('admNew');if(!b)return;b.innerHTML='<p class="mknote">Lade …</p>';
+  try{ADX.clans=await admx('adm_clans');
+    b.innerHTML=`<p class="mknote">Alle Gilden. Du kannst sie umbenennen, löschen oder ihren Chat lesen und Nachrichten entfernen.</p>
+      <div class="dutop">${ADX.clans.map(c=>`<div class="aclan"><div><b>${esc(c.emoji)} ${esc(c.name)} [${esc(c.tag)}]</b><small>${c.members} Mitglieder · Anführer: ${esc(c.owner_nick||'–')} · ${c.msgs_today} Nachrichten heute</small></div>
+        <div class="aclbtn"><button class="abtn" data-cc="${c.id}">💬</button><button class="abtn" data-cr="${c.id}">✏️</button><button class="abtn danger" data-cd="${c.id}">🗑️</button></div></div>`).join('')||'<p class="mknote">Noch keine Gilden.</p>'}</div><div id="admClanChat"></div>`;
+    b.querySelectorAll('[data-cc]').forEach(x=>x.onclick=()=>admClanChat(+x.dataset.cc));
+    b.querySelectorAll('[data-cr]').forEach(x=>x.onclick=async()=>{const c=ADX.clans.find(y=>y.id==x.dataset.cr);const n=prompt('Neuer Gildenname',c.name);if(!n)return;const tg=prompt('Neues Kürzel (2–4 Zeichen)',c.tag);if(!tg)return;
+      try{const r=await admx('adm_clan_rename',{p_id:c.id,p_name:n,p_tag:tg});toast(r==='ok'?'✏️ Gilde umbenannt':'🚫 Dieser Name ist gesperrt');admClans()}catch(e){toast(admxErr(e))}});
+    b.querySelectorAll('[data-cd]').forEach(x=>x.onclick=()=>{const c=ADX.clans.find(y=>y.id==x.dataset.cd);queueModal({emoji:'🗑️',title:`Gilde „${c.name}“ löschen?`,text:'Alle Mitglieder verlieren ihre Gilde, der Chat wird gelöscht. Das lässt sich nicht rückgängig machen.',ok:'Löschen',cancel:true,
+      onOk:async()=>{try{await admx('adm_clan_delete',{p_id:c.id});toast('🗑️ Gilde gelöscht');admClans()}catch(e){toast(admxErr(e))}}})})}
+  catch(e){b.innerHTML=`<p class="mknote">${admxErr(e)}</p>`}}
+async function admClanChat(id){const box=$('admClanChat');if(!box)return;box.innerHTML='<p class="mknote">Lade Chat …</p>';
+  try{const m=await admx('adm_clan_chat',{p_id:id}),c=ADX.clans.find(y=>y.id===id);
+    box.innerHTML=`<h4>💬 Chat von ${esc(c?c.name:'')}</h4><div class="mkchat" style="max-height:40vh">${m.map(x=>`<div class="mkmsg"><div><b>${esc(x.nick)}</b><span>${new Date(x.at).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</span><button class="clkick" data-dm="${x.id}">🗑️</button></div><p>${esc(x.text)}</p></div>`).join('')||'<p class="mknote">Keine Nachrichten.</p>'}</div>`;
+    box.querySelectorAll('[data-dm]').forEach(x=>x.onclick=async()=>{try{await admx('adm_clan_msg_delete',{p_id:+x.dataset.dm});admClanChat(id)}catch(e){toast(admxErr(e))}});
+    box.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){box.innerHTML=`<p class="mknote">${admxErr(e)}</p>`}}
+async function admBazaar(){const b=$('admNew');if(!b)return;b.innerHTML='<p class="mknote">Lade …</p>';
+  try{ADX.bz=await admx('adm_bazaar');
+    b.innerHTML=`<p class="mknote">Die letzten 60 Basar-Angebote. Entfernst du ein offenes Angebot, bekommt der Verkäufer seinen Skin automatisch zurück.</p>
+      <div class="dutop">${ADX.bz.map(o=>{const k=skById(o.skin);return `<div class="aclan"><div><b>${esc(k?k.name:o.skin)} · ${o.price} 💠</b><small>${esc(o.nick)}${o.status==='sold'?` → verkauft an ${esc(o.buyer_nick||'?')}`:o.status==='cancelled'?' · zurückgenommen':' · offen'} · ${new Date(o.created_at).toLocaleDateString('de-DE')}</small></div>
+        ${o.status==='open'?`<div class="aclbtn"><button class="abtn danger" data-bzr="${o.id}">Entfernen</button></div>`:''}</div>`}).join('')||'<p class="mknote">Noch keine Angebote.</p>'}</div>`;
+    b.querySelectorAll('[data-bzr]').forEach(x=>x.onclick=async()=>{try{await admx('adm_bazaar_remove',{p_id:+x.dataset.bzr});toast('Angebot entfernt, der Skin geht zurück');admBazaar()}catch(e){toast(admxErr(e))}})}
+  catch(e){b.innerHTML=`<p class="mknote">${admxErr(e)}</p>`}}
+
 function admTool(id){
   const add=n=>{S.spores+=n;S.allTime+=n;S.season+=n;S.rbEarn=(S.rbEarn||0)+n;disp=S.spores;save();admScoreAdd(n);toast('🛠️ +'+fmt(n)+' Sporen','Zählt auch für die Rangliste')};
   const val=id2=>{const e=$(id2);return e?e.value:''};
@@ -4749,6 +4902,18 @@ function admTool(id){
     namet:()=>{$('admModal').hidden=true;document.body.classList.remove('locked');const keep=S.nick;S.nick='';askName();S.nick=keep;toast('🍄 Namensabfrage nur zur Ansicht','Dein Name bleibt, wenn du schließt')},
     calo:()=>{$('admModal').hidden=true;openCal()},
     mkto:()=>{$('admModal').hidden=true;openMarket()},
+    hubopen:()=>{$('admModal').hidden=true;openHub()},
+    evotest:()=>{$('admModal').hidden=true;evoCine(S.pet||'raupe',()=>{})},
+    gamesopen:()=>{$('admModal').hidden=true;openGames()},
+    photo:()=>{$('admModal').hidden=true;document.body.classList.remove('locked');setTimeout(gardenPhoto,300)},
+    edit:()=>{$('admModal').hidden=true;document.body.classList.remove('locked');openEditor()},
+    bzopen:()=>{$('admModal').hidden=true;openBazaar()},
+    mapreset:()=>{S.mapAt=0;S.mapDone=0;save();toast('🗺️ Karte zurückgesetzt')},
+    pausetest:()=>{$('admModal').hidden=true;queueModal({emoji:'🧘',title:'Zeit für eine kleine Pause?',text:'So sieht die Pausen-Erinnerung für deine Spieler aus.',ok:'Mach ich'})},
+    xmtoggle:()=>{S.xmForce=!S.xmForce;save();toast(S.xmForce?'🎄 Weihnachten ist an':'🎄 Weihnachten wieder nach Datum');renderAdmin()},
+    seasonc:()=>{const L=[null,'fruehling','sommer','herbst','winter'];S.seasonForce=L[(L.indexOf(S.seasonForce||null)+1)%L.length];save();renderAdmin()},
+    advopen:()=>{$('admModal').hidden=true;openAdvent()},
+    mapopen:()=>{$('admModal').hidden=true;openMap()},
     hwtoggle:()=>{S.hwForce=!S.hwForce;save();bgKey='';toast(S.hwForce?'🎃 Halloween ist an':'🎃 Halloween wieder nach Datum');renderAdmin()},
     wbopen:()=>{$('admModal').hidden=true;openWB()},
     petmax:()=>{S.petsAll=true;PETS.forEach(p=>{S.petLv[p.id]={lv:10,xp:0}});save();toast(`🐾 Alle ${PETS.length} Begleiter freigeschaltet, Stufe 10`,'Zählt nicht als Boss-Siege')},
@@ -4764,14 +4929,14 @@ function admTool(id){
 }
 function admDimSel(){return `<select id="tDim" style="font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink)">${DIMS.map(d=>`<option value="${d.id}" ${dim()===d.id?'selected':''}>${d.e} ${d.name}</option>`).join('')}</select>`}
 function renderAdmin(){
-  const T=[['live','🔴 Live'],['msg','✉️ Post'],['tools','🧪 Test'],['global','🌍 Global'],['players','👥 Spieler'],['gifts','🎁 Geschenke'],['stats','📊 Statistik'],['log','📜 Protokoll']];
+  const T=[['live','🔴 Live'],['msg','✉️ Post'],['neu','🆕 Übersicht'],['clans','🛡️ Gilden'],['bazaar','💰 Basar'],['tools','🧪 Test'],['global','🌍 Global'],['players','👥 Spieler'],['gifts','🎁 Geschenke'],['stats','📊 Statistik'],['log','📜 Protokoll']];
   let h=`<div class="atabs" style="flex-wrap:wrap">${T.map(([k,n])=>`<button data-t="${k}" aria-pressed="${ADM.tab===k}" style="flex:1 1 30%">${n}</button>`).join('')}</div>`;
   const B=(id,t,cls)=>`<button class="abtn ${cls||''}" data-a="${id}">${t}</button>`;
   const G=(id,t)=>`<button class="abtn" data-g="${id}">${t}</button>`;
   if(ADM.tab==='tools'){
     h+=`<div class="aid"><code id="admId">${esc(LB.uid)}</code><button id="admCopy">ID kopieren</button></div>
       <p style="color:var(--muted);font-size:.82rem;margin:0 0 8px">Diese Werkzeuge ändern nur deinen eigenen Spielstand. Gegebene Sporen zählen auch für die Rangliste.</p>
-      <h4>🆕 Neue Funktionen testen</h4><div class="agrid">${B('geev','🌟 Goldpilz-Regen (nur ich)')}${B('bosscine','🎬 Boss mit Kino-Auftritt')}${B('rainbow','🌈 Regenbogenpilz')}${B('bnall',S.bnAll?'🎌 Banner normal':'🎌 Alle Banner & Titel')}${B('decoall',S.decoAll?'🏡 Gartenausbau normal':'🏡 Ganzer Gartenausbau')}${B('bskall','🎨 Alle Garten-Stile')}${B('tutnew','📖 Tutorial starten')}${B('namet','🍄 Namensabfrage testen')}${B('calo','📅 Kalender')}${B('mkto','🤝 Marktplatz')}${B('hwtoggle',S.hwForce?'🎃 Halloween normal':'🎃 Halloween erzwingen')}${B('wbopen','🌍 Weltboss')}</div>
+      <h4>🆕 Neue Funktionen testen</h4><div class="agrid">${B('geev','🌟 Goldpilz-Regen (nur ich)')}${B('bosscine','🎬 Boss mit Kino-Auftritt')}${B('rainbow','🌈 Regenbogenpilz')}${B('bnall',S.bnAll?'🎌 Banner normal':'🎌 Alle Banner & Titel')}${B('decoall',S.decoAll?'🏡 Gartenausbau normal':'🏡 Ganzer Gartenausbau')}${B('bskall','🎨 Alle Garten-Stile')}${B('tutnew','📖 Tutorial starten')}${B('namet','🍄 Namensabfrage testen')}${B('calo','📅 Kalender')}${B('mkto','🤝 Marktplatz')}${B('hwtoggle',S.hwForce?'🎃 Halloween normal':'🎃 Halloween erzwingen')}${B('xmtoggle',S.xmForce?'🎄 Weihnachten normal':'🎄 Weihnachten erzwingen')}${B('seasonc','🍂 Jahreszeit: '+(S.seasonForce||'Datum'))}${B('advopen','📅 Adventskalender')}${B('mapopen','🗺️ Karte')}${B('wbopen','🌍 Weltboss')}${B('hubopen','🎮 Gemeinschaft')}${B('evotest','✨ Entwicklungs-Szene')}${B('gamesopen','🎲 Minispiele')}${B('photo','📸 Gartenfoto')}${B('edit','✏️ Garten-Editor')}${B('bzopen','💰 Basar')}${B('mapreset','🗺️ Karte zurücksetzen')}${B('pausetest','🧘 Pausen-Hinweis')}</div>
       <h4>💰 Währungen</h4><div class="agrid">${B('sp6','+1 Mio. Sporen')}${B('sp9','+1 Mrd. Sporen')}${B('sp12','+1 Bio. Sporen')}${B('sp15','+1 Brd. Sporen')}${B('gems','+100 💠')}${B('dia','+50 💎')}${B('seeds','+10 🌱')}${B('seedsm','−10 🌱')}</div>
       <div class="afil"><input type="search" id="tSp" inputmode="decimal" placeholder="Sporen genau setzen, z. B. 5e12"><button class="abtn" data-a="spset">Setzen</button></div>
       <h4>🔓 Freischalten</h4><div class="agrid">${B('skins','Alle Skins')}${B('dims','Alle Dimensionen')}${B('ach','Alle Erfolge')}${B('petmax','Alle Begleiter')}${B('pass','Pass +1 Stufe')}${B('pass10','Pass +10 Stufen')}${B('prem','Premium-Pass an')}${B('rbready','Wiedergeburt bereit')}</div>
@@ -4818,7 +4983,9 @@ function renderAdmin(){
   }
   if(ADM.tab==='live')h+=`<p style="color:var(--muted);font-size:.78rem;margin:0 0 6px">Aktualisiert sich alle 3 Sekunden. Nur du als Admin siehst das.</p><div id="liveBox"><p style="color:var(--muted)">Lade Live-Daten …</p></div>`;
   if(ADM.tab==='msg')h+='<div id="admMsgBox"><p style="color:var(--muted)">Lade Nachrichten …</p></div>';
+  if(['neu','clans','bazaar'].includes(ADM.tab))h+='<div id="admNew"></div>';
   $('admBody').innerHTML=h;bindCopy();if(ADM.tab==='live'){liveRender();liveOpen()}if(ADM.tab==='msg'){admMsgRender();admMsgLoad()}
+  if(ADM.tab==='neu')admOverview();if(ADM.tab==='clans')admClans();if(ADM.tab==='bazaar')admBazaar();
   $('admBody').querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>{ADM.tab=b.dataset.t;renderAdmin();if(ADM.tab==='players')admLoad();if(ADM.tab==='log')admLog();if(ADM.tab==='stats')admStats()});
   $('admBody').querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ensureAudio();sfx.buy();admTool(b.dataset.a)});
   $('admBody').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{ensureAudio();admGlobal(b.dataset.g)});
@@ -5188,7 +5355,7 @@ function sellAllDups(){let g=0,d=0,n=0;SKINS.filter(k=>k.box).forEach(k=>{const 
 function rollRarity(c){let r=Math.random()*100,acc=0;for(const [k,v] of Object.entries(c.odds)){acc+=v;if(r<acc)return k}return Object.keys(c.odds).pop()}
 function drawOne(c){
   let rar=rollRarity(c);S.pity=(S.pity||0)+1;if(S.pity>=10&&(rar==='g'||rar==='s'))rar='e';if(rar!=='g'&&rar!=='s')S.pity=0;
-  const pool=SKINS.filter(k=>k.box&&k.rar===rar&&(!k.hw||isHalloween())),skin=pool[Math.floor(Math.random()*pool.length)],had=ownCount(skin.id);
+  const pool=SKINS.filter(k=>k.box&&k.rar===rar&&(!k.hw||isHalloween())&&(!k.xm||isXmas())),skin=pool[Math.floor(Math.random()*pool.length)],had=ownCount(skin.id);
   setCount(skin.id,had+1);if(rar==='m')S.mythDraw=1;S.chestsOpened=(S.chestsOpened||0)+1;
   return {skin,rar,isNew:had===0,count:had+1};
 }
@@ -5372,16 +5539,18 @@ const DECO=[
   {k:'haus',n:'Gartenhäuschen',e:'🏡',need:600},
   {k:'muehle',n:'Windmühle',e:'🌬️',need:1000}
 ];
+const DECO_DEF={muehle:[.36,.585],haus:[.68,.6],lampL:[.15,.0],lampR:[.85,.0],teich:[.2,.935],bank:[.8,.95]};
+const DP=k=>(S.decoPos&&S.decoPos[k])||DECO_DEF[k];
 const decoOn=k=>gTotal()>=DECO.find(d=>d.k===k).need;
 function drawDeco(t,D,na,front){
   const tot=S.decoAll&&ADM.ok?99999:gTotal();if(tot<20)return;
   /* Windmühle weit hinten links */
-  if(tot>=1000&&!front){const x=gw*.36,y=gh*.585,s=Math.min(1,gh/600);g.save();g.translate(x,y);g.scale(s,s);
+  if(tot>=1000&&!front){const x=gw*DP('muehle')[0],y=gh*DP('muehle')[1],s=Math.min(1,gh/600);g.save();g.translate(x,y);g.scale(s,s);
     g.fillStyle='#E8DCC8';g.beginPath();g.moveTo(-10,0);g.lineTo(-6,-46);g.lineTo(6,-46);g.lineTo(10,0);g.fill();g.fillStyle='#B85A3A';g.beginPath();g.moveTo(-9,-46);g.lineTo(0,-58);g.lineTo(9,-46);g.fill();
     g.fillStyle='#5A3A2A';g.fillRect(-3,-10,6,10);g.translate(0,-46);g.rotate(t*.0012);g.fillStyle='rgba(250,245,235,.95)';g.strokeStyle='#8A6A4A';g.lineWidth=1;
     for(let i=0;i<4;i++){g.rotate(Math.PI/2);g.fillRect(-2,-34,4,32);g.fillRect(2,-32,7,24);g.strokeRect(2,-32,7,24)}g.fillStyle='#8A6A4A';g.beginPath();g.arc(0,0,3,0,7);g.fill();g.restore()}
   /* Gartenhäuschen hinten rechts mit Rauch */
-  if(tot>=600&&!front){const x=gw*.68,y=gh*.6,s=Math.min(1,gh/600);g.save();g.translate(x,y);g.scale(s,s);
+  if(tot>=600&&!front){const x=gw*DP('haus')[0],y=gh*DP('haus')[1],s=Math.min(1,gh/600);g.save();g.translate(x,y);g.scale(s,s);
     g.fillStyle='#F4E6CC';g.fillRect(-18,-22,36,22);g.fillStyle='#C8503A';g.beginPath();g.moveTo(-23,-21);g.lineTo(0,-40);g.lineTo(23,-21);g.fill();
     g.fillStyle='#7A4A2A';g.fillRect(-4,-13,8,13);g.fillStyle=na>.4?'#FFD86A':'#9FD8FF';g.fillRect(-15,-17,8,7);g.fillRect(7,-17,8,7);
     g.fillStyle='#8A5A3A';g.fillRect(8,-40,5,12);
@@ -5394,19 +5563,19 @@ function drawDeco(t,D,na,front){
       for(const h of [8,14]){g.beginPath();for(let x=a;x<=b;x+=6){const y=groundY(x)-6-h;x===a?g.moveTo(x,y):g.lineTo(x,y)}g.lineWidth=3;g.strokeStyle='#EDE4D2';g.stroke();g.lineWidth=1;g.strokeStyle='rgba(120,90,60,.45)'}};
     seg(4,gw*.22);seg(gw*.78,gw-4);g.restore()}
   /* Laternen neben dem Pilz, nachts leuchtend */
-  if(tot>=150&&front){[.15,.85].forEach((fx,k)=>{const x=gw*fx,y=groundY(x)+2,h=Math.min(64,gh*.12);g.fillStyle='#3A3A48';g.fillRect(x-2,y-h,4,h);g.fillRect(x-6,y-3,12,3);
+  if(tot>=150&&front){[DP('lampL'),DP('lampR')].forEach((pp,k)=>{const x=gw*pp[0],y=(pp[1]?gh*pp[1]:groundY(x))+2,h=Math.min(64,gh*.12);g.fillStyle='#3A3A48';g.fillRect(x-2,y-h,4,h);g.fillRect(x-6,y-3,12,3);
     g.fillStyle='#2A2A36';g.beginPath();g.moveTo(x-8,y-h-2);g.lineTo(x,y-h-12);g.lineTo(x+8,y-h-2);g.fill();
     const on=.35+na*.65,fl=.9+.1*Math.sin(t*.01+k*3);g.fillStyle=`rgba(255,${200+30*na|0},120,${.55+.45*on})`;g.fillRect(x-5,y-h-2,10,12);
     if(na>.2){g.save();g.globalCompositeOperation='lighter';glow(x,y-h+4,46*fl,'255,210,120',.55*na);g.restore();const lg=g.createRadialGradient(x,y,2,x,y,40);lg.addColorStop(0,`rgba(255,220,140,${.25*na})`);lg.addColorStop(1,'rgba(255,220,140,0)');g.fillStyle=lg;g.beginPath();g.ellipse(x,y,40,10,0,0,7);g.fill()}})}
   /* Seerosenteich vorne links */
-  if(tot>=60&&front){const x=gw*.2,y=gh*.935,rw=Math.min(70,gw*.17),rh=rw*.26;g.save();
+  if(tot>=60&&front){const x=gw*DP('teich')[0],y=gh*DP('teich')[1],rw=Math.min(70,gw*.17),rh=rw*.26;g.save();
     g.fillStyle='#8A9A8A';g.beginPath();g.ellipse(x,y,rw+4,rh+3,0,0,7);g.fill();
     const wg=g.createLinearGradient(0,y-rh,0,y+rh);wg.addColorStop(0,na>.5?'#1E3A6A':'#6AC8E8');wg.addColorStop(1,na>.5?'#0E2244':'#2A8AB8');g.fillStyle=wg;g.beginPath();g.ellipse(x,y,rw,rh,0,0,7);g.fill();
     g.beginPath();g.ellipse(x,y,rw,rh,0,0,7);g.clip();g.strokeStyle='rgba(255,255,255,.4)';g.lineWidth=1.2;for(let i=0;i<3;i++){const ph=(t*.0005+i/3)%1;g.globalAlpha=1-ph;g.beginPath();g.ellipse(x-rw*.3+i*rw*.3,y,4+ph*16,1.5+ph*4,0,0,7);g.stroke()}g.globalAlpha=1;
     g.fillStyle='rgba(255,255,255,.35)';g.fillRect(x-rw*.6,y-rh*.3,rw*.5,1.5);g.restore();
     [[-.45,.1],[.2,-.2],[.5,.2]].forEach(([dx,dy],i)=>{const px=x+dx*rw,py=y+dy*rh;g.fillStyle='#3E9A56';g.beginPath();g.ellipse(px,py,7,3.5,0,.3,Math.PI*2-.3);g.lineTo(px,py);g.fill();if(i!==1){flower(px+1,py+1,5,330,0)}})}
   /* Gartenbank vorne rechts */
-  if(tot>=300&&front){const x=gw*.8,y=gh*.95,s=Math.min(1.3,gw/320);g.save();g.translate(x,y);g.scale(s,s);
+  if(tot>=300&&front){const x=gw*DP('bank')[0],y=gh*DP('bank')[1],s=Math.min(1.3,gw/320);g.save();g.translate(x,y);g.scale(s,s);
     g.fillStyle='rgba(0,0,0,.2)';g.beginPath();g.ellipse(0,2,30,5,0,0,7);g.fill();
     g.fillStyle='#3A3A48';g.fillRect(-24,-10,3,12);g.fillRect(21,-10,3,12);
     g.fillStyle='#A8683A';for(let i=0;i<2;i++)g.fillRect(-28,-12-i*4,56,3);for(let i=0;i<3;i++)g.fillRect(-28,-30+i*5,56,3.2);
@@ -5765,7 +5934,7 @@ function drawPet(t,naV){
     if(night){pc.fillStyle='rgba(40,50,130,.22)';pc.fillRect(0,0,pcv.width,pcv.height)}
     const D2=curDim();if(D2.id==='lava'||D2.id==='drachen'){pc.fillStyle='rgba(255,110,50,.12)';pc.fillRect(0,0,pcv.width,pcv.height)}else if(D2.id==='thron'){pc.fillStyle='rgba(255,210,120,.12)';pc.fillRect(0,0,pcv.width,pcv.height)}
     pc.restore()}
-  X=g;g.drawImage(pcv,A.x+ox-pcx,gy-lift+oy-pcy,PW,PH);
+  X=g;if((S.petVar||{})[S.pet]==='gold'){try{g.filter='sepia(.9) saturate(3) hue-rotate(-12deg) brightness(1.08)'}catch(e){}}g.drawImage(pcv,A.x+ox-pcx,gy-lift+oy-pcy,PW,PH);try{g.filter='none'}catch(e){}
   if(st.smoke&&!reduced&&Math.random()<.2){const r=$('scene').getBoundingClientRect();fxBurst(r.left+A.x+A.face*(head[0]+14)*s,r.top+gy-lift+(head[1]+20)*s,{n:1,kind:'puff',colors:['rgba(200,200,200,.5)'],speed:.6,up:.8,g:-.03,size:3,decay:.02})}
   const hxp=A.x+head[0]*s*A.face,hyp=gy-lift+head[1]*s;
   if(d.lv>=10)crown(hxp,hyp+2*s,s*.9);
@@ -5923,11 +6092,12 @@ function drawGarden(tt){
   drawDimX(t,D,1);
   /* garden inhabitants (all dimensions) */
   if(own('mond')&&D.id!=='kosmos'){const r=10+Math.min(8,own('mond'));g.globalAlpha=.7+.3*na;g.fillStyle='#FFF1C2';g.beginPath();g.arc(gw*.9,gh*.12,r,0,7);g.fill();g.globalAlpha=1}
-  drawDeco(t,D,na,false);drawGrowth(t,D,na);drawDeco(t,D,na,true);drawHalloween(t,D,na);
+  drawDeco(t,D,na,false);drawGrowth(t,D,na);drawDeco(t,D,na,true);drawHalloween(t,D,na);drawSeason(t,D,na);drawXmas(t,D,na);
   g.textAlign='center';g.textBaseline='bottom';
   const nsm=Math.min(16,Math.floor(Math.log10(S.allTime+1)*1.7));
   for(let i=0;i<nsm;i++){let x=sr(i+300)*gw;if(Math.abs(x-gw/2)<gw*.2)x=x<gw/2?x-gw*.2:x+gw*.2;x=Math.max(10,Math.min(gw-10,x));const s=12+sr(i+301)*12,sway=Math.sin(t*.002+i)*.08;g.save();g.translate(x,groundY(x)+4);g.rotate(sway);g.font=s+'px serif';g.fillText('🍄',0,0);g.restore()}
-  drawPet(t,na);if(petPos&&petEvo()){const px=petPos[0],py=petPos[1];g.save();g.globalCompositeOperation='lighter';glow(px,py-18,70,'255,220,120',.32+.15*Math.sin(t*.004));
+  drawPet(t,na);if(petPos&&(S.petVar||{})[S.pet]==='gold'){g.save();g.globalCompositeOperation='lighter';glow(petPos[0],petPos[1]-18,56,'255,200,60',.4+.15*Math.sin(t*.005));for(let i=0;i<3;i++){const a=t*.003+i*2.1;glow(petPos[0]+Math.cos(a)*28,petPos[1]-30+Math.sin(a)*10,6,'255,240,150',.9)}g.restore()}
+  if(petPos&&petEvo()){const px=petPos[0],py=petPos[1];g.save();g.globalCompositeOperation='lighter';glow(px,py-18,70,'255,220,120',.32+.15*Math.sin(t*.004));
     for(let i=0;i<6;i++){const a=t*.0022+i*1.047;glow(px+Math.cos(a)*38,py-22+Math.sin(a)*14,7,i%2?'255,180,240':'255,250,200',.85)}g.restore();
     g.save();g.strokeStyle=`rgba(255,215,90,${.55+.25*Math.sin(t*.005)})`;g.lineWidth=3;g.beginPath();g.ellipse(px,py+4,34,8,0,0,7);g.stroke();
     g.strokeStyle='rgba(255,240,170,.9)';g.lineWidth=2.5;g.beginPath();g.ellipse(px,py-62-Math.sin(t*.004)*3,13,4,0,0,7);g.stroke();g.restore()}
@@ -6034,6 +6204,7 @@ function render(){
   if(chargeTaps>0)bf.push(['pink',`⚡ Aufgeladen ×5, noch ${chargeTaps} Tipps`]);
   if(now()<buffs.tap)bf.push(['',`Tippsturm ${Math.ceil((buffs.tap-now())/1000)} s`]);
   if((S.rbEarn||0)>=rbNeed())bf.unshift(['rbb','🔄 Wiedergeburt bereit!']);
+  potPills(bf);
   {const gp=gePhase(),gt=geT();if(gp==='pre')bf.unshift(['evb geb',`🌟 Goldpilz-Regen in ${fmtClock(-gt)}`]);else if(gp==='soon')bf.unshift(['evb geb','🌟 Heute 14:20 Uhr: Goldpilz-Regen']);else if(['intro','rain','giant','reward'].includes(gp))bf.unshift(['evb geb','🔴 LIVE: Goldpilz-Regen']);else if(gp==='hour')bf.unshift(['evb geb',`✨ Goldene Stunde noch ${fmtClock(GE_TOTAL-gt)}`])}
   {const ep=evPhase(),et=evT();
    if(ep==='pre')bf.unshift(['evb',`🔴 Live-Event in ${fmtClock(-et)}`]);
@@ -6231,7 +6402,7 @@ async function reportPlayer(id){
 }
 
 /* Falls früher eine App-Fassung mit Service Worker lief: abmelden, damit immer die neueste Seite lädt */
-try{if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(r=>r.forEach(x=>x.unregister())).catch(()=>{})}catch(e){}
+try{if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(r=>r.forEach(x=>{const u=(x.active||x.waiting||x.installing||{}).scriptURL||'';if(!/\/sw\.js$/.test(u))x.unregister()})).catch(()=>{})}catch(e){}
 
 /* ---------- Zurück-Taste schließt Fenster statt die App ---------- */
 {
@@ -6701,15 +6872,15 @@ function mwStart(){
     const x=Math.max(.05,Math.min(.95,(e.clientX-r.left)/r.width)),y=Math.max(.44,Math.min(.96,(e.clientY-r.top)/r.height));
     MW.me.tx=x;MW.me.ty=y;mwClosePop();mwTrack(false);if(!MW.rtOk)mwPing();const dot=document.createElement('i');dot.className='mwdot';dot.style.left=(x*100)+'%';dot.style.top=(y*100)+'%';$('mwLayer').appendChild(dot);setTimeout(()=>dot.remove(),600)});
   W.querySelectorAll('[data-emo]').forEach(b=>b.onclick=e=>{e.stopPropagation();MW.emo=b.dataset.emo;MW.emoAt=Date.now();MW.me.bub={t:MW.emo,at:MW.emoAt,emo:1};mwTrack(true);tone(880,.08,'sine',.04)});
-  $('mwSend').onclick=()=>{const i=$('mkText');const v=i.value.trim();if(!v)return;MW.me.bub={t:msgClean(v).slice(0,60),at:Date.now()};mkSend()};
+  $('mwSend').onclick=()=>{const i=$('mkText');const v=i.value.trim();if(!v)return;if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}MW.me.bub={t:msgClean(v).slice(0,60),at:Date.now()};mkSend()};
   $('mkText').onkeydown=e=>{if(e.key==='Enter')$('mwSend').click()};
   mwCount();mwReqRender();if(!MW.raf){MW.lastT=0;MW.raf=requestAnimationFrame(mwLoop)}
 }
 /* Chatnachrichten als Sprechblasen über den Köpfen */
 function mwChatBubbles(){
   if(!MW.on)return;const nw=MK.chat.filter(m=>m.id>MW.seenChat);if(!nw.length)return;MW.seenChat=nw[nw.length-1].id;
-  nw.forEach(m=>{if(m.is_me){MW.me.bub={t:m.text.slice(0,60),at:Date.now()};return}
-    const o=Object.values(MW.players).find(p=>p.n===m.nick);if(o)o.bub={t:m.text.slice(0,60),at:Date.now()}});
+  nw.filter(m=>!nameBanned(m.text)).forEach(m=>{const sk=stkOf(m.text);if(m.is_me){MW.me.bub={t:sk?sk[1]:m.text.slice(0,60),at:Date.now(),emo:!!sk};return}
+    const o=Object.values(MW.players).find(p=>p.n===m.nick);if(o)o.bub={t:sk?sk[1]:m.text.slice(0,60),at:Date.now(),emo:!!sk}});
 }
 /* Antippen eines anderen Spielers */
 function mwOpenPop(o){
@@ -6805,7 +6976,7 @@ function mkRender(){
   b.innerHTML=h;
   b.querySelectorAll('[data-mt]').forEach(x=>x.onclick=()=>{MK.tab=x.dataset.mt;mkRender();mkPoll(true)});
   if(MK.tab==='platz'&&!MK.err)mwStart();
-  if(MK.tab==='chat'&&!MK.err){mkRenderChat(false);const inp=$('mkText');$('mkSend').onclick=mkSend;inp.onkeydown=e=>{if(e.key==='Enter')mkSend()}}
+  if(MK.tab==='chat'&&!MK.err){const ci=$('mkText');if(ci&&!$('mkStk')){ci.closest('.mkin').insertAdjacentHTML('beforebegin','<div id="mkStk">'+stkBar()+'</div>');$('mkStk').querySelectorAll('[data-stk]').forEach(x=>x.onclick=()=>{ci.value=`[st:${x.dataset.stk}]`;mkSend()})}mkRenderChat(false);const inp=$('mkText');$('mkSend').onclick=mkSend;inp.onkeydown=e=>{if(e.key==='Enter')mkSend()}}
   const only=$('mkOnly');if(only)only.onchange=()=>{MK.canOnly=only.checked;mkRender()};
   b.querySelectorAll('[data-take]').forEach(x=>x.onclick=()=>mkTake(+x.dataset.take));
   b.querySelectorAll('[data-cancel]').forEach(x=>x.onclick=()=>mkCancel(+x.dataset.cancel));
@@ -6817,15 +6988,15 @@ function mkRender(){
 }
 function mkRenderChat(keepInput){
   const box=$('mkChat');if(!box)return;const atBottom=box.scrollHeight-box.scrollTop-box.clientHeight<40;
-  box.innerHTML=MK.chat.length?MK.chat.map(m=>`<div class="mkmsg${m.is_me?' me':''}"><div><b>${esc(showNick(m))}</b><span>${new Date(m.at).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}</span>
-      ${m.is_me?'':`<button data-rep="${m.id}" title="Melden">🚩</button>`}${ADM.ok?`<button data-hide="${m.id}" title="Löschen">🗑️</button><button data-mute="${m.id}" title="24 Std. stummschalten">🔇</button>`:''}</div>${esc(m.text)}</div>`).join(''):'<p class="mknote">Noch keine Nachrichten. Sag hallo! 👋</p>';
+  box.innerHTML=MK.chat.length?MK.chat.filter(m=>!nameBanned(m.text)).map(m=>`<div class="mkmsg${m.is_me?' me':''}"><div><b>${esc(showNick(m))}</b><span>${new Date(m.at).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}</span>
+      ${m.is_me?'':`<button data-rep="${m.id}" title="Melden">🚩</button>`}${ADM.ok?`<button data-hide="${m.id}" title="Löschen">🗑️</button><button data-mute="${m.id}" title="24 Std. stummschalten">🔇</button>`:''}</div>${stkOf(m.text)?stkHTML(stkOf(m.text)):esc(m.text)}</div>`).join(''):'<p class="mknote">Noch keine Nachrichten. Sag hallo! 👋</p>';
   if(atBottom||!keepInput)box.scrollTop=box.scrollHeight;
   box.querySelectorAll('[data-rep]').forEach(x=>x.onclick=async()=>{await LB.sb.rpc('chat_report',{p_id:+x.dataset.rep});x.disabled=true;toast('🚩 Gemeldet','Danke, wir schauen es uns an')});
   box.querySelectorAll('[data-hide]').forEach(x=>x.onclick=async()=>{await admRpc('admin_chat_hide',{p_id:+x.dataset.hide},'Nachricht gelöscht');MK.chat=MK.chat.filter(m=>m.id!==+x.dataset.hide);mkRenderChat(true)});
   box.querySelectorAll('[data-mute]').forEach(x=>x.onclick=async()=>{await admRpc('admin_chat_mute',{p_id:+x.dataset.mute,p_hours:24},'Spieler 24 Stunden stummgeschaltet');const mm=MK.chat.find(m=>m.id===+x.dataset.mute);MK.chat=MK.chat.filter(m=>!mm||m.nick!==mm.nick);mkRenderChat(true)});
 }
 async function mkSend(){
-  const inp=$('mkText'),v=inp.value.trim();if(!v)return;if(Date.now()-MK.chatAt<1500)return;MK.chatAt=Date.now();
+  const inp=$('mkText'),v=inp.value.trim();if(!v)return;if(S.chatOff){toast('🔇 Chats sind ausgeblendet','Im 🔊-Menü wieder einschalten');return}if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}if(Date.now()-MK.chatAt<1500)return;MK.chatAt=Date.now();
   try{const r=await LB.sb.rpc('chat_send',{p_nick:lbNick(),p_text:msgClean(v)});if(r.error)throw r.error;
     const m={ok:'',zu_schnell:'⏳ Nicht so schnell, warte kurz',stumm:'🔇 Du bist gerade stummgeschaltet',unfreundlich:'🚫 Diese Nachricht ist nicht erlaubt. Bitte bleib freundlich.',leer:'Schreib etwas'}[r.data];
     if(m){toast(m);return}inp.value='';mkPoll(false)}
@@ -7090,6 +7261,8 @@ const BANNERS=[
   {id:'a_blitz',n:'Blitzgewitter',e:'⚡',anim:'bnabolt 3s steps(1) infinite',bgs:'100% 100%,auto',rep:'no-repeat,repeat',bg:'linear-gradient(115deg,transparent 46%,#FFFFFF 47%,#BFE6FF 48.5%,transparent 50%),linear-gradient(180deg,#1A2030,#3A4A68)',need:'Etage 50 im Boss-Turm',ok:()=>((S.tower&&S.tower.best)||0)>=50},
   {id:'a_sternstaub',n:'Goldener Sternenstaub',e:'✨',anim:'bnadust 5s linear infinite',bgs:'40px 40px,64px 64px,auto',bg:'radial-gradient(circle at 30% 30%,#FFF6C8 0 1.5px,transparent 2.5px),radial-gradient(circle at 70% 60%,#FFE27A 0 2px,transparent 3px),linear-gradient(135deg,#3A2408,#B8740A 55%,#FFD23F)',need:'5 Wiedergeburten',ok:()=>(S.rb||0)>=5},
   {id:'a_champion',n:'Turnierchampion',e:'🏆',anim:'bnaflow 3s linear infinite',bgs:'300% 100%',bg:'linear-gradient(90deg,#FFD23F,#B06AF0,#FF5A8A,#FFD23F,#B06AF0)',need:'Ein Wochenturnier gewinnen',ok:()=>(S.tourWins||0)>=1},
+  {id:'abenteurer',n:'Abenteurer',e:'🗺️',bg:'radial-gradient(circle at 20% 30%,rgba(255,255,255,.35) 0 4%,transparent 5%),repeating-linear-gradient(35deg,rgba(90,60,20,.25) 0 6px,transparent 6px 22px),linear-gradient(135deg,#E8D4A0,#B8945A 60%,#7A5A30)',need:'Die Abenteuer-Karte abschließen',ok:()=>!!S.mapDone},
+  {id:'winter',n:'Winterzauber',e:'❄️',anim:'bnadust 6s linear infinite',bgs:'40px 40px,64px 64px,auto',bg:'radial-gradient(circle at 30% 30%,#fff 0 1.5px,transparent 2.5px),radial-gradient(circle at 70% 60%,#fff 0 2px,transparent 3px),linear-gradient(180deg,#1A3A7A,#5A8AD8)',need:'10 Türchen im Adventskalender',ok:()=>Object.values(S.advent||{}).some(a=>a.length>=10)},
   {id:'entwickler',n:'Entwickler',e:'🛠️',bg:'repeating-linear-gradient(45deg,#FFD23F 0 10px,#1A1206 10px 20px)',border:'#FFD23F',need:'Nur für den Entwickler',ok:()=>ADM.ok===true,dev:1}
 ];
 const TITLES2=[
@@ -7128,6 +7301,14 @@ const TITLES2=[
   {id:'tourwin',n:'Turniersieger',need:'Ein Wochenturnier gewinnen',ok:()=>(S.tourWins||0)>=1},
   {id:'gilde',n:'Gildenmitglied',need:'In einer Gilde sein',ok:()=>!!CL.me},
   {id:'gaertnerfreund',n:'Gießkanne',need:'Andere Gärten gießen',ok:()=>(S.gmWater||0)>=10},
+  {id:'weltenbummler',n:'Weltenbummler',need:'Abenteuer-Karte abschließen',ok:()=>!!S.mapDone},
+  {id:'saison',n:'Saison-Champion',need:'Top 10 einer Monats-Saison',ok:()=>(S.badges||[]).length>0},
+  {id:'gildensieg',n:'Gildenkrieger',need:'Mit deiner Gilde einen Gildenkrieg gewinnen',ok:()=>(S.leagueWins||0)>=1},
+  {id:'elf',n:'Weihnachtself',need:'10 Türchen im Adventskalender',ok:()=>Object.values(S.advent||{}).some(a=>a.length>=10)},
+  {id:'freund',n:'Freundlicher Gärtner',need:'5 Freunde',ok:()=>(S.friendN||0)>=5},
+  {id:'brauer',n:'Trankmeister',need:'Jeden Trank einmal gebraut',ok:()=>POTIONS.every(p=>(S.pot||{})[p.id])},
+  {id:'angler',n:'Meisterangler',need:'Alle Fische gefangen',ok:()=>FISH.every(f=>(S.fish||{})[f[1]])},
+  {id:'goldtier',n:'Goldtier-Züchter',need:'Ein goldener Begleiter',ok:()=>Object.keys(S.petVar||{}).length>0},
   {id:'dev',n:'Entwickler',need:'Nur für den Entwickler',ok:()=>ADM.ok===true,dev:1}
 ];
 const bnOk=b=>!b.ok||b.ok()||(S.bnAll&&ADM.ok===true);
@@ -7154,10 +7335,10 @@ let bnTab='banner';
 function openBanner(){
   const b=$('bnBody'),mb=myBanner(),mt=myTitle();
   b.innerHTML=`<div class="bnprev">${bannerHTML(lbNick(),mt.n,mb.id,S.skin,true)}</div>
-    <div class="mktabs"><button data-bt="banner" aria-pressed="${bnTab==='banner'}">🎌 Banner (${BANNERS.filter(bnOk).length}/${BANNERS.filter(x=>!x.dev||bnOk(x)).length})</button><button data-bt="titel" aria-pressed="${bnTab==='titel'}">🏷️ Titel (${TITLES2.filter(bnOk).length}/${TITLES2.filter(x=>!x.dev||bnOk(x)).length})</button></div>
-    ${bnTab==='banner'?`<div class="bngrid">${BANNERS.filter(x=>!x.dev||bnOk(x)).map(x=>{const ok=bnOk(x),on=mb.id===x.id;return `<button class="bnopt${on?' on':''}${ok?'':' lock'}" data-bn="${x.id}"><span class="bnsw" style="${bannerCSS(x.id)}">${ok?'':'🔒'}</span><b>${x.e} ${esc(x.n)}${x.anim?' <em class="bnani">animiert</em>':''}</b><small>${on?'✓ Aktiv':ok?'Anlegen':esc(x.need||'')}</small></button>`}).join('')}</div>`
+    <div class="mktabs"><button data-bt="banner" aria-pressed="${bnTab==='banner'}">🎌 Banner (${BANNERS.filter(bnOk).length}/${BANNERS.filter(x=>!x.dev||bnOk(x)).length})</button><button data-bt="vitrine" aria-pressed="${bnTab==='vitrine'}">🏆 Vitrine</button><button data-bt="titel" aria-pressed="${bnTab==='titel'}">🏷️ Titel (${TITLES2.filter(bnOk).length}/${TITLES2.filter(x=>!x.dev||bnOk(x)).length})</button></div>
+    ${bnTab==='vitrine'?'<div id="vtBox"></div>':bnTab==='banner'?`<div class="bngrid">${BANNERS.filter(x=>!x.dev||bnOk(x)).map(x=>{const ok=bnOk(x),on=mb.id===x.id;return `<button class="bnopt${on?' on':''}${ok?'':' lock'}" data-bn="${x.id}"><span class="bnsw" style="${bannerCSS(x.id)}">${ok?'':'🔒'}</span><b>${x.e} ${esc(x.n)}${x.anim?' <em class="bnani">animiert</em>':''}</b><small>${on?'✓ Aktiv':ok?'Anlegen':esc(x.need||'')}</small></button>`}).join('')}</div>`
     :`<div class="ttlist">${TITLES2.filter(x=>!x.dev||bnOk(x)).map(x=>{const ok=bnOk(x),on=mt.id===x.id;return `<button class="ttopt${on?' on':''}${ok?'':' lock'}" data-tt="${x.id}"><b>${ok?'':'🔒 '}${esc(x.n)}</b><small>${on?'✓ Aktiv':ok?'Anlegen':esc(x.need||'')}</small></button>`}).join('')}</div>`}`;
-  b.querySelectorAll('[data-bt]').forEach(x=>x.onclick=()=>{bnTab=x.dataset.bt;openBanner()});
+  b.querySelectorAll('[data-bt]').forEach(x=>x.onclick=()=>{bnTab=x.dataset.bt;openBanner()});if(bnTab==='vitrine')vitrineEditor($('vtBox'));
   b.querySelectorAll('[data-bn]').forEach(x=>x.onclick=()=>{const it=BANNERS.find(y=>y.id===x.dataset.bn);if(!bnOk(it)){toast('🔒 '+it.n,it.need);return}S.banner=it.id;save();styleSync();tone(988,.08,'triangle',.05);openBanner()});
   b.querySelectorAll('[data-tt]').forEach(x=>x.onclick=()=>{const it=TITLES2.find(y=>y.id===x.dataset.tt);if(!bnOk(it)){toast('🔒 '+it.n,it.need);return}S.ptitle=it.id;save();styleSync();tone(988,.08,'triangle',.05);openBanner()});
   $('bnModal').hidden=false;document.body.classList.add('locked');
@@ -7452,7 +7633,7 @@ function dcEnsure(){
 function dcProg(it){const T=DC_TYPES.find(x=>x.k===it.k);return Math.max(0,T.f()-it.start)}
 function dcRender(){
   const box=$('dcBox');if(!box)return;const dc=dcEnsure();
-  box.innerHTML=`<div class="dchead"><b>📅 Tagesherausforderung</b><small>neu in ${dcLeft()}</small></div>${dc.items.map((it,i)=>{const T=DC_TYPES.find(x=>x.k===it.k),p=Math.min(it.need,dcProg(it)),full=p>=it.need;
+  box.innerHTML=weekCalHTML()+`<div class="dchead"><b>📅 Tagesherausforderung</b><small>neu in ${dcLeft()}</small></div>${dc.items.map((it,i)=>{const T=DC_TYPES.find(x=>x.k===it.k),p=Math.min(it.need,dcProg(it)),full=p>=it.need;
     return `<div class="dcrow${it.done?' done':''}"><span class="dce">${T.e}</span><div class="dct2"><b>${T.n.replace('{n}',it.need).replace('{e}',it.need===1?'':'e').replace('{n2}',it.need===1?'':'n')}</b><div class="dcbar"><i style="width:${p/it.need*100}%"></i></div><small>${p} / ${it.need}</small></div>${it.done?'<em>✓</em>':`<button class="dcbtn" data-dc="${i}" ${full?'':'disabled'}>+15 💠</button>`}</div>`}).join('')}
     <div class="dcall${dc.bonus?' done':''}">${dc.bonus?'🏆 Alle geschafft! Bonus abgeholt.':'Schaffst du alle drei, gibt es zusätzlich <b>2 💎</b>'}</div>`;
   box.querySelectorAll('[data-dc]').forEach(b=>b.onclick=()=>{const it=dc.items[+b.dataset.dc];if(it.done||dcProg(it)<it.need)return;it.done=true;S.gems+=15;sfx.ach();fxBurst(innerWidth/2,innerHeight/2,{n:16,star:true,colors:['#FFE680','#7FE3D6'],speed:5});
@@ -7478,15 +7659,19 @@ function setsHTML(){const done=SETS.filter(setDone).length;return `<details clas
 function setsCheck(){SETS.forEach(s=>{if(setDone(s)&&!(S.setsDone||[]).includes(s.id)){S.setsDone=[...(S.setsDone||[]),s.id];save();confetti(true);sfx.ach();toast(`🧩 Sammlung ${s.n} komplett!`,'+5 % Produktion und ein neuer Titel');liveEv(`hat die Sammlung ${s.n} komplett 🧩`)}})}
 
 /* ---------- 🌍 Weltboss ---------- */
-const WB={st:null,pend:0,sendAt:0,busy:false,err:'',open:false};
-async function wbLoad(){if(!LB.sb||!LB.uid)return;try{const r=await LB.sb.rpc('wb_state');if(r.error)throw r.error;WB.st=r.data;WB.err='';WB.off=WB.st.now-Date.now()}catch(e){WB.err=/function|schema/i.test((e&&e.message)||'')?'Der Weltboss ist noch nicht eingerichtet. Führe worldboss-setup.sql in Supabase aus.':'Keine Verbindung zum Weltboss.'}wbBar();if(WB.open)wbRender()}
+const WB={st:null,pend:0,sendAt:0,busy:false,err:'',open:false,claimedDay:0};
+function wbWave(){wbRender();const s=WB.st,st=$('wbStage');if(!s||!st)return;const o=document.createElement('div');o.className='wbwavecine';o.innerHTML=`<small>⚔️ WELLE ${s.wave}</small><b>${s.e} ${esc(s.name)}</b><em>erscheint – noch stärker!</em>`;st.appendChild(o);
+  tone(60,1,'sawtooth',.09);roar();buzz([80,40,120]);setTimeout(()=>o.remove(),2600)}
+setInterval(()=>{if(!WB.open||!WB.st||WB.st.dead||document.hidden||reduced)return;const st=$('wbStage');if(!st)return;st.classList.add('roar');tone(70+Math.random()*30,.4,'sawtooth',.05);setTimeout(()=>st.classList.remove('roar'),600)},7000);
+async function wbLoad(){if(!LB.sb||!LB.uid)return;try{const r=await LB.sb.rpc('wb_state');if(r.error)throw r.error;const prev=WB.st;WB.st=r.data;WB.err='';WB.off=WB.st.now-Date.now();
+    if(prev&&prev.id!==WB.st.id&&WB.open)setTimeout(wbWave,50);if(!WB.claiming&&(WB.st.killed_today||0)>(WB.claimedDay||0)){WB.claiming=true;wbClaim(true).finally(()=>WB.claiming=false)}}catch(e){WB.err=/function|schema/i.test((e&&e.message)||'')?'Der Weltboss ist noch nicht eingerichtet. Führe worldboss-setup.sql in Supabase aus.':'Keine Verbindung zum Weltboss.'}wbBar();if(WB.open)wbRender()}
 function wbBar(){const el=$('wbInfo');if(!el)return;const s=WB.st;el.textContent=!s?'Gemeinsam gegen den Boss':s.dead?`${s.e} besiegt! Belohnung abholen`:`${s.e} ${Math.ceil(s.hp/s.max*100)} % · ${s.players} Spieler`}
 async function wbSend(){if(WB.busy||WB.pend<=0||!LB.sb)return;WB.busy=true;const n=Math.min(40,WB.pend);WB.pend-=n;
   try{const r=await LB.sb.rpc('wb_hit',{p_dmg:n,p_nick:lbNick()});if(!r.error&&r.data){const was=WB.st&&WB.st.dead;WB.st=r.data;if(!was&&WB.st.dead)wbKilled()}}catch(e){}
   WB.busy=false;wbBar();if(WB.open)wbRender(true)}
 function wbKilled(){confetti(true);sfx.ach();toast(`🌍 ${WB.st.name} wurde besiegt!`,'Hol dir deine Belohnung beim Weltboss');liveEv(`hat beim Sieg über den Weltboss ${WB.st.name} geholfen 🌍`)}
-async function wbClaim(){try{const r=await LB.sb.rpc('wb_claim');if(r.error||!r.data){toast('Noch nichts abzuholen');return}const d=r.data,gm=Math.min(60,10+Math.round(d.share*4)),sp=Math.max(rawSps()*120,tapBase()*100,500);
-  S.gems+=gm;S.dia+=1;gain(sp);S.wbWins=(S.wbWins||0)+1;save();render();confetti(true);queueModal({emoji:d.e,title:`${d.name} besiegt!`,text:`Du hast ${d.dmg} Schaden gemacht (${d.share} % vom ganzen Boss). Deine Belohnung: ${gm} 💠, 1 💎 und ${fmt(sp)} Sporen.`,ok:'Super'})}catch(e){}}
+async function wbClaim(auto){try{const r=await LB.sb.rpc('wb_claim');if(r.error||!r.data){WB.claimedDay=(WB.st&&WB.st.killed_today)||0;if(!auto)toast('Noch nichts abzuholen');return}const d=r.data,wv=d.wave||1,gm=Math.min(120,10+Math.round(d.share*4)+wv*5),dd=1+Math.floor(wv/2),sp=Math.max(rawSps()*120,tapBase()*100,500)*wv;
+  S.gems+=gm;S.dia+=dd;gain(sp);S.wbWins=(S.wbWins||0)+1;save();render();confetti(true);queueModal({emoji:d.e,title:`Welle ${wv}: ${d.name} besiegt!`,text:`Du hast ${d.dmg} Schaden gemacht (${d.share} % vom ganzen Boss). Deine Belohnung: ${gm} 💠, ${dd} 💎 und ${fmt(sp)} Sporen.`,ok:'Super'});setTimeout(()=>wbClaim(true),1500)}catch(e){}}
 function openWB(){WB.open=true;$('wbModal').hidden=false;document.body.classList.add('locked');wbRender();wbLoad()}
 function wbRender(soft){
   const b=$('wbBody'),s=WB.st;
@@ -7494,13 +7679,13 @@ function wbRender(soft){
   const left=Math.max(0,s.ends-(Date.now()+(WB.off||0))),h=Math.floor(left/36e5),m=Math.floor(left%36e5/6e4),pct=s.hp/s.max*100;
   if(soft&&$('wbHpI')){$('wbHpI').style.width=pct+'%';$('wbHpT').textContent=`${fmt(s.hp)} / ${fmt(s.max)}`;$('wbMine').textContent=s.mine+WB.pend;return}
   b.innerHTML=`<p class="mknote">Alle Spieler kämpfen gemeinsam gegen denselben Boss. Jeder Tipp zählt! Wer mithilft, bekommt nach dem Sieg Juwelen, einen Diamanten und Sporen.</p>
-    <div class="wbstage${s.dead?' dead':''}"><button class="wbboss" id="wbTap" ${s.dead?'disabled':''}>${s.e}</button><div class="wbname">${esc(s.name)}</div></div>
+    <div class="wbstage${s.dead?' dead':''}${pct<30&&!s.dead?' rage':''}" id="wbStage"><span class="wbwave">Welle ${s.wave||1}${s.killed_today?` · heute ${s.killed_today} besiegt`:''}</span><button class="wbboss" id="wbTap" ${s.dead?'disabled':''}>${s.e}</button><div class="wbname">${esc(s.name)}${pct<30&&!s.dead?' · 😡 WÜTEND':''}</div></div>
     <div class="wbhp"><i id="wbHpI" style="width:${pct}%"></i><span id="wbHpT">${fmt(s.hp)} / ${fmt(s.max)}</span></div>
     <div class="wbinfo"><span>⚔️ Dein Schaden: <b id="wbMine">${s.mine+WB.pend}</b></span><span>👥 ${s.players} Spieler</span><span>⏳ ${s.dead?'besiegt':`${h} Std ${m} Min`}</span></div>
     ${s.dead?'<button class="primary" id="wbClaim">🎁 Belohnung abholen</button>':''}
     <h4 class="mkh">🏆 Größte Helden heute</h4><div class="dutop">${(s.top||[]).map((r,i)=>`<div class="dutr"><span>${i+1}</span><b>${esc(showNick(r))}</b><small></small><em>${r.dmg}</em></div>`).join('')||'<p class="mknote">Noch niemand. Sei der Erste!</p>'}</div>`;
   const tap=$('wbTap');if(tap)tap.addEventListener('pointerdown',e=>{e.preventDefault();if(!e.isTrusted||WB.st.dead)return;const n=Date.now();WB.taps=(WB.taps||[]).filter(x=>n-x<1000);if(WB.taps.length>=18)return;WB.taps.push(n);
-    WB.pend++;$('wbMine').textContent=WB.st.mine+WB.pend;tap.animate([{transform:'scale(1)'},{transform:'scale(.9) rotate(-4deg)'},{transform:'scale(1)'}],{duration:140});
+    WB.pend++;$('wbMine').textContent=WB.st.mine+WB.pend;tap.animate([{transform:'scale(1)',filter:'brightness(1)'},{transform:'scale(.88) rotate(-5deg)',filter:'brightness(1.8) saturate(1.4)'},{transform:'scale(1)',filter:'brightness(1)'}],{duration:150});if(!reduced&&Math.random()<.3)fxBurst(e.clientX,e.clientY,{n:5,colors:['#FF5A5A','#FFB23D','#fff'],speed:5,glow:true});
     duPlus(e.clientX,e.clientY,'-1');tone(180+Math.random()*60,.05,'square',.03);if(Date.now()-WB.sendAt>1200){WB.sendAt=Date.now();wbSend()}});
   const cl=$('wbClaim');if(cl)cl.onclick=wbClaim;
 }
@@ -7607,9 +7792,23 @@ function openHub(){
     <button class="hubt" data-h="tour"><span>🏆</span><b>Wochenturnier</b><small>Die besten Duellanten der Woche</small></button>
     <button class="hubt" data-h="ref"><span>🎁</span><b>Freunde einladen</b><small>Diamanten für dich und deinen Freund</small></button>
     <button class="hubt" data-h="pets"><span>✨</span><b>Begleiter entwickeln</b><small>Ab Stufe 10 in die Superform</small></button>
-    <button class="hubt" data-h="garden"><span>🏡</span><b>Gärten besuchen</b><small>Über die Rangliste oder den Marktplatz</small></button></div>`);
+    <button class="hubt" data-h="garden"><span>🏡</span><b>Gärten besuchen</b><small>Über die Rangliste oder den Marktplatz</small></button>
+    <button class="hubt" data-h="map"><span>🗺️</span><b>Abenteuer-Karte</b><small>Station ${Math.min((S.mapAt||0)+1,ADV_ST.length)} von ${ADV_ST.length}</small></button>
+    <button class="hubt" data-h="month"><span>📅</span><b>Monats-Saison</b><small>Wer sammelt diesen Monat am meisten?</small></button>
+    <button class="hubt" data-h="bazaar"><span>💰</span><b>Basar</b><small>Skins für Juwelen kaufen und verkaufen</small></button>
+    <button class="hubt" data-h="edit"><span>✏️</span><b>Garten gestalten</b><small>Deko frei verschieben</small></button>
+    <button class="hubt" data-h="photo"><span>📸</span><b>Gartenfoto</b><small>Bild von deinem Garten teilen</small></button>
+    <button class="hubt" data-h="friends"><span>👥</span><b>Freunde</b><small>Freunde finden und herausfordern</small></button>
+    <button class="hubt" data-h="cg"><span>🌐</span><b>Gemeinschaftsziel</b><small>Alle zusammen für eine Belohnung</small></button>
+    <button class="hubt" data-h="contest"><span>🏆</span><b>Garten-Wettbewerb</b><small>Herzen für die schönsten Gärten</small></button>
+    <button class="hubt" data-h="brew"><span>🧪</span><b>Trankküche</b><small>Kräuter zu Tränken brauen</small></button>
+    <button class="hubt" data-h="fuse"><span>✨</span><b>Skin-Fusion</b><small>3 doppelte → 1 seltenerer</small></button>
+    <button class="hubt" data-h="eggs"><span>🥚</span><b>Brutnest</b><small>${S.hatch?'Ein Ei brütet …':(S.eggs||0)+' Eier'}</small></button>
+    <button class="hubt${S.wheelDay!==dcDay()?' xm':''}" data-h="wheel"><span>🎡</span><b>Glücksrad</b><small>${S.wheelDay!==dcDay()?'Heute noch drehen!':'Morgen wieder'}</small></button>
+    <button class="hubt${isXmas()?' xm':''}" data-h="advent"><span>🎄</span><b>Adventskalender</b><small>${isXmas()?'Heute ein Türchen öffnen!':'Ab 1. Dezember'}</small></button></div>`);
   $('gmBody').querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{const h=b.dataset.h;
-    if(h==='clan')openClan();else if(h==='games')openGames();else if(h==='tour'){gmClose();openDuel()}else if(h==='ref')openRef();else if(h==='pets'){gmClose();openPets()}
+    if(h==='friends')openFriends();else if(h==='cg')openCG();else if(h==='contest')openContest();else if(h==='brew')openBrew();else if(h==='fuse')openFusion();else if(h==='eggs')openEggs();else if(h==='wheel')openWheel();else if(h==='map')openMap();else if(h==='month')openMonth();else if(h==='bazaar')openBazaar();else if(h==='edit')openEditor();else if(h==='photo')gardenPhoto();else if(h==='advent'){if(isXmas())openAdvent();else toast('🎄 Noch nicht','Der Adventskalender öffnet am 1. Dezember')}
+    else if(h==='clan')openClan();else if(h==='games')openGames();else if(h==='tour'){gmClose();openDuel()}else if(h==='ref')openRef();else if(h==='pets'){gmClose();openPets()}
     else{gmClose();document.querySelector('.tab[data-pane="p-r"]').click();toast('🏡 Tipp einen Spieler in der Rangliste an','und dann auf „Garten besuchen“')}});
 }
 
@@ -7625,9 +7824,10 @@ async function openClan(){
 function clRender(){
   const b=$('gmBody'),c=CL.me;
   if(c){b.innerHTML=`<div class="clhead" style="${bannerCSS(c.banner)}"><span class="clem">${esc(c.emoji)}</span><div><b>${esc(c.name)} <small>[${esc(c.tag)}]</small></b><small>Platz ${c.rank} der Gilden · ${c.members.length}/30 Mitglieder</small></div></div>
-      <p class="mknote">Alle Sporen eurer Mitglieder zählen zusammen für die Gilden-Rangliste. Euer Kürzel steht in der Rangliste vor euren Namen.</p>
+${clanTabs()}<div id="clMem"${CC.tab==='mitglieder'?'':' hidden'}><p class="mknote">Alle Sporen eurer Mitglieder zählen zusammen für die Gilden-Rangliste. Euer Kürzel steht in der Rangliste vor euren Namen.</p>
       <div class="dutop">${c.members.map((m,i)=>`<div class="dutr${m.player_id===LB.uid?' me':''}"><span>${i+1}</span><b>${m.boss?'👑 ':''}${esc(showNick(m))}</b><small>${fmt(m.score)}</small><em>${c.owner&&m.player_id!==LB.uid?`<button class="clkick" data-kick="${m.player_id}">✕</button>`:''}</em></div>`).join('')}</div>
-      <button class="ghost" id="clLeave" style="margin-top:10px">Gilde verlassen</button>`;
+      <button class="ghost" id="clLeave" style="margin-top:10px">Gilde verlassen</button></div>`;
+    b.querySelectorAll('[data-ct]').forEach(x=>x.onclick=()=>{CC.tab=x.dataset.ct;clRender()});if(CC.tab!=='mitglieder')clTabRender();
     $('clLeave').onclick=()=>queueModal({emoji:'🛡️',title:'Gilde wirklich verlassen?',text:c.owner?'Du bist Anführer. Die Führung geht an das älteste Mitglied über.':'Du kannst jederzeit einer anderen Gilde beitreten.',ok:'Verlassen',cancel:true,onOk:async()=>{try{await gmRpc('clan_leave');CL.me=null;CL.list=await gmRpc('clan_list',{p_q:null});clRender();toast('Du hast die Gilde verlassen')}catch(e){toast(gmErr(e))}}});
     b.querySelectorAll('[data-kick]').forEach(x=>x.onclick=async()=>{try{await gmRpc('clan_kick',{p_player:x.dataset.kick});CL.me=await gmRpc('clan_me');clRender()}catch(e){toast(gmErr(e))}});return}
   b.innerHTML=`<p class="mknote">Schließ dich einer Gilde an. Ihr sammelt gemeinsam für die Gilden-Rangliste, und euer Kürzel steht vor euren Namen.</p>
@@ -7642,7 +7842,7 @@ function clRender(){
   $('clGo').onclick=async()=>{try{CL.list=await gmRpc('clan_list',{p_q:$('clQ').value.trim()||null});clRender()}catch(e){toast(gmErr(e))}};
   b.querySelectorAll('[data-join]').forEach(x=>x.onclick=async()=>{try{const r=await gmRpc('clan_join',{p_clan:+x.dataset.join,p_nick:lbNick()});if(r&&r.error){toast('Beitreten ging nicht',{voll:'Die Gilde ist voll',schon_in_gilde:'Du bist schon in einer Gilde',weg:'Die Gilde gibt es nicht mehr'}[r.error]||'');return}
     CL.me=await gmRpc('clan_me');sfx.ach();toast(`🛡️ Willkommen in ${CL.me.name}!`);liveEv(`ist der Gilde ${CL.me.name} beigetreten 🛡️`);clRender()}catch(e){toast(gmErr(e))}});
-  $('clMake').onclick=async()=>{const n=$('clN').value.trim(),tg=$('clT').value.trim();const e1=nickCheckStrict(n);if(e1){toast('🚫 Name nicht erlaubt',e1);return}
+  $('clMake').onclick=async()=>{const n=$('clN').value.trim(),tg=$('clT').value.trim();const e1=nickCheckStrict(n);if(e1){toast('🚫 Name nicht erlaubt',e1);return}if(nameBanned(tg)){toast('🚫 Kürzel nicht erlaubt','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}
     try{const r=await gmRpc('clan_create',{p_name:n,p_tag:tg,p_emoji:emo,p_banner:myBanner().id,p_nick:lbNick()});
       if(r&&r.error){toast('Gründen ging nicht',{zu_kurz:'Name mindestens 3, Kürzel mindestens 2 Zeichen',name_verboten:'Dieser Name ist nicht erlaubt',name_vergeben:'Diesen Namen gibt es schon',kuerzel_vergeben:'Dieses Kürzel gibt es schon',schon_in_gilde:'Du bist schon in einer Gilde'}[r.error]||'');return}
       CL.me=await gmRpc('clan_me');confetti(true);sfx.ach();toast(`🛡️ ${CL.me.name} gegründet!`,'Lade Freunde ein, damit sie beitreten');liveEv(`hat die Gilde ${CL.me.name} gegründet 🛡️`);clRender()}catch(e){toast(gmErr(e))}};
@@ -7663,7 +7863,7 @@ async function tourHTML(){
 }
 
 /* ---------- 🏡 Gärten besuchen ---------- */
-function gardenSnap(){return {skin:S.skin,banner:myBanner().id,title:myTitle().id,dim:dim(),pet:S.pet||'',petLv:S.pet?pd(S.pet).lv:0,evo:S.pet&&(S.petEvo||{})[S.pet]?1:0,
+function gardenSnap(){return {show:S.showcase||[],skin:S.skin,banner:myBanner().id,title:myTitle().id,dim:dim(),pet:S.pet||'',petLv:S.pet?pd(S.pet).lv:0,evo:S.pet&&(S.petEvo||{})[S.pet]?1:0,
   owned:Object.fromEntries(B.map(b=>[b.id,S.owned[b.id]||0]).filter(x=>x[1]>0)),tot:gTotal(),skins:S.skins.length,rb:S.rb||0}}
 async function gardenSave(){if(!LB.sb||!LB.uid||document.hidden)return;try{await LB.sb.rpc('garden_save',{p_nick:lbNick(),p_data:gardenSnap()})}catch(e){}}
 async function gardenInbox(){if(!LB.sb||!LB.uid)return;try{const n=await gmRpc('garden_inbox');if(n>0){const gm=Math.min(30,n*3);S.gems+=gm;save();render();toast(`💧 ${n}× wurde dein Garten gegossen!`,`+${gm} 💠 für dich`)}}catch(e){}}
@@ -7674,9 +7874,11 @@ async function visitGarden(id,nick){
     $('gmBody').innerHTML=`<div class="gvhead" style="${bannerCSS(d.banner||'wiese')}"><div class="gvsk">${mushSVG(k,'gv')}</div><div><b>${esc(r.nick)}</b><small>${esc(titleName(d.title||'neu'))}</small><small>${D.e} ${esc(D.n)}</small></div></div>
       <div class="gvstats"><div><b>${d.tot||0}</b><span>Züchter</span></div><div><b>${d.skins||0}</b><span>Skins</span></div><div><b>${d.rb||0}</b><span>Wiedergeburten</span></div><div><b>${r.waters}</b><span>💧 heute</span></div></div>
       ${P?`<p class="gvline">${P.e||'🐾'} Begleiter: <b>${d.evo?'Super-':''}${esc(P.name)}</b>, Stufe ${d.petLv}</p>`:''}
-      <div class="gvdeco">${deco.map(x=>`<span title="${x.n}">${x.e}</span>`).join('')||'<small>Noch keine Deko</small>'}</div>
+      ${showcaseHTML(d.show)}<div class="gvdeco">${deco.map(x=>`<span title="${x.n}">${x.e}</span>`).join('')||'<small>Noch keine Deko</small>'}</div>
       <div class="gvbld">${B.filter(b=>(d.owned||{})[b.id]).map(b=>`<span>${b.icon} ${d.owned[b.id]}</span>`).join('')}</div>
+      <button class="ghost" id="gvVote" ${id===LB.uid?'disabled':''} style="margin-bottom:6px">❤️ Herz für den Garten-Wettbewerb</button>
       <button class="primary" id="gvWater" ${r.watered||id===LB.uid?'disabled':''}>${id===LB.uid?'Das ist dein Garten':r.watered?'💧 Heute schon gegossen':'💧 Garten gießen (+2 💠 für euch beide)'}</button>`;
+    const gvv=$('gvVote');if(gvv)gvv.onclick=async()=>{try{const x=await gmRpc('garden_vote',{p_player:id});toast({ok:'❤️ Herz vergeben!',schon:'Diesem Garten hast du diesen Monat schon ein Herz gegeben',limit:'Höchstens 5 Herzen pro Tag',weg:'Diesen Garten gibt es nicht'}[x]||'Das ging nicht');if(x==='ok'){gvv.disabled=true;sfx.ach()}}catch(e){toast(gmErr(e))}};
     const w=$('gvWater');w.onclick=async()=>{try{const x=await gmRpc('garden_water_it',{p_player:id});if(x==='ok'){S.gems+=2;save();render();sfx.ach();fxBurst(innerWidth/2,innerHeight/2,{n:20,colors:['#6AC8FF','#BFF0FF','#fff'],speed:5});toast('💧 Gegossen!','+2 💠, und der Garten freut sich');w.disabled=true;w.textContent='💧 Heute schon gegossen'}
       else toast({schon:'Heute schon gegossen',limit:'Du kannst heute nur 10 Gärten gießen',weg:'Diesen Garten gibt es nicht'}[x]||'Das ging nicht')}catch(e){toast(gmErr(e))}};
   }catch(e){$('gmBody').innerHTML=`<p class="mknote">${gmErr(e)}</p>`}
@@ -7691,12 +7893,13 @@ function openGames(){
     <button class="hubt" id="mgRace"><span>🐌</span><b>Schneckenrennen</b><small>Tipp auf die Siegerschnecke · noch ${mgLeft('race')}× Belohnung</small></button>
     <button class="hubt" id="mgMemo"><span>🧠</span><b>Pilz-Memory</b><small>Finde alle Paare · noch ${mgLeft('memo')}× Belohnung</small></button>
     <button class="hubt" id="mgRain"><span>🍄</span><b>Pilzregen</b><small>Fang die fallenden Pilze · noch ${mgLeft('rain')}× Belohnung</small></button>
+    <button class="hubt" id="mgFish"><span>🎣</span><b>Angeln</b><small>Fische und Schätze fangen · noch ${mgLeft('fish')}× Belohnung</small></button>
     <button class="hubt" id="mgSimon"><span>💡</span><b>Leuchtpilz-Folge</b><small>Merk dir die Reihenfolge · noch ${mgLeft('simon')}× Belohnung</small></button></div>
     <h4 class="mkh">👥 Multiplayer</h4><div class="hubgrid">
     <button class="hubt mp" id="mgDuel"><span>⚔️</span><b>Tipp-Duell</b><small>Wer tippt schneller?</small></button>
     <button class="hubt mp" id="mgTarget"><span>🎯</span><b>Zielscheiben-Duell</b><small>Wer trifft mehr Pilze?</small></button></div>
     <p class="mknote">Beim Multiplayer wird einer der beiden Modi ausgelost, damit ihr schnell einen Gegner findet. Beide Spieler spielen immer denselben Modus.</p>`);
-  $('mgRace').onclick=raceStart;$('mgMemo').onclick=memoStart;$('mgRain').onclick=rainStart;$('mgSimon').onclick=simonStart;
+  $('mgRace').onclick=raceStart;$('mgMemo').onclick=memoStart;$('mgRain').onclick=rainStart;$('mgSimon').onclick=simonStart;$('mgFish').onclick=fishStart;
   $('mgDuel').onclick=$('mgTarget').onclick=()=>{gmClose();openDuel()};
 }
 function raceStart(){
@@ -7752,6 +7955,400 @@ $('gmClose').onclick=gmClose;
 setTimeout(()=>{clLoad();gardenSave();gardenInbox();refTick()},6000);
 setInterval(()=>{gardenSave()},120000);
 setInterval(()=>{if(!document.hidden){gardenInbox();refTick()}},60000);
+/* =====================================================================
+   UPDATE 3: Jahreszeiten · Weihnachten · Adventskalender · Garten-Editor ·
+   Foto-Modus · Vitrine · Abenteuer-Karte · Pausen-Erinnerung ·
+   Gildenchat · Gilden-Boss · Gildenliga · Monats-Saison · Basar
+   ===================================================================== */
+
+/* ---------- 🍂 Jahreszeiten ---------- */
+function seasonNow(){const m=new Date().getMonth();if(S.seasonForce)return S.seasonForce;return m<=1||m===11?'winter':m<=4?'fruehling':m<=7?'sommer':'herbst'}
+let seaParts=[];
+function drawSeason(t,D,na){
+  if(['thron','tiefsee','kosmos','neon','lava'].includes(D.id))return;
+  const s=seasonNow(),cap=[8,14,20][GQ]||14;
+  while(seaParts.length<cap)seaParts.push({x:Math.random(),y:Math.random(),v:.02+Math.random()*.04,r:Math.random()*6.28,s:.6+Math.random()*.8});
+  seaParts.forEach((p,i)=>{p.y+=p.v*.016*(s==='winter'?1:1.4);p.x+=Math.sin(t*.001+i)*.0006;p.r+=.02;if(p.y>1.02){p.y=-.03;p.x=Math.random()}
+    const x=p.x*gw,y=p.y*gh;g.save();g.translate(x,y);g.rotate(p.r);
+    if(s==='winter'){g.fillStyle='rgba(255,255,255,.9)';g.beginPath();g.arc(0,0,2.2*p.s+1,0,7);g.fill()}
+    else if(s==='fruehling'){g.fillStyle='rgba(255,190,220,.9)';g.beginPath();g.ellipse(0,0,4*p.s,2.2*p.s,0,0,7);g.fill()}
+    else if(s==='herbst'){g.fillStyle=['#E8701A','#C8501A','#E8B04A'][i%3];g.beginPath();g.moveTo(0,-5*p.s);g.quadraticCurveTo(5*p.s,0,0,5*p.s);g.quadraticCurveTo(-5*p.s,0,0,-5*p.s);g.fill()}
+    else if(i%3===0){g.globalCompositeOperation='lighter';glow(0,0,6,'255,240,160',.5)}
+    g.restore()});
+  if(s==='winter'){const sg=g.createLinearGradient(0,gh*.82,0,gh);sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.25,'rgba(240,248,255,.75)');sg.addColorStop(1,'rgba(230,242,255,.95)');g.fillStyle=sg;
+    g.beginPath();g.moveTo(0,gh);for(let x=0;x<=gw;x+=12)g.lineTo(x,groundY(x)+2+Math.sin(x*.08)*2);g.lineTo(gw,gh);g.fill()}
+  if(s==='herbst'){g.fillStyle='rgba(200,100,30,.35)';for(let i=0;i<18;i++){const x=(i*53)%gw,y=groundY(x)+6+(i%4)*5;g.beginPath();g.ellipse(x,y,5,2.5,i,0,7);g.fill()}}
+}
+
+/* ---------- 🎄 Weihnachten (1. bis 31. Dezember) ---------- */
+function isXmas(){return S.xmForce||new Date().getMonth()===11}
+const XM_BOSS=['🍪','Lebkuchen-Golem','❄️'];
+function drawXmas(t,D,na){
+  if(!isXmas())return;const x=gw*.9,y=groundY(gw*.9)+6,h=Math.min(110,gh*.2);
+  g.fillStyle='#5A3418';g.fillRect(x-5,y-12,10,12);
+  for(let k=0;k<3;k++){const w=(h*.42)*(1-k*.25),yy=y-12-k*h*.26;g.fillStyle=['#1E7A3A','#22884A','#2A9A54'][k];g.beginPath();g.moveTo(x-w,yy);g.lineTo(x,yy-h*.42);g.lineTo(x+w,yy);g.fill()}
+  for(let i=0;i<10;i++){const k=i%3,w=(h*.42)*(1-k*.25)*.75,yy=y-18-k*h*.26-(i%2)*8,xx=x+(i%2?1:-1)*w*((i*37%10)/10);g.save();g.globalCompositeOperation='lighter';glow(xx,yy,7,['255,80,80','255,220,80','120,200,255'][i%3],.5+.4*Math.sin(t*.005+i));g.restore()}
+  g.fillStyle='#FFD23F';g.beginPath();for(let i=0;i<10;i++){const a=i*Math.PI/5-Math.PI/2,r=i%2?4:10;g.lineTo(x+Math.cos(a)*r,y-12-h*.78+Math.sin(a)*r)}g.fill();
+  [[x-26,'#E0203A'],[x+22,'#2A7AE0'],[x-6,'#7DFF9A']].forEach(([px,c],i)=>{const s=10+i*2;g.fillStyle=c;g.fillRect(px-s/2,y-s,s,s);g.fillStyle='#FFD23F';g.fillRect(px-1.5,y-s,3,s);g.fillRect(px-s/2,y-s/2-1.5,s,3)});
+}
+
+/* ---------- 📅 Adventskalender ---------- */
+const ADV_REW=d=>d===24?{skin:'xm_stern'}:d%6===0?{dia:3}:d%4===0?{chest:'silber'}:d%2===0?{gems:25}:{gems:15};
+function openAdvent(){
+  const now=new Date(),day=isXmas()?(S.xmForce?24:now.getDate()):0;S.advent=S.advent||{};const y=now.getFullYear(),got=S.advent[y]||[];
+  gmModal('🎄 Adventskalender',`<p class="mknote">Jeden Tag bis Heiligabend darfst du ein Türchen öffnen. Hinter dem 24. wartet ein Weihnachts-Skin, den es nur hier gibt!</p>
+    <div class="advgrid">${Array.from({length:24},(_,i)=>i+1).sort((a,b)=>((a*7)%24)-((b*7)%24)).map(d=>{const open=got.includes(d),can=d<=day&&!open;
+      return `<button class="advd${open?' open':''}${can?' can':''}${d===24?' big':''}" data-d="${d}" ${can?'':'disabled'}>${open?advIcon(ADV_REW(d)):d}</button>`}).join('')}</div>`);
+  $('gmBody').querySelectorAll('.advd.can').forEach(b=>b.onclick=()=>{const d=+b.dataset.d,r=ADV_REW(d);got.push(d);S.advent[y]=got;
+    if(r.gems)S.gems+=r.gems;if(r.dia)S.dia+=r.dia;if(r.chest)addKey('silver',1);if(r.skin&&!S.skins.includes(r.skin))S.skins.push(r.skin);
+    save();render();b.classList.add('open','pop');b.innerHTML=advIcon(r);sfx.ach();fxBurst(innerWidth/2,innerHeight/2,{n:24,star:true,colors:['#FFD23F','#E0203A','#7DFF9A','#fff'],speed:6});
+    toast(`🎄 Türchen ${d}!`,r.skin?'Der Weihnachtsstern-Pilz gehört dir!':r.dia?`+${r.dia} 💎`:r.chest?'Eine Silbertruhe!':`+${r.gems} 💠`);if(r.skin)confetti(true);b.disabled=true});
+}
+const advIcon=r=>r.skin?'⭐':r.dia?'💎':r.chest?'🎁':'💠';
+
+/* ---------- ✏️ Garten-Editor ---------- */
+const ED_ITEMS=[['muehle','🌬️',1000],['haus','🏡',600],['lampL','🏮',150],['lampR','🏮',150],['teich','🪷',60],['bank','🪑',300]];
+function openEditor(){
+  gmClose();const sc=SCN(),tot=S.decoAll&&ADM.ok?99999:gTotal(),items=ED_ITEMS.filter(x=>tot>=x[2]);
+  if(!items.length){toast('🏡 Noch keine Deko','Ab 60 Züchtern bekommst du den ersten Gartenausbau');return}
+  const ov=document.createElement('div');ov.className='edov';ov.innerHTML=`<div class="edbar"><b>✏️ Garten gestalten</b><span>Zieh die Deko an ihren neuen Platz</span><button id="edReset">Zurücksetzen</button><button id="edDone" class="on">Fertig</button></div>`;
+  sc.appendChild(ov);S.decoPos=S.decoPos||{};
+  items.forEach(([k,e])=>{const h=document.createElement('div');h.className='edh';h.textContent=e;const place=()=>{const p=DP(k),gy=p[1]?p[1]:(groundY(gw*p[0])/gh);h.style.left=p[0]*100+'%';h.style.top=gy*100+'%'};place();
+    h.addEventListener('pointerdown',e0=>{e0.preventDefault();h.setPointerCapture(e0.pointerId);const r=sc.getBoundingClientRect();
+      const mv=ev=>{const fx=Math.max(.05,Math.min(.95,(ev.clientX-r.left)/r.width)),fy=Math.max(.5,Math.min(.97,(ev.clientY-r.top)/r.height));S.decoPos[k]=[+fx.toFixed(3),+fy.toFixed(3)];place()};
+      const up=()=>{h.removeEventListener('pointermove',mv);h.removeEventListener('pointerup',up);save();tone(880,.05,'triangle',.04)};h.addEventListener('pointermove',mv);h.addEventListener('pointerup',up)});
+    ov.appendChild(h)});
+  ov.querySelector('#edReset').onclick=()=>{S.decoPos={};save();ov.remove();openEditor()};
+  ov.querySelector('#edDone').onclick=()=>{ov.remove();toast('🏡 Garten gespeichert')};
+}
+
+/* ---------- 📸 Foto-Modus ---------- */
+async function gardenPhoto(){
+  gmClose();const sc=SCN(),r=sc.getBoundingClientRect(),W=Math.round(r.width*2),H=Math.round(r.height*2),c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  try{[...sc.querySelectorAll('canvas')].forEach(cv=>{const cr=cv.getBoundingClientRect();if(cr.width>0)x.drawImage(cv,(cr.left-r.left)*2,(cr.top-r.top)*2,cr.width*2,cr.height*2)});
+    const sv=$('mush').querySelector('svg');if(sv){const mr=sv.getBoundingClientRect(),data=new XMLSerializer().serializeToString(sv),img=new Image();
+      await new Promise(res=>{img.onload=res;img.onerror=res;img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data.replace(/var\(--ma,([^)]+)\)/g,'$1'))});
+      try{x.drawImage(img,(mr.left-r.left)*2,(mr.top-r.top)*2,mr.width*2,mr.height*2)}catch(e){}}
+    const bh=Math.round(H*.12);x.fillStyle='rgba(15,10,35,.72)';x.fillRect(0,H-bh,W,bh);x.fillStyle='#fff';x.font=`800 ${Math.round(bh*.38)}px Fredoka, sans-serif`;x.fillText(`🍄 ${lbNick()}`,bh*.35,H-bh*.52);
+    x.font=`600 ${Math.round(bh*.24)}px Fredoka, sans-serif`;x.fillStyle='#FFE680';x.fillText(`${myTitle().n} · ${gTotal()} Züchter · pilzgarten.vercel.app`,bh*.35,H-bh*.2);
+    scEl('bwhite','',300);tone(1400,.05,'square',.04);
+    const blob=await new Promise(res=>c.toBlob(res,'image/png'));const file=new File([blob],'mein-pilzgarten.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Mein Pilzgarten',text:'Schau dir meinen Pilzgarten an! 🍄'});return}
+    const url=URL.createObjectURL(blob);gmModal('📸 Dein Gartenfoto',`<img src="${url}" alt="Dein Garten" style="width:100%;border-radius:16px"><p class="mknote">Halte das Bild gedrückt, um es zu speichern oder zu teilen.</p><a class="primary" download="mein-pilzgarten.png" href="${url}" style="display:block;text-align:center;text-decoration:none;margin-top:8px">⬇️ Bild speichern</a>`)}
+  catch(e){toast('📸 Das Foto ging leider nicht')}
+}
+
+/* ---------- 🏆 Vitrine ---------- */
+function showcaseHTML(ids){const ks=(ids||[]).map(id=>SKINS.find(k=>k.id===id)).filter(Boolean);return ks.length?`<div class="vitrine">${ks.map((k,i)=>`<div class="vit r-${k.rar}"><div>${mushSVG(k,'vt'+i+Math.random().toString(36).slice(2,5))}</div><small>${esc(k.name)}</small></div>`).join('')}</div>`:''}
+function vitrineEditor(box){
+  const sel=S.showcase||[],own=SKINS.filter(k=>S.skins.includes(k.id)).sort((a,b)=>(RARVAL[b.rar]||0)-(RARVAL[a.rar]||0));
+  box.innerHTML=`<p class="mknote">Wähl bis zu 3 Skins für deine Vitrine. Andere sehen sie, wenn sie deinen Garten oder dein Profil besuchen.</p>${showcaseHTML(sel)}
+    <div class="bngrid">${own.slice(0,80).map(k=>`<button class="bnopt${sel.includes(k.id)?' on':''}" data-vs="${k.id}"><span class="vsk">${mushSVG(k,'vs'+k.id)}</span><b>${esc(k.name)}</b><small>${RAR[k.rar]||''}</small></button>`).join('')}</div>`;
+  box.querySelectorAll('[data-vs]').forEach(b=>b.onclick=()=>{let s=S.showcase||[];const id=b.dataset.vs;s=s.includes(id)?s.filter(x=>x!==id):[...s,id].slice(-3);S.showcase=s;save();vitrineEditor(box);gardenSave()});
+}
+
+/* ---------- 🗺️ Abenteuer-Karte ---------- */
+const ADV_ST=[
+  {n:'Moosige Lichtung',e:'🌿',d:'1.000 Sporen gesammelt',ok:()=>S.allTime>=1e3},
+  {n:'Glühwürmchenbach',e:'✨',d:'25 Züchter',ok:()=>gTotal()>=25},
+  {n:'Goldene Höhle',e:'🟡',d:'10 Goldpilze gefangen',ok:()=>(S.golden||0)>=10},
+  {n:'Bosslager',e:'⚔️',d:'10 Bosse besiegt',ok:()=>(S.bossWins||0)>=10},
+  {n:'Turm am See',e:'🗼',d:'Etage 10 im Boss-Turm',ok:()=>((S.tower&&S.tower.best)||0)>=10},
+  {n:'Marktdorf',e:'🤝',d:'15 Skins gesammelt',ok:()=>S.skins.length>=15},
+  {n:'Duellarena',e:'🤺',d:'3 Duelle gewonnen',ok:()=>(S.duelWins||0)>=3},
+  {n:'Kristallwald',e:'💎',d:'1 Mrd. Sporen gesammelt',ok:()=>S.allTime>=1e9},
+  {n:'Weltentor',e:'🌌',d:'4 Dimensionen freigeschaltet',ok:()=>S.dims.length>=4},
+  {n:'Drachenpass',e:'🐉',d:'50 Bosse besiegt',ok:()=>(S.bossWins||0)>=50},
+  {n:'Himmelsgarten',e:'☁️',d:'500 Züchter',ok:()=>gTotal()>=500},
+  {n:'Pilzkrone',e:'👑',d:'1 Wiedergeburt',ok:()=>(S.rb||0)>=1}
+];
+const advRew=i=>i===ADV_ST.length-1?'Banner „Abenteurer“ + Titel':i%3===2?'3 💎':'30 💠';
+function openMap(){
+  const at=S.mapAt||0,pts=ADV_ST.map((_,i)=>[i%2?72:28,40+i*70]);
+  gmModal('🗺️ Abenteuer-Karte',`<p class="mknote">Reise Station für Station durch das Pilzreich. Erfülle die Aufgabe, hol dir die Belohnung und zieh weiter!</p>
+    <div class="map"><svg viewBox="0 0 100 ${ADV_ST.length*70+20}" preserveAspectRatio="none" class="mappath"><path d="M${pts.map(p=>p.join(' ')).join(' L')}" stroke="#C8A86A" stroke-width="3" stroke-dasharray="4 4" fill="none"/></svg>
+    ${ADV_ST.map((s,i)=>{const done=i<at,cur=i===at,ok=cur&&s.ok();return `<div class="mst${done?' done':''}${cur?' cur':''}" style="left:${pts[i][0]}%;top:${pts[i][1]}px"><span>${done?'✓':s.e}</span><div class="mtip"><b>${s.n}</b><small>${s.d}</small>${cur?(ok?`<button class="dcbtn" id="mapGo">Belohnung: ${advRew(i)}</button>`:`<small>Belohnung: ${advRew(i)}</small>`):''}</div></div>`}).join('')}
+    ${at>=ADV_ST.length?'<div class="mapdone">🏆 Du hast das ganze Pilzreich bereist!</div>':''}</div>`);
+  const go=$('mapGo');if(go)go.onclick=()=>{const i=S.mapAt||0;if(i===ADV_ST.length-1){S.mapDone=1;confetti(true)}else if(i%3===2)S.dia+=3;else S.gems+=30;S.mapAt=i+1;save();render();sfx.ach();toast(`🗺️ ${ADV_ST[i].n} geschafft!`,advRew(i));openMap()};
+  const cur=$('gmBody').querySelector('.mst.cur');if(cur)setTimeout(()=>cur.scrollIntoView({block:'center',behavior:'smooth'}),100);
+}
+
+/* ---------- ⏰ Pausen-Erinnerung ---------- */
+let playStart=Date.now(),lastAct=Date.now(),pauseShown=0;
+document.addEventListener('pointerdown',()=>{if(Date.now()-lastAct>10*60e3)playStart=Date.now();lastAct=Date.now()},{passive:true});
+setInterval(()=>{const lim=S.pauseMin==null?60:S.pauseMin;if(!lim||document.hidden)return;if(Date.now()-playStart>lim*60e3&&Date.now()-pauseShown>lim*60e3){pauseShown=Date.now();
+  queueModal({emoji:'🧘',title:'Zeit für eine kleine Pause?',text:`Du spielst schon über ${lim} Minuten. Steh kurz auf, trink etwas Wasser und schau mal aus dem Fenster. Dein Garten sammelt in der Zeit weiter Sporen für dich! 🍄`,ok:'Mach ich',cancel:true,cancelText:'Gleich',onOk:()=>{playStart=Date.now()}})}},30000);
+
+/* ---------- 🛡️ Gilde: Chat, Boss, Liga ---------- */
+const CC={last:0,msgs:[],iv:0,tab:'mitglieder'};
+function clanTabs(){return `<div class="mktabs cltabs">${[['mitglieder','👥 Mitglieder'],['chat','💬 Chat'],['boss','🐲 Boss'],['liga','🏆 Liga']].map(([k,n])=>`<button data-ct="${k}" aria-pressed="${CC.tab===k}">${n}</button>`).join('')}</div><div id="clTab"></div>`}
+async function clTabRender(){
+  const b=$('clTab');if(!b)return;clearInterval(CC.iv);
+  if(CC.tab==='chat'){b.innerHTML=`<div class="mkchat" id="ccList"></div>${stkBar()}<div class="mkin"><input id="ccText" maxlength="200" placeholder="Nachricht an deine Gilde"><button id="ccSend">Senden</button></div><p class="mknote">Nur deine Gilde sieht diesen Chat. Bleib freundlich, keine Kontaktdaten.</p>`;
+    const load=async()=>{try{const nw=await gmRpc('clan_chat_list',{p_after:CC.last});if(nw&&nw.length){CC.msgs=[...CC.msgs,...nw].slice(-80);CC.last=nw[nw.length-1].id}
+      const l=$('ccList');if(!l)return;l.innerHTML=CC.msgs.filter(m=>!nameBanned(m.text)).map(m=>`<div class="mkmsg${m.is_me?' me':''}"><b>${esc(showNick(m))}</b><span>${stkOf(m.text)?stkHTML(stkOf(m.text)):esc(m.text)}</span></div>`).join('')||'<p class="mknote">Noch keine Nachrichten.</p>';l.scrollTop=1e9}catch(e){}};
+    load();CC.iv=setInterval(()=>{if(!$('gmModal').hidden&&CC.tab==='chat')load();else clearInterval(CC.iv)},3000);
+    const send=async()=>{const v=$('ccText').value.trim();if(!v)return;if(nameBanned(v)){toast('🚫 Diese Nachricht enthält gesperrte Wörter','Bitte keine Länder, Religionen, Politik oder unpassenden Wörter');return}try{const r=await gmRpc('clan_chat_send',{p_text:v,p_nick:lbNick()});if(r==='ok'){$('ccText').value='';load()}else toast({zu_schnell:'Kurz warten …',kontakt:'Bitte keine Links oder Nummern',verboten:'Diese Nachricht enthält gesperrte Wörter',keine_gilde:'Du bist in keiner Gilde'}[r]||'Senden ging nicht')}catch(e){toast(gmErr(e))}};
+    b.querySelectorAll('[data-stk]').forEach(x=>x.onclick=()=>{$('ccText').value=`[st:${x.dataset.stk}]`;send()});
+    $('ccSend').onclick=send;$('ccText').onkeydown=e=>{if(e.key==='Enter')send()};return}
+  if(CC.tab==='boss'){b.innerHTML='<p class="mknote">Lade …</p>';try{let s=await gmRpc('cb_state');const cl=await gmRpc('cb_claim');if(cl){S.gems+=25;S.dia+=2;save();render();confetti(true);toast('🐲 Gilden-Boss besiegt!','+25 💠 und +2 💎 für dich')}
+      const draw=()=>{const left=Math.max(0,s.ends-Date.now()),d=Math.floor(left/864e5),h=Math.floor(left%864e5/36e5);
+        b.innerHTML=`<p class="mknote">Nur eure Gilde kämpft gegen diesen Boss. Jede Woche kommt ein neuer. Besiegt ihn gemeinsam, dann bekommt jeder, der mitgemacht hat, 25 💠 und 2 💎.</p>
+          <div class="wbstage${s.dead?' dead':''}" style="height:160px"><button class="wbboss" id="cbTap" ${s.dead?'disabled':''} style="font-size:90px">🐲</button><div class="wbname">Gildenwächter</div></div>
+          <div class="wbhp"><i style="width:${s.hp/s.max*100}%"></i><span>${fmt(s.hp)} / ${fmt(s.max)}</span></div><div class="wbinfo"><span>⚔️ Dein Schaden: <b id="cbMine">${s.mine}</b></span><span>⏳ ${s.dead?'besiegt':`${d} T ${h} Std`}</span></div>
+          <div class="dutop">${(s.top||[]).map((r,i)=>`<div class="dutr"><span>${i+1}</span><b>${esc(showNick(r))}</b><small></small><em>${r.dmg}</em></div>`).join('')}</div>`;
+        const tp=$('cbTap');let pend=0,at=0;if(tp)tp.addEventListener('pointerdown',async e=>{e.preventDefault();if(!e.isTrusted)return;pend++;$('cbMine').textContent=s.mine+pend;tp.animate([{transform:'scale(1)'},{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:130});duPlus(e.clientX,e.clientY,'-1');tone(160,.05,'square',.03);
+          if(Date.now()-at>1300&&pend>0){at=Date.now();const n=Math.min(40,pend);pend-=n;try{s=await gmRpc('cb_hit',{p_dmg:n,p_nick:lbNick()});if(s.dead){draw();confetti(true)}}catch(x){}}})};draw()}
+    catch(e){b.innerHTML=`<p class="mknote">${gmErr(e)}</p>`}return}
+  if(CC.tab==='liga'){b.innerHTML='<p class="mknote">Lade …</p>';try{const [rows,cl]=await Promise.all([gmRpc('clan_league',{p_ago:0}),gmRpc('clan_league_claim')]);
+      if(cl&&cl.rank){const prize=[0,8,5,3][cl.rank];S.dia+=prize;S.leagueWins=(S.leagueWins||0)+(cl.rank===1?1:0);save();render();confetti(true);queueModal({emoji:'🏆',title:`Eure Gilde wurde ${cl.rank}. im Gildenkrieg!`,text:`Als Mitglied bekommst du ${prize} 💎.`,ok:'Hurra!'})}
+      b.innerHTML=`<p class="mknote">Jede Woche kämpfen alle Gilden um den Sieg: Jeder Schaden am Gilden-Boss zählt 1 Punkt, jedes gewonnene Duell eines Mitglieds 50 Punkte. Die Mitglieder der besten 3 Gilden bekommen 8, 5 oder 3 💎.</p>
+        <div class="dutop">${(rows||[]).map((g2,i)=>`<div class="dutr${CL.me&&g2.clan_id===CL.me.id?' me':''}"><span>${['🥇','🥈','🥉'][i]||i+1}</span><b>${esc(g2.emoji)} ${esc(g2.name)} [${esc(g2.tag)}]</b><small></small><em>${fmt(g2.points)}</em></div>`).join('')||'<p class="mknote">Diese Woche noch keine Punkte. Legt los!</p>'}</div>`}
+    catch(e){b.innerHTML=`<p class="mknote">${gmErr(e)}</p>`}return}
+}
+
+/* ---------- 📅 Monats-Saison ---------- */
+async function openMonth(){
+  gmModal('📅 Monats-Saison','<p class="mknote">Lade …</p>');
+  try{await gmRpc('month_touch',{p_nick:lbNick()});const [bd,cl]=await Promise.all([gmRpc('month_board'),gmRpc('month_claim')]);
+    if(cl&&cl.rank){S.badges=[...(S.badges||[]),{m:cl.month,r:cl.rank}];S.dia+=cl.rank<=3?10:5;save();render();confetti(true);queueModal({emoji:'🏅',title:`Platz ${cl.rank} in der Monats-Saison!`,text:`Du bekommst ein Saison-Abzeichen für immer, den Titel „Saison-Champion“ und ${cl.rank<=3?10:5} 💎.`,ok:'Stark!'})}
+    const mn=new Date(bd.month).toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+    $('gmBody').innerHTML=`<p class="mknote">Jeden Monat startet eine neue Wertung: Wer im Monat die meisten Sporen dazugewinnt, gewinnt. Die besten 10 bekommen ein Abzeichen für immer, die besten 3 zusätzlich 10 💎.</p>
+      <div class="dchead"><b>🏁 Saison ${esc(mn)}</b><small>${bd.me?`Dein Platz: ${bd.me.rank}`:''}</small></div>
+      <div class="dutop">${(bd.rows||[]).map((r,i)=>`<div class="dutr${r.player_id===LB.uid?' me':''}"><span>${['🥇','🥈','🥉'][i]||i+1}</span><b>${esc(showNick(r))}</b><small></small><em>+${fmt(r.gain)}</em></div>`).join('')}</div>
+      ${(S.badges||[]).length?`<h4 class="mkh">🏅 Deine Abzeichen</h4><div class="gvdeco">${S.badges.map(x=>`<span title="Platz ${x.r} – ${x.m}">🏅</span>`).join('')}</div>`:''}`}
+  catch(e){$('gmBody').innerHTML=`<p class="mknote">${gmErr(e)}</p>`}
+}
+
+/* ---------- 💰 Basar ---------- */
+async function openBazaar(sell){
+  gmModal('💰 Basar','<p class="mknote">Lade …</p>');
+  try{await bzClaim();const list=await gmRpc('bz_list');
+    $('gmBody').innerHTML=`<div class="mktabs"><button data-bz="buy" aria-pressed="${!sell}">🛒 Kaufen</button><button data-bz="sell" aria-pressed="${!!sell}">💰 Verkaufen</button></div><div id="bzBox"></div>`;
+    $('gmBody').querySelectorAll('[data-bz]').forEach(b=>b.onclick=()=>openBazaar(b.dataset.bz==='sell'));
+    const box=$('bzBox');
+    if(!sell){box.innerHTML=`<p class="mknote">Kauf Skins anderer Spieler für Juwelen. Der Verkäufer bekommt 90 %.</p><div class="mkgrid">${list.filter(o=>skById(o.skin)).map(o=>{const k=skById(o.skin),have=S.skins.includes(o.skin);
+        return `<div class="mkoffer${o.is_mine?' mine':''}"><div class="mkwho"><b>${esc(showNick(o))}</b>${o.is_mine?' (du)':''}</div>${mkSkinTile(o.skin)}<button class="dcbtn" data-buy="${o.id}" ${o.is_mine||have||S.gems<o.price?'disabled':''}>${o.is_mine?'Dein Angebot':have?'Schon da':`${o.price} 💠`}</button>${o.is_mine?`<button class="clkick" data-cancel="${o.id}">Zurücknehmen</button>`:''}</div>`}).join('')||'<p class="mknote">Gerade nichts im Angebot.</p>'}</div>`;
+      box.querySelectorAll('[data-buy]').forEach(b=>b.onclick=async()=>{const o=list.find(x=>x.id==b.dataset.buy);if(S.gems<o.price){toast('💠 Zu wenig Juwelen');return}
+        try{const r=await gmRpc('bz_buy',{p_id:o.id,p_nick:lbNick()});if(!r){toast('Schon verkauft');openBazaar();return}S.gems-=r.price;if(!S.skins.includes(r.skin))S.skins.push(r.skin);save();render();sfx.ach();confetti(true);toast(`🛒 ${skById(r.skin).name} gekauft!`,`-${r.price} 💠`);openBazaar()}catch(e){toast(gmErr(e))}});
+      box.querySelectorAll('[data-cancel]').forEach(b=>b.onclick=async()=>{try{const sk=await gmRpc('bz_cancel',{p_id:+b.dataset.cancel});if(sk&&!S.skins.includes(sk))S.skins.push(sk);save();toast('Angebot zurückgenommen');openBazaar()}catch(e){toast(gmErr(e))}});return}
+    const mine=S.skins.filter(tradeable);let pick=null;
+    box.innerHTML=`<p class="mknote">Wähl einen Skin und einen Preis. Er wird sofort zurückgelegt. Wird er gekauft, bekommst du 90 % des Preises.</p><div class="mkgrid sm">${mine.map(id=>`<button class="mkpick" data-ps="${id}">${mkSkinTile(id)}</button>`).join('')}</div>
+      <div class="clform"><input id="bzPrice" type="number" min="5" max="5000" value="100" inputmode="numeric"><button class="dcbtn" id="bzGo" disabled>Verkaufen</button></div>`;
+    box.querySelectorAll('[data-ps]').forEach(b=>b.onclick=()=>{pick=b.dataset.ps;box.querySelectorAll('[data-ps]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('bzGo').disabled=false});
+    $('bzGo').onclick=async()=>{const pr=Math.round(+$('bzPrice').value||0);if(!pick||pr<5||pr>5000){toast('Preis zwischen 5 und 5000 💠');return}
+      try{const id=await gmRpc('bz_create',{p_skin:pick,p_price:pr,p_nick:lbNick()});if(!id||id<0){toast(id===-1?'Höchstens 5 Angebote gleichzeitig':'Das ging nicht');return}
+        S.skins=S.skins.filter(x=>x!==pick);if(S.skin===pick){S.skin='rosa';applySkin()}save();render();toast('💰 Angebot eingestellt',`${skById(pick).name} für ${pr} 💠`);openBazaar()}catch(e){toast(gmErr(e))}};
+  }catch(e){$('gmBody').innerHTML=`<p class="mknote">${gmErr(e)}</p>`}
+}
+async function bzClaim(){try{const back=await gmRpc('bz_returns').catch(()=>[]);(back||[]).forEach(sk=>{if(!S.skins.includes(sk))S.skins.push(sk);toast('💰 Ein Basar-Angebot wurde entfernt','Dein Skin ist wieder bei dir')});if(back&&back.length)save()}catch(e){}
+  try{const r=await gmRpc('bz_claim');(r||[]).forEach(x=>{const g2=Math.floor(x.price*.9);S.gems+=g2;toast(`💰 ${x.buyer} hat deinen Skin gekauft!`,`+${g2} 💠`)});if(r&&r.length){save();render()}}catch(e){}}
+
+function pzUpd(){const v=S.pauseMin==null?60:S.pauseMin;document.querySelectorAll('[data-pz]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pz===v))}
+document.querySelectorAll('[data-pz]').forEach(b=>b.onclick=e=>{e.stopPropagation();S.pauseMin=+b.dataset.pz;save();pzUpd();toast(S.pauseMin?`⏰ Pausen-Erinnerung nach ${S.pauseMin} Minuten`:'⏰ Pausen-Erinnerung aus')});
+setTimeout(()=>{if(LB.sb&&LB.uid){gmRpc('month_touch',{p_nick:lbNick()}).catch(()=>{});bzClaim()}},8000);
+setInterval(()=>{if(!document.hidden)bzClaim()},90000);
+setTimeout(()=>{if(isXmas()){const y=new Date().getFullYear(),d=new Date().getDate();if(d<=24&&!((S.advent||{})[y]||[]).includes(d))toast('🎄 Dein Adventskalender wartet!','Unter 🎮 Gemeinschaft ein Türchen öffnen')}},7000);
+/* =====================================================================
+   UPDATE 4: Freunde · Gemeinschaftsziel · Sticker · Garten-Wettbewerb · Tränke ·
+   Skin-Fusion · Begleiter-Eier · Angeln · Prestige-Sterne · Glücksrad ·
+   Wochen-Kalender · Chat aus · Barrierefreiheit
+   ===================================================================== */
+
+/* ---------- 👥 Freunde ---------- */
+async function openFriends(){
+  gmModal('👥 Freunde','<p class="mknote">Lade …</p>');
+  try{const list=await gmRpc('friend_list');S.friendN=list.filter(f=>f.status==='ok').length;
+    const inc=list.filter(f=>f.incoming),ok=list.filter(f=>f.status==='ok'),out=list.filter(f=>f.status==='pending'&&!f.incoming);
+    $('gmBody').innerHTML=`<div class="clsearch"><input id="frQ" placeholder="Spielername suchen" maxlength="20"><button class="dcbtn" id="frGo">🔎</button></div><div id="frRes"></div>
+      ${inc.length?`<h4 class="mkh">📩 Anfragen an dich</h4>${inc.map(f=>frRow(f,'inc')).join('')}`:''}
+      <h4 class="mkh">👥 Deine Freunde (${ok.length})</h4>${ok.map(f=>frRow(f,'ok')).join('')||'<p class="mknote">Noch keine Freunde. Such oben nach Spielern oder tipp in der Rangliste jemanden an.</p>'}
+      ${out.length?`<h4 class="mkh">⏳ Gesendet</h4>${out.map(f=>frRow(f,'out')).join('')}`:''}`;
+    $('frGo').onclick=frSearch;$('frQ').onkeydown=e=>{if(e.key==='Enter')frSearch()};frBind($('gmBody'))}
+  catch(e){$('gmBody').innerHTML=`<p class="mknote">${gmErr(e)}</p>`}
+}
+function frRow(f,kind){const k=skById(f.skin)||SKINS[0];return `<div class="frrow"><span class="frsk">${mushSVG(k,'fr'+f.player_id.slice(0,6))}</span><div><b>${esc(showNick(f))}</b><small>${f.online?'🟢 online':'⚪ offline'}</small></div>
+  ${kind==='inc'?`<button class="dcbtn" data-fa="${f.player_id}">Annehmen</button><button class="clkick" data-fr="${f.player_id}">✕</button>`
+   :kind==='ok'?`<button class="clkick" data-fd="${f.player_id}" data-n="${esc(showNick(f))}" title="Duell">⚔️</button><button class="clkick" data-fg="${f.player_id}" data-n="${esc(showNick(f))}" title="Garten">🏡</button><button class="clkick" data-fr="${f.player_id}" title="Entfernen">✕</button>`
+   :kind==='add'?`<button class="dcbtn" data-fa="${f.player_id}">+ Freund</button>`:`<button class="clkick" data-fr="${f.player_id}">✕</button>`}</div>`}
+function frBind(box){
+  box.querySelectorAll('[data-fa]').forEach(b=>b.onclick=async()=>{try{const r=await gmRpc('friend_add',{p_player:b.dataset.fa});toast(r==='ok'?'👥 Ihr seid jetzt Freunde!':r==='gesendet'?'📩 Anfrage gesendet':r==='voll'?'Höchstens 100 Freunde':'Das ging nicht');if(r==='ok')sfx.ach();openFriends()}catch(e){toast(gmErr(e))}});
+  box.querySelectorAll('[data-fr]').forEach(b=>b.onclick=async()=>{try{await gmRpc('friend_remove',{p_player:b.dataset.fr});openFriends()}catch(e){toast(gmErr(e))}});
+  box.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{gmClose();duChallenge(b.dataset.fd,b.dataset.n)});
+  box.querySelectorAll('[data-fg]').forEach(b=>b.onclick=()=>visitGarden(b.dataset.fg,b.dataset.n));
+}
+async function frSearch(){const q=$('frQ').value.trim();if(q.length<2)return;try{const r=await gmRpc('friend_find',{p_q:q});$('frRes').innerHTML=(r||[]).map(f=>frRow(f,'add')).join('')||'<p class="mknote">Niemanden gefunden.</p>';frBind($('frRes'))}catch(e){toast(gmErr(e))}}
+
+/* ---------- 🌐 Gemeinschaftsziel ---------- */
+const CG={st:null,pend:0,at:0};
+document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#mush'))CG.pend++},{passive:true});
+setInterval(async()=>{if(!LB.sb||!LB.uid||CG.pend<=0||document.hidden)return;const n=Math.min(600,CG.pend);CG.pend-=n;try{CG.st=await gmRpc('cg_add',{p_n:n});cgBar()}catch(e){CG.pend=0}},20000);
+async function cgLoad(){try{CG.st=await gmRpc('cg_state');cgBar();const c=await gmRpc('cg_claim');if(c){S.gems+=40;S.dia+=3;addKey('gold',1);save();render();confetti(true);queueModal({emoji:'🌐',title:'Gemeinschaftsziel geschafft!',text:`Alle zusammen haben das Wochenziel erreicht. Du hast ${c.taps} Tipps beigetragen und bekommst 40 💠, 3 💎 und einen Goldtruhen-Schlüssel.`,ok:'Super, Team!'})}}catch(e){}}
+function cgBar(){const el=$('cgInfo');if(!el||!CG.st)return;const s=CG.st;el.textContent=s.reached?'✓ Ziel erreicht!':`${Math.floor(s.progress/s.target*100)} % · ${s.players} Spieler`}
+function openCG(){const s=CG.st;gmModal('🌐 Gemeinschaftsziel',s?`<p class="mknote">Alle Spieler tippen diese Woche gemeinsam auf ihre Pilze. Wird das Ziel erreicht, bekommt <b>jeder</b>, der mindestens 50-mal mitgetippt hat, 40 💠, 3 💎 und einen Goldtruhen-Schlüssel.</p>
+  <div class="wbhp" style="height:28px"><i style="width:${Math.min(100,s.progress/s.target*100)}%;background:linear-gradient(90deg,#39F5FF,#7DFF9A)"></i><span>${fmt(s.progress)} / ${fmt(s.target)} Tipps</span></div>
+  <div class="wbinfo"><span>👆 Deine Tipps: <b>${fmt(s.mine+CG.pend)}</b></span><span>👥 ${s.players} Spieler</span><span>${s.reached?'🎉 Geschafft!':'⏳ bis Sonntag'}</span></div>
+  <p class="mknote">Einfach ganz normal auf deinen Pilz tippen, jeder Tipp zählt automatisch mit.</p>`:`<p class="mknote">${LB.sb?'Lade …':'Dafür brauchst du eine Internetverbindung.'}</p>`);if(!s)cgLoad().then(()=>{if(!$('gmModal').hidden&&CG.st)openCG()})}
+
+/* ---------- 😀 Sticker ---------- */
+const STICKERS=[['gg','🏆','GG!'],['hallo','👋','Hallo!'],['stark','💪','Stark!'],['danke','🙏','Danke!'],['lol','😂','Haha!'],['wow','🤩','Wow!'],['pilz','🍄','Pilz-Power!'],['tausch','🤝','Tauschen?'],['boss','⚔️','Boss-Zeit!'],['gute','🌙','Gute Nacht!'],['love','💖','Mag ich!'],['feuer','🔥','On fire!']];
+const stkOf=t=>{const m=/^\[st:([a-z]+)\]$/.exec(String(t||''));return m?STICKERS.find(s=>s[0]===m[1]):null};
+const stkHTML=s=>`<span class="stk"><i>${s[1]}</i><b>${s[2]}</b></span>`;
+function stkBar(onPick){return `<div class="stkbar">${STICKERS.map(s=>`<button data-stk="${s[0]}" title="${s[2]}">${s[1]}</button>`).join('')}</div>`}
+
+/* ---------- 🏆 Garten-Wettbewerb ---------- */
+async function openContest(){
+  gmModal('🏆 Garten-Wettbewerb','<p class="mknote">Lade …</p>');
+  try{const [cur,last]=await Promise.all([gmRpc('garden_top',{p_ago:0}),gmRpc('garden_top',{p_ago:1})]);
+    const mn=d=>new Date(d).toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+    const row=(r,i)=>{const k=skById(r.data&&r.data.skin)||SKINS[0];return `<div class="frrow"><span>${['🥇','🥈','🥉'][i]||i+1}</span><span class="frsk">${mushSVG(k,'gc'+i+r.player_id.slice(0,4))}</span><div><b>${esc(showNick(r))}</b><small>${(r.data&&r.data.tot)||0} Züchter</small></div><em>❤️ ${r.votes}</em><button class="clkick" data-gv="${r.player_id}" data-n="${esc(showNick(r))}">🏡</button></div>`};
+    $('gmBody').innerHTML=`<p class="mknote">Besuch Gärten über die Rangliste oder den Marktplatz und gib den schönsten ein ❤️ (bis zu 5 pro Tag). Die drei Gärten mit den meisten Herzen kommen in die Ruhmeshalle.</p>
+      <h4 class="mkh">❤️ ${mn(cur.month)}</h4>${(cur.rows||[]).map(row).join('')||'<p class="mknote">Noch keine Stimmen diesen Monat.</p>'}
+      <h4 class="mkh">🏛️ Ruhmeshalle ${mn(last.month)}</h4>${(last.rows||[]).slice(0,3).map(row).join('')||'<p class="mknote">Noch keine Gewinner.</p>'}`;
+    $('gmBody').querySelectorAll('[data-gv]').forEach(b=>b.onclick=()=>visitGarden(b.dataset.gv,b.dataset.n))}
+  catch(e){$('gmBody').innerHTML=`<p class="mknote">${gmErr(e)}</p>`}
+}
+
+/* ---------- 🧪 Kräuter und Tränke ---------- */
+const HERBS={moos:['🌿','Moosblatt'],bluete:['🌸','Sternblüte'],glimm:['✨','Glimmpilz']};
+const POTIONS=[
+  {id:'spore',e:'🧪',n:'Sporentrank',d:'Doppelte Produktion für 10 Minuten',need:{moos:2,bluete:1},min:10},
+  {id:'tipp',e:'⚗️',n:'Tipptrank',d:'Dreifache Tippkraft für 5 Minuten',need:{moos:3},min:5},
+  {id:'gold',e:'🍯',n:'Goldtrank',d:'Dreimal so viele Goldpilze für 10 Minuten',need:{bluete:2,glimm:1},min:10},
+  {id:'boss',e:'💥',n:'Krafttrank',d:'Doppelter Bossschaden für 10 Minuten',need:{glimm:2,moos:1},min:10},
+  {id:'glueck',e:'🍀',n:'Glückstrank',d:'+15 % Glückstreffer für 10 Minuten',need:{moos:1,bluete:1,glimm:1},min:10}
+];
+const potOn=k=>Date.now()<((S.pot||{})[k]||0);
+const potLeft=k=>Math.max(0,((S.pot||{})[k]||0)-Date.now());
+let herbAt=Date.now()+20000;
+setInterval(()=>{if(document.hidden||Date.now()<herbAt||document.querySelectorAll('.herb').length>=2||!$('duelArena').hidden)return;herbAt=Date.now()+35000+Math.random()*40000;
+  const keys=Object.keys(HERBS),k=keys[Math.random()<.5?0:Math.random()<.6?1:2],sc=SCN(),el=document.createElement('button');el.className='herb';el.textContent=HERBS[k][0];el.setAttribute('aria-label',HERBS[k][1]+' sammeln');
+  const fx=.08+Math.random()*.84;el.style.left=fx*100+'%';el.style.top=((groundY(gw*fx)/gh)*100-3+Math.random()*8)+'%';
+  el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(!e.isTrusted)return;S.herbs=S.herbs||{};S.herbs[k]=(S.herbs[k]||0)+1;save();el.classList.add('got');duPlus(e.clientX,e.clientY,`+1 ${HERBS[k][0]}`,true);tone(1100,.08,'triangle',.05);setTimeout(()=>el.remove(),300);
+    if(!S.herbHint){S.herbHint=1;toast(`${HERBS[k][0]} ${HERBS[k][1]} gesammelt!`,'Braue daraus Tränke unter 🎮 Gemeinschaft → Trankküche')}});
+  sc.appendChild(el);setTimeout(()=>{if(el.isConnected){el.classList.add('gone');setTimeout(()=>el.remove(),400)}},22000)},3000);
+function openBrew(){
+  const h=S.herbs||{},canB=p=>Object.entries(p.need).every(([k,n])=>(h[k]||0)>=n);
+  gmModal('🧪 Trankküche',`<p class="mknote">Im Garten wachsen ab und zu Kräuter. Tipp sie an, um sie zu sammeln, und braue daraus Tränke mit starken Kräften.</p>
+    <div class="herbinv">${Object.entries(HERBS).map(([k,[e,n]])=>`<div><span>${e}</span><b>${h[k]||0}</b><small>${n}</small></div>`).join('')}</div>
+    ${POTIONS.map(p=>`<div class="potrow${potOn(p.id)?' on':''}"><span class="pote">${p.e}</span><div><b>${p.n}</b><small>${p.d}</small><small>${Object.entries(p.need).map(([k,n])=>`${n}× ${HERBS[k][0]}`).join(' + ')}</small></div>
+      ${potOn(p.id)?`<em>⏳ ${Math.ceil(potLeft(p.id)/60000)} Min</em>`:`<button class="dcbtn" data-brew="${p.id}" ${canB(p)?'':'disabled'}>Brauen</button>`}</div>`).join('')}`);
+  $('gmBody').querySelectorAll('[data-brew]').forEach(b=>b.onclick=()=>{const p=POTIONS.find(x=>x.id===b.dataset.brew);if(!canB(p))return;Object.entries(p.need).forEach(([k,n])=>S.herbs[k]-=n);
+    S.pot=S.pot||{};S.pot[p.id]=Math.max(Date.now(),S.pot[p.id]||0)+p.min*60000;save();render();
+    const r=b.getBoundingClientRect();fxBurst(r.left+r.width/2,r.top,{n:26,colors:['#B48CFF','#7DFF9A','#FFE680','#fff'],speed:6,up:3,glow:true});[523,659,784,1047].forEach((f,i)=>tone(f,.25,'triangle',.05,i*.08,1.4));toast(`${p.e} ${p.n} getrunken!`,p.d);openBrew()});
+}
+
+/* ---------- ✨ Skin-Fusion ---------- */
+const FUSE_NEXT={g:'s',s:'e',e:'l',l:'m',m:'h'};
+function openFusion(){
+  const dups=SKINS.filter(k=>ownCount(k.id)>1&&FUSE_NEXT[k.rar]),byR={};dups.forEach(k=>{(byR[k.rar]=byR[k.rar]||[]).push(k)});
+  const cnt=r=>(byR[r]||[]).reduce((a,k)=>a+ownCount(k.id)-1,0);
+  gmModal('✨ Skin-Fusion',`<p class="mknote">Verschmilz 3 doppelte Skins derselben Seltenheit zu einem Skin der nächsthöheren Seltenheit. Von jedem Skin bleibt immer ein Exemplar in deiner Sammlung.</p>
+    ${Object.keys(FUSE_NEXT).map(r=>`<div class="potrow"><span class="pote fusr r-${r}">${cnt(r)}</span><div><b>${RAR[r]} → ${RAR[FUSE_NEXT[r]]}</b><small>${cnt(r)} doppelte ${RAR[r]}-Skins</small></div><button class="dcbtn" data-fuse="${r}" ${cnt(r)>=3?'':'disabled'}>3 verschmelzen</button></div>`).join('')}`);
+  $('gmBody').querySelectorAll('[data-fuse]').forEach(b=>b.onclick=()=>fuse(b.dataset.fuse,byR));
+}
+function fuse(r,byR){
+  let need=3;const used=[];for(const k of (byR[r]||[])){while(need>0&&ownCount(k.id)>1){setCount(k.id,ownCount(k.id)-1);used.push(k);need--}if(!need)break}
+  if(need>0)return;const nr=FUSE_NEXT[r],pool=SKINS.filter(k=>k.rar===nr&&k.box&&!k.hw&&!k.xm),fresh=pool.filter(k=>!S.skins.includes(k.id)),pick=(fresh.length?fresh:pool)[Math.floor(Math.random()*(fresh.length?fresh:pool).length)];
+  if(!pick){openFusion();return}
+  if(S.skins.includes(pick.id))setCount(pick.id,ownCount(pick.id)+1);else{S.skins.push(pick.id);setCount(pick.id,1)}save();render();
+  const o=document.createElement('div');o.className='evocine fuse';o.innerHTML=`<div class="evorays"></div><div class="fuse3">${used.map((k,i)=>`<span style="--i:${i}">${mushSVG(k,'fu'+i)}</span>`).join('')}</div><div class="fusenew">${mushSVG(pick,'fun')}</div><div class="evotxt"><small>✨ FUSION ✨</small><b>${esc(pick.name)}</b><em>${RAR[pick.rar]}</em></div>`;
+  document.body.appendChild(o);[392,523,659].forEach((f,i)=>tone(f,.2,'triangle',.05,i*.3));
+  setTimeout(()=>{o.classList.add('boom');tone(80,.8,'sawtooth',.08);[659,784,1047,1319].forEach((f,i)=>tone(f,.4,'triangle',.06,i*.08,1.5));confetti(true);buzz([60,30,120])},1300);
+  setTimeout(()=>{o.classList.add('out');setTimeout(()=>{o.remove();openFusion()},500)},4200);o.onclick=()=>{o.remove();openFusion()};
+}
+
+/* ---------- 🥚 Begleiter-Eier ---------- */
+function eggAdd(n){S.eggs=(S.eggs||0)+(n||1);save();toast('🥚 Ein Begleiter-Ei!','Brüte es unter 🎮 Gemeinschaft → Brutnest aus')}
+function openEggs(){
+  const hatch=S.hatch||null,left=hatch?Math.max(0,hatch.until-Date.now()):0;
+  gmModal('🥚 Brutnest',`<p class="mknote">Begleiter-Eier bekommst du mit etwas Glück von Bossen und vom Glücksrad. Brüte sie 10 Minuten aus: Heraus kommen Erfahrung für einen Begleiter und mit etwas Glück eine <b>goldene Farbvariante</b>!</p>
+    <div class="eggnest">${hatch?`<div class="egg${left<=0?' ready':''}">🥚</div><b>${left>0?`Schlüpft in ${Math.ceil(left/60000)} Min`:'Bereit zum Schlüpfen!'}</b>${left<=0?'<button class="primary" id="eggHatch">🐣 Schlüpfen lassen</button>':''}`
+      :`<div class="egg idle">🪺</div><b>${S.eggs||0} Eier im Korb</b>${(S.eggs||0)>0?'<button class="primary" id="eggStart">🥚 Ein Ei ausbrüten</button>':''}`}</div>
+    ${Object.keys(S.petVar||{}).length?`<h4 class="mkh">✨ Goldene Begleiter</h4><div class="gvdeco">${Object.keys(S.petVar).map(id=>{const P=PETS.find(x=>x.id===id);return P?`<span title="Goldener ${esc(P.name)}">${P.e||'🐾'}</span>`:''}).join('')}</div>`:''}`);
+  const st=$('eggStart');if(st)st.onclick=()=>{S.eggs--;S.hatch={until:Date.now()+10*60000};save();tone(660,.2,'triangle',.05);openEggs()};
+  const ht=$('eggHatch');if(ht)ht.onclick=()=>{S.hatch=null;const own=PETS.filter(p=>p.req&&p.req(S)),P=own[Math.floor(Math.random()*own.length)]||PETS[0];const gold=Math.random()<.15;
+    if(P){const d=pd(P.id);d.xp=(d.xp||0)+200;S.petLv=S.petLv||{};S.petLv[P.id]=d;if(gold){S.petVar=S.petVar||{};S.petVar[P.id]='gold'}}
+    save();render();confetti(true);sfx.ach();queueModal({emoji:gold?'🌟':'🐣',title:gold?`Ein goldener ${P.name}!`:`${P.name} freut sich!`,text:gold?`Super selten: ${P.name} leuchtet jetzt golden im Garten, und er bekommt 200 Erfahrung.`:`${P.name} bekommt 200 Erfahrung.`,ok:'Juhu!'});openEggs()};
+}
+
+/* ---------- 🎣 Angeln ---------- */
+const FISH=[['🐟','Bachforelle',40,'gems',3],['🐠','Regenbogenfisch',20,'gems',6],['🐡','Kugelfisch',12,'gems',8],['🦐','Garnele',10,'gems',4],['👢','Alter Stiefel',10,'gems',1],['💎','Funkelnder Schatz',4,'dia',1],['🥚','Begleiter-Ei',2,'egg',1],['🦈','Mini-Hai',2,'gems',20]];
+function fishStart(){
+  $('gmBody').innerHTML=`<p class="mknote">Wirf die Angel aus und tipp genau dann, wenn der Schwimmer im grünen Bereich ist! ${mgLeft('fish')>0?`Noch ${mgLeft('fish')}× Belohnung heute.`:'Heute nur noch zum Spaß.'}</p>
+    <div class="pond"><div class="wave"></div><div class="bobber" id="bob">🎣</div><div class="fbar"><i id="fZone"></i><b id="fNeedle"></b></div></div><button class="primary" id="fishGo">Angel auswerfen</button><p class="mknote" id="fishMsg"></p>
+    <h4 class="mkh">🐟 Deine Sammlung</h4><div class="gvdeco">${FISH.map(f=>`<span title="${f[1]}" style="opacity:${(S.fish||{})[f[1]]?1:.25}">${f[0]}</span>`).join('')}</div>`;
+  $('fishGo').onclick=()=>{const b=$('fishGo');b.style.display='none';$('fishMsg').textContent='Warte auf einen Biss …';MG.run=true;
+    setTimeout(()=>{if(!MG.run)return;$('bob').classList.add('bite');tone(880,.1,'square',.05);buzz(40);const zone=.2+Math.random()*.5,zw=.18;$('fZone').style.left=zone*100+'%';$('fZone').style.width=zw*100+'%';
+      let p=0,dir=1,last=performance.now(),done=false;const nd=$('fNeedle');
+      const step=t=>{if(!MG.run||done)return;const dt=(t-last)/1000;last=t;p+=dir*dt*1.1;if(p>1){p=1;dir=-1}if(p<0){p=0;dir=1}nd.style.left=p*100+'%';requestAnimationFrame(step)};requestAnimationFrame(step);
+      const pond=$('gmBody').querySelector('.pond');pond.onclick=()=>{if(done)return;done=true;MG.run=false;const hit=p>=zone&&p<=zone+zw;$('bob').classList.remove('bite');
+        if(!hit){$('fishMsg').innerHTML='💨 Daneben, der Fisch ist weg! <button class="dcbtn" id="fishAgain">Nochmal</button>';$('fishAgain').onclick=fishStart;tone(200,.3,'sine',.05);return}
+        let r=Math.random()*100,f=FISH[0];for(const x of FISH){if(r<x[2]){f=x;break}r-=x[2]}const rew=mgLeft('fish')>0;S.fish=S.fish||{};S.fish[f[1]]=(S.fish[f[1]]||0)+1;
+        if(rew){S.mg.fish=(S.mg.fish||0)+1;if(f[3]==='gems')S.gems+=f[4];else if(f[3]==='dia')S.dia+=f[4];else eggAdd(1)}save();render();sfx.ach();
+        $('fishMsg').innerHTML=`${f[0]} <b>${f[1]}</b> gefangen!${rew?(f[3]==='gems'?` +${f[4]} 💠`:f[3]==='dia'?' +1 💎':''):''} <button class="dcbtn" id="fishAgain">Nochmal</button>`;$('fishAgain').onclick=fishStart}},1200+Math.random()*2800)};
+}
+
+/* ---------- ⭐ Prestige-Sterne ---------- */
+const prestige=rb=>{const n=Math.min(5,Math.floor((rb||0)/5));return n?`<span class="prest" title="${rb} Wiedergeburten">${'⭐'.repeat(n)}</span>`:''};
+
+/* ---------- 🎡 Glücksrad ---------- */
+const WHEEL=[['💠','10 Juwelen',{gems:10}],['💎','1 Diamant',{dia:1}],['🌿','3 Kräuter',{herbs:3}],['💠','25 Juwelen',{gems:25}],['🥚','Begleiter-Ei',{egg:1}],['🗝️','Holztruhe',{key:'wood'}],['💠','50 Juwelen',{gems:50}],['💎','3 Diamanten',{dia:3}]];
+function openWheel(){
+  const today=dcDay(),done=S.wheelDay===today;
+  gmModal('🎡 Glücksrad',`<p class="mknote">Einmal am Tag darfst du kostenlos drehen. Man kann keine Drehungen kaufen.</p>
+    <div class="wheelw"><div class="wheel" id="wheel">${WHEEL.map((w,i)=>`<span style="--a:${i*45}deg"><i>${w[0]}</i></span>`).join('')}</div><div class="wpin">▼</div></div>
+    <button class="primary" id="wheelGo" ${done?'disabled':''}>${done?'Morgen wieder drehen':'🎡 Drehen!'}</button><p class="mknote" id="wheelMsg"></p>`);
+  $('wheelGo').onclick=()=>{if(S.wheelDay===today)return;S.wheelDay=today;save();$('wheelGo').disabled=true;const i=Math.floor(Math.random()*WHEEL.length),deg=360*6+(360-i*45);const w=$('wheel');
+    w.style.transition='transform 4s cubic-bezier(.15,.85,.2,1)';w.style.transform=`rotate(${deg}deg)`;let tk=0;const ti=setInterval(()=>{tone(900+(tk++%2)*200,.03,'square',.03);if(tk>30)clearInterval(ti)},120);
+    setTimeout(()=>{const r=WHEEL[i][2];if(r.gems)S.gems+=r.gems;if(r.dia)S.dia+=r.dia;if(r.herbs){S.herbs=S.herbs||{};['moos','bluete','glimm'].forEach(k=>S.herbs[k]=(S.herbs[k]||0)+1)}if(r.egg)eggAdd(1);if(r.key)addKey(r.key,1);
+      save();render();confetti(true);sfx.ach();$('wheelMsg').innerHTML=`🎉 <b>${WHEEL[i][0]} ${WHEEL[i][1]}</b> gewonnen!`},4200)};
+}
+
+/* ---------- 📅 Wochen-Login-Kalender ---------- */
+function weekCalHTML(){const s=S.dailyStreak||0,pos=((s-1)%7+7)%7,done=s>0?pos+1:0;return `<div class="weekcal"><b>📅 Login-Woche</b><small>Komm 7 Tage am Stück, dann gibt es eine Goldtruhe!</small><div>${[1,2,3,4,5,6,7].map(d=>`<span class="${d<=done?'on':''}${d===7?' big':''}">${d===7?'🎁':d<=done?'✓':d}</span>`).join('')}</div></div>`}
+
+/* ---------- 🔇 Chat aus · ♿ Barrierefreiheit ---------- */
+function a11yApply(){const c=document.documentElement.classList;c.toggle('cbmode',!!S.cbMode);c.toggle('bigtext',!!S.bigText);c.toggle('lessmove',!!S.lessMove);c.toggle('chatoff',!!S.chatOff)}
+function a11yRow(){return `<div class="gqrow"><span>♿ Einstellungen</span><div class="a11y">${[['chatOff','🔇 Chats ausblenden'],['cbMode','🎨 Farbenblind-Modus'],['bigText','🔠 Große Schrift'],['lessMove','🐢 Weniger Bewegung']].map(([k,n])=>`<label><input type="checkbox" data-a11y="${k}" ${S[k]?'checked':''}> ${n}</label>`).join('')}</div></div>`}
+
+function potPills(bf){try{POTIONS.forEach(p=>{if(potOn(p.id))bf.push(['evb pot',`${p.e} ${p.n} ${fmtClock(potLeft(p.id)/1000)}`])})}catch(e){}}
+function a11yUpd(){const r=$('a11yRow');if(!r)return;r.innerHTML=a11yRow();r.querySelectorAll('[data-a11y]').forEach(x=>x.onchange=e=>{e.stopPropagation();S[x.dataset.a11y]=x.checked;save();a11yApply()})}
+$('cgBar').onclick=openCG;
+a11yApply();
+setTimeout(()=>{if(LB.sb&&LB.uid)cgLoad()},7000);
+setInterval(()=>{if(!document.hidden&&LB.sb&&LB.uid)cgLoad()},120000);
+/* ---------- 🔔 Handy-Benachrichtigungen ---------- */
+const VAPID_PUBLIC='BCEsuFzuUQfrftAnZ5zgBHvVgNAuB-pj0yDfhu70SM67GSpDTdYGDWKvv36DL8zpk8n_fsuuSrvNpFkhV24a0Z0';
+const PUSH_KINDS=[['duel','⚔️ Duell-Herausforderungen'],['friend','👥 Freundschaftsanfragen'],['water','💧 Garten gegossen'],['wb','🌍 Weltboss besiegt'],['live','☄️ Live-Events']];
+const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+function b64u(s){const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...b].map(c=>c.charCodeAt(0)))}
+async function pushReg(){return navigator.serviceWorker.register('/sw.js',{scope:'/'})}
+async function pushState(){try{if(!('serviceWorker' in navigator)||!('PushManager' in window))return 'nope';const r=await navigator.serviceWorker.getRegistration('/');if(!r)return 'off';const s=await r.pushManager.getSubscription();return s&&Notification.permission==='granted'?'on':'off'}catch(e){return 'nope'}}
+async function pushEnable(){
+  if(!/^https?:$/.test(location.protocol)){toast('Benachrichtigungen gehen nur auf der Website');return false}
+  if(isIOS&&!isStandalone()){pushIOSGuide();return false}
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){toast('🔔 Dein Browser kann leider keine Benachrichtigungen');return false}
+  const perm=await Notification.requestPermission();if(perm!=='granted'){toast('🔕 Benachrichtigungen nicht erlaubt','Du kannst sie in den Einstellungen deines Handys erlauben');return false}
+  try{const reg=await pushReg();await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUBLIC)});
+    await gmRpc('push_save',{p_sub:sub.toJSON(),p_prefs:S.pushPrefs||{}});S.pushOn=1;save();toast('🔔 Benachrichtigungen an!','Du bekommst Bescheid bei Duellen, Freunden, Live-Events und mehr');return true}
+  catch(e){toast('🔔 Das hat nicht geklappt',gmErr(e));return false}
+}
+async function pushDisable(){try{const r=await navigator.serviceWorker.getRegistration('/');const s=r&&await r.pushManager.getSubscription();if(s){await gmRpc('push_delete',{p_endpoint:s.endpoint}).catch(()=>{});await s.unsubscribe()}}catch(e){}S.pushOn=0;save();toast('🔕 Benachrichtigungen aus')}
+async function pushPrefsSave(){try{const r=await navigator.serviceWorker.getRegistration('/');const s=r&&await r.pushManager.getSubscription();if(s)await gmRpc('push_save',{p_sub:s.toJSON(),p_prefs:S.pushPrefs||{}})}catch(e){}}
+function pushIOSGuide(){gmModal('🔔 Benachrichtigungen auf dem iPhone',`<p class="mknote">Auf dem iPhone und iPad gehen Benachrichtigungen nur, wenn Pilzgarten als App auf dem Home-Bildschirm liegt. So geht's:</p>
+  <ol class="iosg"><li>Unten in Safari auf <b>Teilen</b> tippen (das Quadrat mit dem Pfeil nach oben).</li><li><b>„Zum Home-Bildschirm“</b> auswählen und „Hinzufügen“ tippen.</li><li>Pilzgarten über das neue <b>🍄-Symbol</b> auf dem Home-Bildschirm öffnen.</li><li>Im 🔊-Menü auf <b>🔔 Benachrichtigungen</b> tippen und erlauben.</li></ol>
+  <p class="mknote">Dein Spielstand bleibt dabei erhalten, wenn du mit deinem Konto angemeldet bist.</p>`)}
+async function pushRowRender(){const r=$('pushRow');if(!r)return;const st=await pushState();
+  r.innerHTML=`<div class="gqrow"><span>🔔 Benachrichtigungen</span>${st==='nope'&&!(isIOS&&!isStandalone())?'<small class="mknote">Dein Browser unterstützt das leider nicht.</small>':st==='on'?`<div class="a11y">${PUSH_KINDS.map(([k,n])=>`<label><input type="checkbox" data-pk="${k}" ${(S.pushPrefs||{})[k]===false?'':'checked'}> ${n}</label>`).join('')}</div><button class="acctbtn" id="pushOff" style="margin-top:6px">🔕 Ausschalten</button>`:'<button class="acctbtn" id="pushOn">🔔 Einschalten</button>'}</div>`;
+  const on=$('pushOn');if(on)on.onclick=async e=>{e.stopPropagation();if(await pushEnable())pushRowRender()};
+  const off=$('pushOff');if(off)off.onclick=async e=>{e.stopPropagation();await pushDisable();pushRowRender()};
+  r.querySelectorAll('[data-pk]').forEach(x=>x.onchange=e=>{e.stopPropagation();S.pushPrefs=S.pushPrefs||{};S.pushPrefs[x.dataset.pk]=x.checked;save();pushPrefsSave()})}
+
+/* Einmaliger Hinweis für Spieler, die Benachrichtigungen noch nicht kennen */
+setTimeout(async()=>{if(S.pushAsked||!LB.sb||!LB.uid)return;const st=await pushState();if(st==='on')return;S.pushAsked=1;save();
+  queueModal({emoji:'🔔',title:'Nichts mehr verpassen?',text:'Pilzgarten kann dir Bescheid sagen, wenn dich jemand zum Duell herausfordert, dein Garten gegossen wurde oder ein Live-Event startet. Du kannst das jederzeit im 🔊-Menü ändern.',ok:'Ja, gern',cancel:true,cancelText:'Später',onOk:()=>pushEnable()})},90000);
 
 updMute();applySkin();updDimBtn();checkPassSeason();gResize();
 if(S.introSeen&&S.tutDone&&(S.tutVer||1)<TUT_VER&&!S.tutAsked){S.tutAsked=TUT_VER;setTimeout(()=>queueModal({emoji:'📖',title:'Das Tutorial ist neu',text:'Im Pilzgarten ist viel dazugekommen: Marktplatz, Begleiter, Dimensionen und mehr. Willst du dir kurz zeigen lassen, was neu ist? Dafür gibt es 10 💠.',ok:'Neuheiten zeigen',cancel:true,cancelText:'Später',onOk:()=>setTimeout(()=>tutStart(true),350),onCancel:()=>{S.tutVer=TUT_VER;save()}}),4000)}
